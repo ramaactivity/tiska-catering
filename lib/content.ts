@@ -97,6 +97,15 @@ export const misi = [
 
 // ─── Mengapa Tiska (reason-why) ─────────────────────────────────────────────
 
+export const mengapa = {
+  judul: [
+    { text: "Mengapa memilih " },
+    { text: "Tiska", italic: true },
+  ] satisfies RichText,
+  deskripsi:
+    "Bukan sekadar angka — melainkan kepercayaan yang tumbuh selama tiga generasi.",
+};
+
 export const reasons = [
   {
     value: 35,
@@ -129,6 +138,14 @@ export const reasons = [
 ];
 
 // ─── Sejarah (timeline — GSAP pinned scrollytelling) ────────────────────────
+
+export const sejarah = {
+  eyebrow: "Perjalanan Kami",
+  judul: [
+    { text: "Tiga generasi, " },
+    { text: "satu dedikasi", italic: true },
+  ] satisfies RichText,
+};
 
 export const timeline = [
   {
