@@ -28,7 +28,7 @@ export default function CTA() {
     <section
       ref={ref}
       id="kontak"
-      className="relative overflow-hidden px-6 py-[24vh] text-center md:px-10"
+      className="relative isolate overflow-hidden px-6 py-[24vh] text-center md:px-10"
     >
       <motion.div
         style={reduceMotion ? undefined : { y }}

@@ -39,7 +39,7 @@ export default function Hero() {
   return (
     <section
       ref={ref}
-      className="relative flex h-svh flex-col items-center justify-center overflow-hidden px-6 text-center"
+      className="relative isolate flex h-svh flex-col items-center justify-center overflow-hidden px-6 text-center"
     >
       {/* Foto latar + parallax + overlay gradien (teks harus selalu terbaca) */}
       <motion.div

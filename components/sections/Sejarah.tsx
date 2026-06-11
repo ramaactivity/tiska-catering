@@ -72,7 +72,7 @@ export default function Sejarah() {
   if (!pinned) {
     // Versi statis: timeline grid di atas foto (mobile / reduced motion)
     return (
-      <section className="relative overflow-hidden px-6 py-[20vh] md:px-10">
+      <section className="relative isolate overflow-hidden px-6 py-[20vh] md:px-10">
         {background}
         <div className="mx-auto max-w-[1280px]">
           <Reveal>
@@ -109,7 +109,7 @@ export default function Sejarah() {
   return (
     <section
       ref={sectionRef}
-      className="relative flex h-screen flex-col justify-center overflow-hidden px-10"
+      className="relative isolate flex h-screen flex-col justify-center overflow-hidden px-10"
     >
       {background}
       <div className="mx-auto w-full max-w-[1280px]">
