@@ -4,8 +4,7 @@ import { fraunces, instrumentSerif, spaceGrotesk } from "./fonts";
 import LenisProvider from "@/components/providers/LenisProvider";
 import { company } from "@/lib/content";
 
-// TODO Fase 5: ganti ke https://www.tiskacatering.com setelah domain diarahkan
-const SITE_URL = "https://tiska-catering.vercel.app";
+const SITE_URL = "https://tiskacatering.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
