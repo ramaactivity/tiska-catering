@@ -81,4 +81,4 @@ Detail lengkap → `docs/05-technical-spec.md` (termasuk pola sinkronisasi Lenis
 - [ ] **Fase 5 — Deploy:** Vercel + DNS Squarespace (langkah di `docs/05`; HATI-HATI jangan sentuh MX record email).
 
 **Keputusan final (11 Jun 2026):** CTA utama → WhatsApp **0813-8310-8103 (Ida Raodah)**. Email @tiskacatering.com AKTIF via Google Workspace — DNS sudah di Squarespace, domain live ke Vercel; JANGAN sentuh MX/TXT.
-**Keputusan final:** Instagram **@tiskacatering** · Facebook **facebook.com/tiskacatering** · TikTok **@tiska.catering**. **Item TBD tersisa:** email publik (catering.tiska@gmail.com vs mktg@), testimoni tambahan.
+**Keputusan final:** Instagram **@tiskacatering** · Facebook **facebook.com/tiskacatering** · TikTok **@tiska.catering**. **Keputusan final:** kedua email aktif & ditampilkan (catering.tiska@gmail.com + mktg@tiskacatering.com). **Item TBD tersisa:** testimoni tambahan (Slank, Eagle?).

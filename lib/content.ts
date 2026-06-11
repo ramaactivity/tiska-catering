@@ -418,7 +418,9 @@ export const footer = {
         href: company.whatsappLink,
       },
       { label: company.teleponKantor, href: "tel:+622518314442" },
+      // Keputusan Rama (11 Jun 2026): kedua email aktif, tampilkan keduanya
       { label: company.email, href: `mailto:${company.email}` },
+      { label: company.emailAlt, href: `mailto:${company.emailAlt}` },
       { label: company.website, href: "https://www.tiskacatering.com" },
       { label: company.alamat },
     ],
