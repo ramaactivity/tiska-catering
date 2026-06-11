@@ -21,10 +21,10 @@ export const company = {
   alamat:
     "Jl. Julang 1 No.3, RT.02/RW.06, Tanah Sereal, Kota Bogor, Jawa Barat 16161",
   dapurKedua: "Kitchen Hub, Bintaro, Tangerang Selatan",
-  whatsapp: "0877-8900-0968",
-  whatsappNama: "Rakhma",
-  // TBD (konfirmasi Rama): CTA utama diasumsikan ke WhatsApp Rakhma
-  whatsappLink: "https://wa.me/6287789000968",
+  // Keputusan Rama (11 Jun 2026): CTA utama ke WhatsApp Ida Raodah
+  whatsapp: "0813-8310-8103",
+  whatsappNama: "Ida Raodah",
+  whatsappLink: "https://wa.me/6281383108103",
   teleponKantor: "(+62 251) 831 4442",
   email: "catering.tiska@gmail.com",
   emailAlt: "mktg@tiskacatering.com",
