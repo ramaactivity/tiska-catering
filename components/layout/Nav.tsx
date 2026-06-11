@@ -22,9 +22,9 @@ export default function Nav() {
 
   return (
     <header
-      className={`fixed left-1/2 z-100 w-[calc(100%-32px)] max-w-[1280px] -translate-x-1/2 rounded-full border transition-all duration-500 md:w-[calc(100%-48px)] ${
+      className={`fixed left-1/2 z-100 w-[calc(100%-32px)] max-w-[1280px] -translate-x-1/2 rounded-full border transition-[top,padding,background-color,border-color] duration-500 md:w-[calc(100%-48px)] ${
         scrolled
-          ? "top-4 border-line bg-[rgba(20,18,14,0.7)] py-3 pl-7 pr-4 backdrop-blur-xl"
+          ? "top-4 border-line bg-[rgba(20,18,14,0.78)] py-3 pl-7 pr-4 backdrop-blur-md"
           : "top-6 border-transparent py-1 pl-3 pr-2"
       }`}
     >
