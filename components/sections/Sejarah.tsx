@@ -58,14 +58,16 @@ export default function Sejarah() {
 
   const background = (
     <div aria-hidden className="absolute inset-0 -z-10">
+      {/* Dimming via overlay (komposit murah), bukan filter brightness —
+          filter di container yang di-pin dipaksa re-raster tiap frame. */}
       <Image
         src={images.sejarah.src}
         alt=""
         fill
         sizes="100vw"
-        className="object-cover brightness-[0.32]"
+        className="object-cover"
       />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(14,13,10,0.85),rgba(14,13,10,0.45))]" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(14,13,10,0.95),rgba(14,13,10,0.8))]" />
     </div>
   );
 
@@ -124,10 +126,10 @@ export default function Sejarah() {
             <div
               key={era.tahun}
               aria-hidden={i !== active}
-              className={`absolute inset-0 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+              className={`absolute inset-0 transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                 i === active
-                  ? "translate-y-0 opacity-100 blur-0"
-                  : "pointer-events-none translate-y-6 opacity-0 blur-sm"
+                  ? "translate-y-0 opacity-100"
+                  : "pointer-events-none translate-y-6 opacity-0"
               }`}
             >
               <p

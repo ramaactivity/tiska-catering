@@ -2,7 +2,6 @@ import { layanan, layananHeader } from "@/lib/content";
 import { images } from "@/lib/images";
 import Tile from "@/components/ui/Tile";
 import Reveal from "@/components/motion/Reveal";
-import BlurToFocus from "@/components/motion/BlurToFocus";
 import WordReveal from "@/components/motion/WordReveal";
 
 // posisi bento per tile (acuan v8): besar kiri 2 baris, 2 kanan, 1 lebar penuh
@@ -31,7 +30,7 @@ export default function Layanan() {
 
         <div className="grid auto-rows-[230px] grid-cols-1 gap-4 md:grid-cols-12">
           {layanan.map((item, i) => (
-            <BlurToFocus key={item.judul} delay={i * 0.08} className={SPANS[i]}>
+            <Reveal key={item.judul} delay={i * 0.08} className={SPANS[i]}>
               <Tile
                 src={images.layanan[i].src}
                 alt={images.layanan[i].alt}
@@ -44,7 +43,7 @@ export default function Layanan() {
                     : "(min-width: 768px) 40vw, 100vw"
                 }
               />
-            </BlurToFocus>
+            </Reveal>
           ))}
         </div>
       </div>

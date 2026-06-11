@@ -2,7 +2,6 @@ import { menuRingkas } from "@/lib/content";
 import { images } from "@/lib/images";
 import Tile from "@/components/ui/Tile";
 import Reveal from "@/components/motion/Reveal";
-import BlurToFocus from "@/components/motion/BlurToFocus";
 import WordReveal from "@/components/motion/WordReveal";
 import Button from "@/components/ui/Button";
 
@@ -30,7 +29,7 @@ export default function MenuRingkas() {
 
         <div className="grid auto-rows-[270px] grid-cols-1 gap-4 md:grid-cols-12">
           {menuRingkas.tiles.map((tile, i) => (
-            <BlurToFocus key={tile.nama} delay={i * 0.08} className={SPANS[i]}>
+            <Reveal key={tile.nama} delay={i * 0.08} className={SPANS[i]}>
               <Tile
                 src={images.menuRingkas[i].src}
                 alt={images.menuRingkas[i].alt}
@@ -38,7 +37,7 @@ export default function MenuRingkas() {
                 deskripsi={tile.highlight}
                 sizes="(min-width: 768px) 50vw, 100vw"
               />
-            </BlurToFocus>
+            </Reveal>
           ))}
         </div>
 

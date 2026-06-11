@@ -2,7 +2,6 @@ import Image from "next/image";
 import { menuCategories } from "@/lib/content";
 import { images } from "@/lib/images";
 import Reveal from "@/components/motion/Reveal";
-import BlurToFocus from "@/components/motion/BlurToFocus";
 import WordReveal from "@/components/motion/WordReveal";
 
 /**
@@ -34,7 +33,7 @@ export default function MenuKategori() {
               </div>
 
               {banner && (
-                <BlurToFocus>
+                <Reveal>
                   <div className="relative mb-8 h-[260px] overflow-hidden rounded-lg md:h-[340px]">
                     <Image
                       src={banner.src}
@@ -48,7 +47,7 @@ export default function MenuKategori() {
                       className="absolute inset-0 bg-[linear-gradient(105deg,rgba(14,13,10,0.55),transparent_70%)]"
                     />
                   </div>
-                </BlurToFocus>
+                </Reveal>
               )}
 
               {kategori.items.length > 0 ? (
