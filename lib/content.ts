@@ -177,6 +177,15 @@ export const timeline = [
 
 // ─── Layanan ────────────────────────────────────────────────────────────────
 
+export const layananHeader = {
+  judul: [
+    { text: "Layanan " },
+    { text: "kami", italic: true },
+  ] satisfies RichText,
+  deskripsi:
+    "Empat layanan, satu standar — premium di setiap skala perayaan.",
+};
+
 export const layanan = [
   {
     judul: "Private, Wedding & Party",
@@ -262,6 +271,26 @@ export const menuCategories = [
   },
 ];
 
+// ─── Menu ringkas (beranda — 4 kategori unggulan, link ke /menu) ────────────
+
+export const menuRingkas = {
+  eyebrow: "250+ Pilihan Menu",
+  judul: [
+    { text: "Cita rasa " },
+    { text: "tanpa batas", italic: true },
+  ] satisfies RichText,
+  tiles: [
+    {
+      nama: "Flavorful Indonesian",
+      highlight: "Tumpeng, Rujak Pengantin, Nasi Keranjang",
+    },
+    { nama: "Delectable Asian", highlight: "Dimsum, Vietnamese Pho, Wonton" },
+    { nama: "Pleasant Western", highlight: "Beef & Shrimp Grill, Pasta Special" },
+    { nama: "Festive Hampers", highlight: "Bingkisan istimewa untuk setiap momen" },
+  ],
+  cta: { label: "Lihat Menu Lengkap", href: "/menu" },
+};
+
 // ─── Filosofi (pull quote — color block emas) ───────────────────────────────
 
 export const filosofi = {
@@ -276,8 +305,15 @@ export const filosofi = {
 // Catatan integritas: JANGAN mengarang kutipan dramatis baru (docs/03).
 
 export const testimoni = {
+  eyebrow: "Dari mereka yang mempercayakan momennya",
   kutipan:
     "Hidangan yang mengesankan, kehangatan yang membuat hari pernikahan kami terasa sempurna.",
+  kutipanRich: [
+    { text: "Hidangan yang " },
+    { text: "mengesankan,", italic: true },
+    { text: " kehangatan yang membuat hari pernikahan kami terasa " },
+    { text: "sempurna.", italic: true },
+  ] satisfies RichText,
   kutipanAsli: "Puas banget, makanannya enak.",
   nama: "Teuku Wisnu & Shireen Sungkar",
   peran: "Klien Pernikahan",
@@ -286,6 +322,11 @@ export const testimoni = {
 // ─── Klien (logo wall) ──────────────────────────────────────────────────────
 
 export const klien = {
+  eyebrow: "Dipercaya oleh institusi terkemuka",
+  judul: [
+    { text: "Mereka merayakan " },
+    { text: "bersama kami", italic: true },
+  ] satisfies RichText,
   caption:
     "Dari perbankan hingga otomotif, energi hingga teknologi — Tiska dipercaya merayakan momen mereka.",
   daftar: [

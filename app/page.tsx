@@ -1,22 +1,37 @@
+import Loader from "@/components/layout/Loader";
 import Nav from "@/components/layout/Nav";
 import Hero from "@/components/sections/Hero";
 import Profil from "@/components/sections/Profil";
 import MengapaTiska from "@/components/sections/MengapaTiska";
 import Sejarah from "@/components/sections/Sejarah";
+import Layanan from "@/components/sections/Layanan";
+import Filosofi from "@/components/sections/Filosofi";
+import MenuRingkas from "@/components/sections/MenuRingkas";
+import Testimoni from "@/components/sections/Testimoni";
+import Klien from "@/components/sections/Klien";
+import CTA from "@/components/sections/CTA";
+import Footer from "@/components/layout/Footer";
 
-/* Beranda — urutan section sesuai docs/04.
-   Fase 2 tahap 2: + Mengapa Tiska & Sejarah. Sisanya menyusul. */
+/* Beranda — 12 section lengkap sesuai urutan & ritme terang-gelap docs/04. */
 
 export default function Home() {
   return (
     <>
+      <Loader />
       <Nav />
       <main>
         <Hero />
         <Profil />
         <MengapaTiska />
         <Sejarah />
+        <Layanan />
+        <Filosofi />
+        <MenuRingkas />
+        <Testimoni />
+        <Klien />
+        <CTA />
       </main>
+      <Footer />
     </>
   );
 }
