@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { nav } from "@/lib/content";
 import { NAV_LOGO } from "@/lib/logos-base64";
+import SocialLinks from "@/components/ui/SocialLinks";
 
 /**
  * Nav floating pill (docs/02 & acuan visual):
@@ -37,18 +38,21 @@ export default function Nav() {
           />
         </Link>
 
-        <ul className="hidden items-center gap-[30px] md:flex">
-          {nav.links.map((link) => (
-            <li key={link.label}>
-              <Link
-                href={link.href}
-                className="text-[13.5px] text-paper transition-colors duration-300 hover:text-gold-soft"
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <div className="hidden items-center gap-[30px] md:flex">
+          <ul className="flex items-center gap-[30px]">
+            {nav.links.map((link) => (
+              <li key={link.label}>
+                <Link
+                  href={link.href}
+                  className="text-[13.5px] text-paper transition-colors duration-300 hover:text-gold-soft"
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <SocialLinks className="border-l border-line pl-6" />
+        </div>
 
         <Link
           href={nav.cta.href}
