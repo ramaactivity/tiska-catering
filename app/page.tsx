@@ -1,65 +1,91 @@
-import Image from "next/image";
+import Reveal from "@/components/motion/Reveal";
+import BlurToFocus from "@/components/motion/BlurToFocus";
+import Counter from "@/components/motion/Counter";
+import { hero, profil, reasons, type RichText } from "@/lib/content";
+import { HERO_LOGO } from "@/lib/logos-base64";
+
+/* Halaman sementara Fase 1 — pratinjau fondasi (token, font, motion).
+   Section beranda sesungguhnya dibangun di Fase 2 (docs/04). */
+
+function Rich({ segments }: { segments: RichText }) {
+  return (
+    <>
+      {segments.map((s, i) =>
+        s.italic ? (
+          <em key={i} className="font-accent italic text-gold-soft">
+            {s.text}
+          </em>
+        ) : (
+          <span key={i}>{s.text}</span>
+        ),
+      )}
+    </>
+  );
+}
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main className="mx-auto max-w-[1280px] px-6 md:px-10">
+      {/* Pratinjau hero — tipografi & token */}
+      <section className="flex min-h-screen flex-col items-center justify-center text-center">
+        <BlurToFocus>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={HERO_LOGO}
+            alt="Logo Tiska Catering"
+            className="mx-auto mb-10 h-36 w-auto"
+          />
+        </BlurToFocus>
+        <Reveal delay={0.15}>
+          <p className="mb-6 text-xs font-normal uppercase tracking-[0.34em] text-gold-soft">
+            {hero.eyebrow}
           </p>
+        </Reveal>
+        <Reveal delay={0.3}>
+          <h1 className="font-display text-5xl font-light leading-[1.1] md:text-7xl">
+            <Rich segments={hero.judul} />
+          </h1>
+        </Reveal>
+        <Reveal delay={0.45}>
+          <p className="mt-8 max-w-xl text-base text-paper/70">
+            {hero.subjudul}
+          </p>
+        </Reveal>
+      </section>
+
+      {/* Pratinjau counter — Mengapa Tiska */}
+      <section className="border-t border-line py-[16vh]">
+        <Reveal>
+          <p className="mb-12 text-center text-xs uppercase tracking-[0.28em] text-gold-soft">
+            Pratinjau komponen Counter
+          </p>
+        </Reveal>
+        <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
+          {reasons.map((r, i) => (
+            <Reveal key={r.label} delay={i * 0.12} className="text-center">
+              <div className="font-display text-4xl font-light text-gold-soft md:text-5xl">
+                <Counter value={r.value} suffix={r.suffix} />
+              </div>
+              <p className="mt-3 text-sm text-paper/60">{r.label}</p>
+            </Reveal>
+          ))}
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </section>
+
+      {/* Pratinjau blur-to-focus + latar terang */}
+      <section className="-mx-6 bg-paper-bg px-6 py-[16vh] text-center md:-mx-10 md:px-10">
+        <BlurToFocus>
+          <p className="mb-6 text-xs uppercase tracking-[0.28em] text-gold-deep">
+            {profil.eyebrow}
+          </p>
+          <h2 className="font-display text-4xl font-light text-paper-ink md:text-6xl">
+            <Rich segments={profil.judul} />
+          </h2>
+          <p className="mx-auto mt-8 max-w-2xl text-paper-ink/75">
+            {profil.body}
+          </p>
+        </BlurToFocus>
+      </section>
+    </main>
   );
 }

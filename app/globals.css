@@ -1,26 +1,80 @@
 @import "tailwindcss";
 
+/* ============================================================
+   Design tokens — sumber: docs/02-design-system.md
+   Aturan kontras:
+   - Latar gelap : teks --paper, aksen --gold-soft
+   - Latar terang: teks --paper-ink, aksen --gold-deep
+   ============================================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Emas (utama, aksen) */
+  --gold: #c4a05a;
+  --gold-deep: #a07c34;
+  --gold-soft: #d8b876;
+  --gold-bright: #ecd5a0;
+
+  /* Mint/teal (aksen sekunder, dari logo) */
+  --teal: #8fc9bf;
+  --teal-deep: #5a9a8f;
+
+  /* Gelap (ink) — section gelap */
+  --ink: #0e0d0a;
+  --ink-2: #16140f;
+  --ink-3: #211e17;
+  --ink-4: #2e2a20;
+
+  /* Terang (paper) — section terang */
+  --paper: #f6f1e7;
+  --paper-2: #e9e0cf;
+  --paper-bg: #efe7d6;
+  --paper-ink: #2a2418;
+
+  /* Garis */
+  --line: rgba(196, 160, 90, 0.16);
+  --line-2: rgba(196, 160, 90, 0.3);
+  --line-d: rgba(42, 36, 24, 0.12);
 }
 
+/* Pemetaan token ke utilitas Tailwind (v4) */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-gold: var(--gold);
+  --color-gold-deep: var(--gold-deep);
+  --color-gold-soft: var(--gold-soft);
+  --color-gold-bright: var(--gold-bright);
+  --color-teal: var(--teal);
+  --color-teal-deep: var(--teal-deep);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-ink-4: var(--ink-4);
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-paper-bg: var(--paper-bg);
+  --color-paper-ink: var(--paper-ink);
+  --color-line: var(--line);
+  --color-line-2: var(--line-2);
+  --color-line-d: var(--line-d);
+
+  --font-sans: var(--font-grotesk);
+  --font-display: var(--font-fraunces);
+  --font-accent: var(--font-instrument);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--ink);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-grotesk), system-ui, sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--ink);
 }
