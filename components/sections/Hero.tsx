@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import {
   motion,
@@ -10,14 +10,18 @@ import {
 } from "framer-motion";
 import { hero } from "@/lib/content";
 import { images } from "@/lib/images";
+import { LOADER_TIMING, loaderWillPlay } from "@/lib/loader";
 import RichTitle from "@/components/ui/RichTitle";
 import Button from "@/components/ui/Button";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
+// delayChildren dinamis: sinkron dengan tirai loader bila loader tampil
 const container = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.14, delayChildren: 0.2 } },
+  visible: (delay: number) => ({
+    transition: { staggerChildren: 0.14, delayChildren: delay },
+  }),
 };
 
 const item = {
@@ -29,6 +33,10 @@ const item = {
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
+  // teks hero mulai naik saat tirai loader ±separuh terbuka (handoff mulus)
+  const [entranceDelay] = useState(() =>
+    loaderWillPlay() ? LOADER_TIMING.heroDelay : 0.2,
+  );
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -62,6 +70,7 @@ export default function Hero() {
 
       <motion.div
         variants={container}
+        custom={entranceDelay}
         initial={reduceMotion ? false : "hidden"}
         animate="visible"
         className="flex flex-col items-center"
