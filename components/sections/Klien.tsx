@@ -2,7 +2,29 @@ import { klien } from "@/lib/content";
 import Reveal from "@/components/motion/Reveal";
 import WordReveal from "@/components/motion/WordReveal";
 
-/** Klien: logo wall plate putih di latar terang (docs/04 #9). */
+/**
+ * Penyetaraan optik: logo bundar/kuadrat butuh tinggi lebih agar bobot
+ * visualnya setara wordmark lebar. Default (tanpa entri) = 34px.
+ */
+const OPTIK: Record<string, string> = {
+  // kuadrat (rasio ~1:1)
+  BMW: "max-h-[52px]",
+  PLN: "max-h-[52px]",
+  WCS: "max-h-[52px]",
+  AQUA: "max-h-[52px]",
+  // medium (rasio ~1.5–2)
+  Telkom: "max-h-[48px]",
+  "Bank Raya": "max-h-[46px]",
+  "Pocari Sweat": "max-h-[42px]",
+  // sangat lebar (rasio > 5)
+  "Royal Enfield": "max-h-[24px]",
+  "Bank Indonesia": "max-h-[27px]",
+  Philips: "max-h-[26px]",
+  Ecolab: "max-h-[27px]",
+  Codashop: "max-h-[25px]",
+};
+
+/** Klien: logo wall terbuka di latar terang (docs/04 #9). */
 export default function Klien() {
   return (
     <section id="klien" className="bg-paper-bg px-6 py-[16vh] md:px-10">
@@ -23,16 +45,18 @@ export default function Klien() {
           </Reveal>
         </div>
 
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(148px,1fr))] gap-3.5">
+        {/* Logo wall tanpa plate: garis hairline editorial atas-bawah, logo full-color
+            langsung di latar krem. mix-blend-multiply meleburkan latar putih PNG. */}
+        <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-10 border-y border-line-d/70 py-14 md:gap-x-14 md:py-16">
           {klien.daftar.map(({ nama, logo }, i) => (
-            <Reveal key={nama} delay={(i % 6) * 0.06} duration={0.7} y={16}>
-              <div className="group flex h-[110px] items-center justify-center border border-line-d bg-white/60 px-7 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:bg-white hover:shadow-[0_18px_40px_rgba(42,36,24,0.1)]">
+            <Reveal key={nama} delay={(i % 6) * 0.06} duration={0.7} y={14}>
+              <div className="flex h-16 w-[124px] items-center justify-center md:w-[148px]">
                 {/* eslint-disable-next-line @next/next/no-img-element -- logo SVG/PNG statis, next/image tak mengoptimasi SVG */}
                 <img
                   src={logo}
                   alt={`Logo ${nama}`}
                   loading="lazy"
-                  className="max-h-[44px] w-auto max-w-full object-contain opacity-80 grayscale transition-all duration-500 group-hover:opacity-100 group-hover:grayscale-0"
+                  className={`${OPTIK[nama] ?? "max-h-[34px]"} w-auto max-w-full object-contain mix-blend-multiply transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.06]`}
                 />
               </div>
             </Reveal>
