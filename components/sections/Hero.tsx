@@ -49,10 +49,12 @@ export default function Hero() {
       ref={ref}
       className="relative isolate flex h-svh flex-col items-center justify-center overflow-hidden px-6 text-center"
     >
-      {/* Foto latar + parallax + overlay gradien (teks harus selalu terbaca) */}
+      {/* Foto latar + parallax + overlay gradien (teks harus selalu terbaca).
+          Dimming via overlay, bukan filter — filter pada layer ber-parallax
+          memaksa re-raster foto fullscreen tiap frame. */}
       <motion.div
         style={reduceMotion ? undefined : { y }}
-        className="absolute inset-x-0 top-0 -z-10 h-[130%]"
+        className="absolute inset-x-0 top-0 -z-10 h-[130%] will-change-transform"
       >
         <Image
           src={images.hero.src}
@@ -60,8 +62,9 @@ export default function Hero() {
           fill
           priority
           sizes="100vw"
-          className="object-cover brightness-50 saturate-[0.85]"
+          className="object-cover"
         />
+        <div aria-hidden className="absolute inset-0 bg-ink/50" />
         <div
           aria-hidden
           className="absolute inset-0 bg-[linear-gradient(180deg,rgba(14,13,10,0.5),rgba(14,13,10,0.2)_40%,rgba(14,13,10,0.92))]"

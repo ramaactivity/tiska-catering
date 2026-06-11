@@ -30,17 +30,20 @@ export default function CTA() {
       id="kontak"
       className="relative isolate overflow-hidden px-6 py-[24vh] text-center md:px-10"
     >
+      {/* Dimming via overlay, bukan filter — filter pada layer ber-parallax
+          memaksa re-raster foto fullscreen tiap frame. */}
       <motion.div
         style={reduceMotion ? undefined : { y }}
-        className="absolute inset-x-0 -top-[15%] -z-10 h-[130%]"
+        className="absolute inset-x-0 -top-[15%] -z-10 h-[130%] will-change-transform"
       >
         <Image
           src={images.cta.src}
           alt={images.cta.alt}
           fill
           sizes="100vw"
-          className="object-cover brightness-[0.4] saturate-[0.85]"
+          className="object-cover"
         />
+        <div aria-hidden className="absolute inset-0 bg-ink/60" />
         <div
           aria-hidden
           className="absolute inset-0 bg-[linear-gradient(180deg,rgba(14,13,10,0.9),rgba(14,13,10,0.35)_50%,rgba(14,13,10,0.95))]"

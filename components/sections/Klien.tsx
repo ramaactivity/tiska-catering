@@ -45,8 +45,8 @@ export default function Klien() {
           </Reveal>
         </div>
 
-        {/* Logo wall tanpa plate: garis hairline editorial atas-bawah, logo full-color
-            langsung di latar krem. mix-blend-multiply meleburkan latar putih PNG. */}
+        {/* Logo wall tanpa plate: garis hairline editorial atas-bawah, logo
+            full-color langsung di latar krem (semua aset berlatar transparan). */}
         <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-10 border-y border-line-d/70 py-14 md:gap-x-14 md:py-16">
           {klien.daftar.map(({ nama, logo }, i) => (
             <Reveal key={nama} delay={(i % 6) * 0.06} duration={0.7} y={14}>
@@ -56,7 +56,7 @@ export default function Klien() {
                   src={logo}
                   alt={`Logo ${nama}`}
                   loading="lazy"
-                  className={`${OPTIK[nama] ?? "max-h-[34px]"} w-auto max-w-full object-contain mix-blend-multiply transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.06]`}
+                  className={`${OPTIK[nama] ?? "max-h-[34px]"} w-auto max-w-full object-contain transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.06]`}
                 />
               </div>
             </Reveal>
