@@ -1,6 +1,6 @@
 import { klien } from "@/lib/content";
-import RichTitle from "@/components/ui/RichTitle";
 import Reveal from "@/components/motion/Reveal";
+import WordReveal from "@/components/motion/WordReveal";
 
 /** Klien: logo wall plate putih di latar terang (docs/04 #9). */
 export default function Klien() {
@@ -13,11 +13,9 @@ export default function Klien() {
               {klien.eyebrow}
             </p>
           </Reveal>
-          <Reveal delay={0.1}>
-            <h2 className="font-display text-[clamp(32px,5vw,76px)] font-light leading-[0.94] tracking-[-0.025em] text-paper-ink">
-              <RichTitle segments={klien.judul} accentClass="text-gold-deep" />
-            </h2>
-          </Reveal>
+          <h2 className="font-display text-[clamp(32px,5vw,76px)] font-light leading-[0.94] tracking-[-0.025em] text-paper-ink">
+            <WordReveal segments={klien.judul} accentClass="text-gold-deep" />
+          </h2>
           <Reveal delay={0.2}>
             <p className="mx-auto mt-6 max-w-[520px] text-[14px] leading-[1.8] text-paper-ink/65">
               {klien.caption}

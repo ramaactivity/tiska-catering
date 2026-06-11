@@ -3,6 +3,7 @@ import { menuCategories } from "@/lib/content";
 import { images } from "@/lib/images";
 import Reveal from "@/components/motion/Reveal";
 import BlurToFocus from "@/components/motion/BlurToFocus";
+import WordReveal from "@/components/motion/WordReveal";
 
 /**
  * Halaman /menu: section per kategori — banner foto + grid item tipografis.
@@ -16,21 +17,21 @@ export default function MenuKategori() {
           const banner = images.menuKategori[kategori.id];
           return (
             <section key={kategori.id} id={kategori.id}>
-              <Reveal>
-                <div className="mb-8 flex flex-wrap items-end justify-between gap-4 border-b border-line pb-6">
-                  <h2 className="font-display text-[clamp(28px,4vw,56px)] font-light leading-none tracking-[-0.02em] text-paper">
-                    <span className="mr-4 align-super font-display text-[13px] tracking-[0.1em] text-gold-deep">
-                      {String(ki + 1).padStart(2, "0")}
-                    </span>
-                    {kategori.nama}
-                  </h2>
-                  {kategori.items.length > 0 && (
+              <div className="mb-8 flex flex-wrap items-end justify-between gap-4 border-b border-line pb-6">
+                <h2 className="font-display text-[clamp(28px,4vw,56px)] font-light leading-none tracking-[-0.02em] text-paper">
+                  <span className="mr-4 align-super font-display text-[13px] tracking-[0.1em] text-gold-deep">
+                    {String(ki + 1).padStart(2, "0")}
+                  </span>
+                  <WordReveal segments={[{ text: kategori.nama }]} />
+                </h2>
+                {kategori.items.length > 0 && (
+                  <Reveal delay={0.2}>
                     <p className="text-[12px] uppercase tracking-[0.18em] text-[#9a9282]">
                       {kategori.items.length} hidangan unggulan
                     </p>
-                  )}
-                </div>
-              </Reveal>
+                  </Reveal>
+                )}
+              </div>
 
               {banner && (
                 <BlurToFocus>

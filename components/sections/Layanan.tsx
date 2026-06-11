@@ -1,9 +1,9 @@
 import { layanan, layananHeader } from "@/lib/content";
 import { images } from "@/lib/images";
-import RichTitle from "@/components/ui/RichTitle";
 import Tile from "@/components/ui/Tile";
 import Reveal from "@/components/motion/Reveal";
 import BlurToFocus from "@/components/motion/BlurToFocus";
+import WordReveal from "@/components/motion/WordReveal";
 
 // posisi bento per tile (acuan v8): besar kiri 2 baris, 2 kanan, 1 lebar penuh
 const SPANS = [
@@ -19,11 +19,9 @@ export default function Layanan() {
     <section id="layanan" className="bg-ink px-6 py-[16vh] md:px-10">
       <div className="mx-auto max-w-[1280px]">
         <div className="mb-14 flex flex-wrap items-end justify-between gap-5">
-          <Reveal>
-            <h2 className="font-display text-[clamp(34px,5.5vw,90px)] font-light leading-[0.92] tracking-[-0.025em] text-paper">
-              <RichTitle segments={layananHeader.judul} />
-            </h2>
-          </Reveal>
+          <h2 className="font-display text-[clamp(34px,5.5vw,90px)] font-light leading-[0.92] tracking-[-0.025em] text-paper">
+            <WordReveal segments={layananHeader.judul} />
+          </h2>
           <Reveal delay={0.15}>
             <p className="max-w-[300px] text-[14px] leading-[1.7] text-[#9a9282]">
               {layananHeader.deskripsi}

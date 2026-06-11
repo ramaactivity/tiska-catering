@@ -1,50 +1,10 @@
-"use client";
-
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
-import { profil, type RichText } from "@/lib/content";
+import { profil } from "@/lib/content";
 import { images } from "@/lib/images";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/motion/Reveal";
 import BlurToFocus from "@/components/motion/BlurToFocus";
-
-const EASE = [0.22, 1, 0.36, 1] as const;
-
-/** Heading muncul kata demi kata, blur → fokus (docs/04 #2). */
-function WordReveal({ segments }: { segments: RichText }) {
-  const reduceMotion = useReducedMotion();
-  let wordIndex = 0;
-
-  return (
-    <>
-      {segments.map((seg, si) =>
-        seg.text.split(" ").map((word, wi) => {
-          if (!word) return null;
-          const delay = wordIndex++ * 0.07;
-          return (
-            <motion.span
-              key={`${si}-${wi}`}
-              className={`inline-block ${
-                seg.italic ? "font-accent italic text-gold-deep" : ""
-              }`}
-              initial={
-                reduceMotion
-                  ? false
-                  : { opacity: 0, y: "0.4em", filter: "blur(8px)" }
-              }
-              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              viewport={{ once: true, margin: "-15% 0px" }}
-              transition={{ duration: 0.8, delay, ease: EASE }}
-            >
-              {word}
-              {" "}
-            </motion.span>
-          );
-        }),
-      )}
-    </>
-  );
-}
+import WordReveal from "@/components/motion/WordReveal";
 
 /** Profil: latar terang, heading word-by-word + 2 foto blur-to-focus. */
 export default function Profil() {
@@ -58,7 +18,7 @@ export default function Profil() {
             </Eyebrow>
           </Reveal>
           <h2 className="font-display text-[clamp(30px,4.2vw,60px)] font-light leading-[1.1] text-paper-ink">
-            <WordReveal segments={profil.judul} />
+            <WordReveal segments={profil.judul} accentClass="text-gold-deep" />
           </h2>
           <Reveal delay={0.3}>
             <p className="mt-7 max-w-[470px] text-[16.5px] leading-[1.9] text-paper-ink/80">

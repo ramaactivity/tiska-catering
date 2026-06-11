@@ -1,8 +1,8 @@
 import { mengapa, reasons } from "@/lib/content";
-import RichTitle from "@/components/ui/RichTitle";
 import Reveal from "@/components/motion/Reveal";
 import BlurToFocus from "@/components/motion/BlurToFocus";
 import Counter from "@/components/motion/Counter";
+import WordReveal from "@/components/motion/WordReveal";
 
 /** Mengapa Tiska: 4 reason-card dengan counter, latar gelap (docs/04 #3). */
 export default function MengapaTiska() {
@@ -10,11 +10,9 @@ export default function MengapaTiska() {
     <section className="bg-ink px-6 py-[16vh] md:px-10">
       <div className="mx-auto max-w-[1280px]">
         <div className="mb-16 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-          <Reveal>
-            <h2 className="font-display text-[clamp(34px,5.5vw,82px)] font-light leading-[0.94] tracking-[-0.025em] text-paper">
-              <RichTitle segments={mengapa.judul} />
-            </h2>
-          </Reveal>
+          <h2 className="font-display text-[clamp(34px,5.5vw,82px)] font-light leading-[0.94] tracking-[-0.025em] text-paper">
+            <WordReveal segments={mengapa.judul} />
+          </h2>
           <Reveal delay={0.15}>
             <p className="max-w-[360px] text-[15px] leading-[1.8] text-[#a39b8a]">
               {mengapa.deskripsi}

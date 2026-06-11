@@ -1,9 +1,9 @@
 import { menuRingkas } from "@/lib/content";
 import { images } from "@/lib/images";
-import RichTitle from "@/components/ui/RichTitle";
 import Tile from "@/components/ui/Tile";
 import Reveal from "@/components/motion/Reveal";
 import BlurToFocus from "@/components/motion/BlurToFocus";
+import WordReveal from "@/components/motion/WordReveal";
 import Button from "@/components/ui/Button";
 
 // bento (acuan v8): 7-5 lalu 5-7
@@ -24,11 +24,9 @@ export default function MenuRingkas() {
             {menuRingkas.eyebrow}
           </p>
         </Reveal>
-        <Reveal delay={0.1}>
-          <h2 className="mb-14 font-display text-[clamp(34px,5.5vw,90px)] font-light leading-[0.92] tracking-[-0.025em] text-paper">
-            <RichTitle segments={menuRingkas.judul} />
-          </h2>
-        </Reveal>
+        <h2 className="mb-14 font-display text-[clamp(34px,5.5vw,90px)] font-light leading-[0.92] tracking-[-0.025em] text-paper">
+          <WordReveal segments={menuRingkas.judul} />
+        </h2>
 
         <div className="grid auto-rows-[270px] grid-cols-1 gap-4 md:grid-cols-12">
           {menuRingkas.tiles.map((tile, i) => (

@@ -1,6 +1,6 @@
 import { testimoni } from "@/lib/content";
-import RichTitle from "@/components/ui/RichTitle";
 import Reveal from "@/components/motion/Reveal";
+import WordReveal from "@/components/motion/WordReveal";
 
 /** Testimoni: kutipan tunggal, glow radial emas halus (docs/04 #8). */
 export default function Testimoni() {
@@ -16,11 +16,9 @@ export default function Testimoni() {
             {testimoni.eyebrow}
           </p>
         </Reveal>
-        <Reveal delay={0.1}>
-          <blockquote className="font-display text-[clamp(27px,4.2vw,58px)] font-light leading-[1.2] tracking-[-0.025em] text-paper">
-            <RichTitle segments={testimoni.kutipanRich} />
-          </blockquote>
-        </Reveal>
+        <blockquote className="font-display text-[clamp(27px,4.2vw,58px)] font-light leading-[1.2] tracking-[-0.025em] text-paper">
+          <WordReveal segments={testimoni.kutipanRich} stagger={0.045} />
+        </blockquote>
         <Reveal delay={0.25}>
           <div className="mt-12">
             <p className="text-[15px] text-gold-soft">{testimoni.nama}</p>

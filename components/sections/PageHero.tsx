@@ -1,6 +1,6 @@
 import type { RichText } from "@/lib/content";
-import RichTitle from "@/components/ui/RichTitle";
 import Reveal from "@/components/motion/Reveal";
+import WordReveal from "@/components/motion/WordReveal";
 
 type PageHeroProps = {
   eyebrow: string;
@@ -20,14 +20,12 @@ export default function PageHero({ eyebrow, judul, intro }: PageHeroProps) {
             <span aria-hidden className="h-px w-10 bg-gold" />
           </p>
         </Reveal>
-        <Reveal delay={0.12}>
-          <h1
-            style={{ fontVariationSettings: "'opsz' 144" }}
-            className="font-display text-[clamp(44px,7vw,110px)] font-light leading-[0.94] text-paper"
-          >
-            <RichTitle segments={judul} />
-          </h1>
-        </Reveal>
+        <h1
+          style={{ fontVariationSettings: "'opsz' 144" }}
+          className="font-display text-[clamp(44px,7vw,110px)] font-light leading-[0.94] text-paper"
+        >
+          <WordReveal segments={judul} stagger={0.09} />
+        </h1>
         <Reveal delay={0.24}>
           <p className="mx-auto mt-8 max-w-[520px] text-[clamp(14px,1.6vw,16px)] leading-[1.8] text-[#cbc5b8]">
             {intro}

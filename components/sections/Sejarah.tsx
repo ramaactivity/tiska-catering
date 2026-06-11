@@ -7,8 +7,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { sejarah, timeline } from "@/lib/content";
 import { images } from "@/lib/images";
 import Eyebrow from "@/components/ui/Eyebrow";
-import RichTitle from "@/components/ui/RichTitle";
 import Reveal from "@/components/motion/Reveal";
+import WordReveal from "@/components/motion/WordReveal";
 
 /**
  * Sejarah: GSAP pinned scrollytelling — satu-satunya efek berat (docs/04 #4).
@@ -78,11 +78,9 @@ export default function Sejarah() {
           <Reveal>
             <Eyebrow className="mb-6">{sejarah.eyebrow}</Eyebrow>
           </Reveal>
-          <Reveal delay={0.1}>
-            <h2 className="mb-16 max-w-[540px] font-display text-[clamp(34px,5.5vw,80px)] font-light leading-[0.96] tracking-[-0.025em] text-paper">
-              <RichTitle segments={sejarah.judul} />
-            </h2>
-          </Reveal>
+          <h2 className="mb-16 max-w-[540px] font-display text-[clamp(34px,5.5vw,80px)] font-light leading-[0.96] tracking-[-0.025em] text-paper">
+            <WordReveal segments={sejarah.judul} />
+          </h2>
           <div className="grid grid-cols-1 gap-9 sm:grid-cols-2">
             {timeline.map((era, i) => (
               <Reveal key={era.tahun} delay={i * 0.12}>
@@ -113,9 +111,11 @@ export default function Sejarah() {
     >
       {background}
       <div className="mx-auto w-full max-w-[1280px]">
-        <Eyebrow className="mb-6">{sejarah.eyebrow}</Eyebrow>
+        <Reveal>
+          <Eyebrow className="mb-6">{sejarah.eyebrow}</Eyebrow>
+        </Reveal>
         <h2 className="mb-14 max-w-[540px] font-display text-[clamp(34px,4.5vw,64px)] font-light leading-[0.96] tracking-[-0.025em] text-paper">
-          <RichTitle segments={sejarah.judul} />
+          <WordReveal segments={sejarah.judul} />
         </h2>
 
         {/* Era aktif — semua era ditumpuk, transisi opacity + blur + naik */}

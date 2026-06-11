@@ -11,8 +11,8 @@ import {
 } from "framer-motion";
 import { cta } from "@/lib/content";
 import { images } from "@/lib/images";
-import RichTitle from "@/components/ui/RichTitle";
 import Reveal from "@/components/motion/Reveal";
+import WordReveal from "@/components/motion/WordReveal";
 
 /** CTA penutup: foto parallax + "Send your love now" (docs/04 #10). */
 export default function CTA() {
@@ -53,14 +53,12 @@ export default function CTA() {
             {cta.eyebrow}
           </p>
         </Reveal>
-        <Reveal delay={0.12}>
-          <h2
-            style={{ fontVariationSettings: "'opsz' 144" }}
-            className="font-display text-[clamp(40px,8vw,140px)] font-light leading-[0.9] tracking-[-0.025em] text-paper"
-          >
-            <RichTitle segments={cta.judul} />
-          </h2>
-        </Reveal>
+        <h2
+          style={{ fontVariationSettings: "'opsz' 144" }}
+          className="font-display text-[clamp(40px,8vw,140px)] font-light leading-[0.9] tracking-[-0.025em] text-paper"
+        >
+          <WordReveal segments={cta.judul} stagger={0.1} />
+        </h2>
         <Reveal delay={0.24}>
           <div className="mt-11">
             <Link

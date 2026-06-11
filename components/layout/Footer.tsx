@@ -8,8 +8,8 @@ export default function Footer() {
   return (
     <footer className="overflow-hidden border-t border-line bg-ink-2 px-6 pb-10 pt-[11vh] md:px-10">
       <div className="mx-auto max-w-[1280px]">
-        <Reveal>
-          <div className="grid grid-cols-1 gap-12 pb-16 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-12 pb-16 sm:grid-cols-2 lg:grid-cols-4">
+          <Reveal>
             <div>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -21,7 +21,9 @@ export default function Footer() {
                 {footer.tagline}
               </p>
             </div>
+          </Reveal>
 
+          <Reveal delay={0.1}>
             <div>
               <p className="mb-5 text-[11px] uppercase tracking-[0.18em] text-gold">
                 Navigasi
@@ -39,7 +41,9 @@ export default function Footer() {
                 ))}
               </ul>
             </div>
+          </Reveal>
 
+          <Reveal delay={0.2}>
             <div>
               <p className="mb-5 text-[11px] uppercase tracking-[0.18em] text-gold">
                 Hubungi
@@ -66,7 +70,9 @@ export default function Footer() {
                 )}
               </ul>
             </div>
+          </Reveal>
 
+          <Reveal delay={0.3}>
             <div>
               <p className="mb-5 text-[11px] uppercase tracking-[0.18em] text-gold">
                 Ikuti
@@ -84,21 +90,25 @@ export default function Footer() {
                 ))}
               </ul>
             </div>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
 
         <div className="border-t border-line pt-8">
-          <p className="text-center text-[12px] tracking-[0.05em] text-[#7a7468]">
-            {footer.copyright}
-          </p>
+          <Reveal>
+            <p className="text-center text-[12px] tracking-[0.05em] text-[#7a7468]">
+              {footer.copyright}
+            </p>
+          </Reveal>
           {/* Wordmark raksasa — penutup halaman */}
-          <p
-            aria-hidden
-            style={{ fontVariationSettings: "'opsz' 144" }}
-            className="mt-6 select-none text-center font-display text-[clamp(90px,17vw,250px)] font-light leading-[0.8] tracking-[0.02em] text-paper/[0.045]"
-          >
-            TISKA
-          </p>
+          <Reveal delay={0.15} duration={1.2} y={40}>
+            <p
+              aria-hidden
+              style={{ fontVariationSettings: "'opsz' 144" }}
+              className="mt-6 select-none text-center font-display text-[clamp(90px,17vw,250px)] font-light leading-[0.8] tracking-[0.02em] text-paper/[0.045]"
+            >
+              TISKA
+            </p>
+          </Reveal>
         </div>
       </div>
     </footer>
