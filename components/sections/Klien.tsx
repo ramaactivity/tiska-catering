@@ -24,13 +24,16 @@ export default function Klien() {
         </div>
 
         <div className="grid grid-cols-[repeat(auto-fit,minmax(148px,1fr))] gap-3.5">
-          {klien.daftar.map((nama, i) => (
+          {klien.daftar.map(({ nama, logo }, i) => (
             <Reveal key={nama} delay={(i % 6) * 0.06} duration={0.7} y={16}>
-              {/* Plate teks sementara — diganti file logo resmi di Fase 4 (docs/06) */}
-              <div className="flex h-[110px] items-center justify-center border border-line-d bg-white/60 px-4 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:bg-white hover:shadow-[0_18px_40px_rgba(42,36,24,0.1)]">
-                <span className="text-center font-display text-[17px] font-medium text-paper-ink/80">
-                  {nama}
-                </span>
+              <div className="group flex h-[110px] items-center justify-center border border-line-d bg-white/60 px-7 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:bg-white hover:shadow-[0_18px_40px_rgba(42,36,24,0.1)]">
+                {/* eslint-disable-next-line @next/next/no-img-element -- logo SVG/PNG statis, next/image tak mengoptimasi SVG */}
+                <img
+                  src={logo}
+                  alt={`Logo ${nama}`}
+                  loading="lazy"
+                  className="max-h-[44px] w-auto max-w-full object-contain opacity-80 grayscale transition-all duration-500 group-hover:opacity-100 group-hover:grayscale-0"
+                />
               </div>
             </Reveal>
           ))}
