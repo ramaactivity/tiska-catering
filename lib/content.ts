@@ -29,7 +29,8 @@ export const company = {
   email: "catering.tiska@gmail.com",
   emailAlt: "mktg@tiskacatering.com",
   website: "www.tiskacatering.com",
-  instagram: "TISKA Catering Service",
+  instagram: "@tiskacatering",
+  instagramLink: "https://www.instagram.com/tiskacatering",
   kepemimpinan: [
     { nama: "Bimo Haryo Dewanto", jabatan: "Chief of Ideation" },
     { nama: "Rita Ariyani", jabatan: "Chief Executive Officer" },
@@ -409,15 +410,18 @@ export const footer = {
       { label: "Klien", href: "/#klien" },
     ],
     hubungi: [
-      { label: company.whatsapp, href: company.whatsappLink },
+      {
+        label: `${company.whatsapp} (${company.whatsappNama})`,
+        href: company.whatsappLink,
+      },
       { label: company.teleponKantor, href: "tel:+622518314442" },
       { label: company.email, href: `mailto:${company.email}` },
       { label: company.website, href: "https://www.tiskacatering.com" },
       { label: company.alamat },
     ],
     ikuti: [
-      // TBD: handle Instagram/Facebook resmi belum dikonfirmasi (docs/06)
-      { label: "Instagram", href: "#" },
+      { label: "Instagram", href: company.instagramLink },
+      // TBD: halaman Facebook resmi belum dikonfirmasi
       { label: "Facebook", href: "#" },
       { label: "WhatsApp", href: company.whatsappLink },
     ],
