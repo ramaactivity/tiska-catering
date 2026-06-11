@@ -214,6 +214,32 @@ export const prioritas = [
   "Kemudahan & Fleksibilitas dalam Perencanaan",
 ];
 
+// ─── Halaman /menu ──────────────────────────────────────────────────────────
+
+export const menuPage = {
+  eyebrow: "Tiska Catering · Sejak 1980",
+  judul: [
+    { text: "Menu " },
+    { text: "kami", italic: true },
+  ] satisfies RichText,
+  // intro memakai copy reasons docs/03 (250+ pilihan menu)
+  intro:
+    "250+ pilihan menu — Indonesian, Asian, Western; tiap selera dan tema dapat kami sesuaikan.",
+};
+
+// ─── Halaman /galeri ────────────────────────────────────────────────────────
+
+export const galeriPage = {
+  eyebrow: "Portofolio",
+  judul: [
+    { text: "Galeri " },
+    { text: "perayaan", italic: true },
+  ] satisfies RichText,
+  // intro memakai prinsip brand docs/01-03
+  intro:
+    "Momen-momen yang kami rayakan bersama pelanggan — pernikahan, acara korporat, hingga bingkisan istimewa.",
+};
+
 // ─── Menu (kategori lengkap untuk /menu; ringkasan dipakai di beranda) ──────
 
 export const menuCategories = [
@@ -379,6 +405,7 @@ export const footer = {
       { label: "Profil", href: "/#profil" },
       { label: "Layanan", href: "/#layanan" },
       { label: "Menu", href: "/menu" },
+      { label: "Galeri", href: "/galeri" },
       { label: "Klien", href: "/#klien" },
     ],
     hubungi: [
