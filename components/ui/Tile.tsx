@@ -28,12 +28,18 @@ export default function Tile({
     <div
       className={`group relative h-full overflow-hidden rounded-lg ${className}`}
     >
+      {/* Hanya transform yang dianimasikan (GPU); dimming via overlay opacity,
+          bukan filter — animasi filter me-repaint seluruh foto tiap frame. */}
       <Image
         src={src}
         alt={alt}
         fill
         sizes={sizes}
-        className="object-cover brightness-[0.92] saturate-[0.9] transition-[transform,filter] duration-[1300ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.07] group-hover:brightness-100 group-hover:saturate-105"
+        className="object-cover transition-transform duration-[1300ms] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform group-hover:scale-[1.07]"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-ink/10 transition-opacity duration-700 group-hover:opacity-0"
       />
       <div
         aria-hidden

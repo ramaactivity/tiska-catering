@@ -3,10 +3,9 @@ import { profil } from "@/lib/content";
 import { images } from "@/lib/images";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/motion/Reveal";
-import BlurToFocus from "@/components/motion/BlurToFocus";
 import WordReveal from "@/components/motion/WordReveal";
 
-/** Profil: latar terang, heading word-by-word + 2 foto blur-to-focus. */
+/** Profil: latar terang, heading word-by-word + 2 foto fade-up. */
 export default function Profil() {
   return (
     <section id="profil" className="bg-paper-bg px-6 py-[18vh] md:px-10">
@@ -29,7 +28,7 @@ export default function Profil() {
 
         <div className="grid grid-cols-2 gap-4 md:col-span-6">
           {images.profil.map((foto, i) => (
-            <BlurToFocus
+            <Reveal
               key={foto.src}
               delay={i * 0.15}
               className={i === 1 ? "mt-11" : ""}
@@ -43,7 +42,7 @@ export default function Profil() {
                   className="object-cover"
                 />
               </div>
-            </BlurToFocus>
+            </Reveal>
           ))}
         </div>
       </div>

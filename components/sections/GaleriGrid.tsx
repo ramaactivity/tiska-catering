@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { images } from "@/lib/images";
-import BlurToFocus from "@/components/motion/BlurToFocus";
+import Reveal from "@/components/motion/Reveal";
 
 // variasi tinggi tile agar grid terasa editorial, bukan seragam kaku
 const RATIOS = ["aspect-[3/4]", "aspect-square", "aspect-[4/5]", "aspect-[3/4]"];
@@ -11,19 +11,24 @@ export default function GaleriGrid() {
     <section className="bg-ink px-6 pb-[14vh] md:px-10">
       <div className="mx-auto max-w-[1280px] columns-2 gap-4 md:columns-3">
         {images.galeri.map((foto, i) => (
-          <BlurToFocus
+          <Reveal
             key={`${foto.src}-${i}`}
             delay={(i % 3) * 0.1}
             className="mb-4 break-inside-avoid"
           >
             <figure className="group relative overflow-hidden rounded-lg">
               <div className={`relative ${RATIOS[i % RATIOS.length]}`}>
+                {/* Transform saja yang dianimasikan; dimming via overlay opacity */}
                 <Image
                   src={foto.src}
                   alt={foto.alt}
                   fill
                   sizes="(min-width: 768px) 33vw, 50vw"
-                  className="object-cover brightness-[0.9] saturate-[0.92] transition-[transform,filter] duration-[1300ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06] group-hover:brightness-100"
+                  className="object-cover transition-transform duration-[1300ms] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform group-hover:scale-[1.06]"
+                />
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-ink/10 transition-opacity duration-700 group-hover:opacity-0"
                 />
                 <div
                   aria-hidden
@@ -34,7 +39,7 @@ export default function GaleriGrid() {
                 {foto.kategori}
               </figcaption>
             </figure>
-          </BlurToFocus>
+          </Reveal>
         ))}
       </div>
     </section>
