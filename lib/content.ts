@@ -31,6 +31,7 @@ export const company = {
   website: "www.tiskacatering.com",
   instagram: "@tiskacatering",
   instagramLink: "https://www.instagram.com/tiskacatering",
+  facebookLink: "https://www.facebook.com/tiskacatering/",
   kepemimpinan: [
     { nama: "Bimo Haryo Dewanto", jabatan: "Chief of Ideation" },
     { nama: "Rita Ariyani", jabatan: "Chief Executive Officer" },
@@ -421,8 +422,7 @@ export const footer = {
     ],
     ikuti: [
       { label: "Instagram", href: company.instagramLink },
-      // TBD: halaman Facebook resmi belum dikonfirmasi
-      { label: "Facebook", href: "#" },
+      { label: "Facebook", href: company.facebookLink },
       { label: "WhatsApp", href: company.whatsappLink },
     ],
   },
