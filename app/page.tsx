@@ -23,12 +23,12 @@ export default function Home() {
         <Hero />
         <Profil />
         <MengapaTiska />
+        <Klien />
         <Sejarah />
         <Layanan />
         <Filosofi />
         <MenuRingkas />
         <Testimoni />
-        <Klien />
         <CTA />
       </main>
       <Footer />
