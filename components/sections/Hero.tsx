@@ -37,6 +37,13 @@ export default function Hero() {
   const [entranceDelay] = useState(() =>
     loaderWillPlay() ? LOADER_TIMING.heroDelay : 0.2,
   );
+  // Ken Burns settle foto: sudah bergerak tepat sebelum tirai terangkat,
+  // mendarat anggun setelahnya. Kunjungan ulang (tanpa loader): versi singkat.
+  const [fotoEntrance] = useState(() =>
+    loaderWillPlay()
+      ? { scale: 1.14, delay: LOADER_TIMING.curtain - 0.15, duration: 3.2 }
+      : { scale: 1.07, delay: 0.1, duration: 1.8 },
+  );
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -54,6 +61,13 @@ export default function Hero() {
           memaksa re-raster foto fullscreen tiap frame. */}
       <motion.div
         style={reduceMotion ? undefined : { y }}
+        initial={reduceMotion ? false : { scale: fotoEntrance.scale }}
+        animate={reduceMotion ? undefined : { scale: 1 }}
+        transition={{
+          duration: fotoEntrance.duration,
+          delay: fotoEntrance.delay,
+          ease: EASE,
+        }}
         className="absolute inset-x-0 top-0 -z-10 h-[130%] will-change-transform"
       >
         <Image
