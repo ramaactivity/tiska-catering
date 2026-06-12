@@ -1,12 +1,37 @@
+"use client";
+
+import { useRef } from "react";
 import Image from "next/image";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { profil } from "@/lib/content";
 import { images } from "@/lib/images";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/motion/Reveal";
 import WordReveal from "@/components/motion/WordReveal";
 
-/** Profil: latar terang, heading word-by-word + 2 foto fade-up. */
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+/**
+ * Profil: latar terang, heading word-by-word + duo foto.
+ * Foto: entrance fade-up + settle scale (bahasa motion hero), lalu
+ * parallax berlawanan saat scroll — semua transform-only (GPU).
+ */
 export default function Profil() {
+  const fotoRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: fotoRef,
+    offset: ["start end", "end start"],
+  });
+  // drift berlawanan arah; modest agar tetap anggun
+  const driftKiri = useTransform(scrollYProgress, [0, 1], [36, -36]);
+  const driftKanan = useTransform(scrollYProgress, [0, 1], [-20, 52]);
+
   return (
     <section id="profil" className="bg-paper-bg px-6 py-[18vh] md:px-10">
       <div className="mx-auto grid max-w-[1280px] items-center gap-14 md:grid-cols-12">
@@ -26,23 +51,43 @@ export default function Profil() {
           </Reveal>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 md:col-span-6">
+        <div ref={fotoRef} className="grid grid-cols-2 gap-4 md:col-span-6">
           {images.profil.map((foto, i) => (
-            <Reveal
+            <motion.div
               key={foto.src}
-              delay={i * 0.15}
-              className={i === 1 ? "mt-11" : ""}
+              style={
+                reduceMotion
+                  ? undefined
+                  : { y: i === 0 ? driftKiri : driftKanan }
+              }
+              className={`will-change-transform ${i === 1 ? "mt-11" : ""}`}
             >
-              <div className="relative aspect-3/4 overflow-hidden rounded-lg">
-                <Image
-                  src={foto.src}
-                  alt={foto.alt}
-                  fill
-                  sizes="(min-width: 768px) 25vw, 50vw"
-                  className="object-cover"
-                />
-              </div>
-            </Reveal>
+              {/* Entrance: bingkai fade-up… */}
+              <motion.div
+                initial={reduceMotion ? false : { opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-10% 0px" }}
+                transition={{ duration: 0.9, delay: i * 0.18, ease: EASE }}
+                className="relative aspect-3/4 overflow-hidden rounded-lg"
+              >
+                {/* …foto di dalamnya mendarat dari zoom (Ken Burns settle) */}
+                <motion.div
+                  initial={reduceMotion ? false : { scale: 1.14 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true, margin: "-10% 0px" }}
+                  transition={{ duration: 1.7, delay: i * 0.18, ease: EASE }}
+                  className="absolute inset-0 will-change-transform"
+                >
+                  <Image
+                    src={foto.src}
+                    alt={foto.alt}
+                    fill
+                    sizes="(min-width: 768px) 25vw, 50vw"
+                    className="object-cover"
+                  />
+                </motion.div>
+              </motion.div>
+            </motion.div>
           ))}
         </div>
       </div>
