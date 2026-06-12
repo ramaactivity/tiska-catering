@@ -30,48 +30,73 @@ export const images = {
       alt: "Hidangan dalam kemasan praktis",
     },
   ],
-  menuRingkas: [
-    {
-      src: "https://images.unsplash.com/photo-1432139555190-58524dae6a55?auto=format&fit=crop&w=900&q=88",
-      alt: "Hidangan khas Indonesia",
+  /** Foto kategori menu beranda — key = id kategori (lib/content.ts) */
+  menuRingkas: {
+    indonesian: {
+      src: "https://images.unsplash.com/photo-1562607635-4608ff48a859?auto=format&fit=crop&w=900&q=85",
+      alt: "Sate dan aneka hidangan khas Indonesia",
     },
-    {
-      src: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=900&q=88",
-      alt: "Hidangan Asia",
+    asian: {
+      src: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=900&q=85",
+      alt: "Dimsum hangat dalam kukusan bambu",
     },
-    {
-      src: "https://images.unsplash.com/photo-1496116218417-1a781b1c416c?auto=format&fit=crop&w=900&q=88",
-      alt: "Hidangan Western",
+    western: {
+      src: "https://images.unsplash.com/photo-1546964124-0cce460f38ef?auto=format&fit=crop&w=900&q=85",
+      alt: "Steak panggang premium dengan asparagus",
     },
-    {
-      src: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=900&q=88",
-      alt: "Bingkisan hampers istimewa",
+    mediterranean: {
+      src: "https://images.unsplash.com/photo-1540914124281-342587941389?auto=format&fit=crop&w=900&q=85",
+      alt: "Mezze segar khas Mediterania dengan hummus",
     },
-  ],
+    peranakan: {
+      src: "https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?auto=format&fit=crop&w=900&q=85",
+      alt: "Hidangan berempah tersaji di atas daun pisang",
+    },
+    vegetarian: {
+      src: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=85",
+      alt: "Sajian nabati segar penuh warna",
+    },
+    hampers: {
+      src: "https://images.unsplash.com/photo-1607344645866-009c320b63e0?auto=format&fit=crop&w=900&q=85",
+      alt: "Bingkisan istimewa berpita emas",
+    },
+  } as Record<string, { src: string; alt: string }>,
   /** Banner per kategori menu — key = id kategori di lib/content.ts */
   menuKategori: {
     indonesian: {
-      src: "https://images.unsplash.com/photo-1432139555190-58524dae6a55?auto=format&fit=crop&w=1600&q=88",
+      src: "https://images.unsplash.com/photo-1562607635-4608ff48a859?auto=format&fit=crop&w=1600&q=88",
       alt: "Hidangan khas Indonesia tersaji elegan",
     },
     asian: {
-      src: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=1600&q=88",
+      src: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=1600&q=88",
       alt: "Sajian Asia yang menggugah selera",
     },
     western: {
-      src: "https://images.unsplash.com/photo-1496116218417-1a781b1c416c?auto=format&fit=crop&w=1600&q=88",
+      src: "https://images.unsplash.com/photo-1546964124-0cce460f38ef?auto=format&fit=crop&w=1600&q=88",
       alt: "Hidangan Western premium",
     },
     pasta: {
       src: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=1600&q=88",
       alt: "Pasta segar diolah langsung",
     },
+    mediterranean: {
+      src: "https://images.unsplash.com/photo-1540914124281-342587941389?auto=format&fit=crop&w=1600&q=88",
+      alt: "Mezze segar khas Mediterania",
+    },
+    peranakan: {
+      src: "https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?auto=format&fit=crop&w=1600&q=88",
+      alt: "Hidangan Peranakan berempah",
+    },
+    vegetarian: {
+      src: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1600&q=88",
+      alt: "Sajian nabati segar penuh warna",
+    },
     tumpeng: {
       src: "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=1600&q=88",
       alt: "Sajian perayaan tradisional",
     },
     hampers: {
-      src: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1600&q=88",
+      src: "https://images.unsplash.com/photo-1607344645866-009c320b63e0?auto=format&fit=crop&w=1600&q=88",
       alt: "Bingkisan hampers istimewa",
     },
   } as Record<string, { src: string; alt: string }>,

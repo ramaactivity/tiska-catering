@@ -288,6 +288,25 @@ export const menuCategories = [
     items: ["Lasagna", "White Spaghetti", "Macaroni Schotel", "Potato Schotel"],
   },
   {
+    id: "mediterranean",
+    nama: "Fresh Mediterranean",
+    deskripsi: "Hidangan segar khas pesisir Laut Tengah.",
+    items: [],
+  },
+  {
+    id: "peranakan",
+    nama: "Peranakan Heritage",
+    deskripsi:
+      "Hidangan hasil akulturasi budaya Tionghoa dengan tradisi Melayu–Nusantara.",
+    items: [],
+  },
+  {
+    id: "vegetarian",
+    nama: "Wholesome Vegetarian",
+    deskripsi: "Sajian sepenuhnya nabati untuk setiap perayaan.",
+    items: [],
+  },
+  {
     id: "tumpeng",
     nama: "Tumpeng",
     deskripsi: "Untuk perayaan tradisional.",
@@ -309,14 +328,43 @@ export const menuRingkas = {
     { text: "Cita rasa " },
     { text: "tanpa batas", italic: true },
   ] satisfies RichText,
+  // id harus cocok dengan menuCategories & images.menuRingkas
   tiles: [
     {
+      id: "indonesian",
       nama: "Flavorful Indonesian",
       highlight: "Tumpeng, Rujak Pengantin, Nasi Keranjang",
     },
-    { nama: "Delectable Asian", highlight: "Dimsum, Vietnamese Pho, Wonton" },
-    { nama: "Pleasant Western", highlight: "Beef & Shrimp Grill, Pasta Special" },
-    { nama: "Festive Hampers", highlight: "Bingkisan istimewa untuk setiap momen" },
+    {
+      id: "asian",
+      nama: "Delectable Asian",
+      highlight: "Dimsum, Vietnamese Pho, Wonton",
+    },
+    {
+      id: "western",
+      nama: "Pleasant Western",
+      highlight: "Beef & Shrimp Grill, Pasta Special",
+    },
+    {
+      id: "mediterranean",
+      nama: "Fresh Mediterranean",
+      highlight: "Hidangan segar khas pesisir Laut Tengah",
+    },
+    {
+      id: "peranakan",
+      nama: "Peranakan Heritage",
+      highlight: "Akulturasi cita rasa Tionghoa & Nusantara",
+    },
+    {
+      id: "vegetarian",
+      nama: "Wholesome Vegetarian",
+      highlight: "Sajian sepenuhnya nabati untuk setiap perayaan",
+    },
+    {
+      id: "hampers",
+      nama: "Festive Hampers",
+      highlight: "Bingkisan istimewa untuk setiap momen",
+    },
   ],
   cta: { label: "Lihat Menu Lengkap", href: "/menu" },
 };
