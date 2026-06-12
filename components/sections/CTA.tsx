@@ -34,6 +34,10 @@ export default function CTA() {
           memaksa re-raster foto fullscreen tiap frame. */}
       <motion.div
         style={reduceMotion ? undefined : { y }}
+        initial={reduceMotion ? false : { scale: 1.12 }}
+        whileInView={{ scale: 1 }}
+        viewport={{ once: true, margin: "-10% 0px" }}
+        transition={{ duration: 2.6, ease: [0.22, 1, 0.36, 1] }}
         className="absolute inset-x-0 -top-[15%] -z-10 h-[130%] will-change-transform"
       >
         <Image

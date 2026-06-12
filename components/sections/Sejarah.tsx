@@ -85,6 +85,14 @@ export default function Sejarah() {
     // jeda tahan untuk era terakhir hingga akhir rentang scroll
     tl.set({}, {}, timeline.length);
 
+    // Foto latar zoom pelan sepanjang pin — perjalanan waktu terasa mendekat
+    tl.fromTo(
+      "[data-sejarah-foto]",
+      { scale: 1.04 },
+      { scale: 1.18, duration: timeline.length, ease: "none" },
+      0,
+    );
+
     return () => {
       tl.scrollTrigger?.kill();
       tl.kill();
@@ -92,16 +100,19 @@ export default function Sejarah() {
   }, [pinned]);
 
   const background = (
-    <div aria-hidden className="absolute inset-0 -z-10">
+    <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden">
       {/* Dimming via overlay (komposit murah), bukan filter brightness —
-          filter di container yang di-pin dipaksa re-raster tiap frame. */}
-      <Image
-        src={images.sejarah.src}
-        alt=""
-        fill
-        sizes="100vw"
-        className="object-cover"
-      />
+          filter di container yang di-pin dipaksa re-raster tiap frame.
+          Wrapper data-sejarah-foto di-zoom pelan oleh timeline scrub. */}
+      <div data-sejarah-foto className="absolute inset-0 will-change-transform">
+        <Image
+          src={images.sejarah.src}
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+      </div>
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(14,13,10,0.95),rgba(14,13,10,0.8))]" />
     </div>
   );
