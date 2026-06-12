@@ -38,22 +38,57 @@ export default function Sejarah() {
     if (!pinned || !sectionRef.current) return;
     gsap.registerPlugin(ScrollTrigger);
 
-    const trigger = ScrollTrigger.create({
-      trigger: sectionRef.current,
-      start: "top top",
-      end: () => `+=${timeline.length * 85}%`,
-      pin: true,
-      onUpdate: (self) => {
-        setActive(
-          Math.min(
-            timeline.length - 1,
-            Math.floor(self.progress * timeline.length),
-          ),
-        );
+    const eras = gsap.utils.toArray<HTMLElement>(
+      "[data-era]",
+      sectionRef.current,
+    );
+
+    // Crossfade diikat langsung ke posisi scroll (scrub), bukan toggle CSS —
+    // mulus dua arah dan tidak pernah "restart" di tengah transisi.
+    const tl = gsap.timeline({
+      defaults: { ease: "none" },
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top top",
+        end: () => `+=${timeline.length * 85}%`,
+        pin: true,
+        scrub: 0.6,
+        onUpdate: (self) => {
+          setActive(
+            Math.min(
+              timeline.length - 1,
+              Math.floor(self.progress * timeline.length),
+            ),
+          );
+        },
       },
     });
 
-    return () => trigger.kill();
+    gsap.set(eras, { autoAlpha: 0, y: 44 });
+    gsap.set(eras[0], { autoAlpha: 1, y: 0 });
+
+    // Timeline berdurasi N unit (1 unit = 1 era). Di tiap batas era j,
+    // era lama naik-menghilang & era baru masuk dari bawah (durasi 0.45 unit).
+    eras.forEach((el, i) => {
+      if (i === 0) return;
+      tl.to(
+        eras[i - 1],
+        { autoAlpha: 0, y: -44, duration: 0.45 },
+        i - 0.225,
+      ).fromTo(
+        el,
+        { autoAlpha: 0, y: 44 },
+        { autoAlpha: 1, y: 0, duration: 0.45 },
+        i - 0.225,
+      );
+    });
+    // jeda tahan untuk era terakhir hingga akhir rentang scroll
+    tl.set({}, {}, timeline.length);
+
+    return () => {
+      tl.scrollTrigger?.kill();
+      tl.kill();
+    };
   }, [pinned]);
 
   const background = (
@@ -120,16 +155,16 @@ export default function Sejarah() {
           <WordReveal segments={sejarah.judul} />
         </h2>
 
-        {/* Era aktif — semua era ditumpuk, transisi opacity + blur + naik */}
+        {/* Era ditumpuk; opacity & posisi dikendalikan GSAP timeline (scrub) —
+            jangan beri kelas transition di sini, akan bertabrakan dengan GSAP */}
         <div className="relative h-[280px]">
           {timeline.map((era, i) => (
             <div
               key={era.tahun}
+              data-era
               aria-hidden={i !== active}
-              className={`absolute inset-0 transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                i === active
-                  ? "translate-y-0 opacity-100"
-                  : "pointer-events-none translate-y-6 opacity-0"
+              className={`pointer-events-none absolute inset-0 will-change-[transform,opacity] ${
+                i === 0 ? "" : "opacity-0"
               }`}
             >
               <p
