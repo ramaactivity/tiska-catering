@@ -57,6 +57,7 @@ export const nav = {
     { label: "Profil", href: "/#profil" },
     { label: "Layanan", href: "/#layanan" },
     { label: "Menu", href: "/menu" },
+    { label: "Kabar", href: "/kabar" },
     { label: "Klien", href: "/#klien" },
   ],
   // Keputusan Rama: tombol Kontak di nav → langsung WhatsApp Ida Raodah
@@ -243,6 +244,40 @@ export const galeriPage = {
   // intro memakai prinsip brand docs/01-03
   intro:
     "Momen-momen yang kami rayakan bersama pelanggan — pernikahan, acara korporat, hingga bingkisan istimewa.",
+};
+
+// ─── Halaman /kabar (postingan dari backoffice) ─────────────────────────────
+// Daftar postingan dikelola dari /admin (disimpan di Vercel Blob), BUKAN di sini.
+// Yang di sini hanya teks tetap halaman.
+
+export const kabarPage = {
+  eyebrow: "Kabar & Sorotan",
+  judul: [
+    { text: "Kabar " },
+    { text: "terbaru", italic: true },
+  ] satisfies RichText,
+  intro:
+    "Cerita perayaan, penawaran musiman, dan kabar terbaru dari dapur Tiska Catering.",
+  semua: "Semua",
+  kategoriLabel: {
+    promo: "Promo",
+    campaign: "Momen Spesial",
+    menu: "Menu Musiman",
+    kabar: "Kabar",
+  } as Record<string, string>,
+  kosong: "Belum ada kabar untuk saat ini. Nantikan cerita & penawaran berikutnya.",
+  ctaDefaultLabel: "Tanya via WhatsApp",
+};
+
+// Section "Sorotan" di beranda — menampilkan 1 postingan unggulan bila ada.
+export const sorotan = {
+  eyebrow: "Sorotan",
+  judul: [
+    { text: "Yang sedang " },
+    { text: "berlangsung", italic: true },
+  ] satisfies RichText,
+  semua: "Lihat semua kabar",
+  selengkapnya: "Selengkapnya",
 };
 
 // ─── Menu (kategori lengkap untuk /menu; ringkasan dipakai di beranda) ──────

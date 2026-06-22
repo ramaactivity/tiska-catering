@@ -36,6 +36,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# backoffice Kabar — data & foto lokal (dev fallback; produksi pakai Vercel Blob)
+/data
+/public/uploads
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

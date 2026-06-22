@@ -7,6 +7,7 @@ import Sejarah from "@/components/sections/Sejarah";
 import Layanan from "@/components/sections/Layanan";
 import Filosofi from "@/components/sections/Filosofi";
 import MenuRingkas from "@/components/sections/MenuRingkas";
+import Sorotan from "@/components/sections/Sorotan";
 import Testimoni from "@/components/sections/Testimoni";
 import Klien from "@/components/sections/Klien";
 import CTA from "@/components/sections/CTA";
@@ -28,6 +29,7 @@ export default function Home() {
         <Layanan />
         <Filosofi />
         <MenuRingkas />
+        <Sorotan />
         <Testimoni />
         <CTA />
       </main>
