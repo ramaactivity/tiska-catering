@@ -8,8 +8,12 @@ git push origin main  →  GitHub Actions  →  Vercel CLI (pakai token)  →  P
 
 Deploy **TIDAK** lagi lewat native Git integration Vercel. Setiap push ke
 branch `main` memicu workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)
-yang menjalankan `vercel pull → vercel build → vercel deploy --prebuilt --prod`
-memakai **VERCEL_TOKEN**.
+yang menjalankan `vercel pull → vercel deploy --prod` memakai **VERCEL_TOKEN**.
+
+> **Install & build dilakukan DI VERCEL**, bukan di runner GitHub (tanpa
+> `vercel build` lokal, tanpa setup package manager di CI). Runner cuma upload
+> source + trigger deploy — Vercel yang install dependency & build pakai
+> cache-nya sendiri, jadi lebih andal.
 
 ## Kenapa pakai CI token, bukan native Git integration
 
@@ -49,9 +53,9 @@ project lain (tetra-ops).
 
 | Gejala | Kemungkinan penyebab |
 |---|---|
-| **Actions merah** di step `vercel pull/build/deploy` | `VERCEL_TOKEN` expired / dicabut / salah scope team. Buat token baru, update secret. |
+| **Actions merah** di step `vercel pull/deploy` | `VERCEL_TOKEN` expired / dicabut / salah scope team. Buat token baru, update secret. |
+| **Actions merah** saat build (di log deploy Vercel) | Error build app — sama dengan `npm run build` lokal. Buka build log di dashboard Vercel. |
 | **Deploy dobel** (dua deployment muncul tiap push) | Native Git integration belum di-disconnect di Vercel project (Settings → Git → Disconnect). |
-| Build gagal tapi token oke | Cek error build di log Actions — sama dengan `npm run build` lokal. |
 
 ## Aturan WAJIB
 
