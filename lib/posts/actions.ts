@@ -97,6 +97,7 @@ export async function deletePostAction(formData: FormData): Promise<void> {
   const id = String(formData.get("id") ?? "").trim();
   if (id) await store.deletePost(id);
   refreshPublic();
+  redirect("/admin");
 }
 
 /** Segarkan halaman publik yang menampilkan kabar (beranda statis perlu di-revalidate). */

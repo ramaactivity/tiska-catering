@@ -3,11 +3,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireSession } from "@/lib/auth";
 import { getPostById } from "@/lib/posts/store";
+import AdminHeader from "@/components/admin/AdminHeader";
 import PostForm from "@/components/admin/PostForm";
+import DeleteButton from "@/components/admin/DeleteButton";
 
 export const metadata: Metadata = {
-  title: "Edit postingan — Backoffice Tiska",
-  robots: { index: false, follow: false },
+  title: "Edit kabar — Backoffice Tiska",
 };
 
 export const dynamic = "force-dynamic";
@@ -21,19 +22,23 @@ export default async function EditPostPage({ params }: Params) {
   if (!post) notFound();
 
   return (
-    <main className="min-h-svh bg-ink px-6 py-12 md:px-10">
-      <div className="mx-auto max-w-[1000px]">
+    <>
+      <AdminHeader />
+      <main className="mx-auto max-w-[1080px] px-5 py-8 md:px-8 md:py-10">
         <Link
           href="/admin"
-          className="text-[12px] uppercase tracking-[0.16em] text-paper/55 transition-colors hover:text-gold-soft"
+          className="text-[13px] text-paper/50 transition-colors hover:text-gold-soft"
         >
-          ← Kembali
+          ← Kabar
         </Link>
-        <h1 className="mb-8 mt-4 font-display text-[30px] font-light text-paper">
-          Edit postingan
-        </h1>
+        <div className="mb-7 mt-3 flex items-center justify-between gap-4">
+          <h1 className="text-[24px] font-semibold tracking-tight text-paper">
+            Edit kabar
+          </h1>
+          <DeleteButton id={post.id} judul={post.judul} />
+        </div>
         <PostForm post={post} />
-      </div>
-    </main>
+      </main>
+    </>
   );
 }

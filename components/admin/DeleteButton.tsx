@@ -21,7 +21,7 @@ export default function DeleteButton({
       <input type="hidden" name="id" value={id} />
       <button
         type="submit"
-        className="text-[12px] uppercase tracking-[0.14em] text-red-400/80 transition-colors hover:text-red-400"
+        className="rounded-md px-2.5 py-1.5 text-[12px] text-paper/45 transition-colors hover:bg-red-500/10 hover:text-red-400"
       >
         Hapus
       </button>
