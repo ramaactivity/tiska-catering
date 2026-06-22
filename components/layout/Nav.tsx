@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { nav } from "@/lib/content";
 import { NAV_LOGO } from "@/lib/logos-base64";
-import SocialLinks from "@/components/ui/SocialLinks";
+import SocialLinks, { WhatsAppIcon } from "@/components/ui/SocialLinks";
 
 /**
  * Nav floating pill (docs/02 & acuan visual):
@@ -54,18 +54,21 @@ export default function Nav() {
           <SocialLinks className="border-l border-line pl-6" />
         </div>
 
-        <Link
+        <a
           href={nav.cta.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Hubungi Tiska Catering via WhatsApp"
           className="group inline-flex items-center gap-2 rounded-full border border-gold/70 px-6 py-[11px] text-[12px] uppercase tracking-[0.18em] text-gold-soft transition-colors duration-300 hover:border-gold hover:text-gold-bright"
         >
           {nav.cta.label}
           <span
             aria-hidden
-            className="transition-transform duration-300 group-hover:translate-x-1"
+            className="transition-transform duration-300 group-hover:scale-110"
           >
-            →
+            <WhatsAppIcon size={15} />
           </span>
-        </Link>
+        </a>
       </nav>
     </header>
   );

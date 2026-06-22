@@ -59,7 +59,8 @@ export const nav = {
     { label: "Menu", href: "/menu" },
     { label: "Klien", href: "/#klien" },
   ],
-  cta: { label: "Kontak", href: "/#kontak" },
+  // Keputusan Rama: tombol Kontak di nav → langsung WhatsApp Ida Raodah
+  cta: { label: "Kontak", href: company.whatsappLink },
 };
 
 // ─── Hero ───────────────────────────────────────────────────────────────────
