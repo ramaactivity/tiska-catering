@@ -11,8 +11,8 @@ export default function LoginForm() {
   const [show, setShow] = useState(false);
 
   return (
-    <form action={formAction} className="w-full max-w-[340px]">
-      <label htmlFor="pw" className="mb-2 block text-[12px] font-medium text-paper/60">
+    <form action={formAction} className="w-full">
+      <label htmlFor="pw" className="mb-1.5 block text-[12.5px] font-semibold text-ad-text">
         Kata sandi
       </label>
       <div className="relative">
@@ -23,25 +23,25 @@ export default function LoginForm() {
           autoFocus
           required
           aria-invalid={!!state?.error}
-          className="w-full rounded-lg border border-line bg-ink-3/60 px-3.5 py-3 pr-16 text-[15px] text-paper outline-none transition-colors placeholder:text-paper/30 focus:border-gold/60 focus:bg-ink-3 aria-[invalid=true]:border-red-500/60"
+          className="w-full rounded-xl border border-ad-border bg-ad-input px-3.5 py-3 pr-16 text-[15px] text-ad-text outline-none transition focus:border-ad-accent focus:shadow-[0_0_0_3px_var(--ad-accent-weak)] aria-[invalid=true]:border-ad-danger"
         />
         <button
           type="button"
           onClick={() => setShow((s) => !s)}
-          className="absolute right-1 top-1/2 -translate-y-1/2 rounded-md px-2.5 py-1.5 text-[12px] text-paper/45 transition-colors hover:text-paper"
+          className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-md px-2.5 py-1.5 text-[12px] text-ad-subtle transition-colors hover:text-ad-text"
         >
           {show ? "Sembunyikan" : "Lihat"}
         </button>
       </div>
 
       {state?.error && (
-        <p className="mt-2.5 text-[13px] text-red-400">{state.error}</p>
+        <p className="mt-2.5 text-[13px] text-ad-danger">{state.error}</p>
       )}
 
       <button
         type="submit"
         disabled={pending}
-        className="mt-5 w-full rounded-lg bg-gold py-3 text-[13px] font-semibold text-ink transition-colors hover:bg-gold-soft disabled:opacity-50"
+        className="mt-5 w-full rounded-xl bg-ad-btn py-3 text-[13px] font-semibold text-ad-btn-fg shadow-[0_1px_2px_var(--ad-shadow)] transition hover:brightness-[1.06] disabled:opacity-50"
       >
         {pending ? "Memeriksa…" : "Masuk"}
       </button>

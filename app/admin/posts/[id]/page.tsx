@@ -24,17 +24,15 @@ export default async function EditPostPage({ params }: Params) {
   return (
     <>
       <AdminHeader />
-      <main className="mx-auto max-w-[1080px] px-5 py-8 md:px-8 md:py-10">
+      <main className="mx-auto max-w-[1400px] px-5 py-8 md:px-8 md:py-10">
         <Link
           href="/admin"
-          className="text-[13px] text-paper/50 transition-colors hover:text-gold-soft"
+          className="text-[13px] text-ad-muted transition-colors hover:text-ad-accent"
         >
           ← Kabar
         </Link>
-        <div className="mb-7 mt-3 flex items-center justify-between gap-4">
-          <h1 className="text-[24px] font-semibold tracking-tight text-paper">
-            Edit kabar
-          </h1>
+        <div className="mb-6 mt-3 flex items-center justify-between gap-4">
+          <h1 className="text-[15px] font-medium text-ad-subtle">Edit kabar</h1>
           <DeleteButton id={post.id} judul={post.judul} />
         </div>
         <PostForm post={post} />

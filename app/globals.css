@@ -78,3 +78,64 @@ body {
   background: var(--gold);
   color: var(--ink);
 }
+
+/* ============================================================
+   Backoffice (/admin) — sistem tema terang & gelap.
+   Token semantik berlapis: bg (kanvas) < panel < input, dengan
+   border & shadow agar komponen jelas terpisah dari latar.
+   ============================================================ */
+.admin-theme {
+  /* TERANG (default) */
+  --ad-bg: #e8e1d2;
+  --ad-panel: #fbf8f2;
+  --ad-panel-2: #f2ecdf;
+  --ad-input: #ffffff;
+  --ad-border: #ddd3bf;
+  --ad-border-strong: #c8bca1;
+  --ad-text: #282216;
+  --ad-muted: #6b6354;
+  --ad-subtle: #9a8f7a;
+  --ad-accent: #8a6a23;
+  --ad-accent-weak: rgba(160, 124, 52, 0.13);
+  --ad-btn: #b8954e;
+  --ad-btn-fg: #201706;
+  --ad-shadow: rgba(74, 60, 33, 0.13);
+  --ad-danger: #b4452f;
+  color-scheme: light;
+}
+
+.admin-theme.dark {
+  /* GELAP */
+  --ad-bg: #100e0a;
+  --ad-panel: #1d1a13;
+  --ad-panel-2: #262218;
+  --ad-input: #14110b;
+  --ad-border: rgba(224, 204, 152, 0.15);
+  --ad-border-strong: rgba(224, 204, 152, 0.28);
+  --ad-text: #f1ece0;
+  --ad-muted: #b2a895;
+  --ad-subtle: #7e7563;
+  --ad-accent: #d8b876;
+  --ad-accent-weak: rgba(216, 184, 118, 0.14);
+  --ad-btn: #c4a05a;
+  --ad-btn-fg: #1a1206;
+  --ad-shadow: rgba(0, 0, 0, 0.5);
+  --ad-danger: #e0816e;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-ad-bg: var(--ad-bg);
+  --color-ad-panel: var(--ad-panel);
+  --color-ad-panel-2: var(--ad-panel-2);
+  --color-ad-input: var(--ad-input);
+  --color-ad-border: var(--ad-border);
+  --color-ad-border-strong: var(--ad-border-strong);
+  --color-ad-text: var(--ad-text);
+  --color-ad-muted: var(--ad-muted);
+  --color-ad-subtle: var(--ad-subtle);
+  --color-ad-accent: var(--ad-accent);
+  --color-ad-btn: var(--ad-btn);
+  --color-ad-btn-fg: var(--ad-btn-fg);
+  --color-ad-danger: var(--ad-danger);
+}

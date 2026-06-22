@@ -34,7 +34,7 @@ export default function AdminPostList({ posts }: { posts: Post[] }) {
 
   return (
     <div>
-      <div className="mb-5 flex items-center gap-1">
+      <div className="mb-4 flex items-center gap-1">
         <Tab aktif={filter === "all"} onClick={() => setFilter("all")}>
           Semua <Count>{jml.all}</Count>
         </Tab>
@@ -50,11 +50,11 @@ export default function AdminPostList({ posts }: { posts: Post[] }) {
       </div>
 
       {tampil.length === 0 ? (
-        <p className="rounded-xl border border-line bg-ink-2/40 py-12 text-center text-[14px] text-paper/50">
+        <p className="rounded-2xl border border-ad-border bg-ad-panel py-14 text-center text-[14px] text-ad-muted shadow-[0_1px_2px_var(--ad-shadow)]">
           Tidak ada postingan {filter === "draft" ? "draft" : "terbit"}.
         </p>
       ) : (
-        <ul className="overflow-hidden rounded-xl border border-line bg-ink-2/40 divide-y divide-line">
+        <ul className="divide-y divide-ad-border overflow-hidden rounded-2xl border border-ad-border bg-ad-panel shadow-[0_1px_3px_var(--ad-shadow)]">
           {tampil.map((post) => (
             <PostRow key={post.id} post={post} />
           ))}
@@ -66,7 +66,7 @@ export default function AdminPostList({ posts }: { posts: Post[] }) {
 
 function PostRow({ post }: { post: Post }) {
   return (
-    <li className="group relative flex items-center gap-4 px-3 py-3 transition-colors hover:bg-paper/[0.03]">
+    <li className="group relative flex items-center gap-4 px-3.5 py-3 transition-colors hover:bg-[var(--ad-accent-weak)]">
       <Link
         href={`/admin/posts/${post.id}`}
         className="flex min-w-0 flex-1 items-center gap-4"
@@ -75,13 +75,13 @@ function PostRow({ post }: { post: Post }) {
         <img
           src={post.imageUrl}
           alt=""
-          className="h-14 w-14 shrink-0 rounded-lg object-cover ring-1 ring-line"
+          className="h-16 w-16 shrink-0 rounded-lg object-cover ring-1 ring-ad-border"
         />
         <div className="min-w-0 flex-1">
-          <p className="truncate text-[15px] font-medium text-paper transition-colors group-hover:text-gold-soft">
+          <p className="truncate text-[15px] font-semibold text-ad-text transition-colors group-hover:text-ad-accent">
             {post.judul}
             {post.featured && (
-              <span className="ml-2 align-middle text-[11px] font-medium text-gold-bright">
+              <span className="ml-2 align-middle text-[11px] font-semibold text-ad-accent">
                 ★ Sorotan
               </span>
             )}
@@ -89,27 +89,27 @@ function PostRow({ post }: { post: Post }) {
           <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1">
             <KategoriBadge kategori={post.kategori} />
             <StatusBadge published={post.published} />
-            <span className="text-[11px] text-paper/35">
+            <span className="text-[11px] text-ad-subtle">
               Diperbarui {formatTanggal(post.updatedAt)}
             </span>
           </div>
         </div>
       </Link>
 
-      <div className="flex shrink-0 items-center gap-1">
+      <div className="flex shrink-0 items-center gap-0.5">
         {post.published && (
           <Link
             href={`/kabar/${post.slug}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-md px-2.5 py-1.5 text-[12px] text-paper/55 transition-colors hover:bg-paper/5 hover:text-paper"
+            className="rounded-lg px-2.5 py-1.5 text-[12px] text-ad-muted transition-colors hover:bg-ad-bg hover:text-ad-text"
           >
             Lihat
           </Link>
         )}
         <Link
           href={`/admin/posts/${post.id}`}
-          className="rounded-md px-2.5 py-1.5 text-[12px] text-gold-soft transition-colors hover:bg-gold/10 hover:text-gold-bright"
+          className="rounded-lg px-2.5 py-1.5 text-[12px] font-medium text-ad-accent transition-colors hover:bg-ad-bg"
         >
           Edit
         </Link>
@@ -135,8 +135,8 @@ function Tab({
       aria-pressed={aktif}
       className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[13px] font-medium transition-colors ${
         aktif
-          ? "bg-gold/12 text-gold-bright"
-          : "text-paper/55 hover:bg-paper/5 hover:text-paper"
+          ? "bg-[var(--ad-accent-weak)] text-ad-accent"
+          : "text-ad-muted hover:bg-[var(--ad-accent-weak)] hover:text-ad-text"
       }`}
     >
       {children}
@@ -146,7 +146,7 @@ function Tab({
 
 function Count({ children }: { children: React.ReactNode }) {
   return (
-    <span className="rounded-full bg-paper/10 px-1.5 text-[11px] tabular-nums text-paper/60">
+    <span className="rounded-full bg-ad-bg px-1.5 text-[11px] tabular-nums text-ad-muted">
       {children}
     </span>
   );
@@ -154,29 +154,29 @@ function Count({ children }: { children: React.ReactNode }) {
 
 function EmptyState() {
   return (
-    <div className="rounded-2xl border border-dashed border-line bg-ink-2/30 px-6 py-16 text-center">
-      <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-gold/10 text-[20px] text-gold-soft">
+    <div className="rounded-2xl border border-dashed border-ad-border-strong bg-ad-panel px-6 py-16 text-center shadow-[0_1px_2px_var(--ad-shadow)]">
+      <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--ad-accent-weak)] text-[20px] text-ad-accent">
         ✦
       </div>
-      <h2 className="text-[18px] font-medium text-paper">Belum ada kabar</h2>
-      <p className="mx-auto mt-2 max-w-[420px] text-[14px] leading-[1.7] text-paper/55">
-        Tulis kabar pertamamu — penawaran bulan ini, menu musiman baru, atau
-        cerita acara yang baru kamu layani. Tampil otomatis di halaman Kabar.
+      <h2 className="text-[18px] font-semibold text-ad-text">Belum ada kabar</h2>
+      <p className="mx-auto mt-2 max-w-[440px] text-[14px] leading-[1.7] text-ad-muted">
+        Tulis kabar pertamamu: penawaran bulan ini, menu musiman baru, atau cerita
+        acara yang baru kamu layani. Tampil otomatis di halaman Kabar.
       </p>
       <Link
         href="/admin/posts/new"
-        className="mt-6 inline-flex items-center gap-2 rounded-lg bg-gold px-5 py-2.5 text-[13px] font-semibold text-ink transition-colors hover:bg-gold-soft"
+        className="mt-6 inline-flex items-center gap-2 rounded-lg bg-ad-btn px-5 py-2.5 text-[13px] font-semibold text-ad-btn-fg shadow-[0_1px_2px_var(--ad-shadow)] transition hover:brightness-[1.06]"
       >
         Tulis kabar pertama
       </Link>
-      <div className="mt-6 flex flex-wrap justify-center gap-2 text-[12px] text-paper/40">
-        <span className="rounded-full border border-line px-3 py-1">
+      <div className="mt-6 flex flex-wrap justify-center gap-2 text-[12px] text-ad-subtle">
+        <span className="rounded-full border border-ad-border px-3 py-1">
           Promo bulan ini
         </span>
-        <span className="rounded-full border border-line px-3 py-1">
+        <span className="rounded-full border border-ad-border px-3 py-1">
           Menu musiman
         </span>
-        <span className="rounded-full border border-line px-3 py-1">
+        <span className="rounded-full border border-ad-border px-3 py-1">
           Kabar acara
         </span>
       </div>

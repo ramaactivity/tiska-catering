@@ -6,12 +6,12 @@
 import { kabarPage } from "@/lib/content";
 import type { PostCategory } from "@/lib/posts/types";
 
-/** Warna aksen per kategori (low-chroma, untuk titik & badge). */
+/** Warna aksen per kategori (mid-tone agar terbaca di tema terang & gelap). */
 export const KATEGORI_WARNA: Record<PostCategory, string> = {
-  promo: "#d8b876",
-  campaign: "#d8a0ad",
-  menu: "#8fc9bf",
-  kabar: "#cdbf9f",
+  promo: "#bf922f",
+  campaign: "#bd6f80",
+  menu: "#4f9a8f",
+  kabar: "#8f8160",
 };
 
 export function kategoriLabel(k: PostCategory): string {
@@ -37,13 +37,13 @@ export function KategoriBadge({ kategori }: { kategori: PostCategory }) {
 
 export function StatusBadge({ published }: { published: boolean }) {
   return published ? (
-    <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-teal">
-      <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-teal" />
+    <span className="inline-flex items-center gap-1.5 text-[11px] font-medium" style={{ color: "#4f9a8f" }}>
+      <span aria-hidden className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "#4f9a8f" }} />
       Terbit
     </span>
   ) : (
-    <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-paper/40">
-      <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-paper/30" />
+    <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-ad-subtle">
+      <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-ad-border-strong" />
       Draft
     </span>
   );
