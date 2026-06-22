@@ -130,12 +130,12 @@ export default function CampaignCarousel({ banners }: { banners: Banner[] }) {
           </motion.div>
         </div>
 
-        {/* Panah (desktop) */}
+        {/* Panah (desktop) — dikelompokkan di pojok kanan bawah, jauh dari teks */}
         {n > 1 && (
-          <>
+          <div className="absolute bottom-5 right-6 hidden items-center gap-2 md:flex md:bottom-7 md:right-12">
             <Arrow dir="prev" onClick={() => go(active - 1)} />
             <Arrow dir="next" onClick={() => go(active + 1)} />
-          </>
+          </div>
         )}
 
         {/* Dots + progress */}
@@ -206,9 +206,7 @@ function Arrow({ dir, onClick }: { dir: "prev" | "next"; onClick: () => void }) 
       type="button"
       onClick={onClick}
       aria-label={dir === "prev" ? "Sebelumnya" : "Berikutnya"}
-      className={`absolute top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-paper/25 bg-ink/30 text-paper/80 opacity-0 backdrop-blur-sm transition-all duration-300 hover:border-gold/60 hover:text-gold-bright group-hover:opacity-100 md:flex ${
-        dir === "prev" ? "left-4" : "right-4"
-      }`}
+      className="flex h-10 w-10 items-center justify-center rounded-full border border-paper/25 bg-ink/40 text-[18px] leading-none text-paper/80 backdrop-blur-sm transition-colors duration-300 hover:border-gold/60 hover:text-gold-bright"
     >
       {dir === "prev" ? "‹" : "›"}
     </button>
