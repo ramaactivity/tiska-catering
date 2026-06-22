@@ -8,12 +8,26 @@ git push origin main  →  GitHub Actions  →  Vercel CLI (pakai token)  →  P
 
 Deploy **TIDAK** lagi lewat native Git integration Vercel. Setiap push ke
 branch `main` memicu workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)
-yang menjalankan `vercel pull → vercel deploy --prod` memakai **VERCEL_TOKEN**.
+yang menjalankan `vercel pull → rm -rf .git → vercel deploy --prod` memakai
+**VERCEL_TOKEN**.
 
 > **Install & build dilakukan DI VERCEL**, bukan di runner GitHub (tanpa
 > `vercel build` lokal, tanpa setup package manager di CI). Runner cuma upload
 > source + trigger deploy — Vercel yang install dependency & build pakai
 > cache-nya sendiri, jadi lebih andal.
+
+## Kenapa `rm -rf .git` WAJIB sebelum deploy
+
+Saat ada metadata git, Vercel mencoba mencocokkan **email commit-author** dengan
+member akun Vercel. Karena commit dibuat oleh `ramaactivity`
+(`rama.activity98@gmail.com`) sedangkan akun Vercel project ini emailnya beda,
+di **Hobby tier** deploy ke-block dengan error **"commit email could not be
+matched"**.
+
+Dengan membuang `.git` di runner sebelum `vercel deploy`, tidak ada commit-author
+untuk dicocokkan → deploy diatribusikan ke **pemilik VERCEL_TOKEN**, sehingga
+lolos. Source code tetap ter-upload utuh (Vercel deploy meng-upload working
+directory, bukan via git).
 
 ## Kenapa pakai CI token, bukan native Git integration
 
@@ -55,6 +69,7 @@ project lain (tetra-ops).
 |---|---|
 | **Actions merah** di step `vercel pull/deploy` | `VERCEL_TOKEN` expired / dicabut / salah scope team. Buat token baru, update secret. |
 | **Actions merah** saat build (di log deploy Vercel) | Error build app — sama dengan `npm run build` lokal. Buka build log di dashboard Vercel. |
+| **"commit email could not be matched"** | Step `rm -rf .git` terhapus/gagal. Pastikan step itu jalan SEBELUM `vercel deploy`. |
 | **Deploy dobel** (dua deployment muncul tiap push) | Native Git integration belum di-disconnect di Vercel project (Settings → Git → Disconnect). |
 
 ## Aturan WAJIB
