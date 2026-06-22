@@ -29,7 +29,7 @@ export default async function AdminLoginPage() {
           <h1 className="font-display text-[24px] font-light text-ad-text">
             Backoffice
           </h1>
-          <p className="mt-1 text-[13px] text-ad-muted">Kelola Kabar & Sorotan</p>
+          <p className="mt-1 text-[13px] text-ad-muted">Kelola Kabar & Banner</p>
         </div>
 
         <div className="rounded-2xl border border-ad-border bg-ad-panel p-6 shadow-[0_6px_24px_-8px_var(--ad-shadow)]">
