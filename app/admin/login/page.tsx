@@ -22,8 +22,10 @@ export default async function AdminLoginPage() {
       />
       <div className="relative w-full max-w-[380px]">
         <div className="mb-7 flex flex-col items-center text-center">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={NAV_LOGO} alt="Tiska Catering" className="mb-5 h-11 w-auto" />
+          <span className="mb-5 inline-flex items-center rounded-2xl bg-ink px-5 py-3.5 shadow-[0_4px_16px_-6px_var(--ad-shadow)]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={NAV_LOGO} alt="Tiska Catering" className="h-9 w-auto" />
+          </span>
           <h1 className="font-display text-[24px] font-light text-ad-text">
             Backoffice
           </h1>

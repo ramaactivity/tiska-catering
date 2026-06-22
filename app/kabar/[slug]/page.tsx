@@ -36,7 +36,11 @@ export default async function KabarDetail({ params }: Params) {
   const lainnya = (await getPublishedPosts())
     .filter((p) => p.id !== post.id)
     .slice(0, 3);
-  const paragraf = post.isi.split(/\n{2,}/).map((p) => p.trim()).filter(Boolean);
+  const isi = post.isi?.trim() ?? "";
+  const isHTML = /<[a-z][\s\S]*>/i.test(isi);
+  const paragraf = isHTML
+    ? []
+    : isi.split(/\n{2,}/).map((p) => p.trim()).filter(Boolean);
 
   return (
     <>
@@ -82,16 +86,25 @@ export default async function KabarDetail({ params }: Params) {
             </div>
           </Reveal>
 
-          {paragraf.length > 0 && (
-            <div className="mx-auto mt-14 max-w-[680px]">
-              {paragraf.map((teks, i) => (
-                <Reveal key={i} delay={0.04}>
-                  <p className="mb-6 text-[clamp(15px,1.7vw,17px)] leading-[1.85] text-paper/80">
-                    {teks}
-                  </p>
-                </Reveal>
-              ))}
-            </div>
+          {isHTML ? (
+            <Reveal className="mx-auto mt-14 max-w-[680px]">
+              <div
+                className="kabar-prose text-[clamp(15px,1.7vw,17px)] text-paper/80"
+                dangerouslySetInnerHTML={{ __html: isi }}
+              />
+            </Reveal>
+          ) : (
+            paragraf.length > 0 && (
+              <div className="mx-auto mt-14 max-w-[680px]">
+                {paragraf.map((teks, i) => (
+                  <Reveal key={i} delay={0.04}>
+                    <p className="mb-6 text-[clamp(15px,1.7vw,17px)] leading-[1.85] text-paper/80">
+                      {teks}
+                    </p>
+                  </Reveal>
+                ))}
+              </div>
+            )
           )}
 
           <Reveal delay={0.05} className="mx-auto mt-12 max-w-[680px] text-center">

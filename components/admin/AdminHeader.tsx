@@ -9,8 +9,10 @@ export default function AdminHeader() {
     <header className="sticky top-0 z-40 border-b border-ad-border bg-ad-panel/85 backdrop-blur-md">
       <div className="mx-auto flex h-14 max-w-[1400px] items-center justify-between px-5 md:px-8">
         <Link href="/admin" className="flex items-center gap-2.5">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={NAV_LOGO} alt="Tiska" className="h-6 w-auto dark:brightness-100" />
+          <span className="flex items-center rounded-lg bg-ink px-2.5 py-1.5">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={NAV_LOGO} alt="Tiska" className="h-5 w-auto" />
+          </span>
           <span className="hidden text-[13px] font-medium text-ad-muted sm:inline">
             Backoffice
           </span>

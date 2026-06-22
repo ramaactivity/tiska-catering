@@ -6,6 +6,7 @@ import { savePostAction, type FormState } from "@/lib/posts/actions";
 import { company, kabarPage } from "@/lib/content";
 import { POST_CATEGORIES, type Post, type PostCategory } from "@/lib/posts/types";
 import { KATEGORI_WARNA, kategoriLabel } from "@/components/admin/ui";
+import RichEditor from "@/components/admin/RichEditor";
 
 const field =
   "w-full rounded-xl border border-ad-border bg-ad-input px-3.5 py-2.5 text-[14px] text-ad-text placeholder:text-ad-subtle outline-none transition focus:border-ad-accent focus:shadow-[0_0_0_3px_var(--ad-accent-weak)]";
@@ -71,14 +72,10 @@ export default function PostForm({ post }: { post?: Post }) {
 
           <div>
             <label className={label}>Isi lengkap</label>
-            <textarea
-              name="isi"
-              rows={14}
-              defaultValue={post?.isi}
-              placeholder={"Cerita selengkapnya.\n\nPisahkan paragraf dengan baris kosong."}
-              className={field + " leading-[1.7]"}
-            />
-            <p className={hint}>Untuk halaman detail. Opsional, boleh dikosongkan.</p>
+            <RichEditor name="isi" defaultValue={post?.isi ?? ""} />
+            <p className={hint}>
+              Untuk halaman detail. Pilih teks untuk memformat. Opsional.
+            </p>
           </div>
 
           <div className={panel}>
