@@ -7,6 +7,7 @@ import { company, kabarPage } from "@/lib/content";
 import { POST_CATEGORIES, type Post, type PostCategory } from "@/lib/posts/types";
 import { KATEGORI_WARNA, kategoriLabel } from "@/components/admin/ui";
 import RichEditor from "@/components/admin/RichEditor";
+import CropImageInput from "@/components/admin/CropImageInput";
 
 const field =
   "w-full rounded-xl border border-ad-border bg-ad-input px-3.5 py-2.5 text-[14px] text-ad-text placeholder:text-ad-subtle outline-none transition focus:border-ad-accent focus:shadow-[0_0_0_3px_var(--ad-accent-weak)]";
@@ -27,7 +28,6 @@ export default function PostForm({ post }: { post?: Post }) {
   const [ringkasan, setRingkasan] = useState(post?.ringkasan ?? "");
   const [kategori, setKategori] = useState<PostCategory>(post?.kategori ?? "promo");
   const [periode, setPeriode] = useState(post?.periode ?? "");
-  const [preview, setPreview] = useState<string>(post?.imageUrl ?? "");
 
   return (
     <form action={formAction} className="pb-24">
@@ -112,61 +112,33 @@ export default function PostForm({ post }: { post?: Post }) {
           <div className={panel}>
             <p className={panelHead}>Foto & pratinjau</p>
             <div className="overflow-hidden rounded-xl border border-ad-border bg-ad-input">
-              <label className="group relative block aspect-[4/5] cursor-pointer">
-                <input
-                  type="file"
-                  name="image"
-                  accept="image/*"
-                  className="sr-only"
-                  onChange={(e) => {
-                    const f = e.target.files?.[0];
-                    setPreview(f ? URL.createObjectURL(f) : post?.imageUrl ?? "");
-                  }}
+              <CropImageInput
+                name="image"
+                aspect={4 / 5}
+                ratioLabel="4:5"
+                aspectClass="aspect-[4/5]"
+                currentUrl={post?.imageUrl}
+                sizeHint="Disarankan 1200×1500 · maks 8 MB"
+              >
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(14,13,10,0.82))]"
                 />
-                {preview ? (
-                  <>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={preview}
-                      alt=""
-                      className="absolute inset-0 h-full w-full object-cover"
-                    />
-                    <div
-                      aria-hidden
-                      className="absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(14,13,10,0.82))]"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/45 opacity-0 transition-opacity group-hover:opacity-100">
-                      <span className="rounded-lg bg-white/15 px-3 py-1.5 text-[12px] font-medium text-white backdrop-blur-sm">
-                        Ganti foto
-                      </span>
-                    </div>
-                    <span
-                      className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-md px-2 py-0.5 text-[11px] font-semibold"
-                      style={{
-                        backgroundColor: `${KATEGORI_WARNA[kategori]}29`,
-                        color: KATEGORI_WARNA[kategori],
-                      }}
-                    >
-                      <span
-                        aria-hidden
-                        className="h-1.5 w-1.5 rounded-full"
-                        style={{ backgroundColor: KATEGORI_WARNA[kategori] }}
-                      />
-                      {kategoriLabel(kategori)}
-                    </span>
-                  </>
-                ) : (
-                  <div className="absolute inset-0 m-2 flex flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-ad-border-strong text-center transition-colors group-hover:border-ad-accent">
-                    <span className="text-[22px] text-ad-accent">↑</span>
-                    <span className="text-[13px] font-medium text-ad-muted">
-                      Unggah foto
-                    </span>
-                    <span className="text-[11px] text-ad-subtle">
-                      Wajib · JPG/PNG, maks 8 MB
-                    </span>
-                  </div>
-                )}
-              </label>
+                <span
+                  className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-md px-2 py-0.5 text-[11px] font-semibold"
+                  style={{
+                    backgroundColor: `${KATEGORI_WARNA[kategori]}29`,
+                    color: KATEGORI_WARNA[kategori],
+                  }}
+                >
+                  <span
+                    aria-hidden
+                    className="h-1.5 w-1.5 rounded-full"
+                    style={{ backgroundColor: KATEGORI_WARNA[kategori] }}
+                  />
+                  {kategoriLabel(kategori)}
+                </span>
+              </CropImageInput>
               <div className="p-3.5">
                 <p className="line-clamp-2 text-[15px] font-semibold leading-snug text-ad-text">
                   {judul || "Judul kabar"}

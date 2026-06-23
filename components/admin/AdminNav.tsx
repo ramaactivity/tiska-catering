@@ -7,6 +7,7 @@ const TABS = [
   { href: "/admin", label: "Kabar", match: (p: string) => p === "/admin" || p.startsWith("/admin/posts") },
   { href: "/admin/banners", label: "Banner", match: (p: string) => p.startsWith("/admin/banners") },
   { href: "/admin/foto", label: "Foto", match: (p: string) => p.startsWith("/admin/foto") },
+  { href: "/admin/galeri", label: "Galeri", match: (p: string) => p.startsWith("/admin/galeri") },
 ];
 
 /** Tab navigasi antar bagian backoffice (Kabar / Banner). */

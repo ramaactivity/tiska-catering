@@ -5,6 +5,7 @@ import Link from "next/link";
 import { saveBannerAction, type FormState } from "@/lib/banners/actions";
 import { company } from "@/lib/content";
 import type { Banner } from "@/lib/banners/types";
+import CropImageInput from "@/components/admin/CropImageInput";
 
 const field =
   "w-full rounded-xl border border-ad-border bg-ad-input px-3.5 py-2.5 text-[14px] text-ad-text placeholder:text-ad-subtle outline-none transition focus:border-ad-accent focus:shadow-[0_0_0_3px_var(--ad-accent-weak)]";
@@ -18,7 +19,6 @@ export default function BannerForm({ banner }: { banner?: Banner }) {
   const [judul, setJudul] = useState(banner?.judul ?? "");
   const [subjudul, setSubjudul] = useState(banner?.subjudul ?? "");
   const [labelTxt, setLabelTxt] = useState(banner?.label ?? "");
-  const [preview, setPreview] = useState(banner?.imageUrl ?? "");
 
   return (
     <form action={formAction} className="pb-24">
@@ -77,39 +77,22 @@ export default function BannerForm({ banner }: { banner?: Banner }) {
         <aside className="space-y-5 lg:sticky lg:top-20">
           <div className={panel}>
             <p className={panelHead}>Gambar & pratinjau (landscape)</p>
-            <label className="group relative block aspect-[16/9] cursor-pointer overflow-hidden rounded-xl border border-ad-border bg-ad-input">
-              <input
-                type="file"
-                name="image"
-                accept="image/*"
-                className="sr-only"
-                onChange={(e) => {
-                  const f = e.target.files?.[0];
-                  setPreview(f ? URL.createObjectURL(f) : banner?.imageUrl ?? "");
-                }}
-              />
-              {preview ? (
-                <>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={preview} alt="" className="absolute inset-0 h-full w-full object-cover" />
-                  <div aria-hidden className="absolute inset-0 bg-[linear-gradient(90deg,rgba(12,11,8,0.85),transparent_65%)]" />
-                  <div className="absolute inset-0 flex flex-col justify-center px-5">
-                    {labelTxt && <span className="mb-1.5 text-[9px] uppercase tracking-[0.25em] text-gold-soft">{labelTxt}</span>}
-                    <span className="font-display text-[20px] font-light leading-tight text-paper">{judul || "Judul banner"}</span>
-                    {subjudul && <span className="mt-1 line-clamp-2 text-[11px] text-paper/80">{subjudul}</span>}
-                  </div>
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
-                    <span className="rounded-lg bg-white/15 px-3 py-1.5 text-[12px] font-medium text-white backdrop-blur-sm">Ganti gambar</span>
-                  </div>
-                </>
-              ) : (
-                <div className="absolute inset-0 m-2 flex flex-col items-center justify-center gap-1.5 rounded-lg border border-dashed border-ad-border-strong text-center transition-colors group-hover:border-ad-accent">
-                  <span className="text-[20px] text-ad-accent">↑</span>
-                  <span className="text-[13px] font-medium text-ad-muted">Unggah gambar lebar</span>
-                  <span className="text-[11px] text-ad-subtle">Disarankan 1600×900 · maks 8 MB</span>
-                </div>
-              )}
-            </label>
+            <CropImageInput
+              name="image"
+              aspect={16 / 9}
+              ratioLabel="16:9"
+              aspectClass="aspect-[16/9]"
+              currentUrl={banner?.imageUrl}
+              sizeHint="Disarankan 1600×900 · maks 8 MB"
+              className="rounded-xl border border-ad-border bg-ad-input"
+            >
+              <div aria-hidden className="absolute inset-0 bg-[linear-gradient(90deg,rgba(12,11,8,0.85),transparent_65%)]" />
+              <div className="absolute inset-0 flex flex-col justify-center px-5 text-left">
+                {labelTxt && <span className="mb-1.5 text-[9px] uppercase tracking-[0.25em] text-gold-soft">{labelTxt}</span>}
+                <span className="font-display text-[20px] font-light leading-tight text-paper">{judul || "Judul banner"}</span>
+                {subjudul && <span className="mt-1 line-clamp-2 text-[11px] text-paper/80">{subjudul}</span>}
+              </div>
+            </CropImageInput>
             <div className="mt-3">
               <label className={label}>Teks alternatif</label>
               <input name="imageAlt" defaultValue={banner?.imageAlt} placeholder="Deskripsi singkat gambar" className={field} />

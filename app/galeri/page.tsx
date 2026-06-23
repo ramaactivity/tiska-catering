@@ -6,6 +6,7 @@ import GaleriGrid from "@/components/sections/GaleriGrid";
 import CTA from "@/components/sections/CTA";
 import { galeriPage } from "@/lib/content";
 import { getSiteImages } from "@/lib/site-images";
+import { getPublicGallery } from "@/lib/gallery/store";
 
 export const metadata: Metadata = {
   title: "Galeri — Tiska Catering | Portofolio Perayaan",
@@ -13,8 +14,10 @@ export const metadata: Metadata = {
     "Galeri momen perayaan bersama Tiska Catering — pernikahan, acara korporat, buffet, hingga hampers istimewa di Bogor, Jakarta, dan JaDeTaBek.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function GaleriPage() {
-  const si = await getSiteImages();
+  const [si, galeri] = await Promise.all([getSiteImages(), getPublicGallery()]);
   return (
     <>
       <Nav />
@@ -24,7 +27,7 @@ export default async function GaleriPage() {
           judul={galeriPage.judul}
           intro={galeriPage.intro}
         />
-        <GaleriGrid />
+        <GaleriGrid items={galeri} />
         <CTA photo={si.cta} />
       </main>
       <Footer />

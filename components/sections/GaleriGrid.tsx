@@ -6,11 +6,15 @@ import Reveal from "@/components/motion/Reveal";
 const RATIOS = ["aspect-[3/4]", "aspect-square", "aspect-[4/5]", "aspect-[3/4]"];
 
 /** Halaman /galeri: grid masonry foto acara dengan reveal stagger (docs/04). */
-export default function GaleriGrid() {
+export default function GaleriGrid({
+  items = images.galeri,
+}: {
+  items?: { src: string; alt: string; kategori: string }[];
+}) {
   return (
     <section className="bg-ink px-6 pb-[14vh] md:px-10">
       <div className="mx-auto max-w-[1280px] columns-2 gap-4 md:columns-3">
-        {images.galeri.map((foto, i) => (
+        {items.map((foto, i) => (
           <Reveal
             key={`${foto.src}-${i}`}
             delay={(i % 3) * 0.1}
