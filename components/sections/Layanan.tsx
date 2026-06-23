@@ -117,42 +117,41 @@ function Station({
   deskripsi: string;
   photo?: Foto;
 }) {
-  const photoAbove = i % 2 === 0;
   return (
-    <div className="relative h-full w-[230px] shrink-0">
-      {/* Angka indeks duduk di benang */}
-      <span
-        aria-hidden
-        className="absolute left-1/2 top-1/2 z-0 -translate-x-1/2 -translate-y-1/2 font-display text-[clamp(48px,4.4vw,74px)] font-light leading-none text-transparent [-webkit-text-stroke:1.2px_rgba(196,160,90,0.5)]"
-      >
-        {String(i + 1).padStart(2, "0")}
-      </span>
-
-      {/* Foto — satu sisi benang */}
-      <div className={`absolute left-1/2 w-[200px] -translate-x-1/2 ${photoAbove ? "bottom-1/2 mb-11" : "top-1/2 mt-11"}`}>
-        <div className="group relative overflow-hidden rounded-xl ring-1 ring-gold/25 shadow-[0_30px_60px_-24px_rgba(0,0,0,0.85)]">
-          <div className="relative aspect-[4/5]">
+    <div className="relative h-full w-[260px] shrink-0">
+      {/* Foto — di atas benang */}
+      <div className="absolute bottom-1/2 left-1/2 mb-12 w-[220px] -translate-x-1/2">
+        <div className="group relative overflow-hidden rounded-xl ring-1 ring-gold/25 shadow-[0_34px_64px_-26px_rgba(0,0,0,0.85)]">
+          <div className="relative aspect-[3/4]">
             {photo && (
               <Image
                 src={photo.src}
                 alt={photo.alt}
                 fill
-                sizes="200px"
+                sizes="220px"
                 className="object-cover transition-transform duration-[1300ms] will-change-transform group-hover:scale-[1.05]"
                 style={{ transitionTimingFunction: EASE }}
               />
             )}
-            <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,transparent_60%,rgba(12,11,8,0.35))]" />
+            <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,transparent_62%,rgba(12,11,8,0.3))]" />
           </div>
         </div>
       </div>
 
-      {/* Caption — sisi seberang benang */}
-      <div className={`absolute left-1/2 w-[230px] -translate-x-1/2 text-center ${photoAbove ? "top-1/2 mt-11" : "bottom-1/2 mb-11"}`}>
+      {/* Angka indeks duduk di benang */}
+      <span
+        aria-hidden
+        className="absolute left-1/2 top-1/2 z-0 -translate-x-1/2 -translate-y-1/2 font-display text-[clamp(46px,4.2vw,70px)] font-light leading-none text-transparent [-webkit-text-stroke:1.1px_rgba(196,160,90,0.5)]"
+      >
+        {String(i + 1).padStart(2, "0")}
+      </span>
+
+      {/* Caption — di bawah benang */}
+      <div className="absolute left-1/2 top-1/2 mt-12 w-[250px] -translate-x-1/2 text-center">
         <h3 className="font-display text-[clamp(20px,1.8vw,26px)] font-light leading-[1.12] text-gold-soft">
           {judul}
         </h3>
-        <p className="mx-auto mt-2 max-w-[210px] text-[12.5px] leading-[1.65] text-paper/65">
+        <p className="mx-auto mt-2 max-w-[220px] text-[12.5px] leading-[1.65] text-paper/60">
           {deskripsi}
         </p>
         <a
