@@ -17,6 +17,9 @@ import { getSiteImages } from "@/lib/site-images";
 
 /* Beranda — 12 section lengkap sesuai urutan & ritme terang-gelap docs/04. */
 
+// Selalu render segar agar banner & foto yang diganti dari /admin langsung tampil.
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const [banners, si] = await Promise.all([getActiveBanners(), getSiteImages()]);
 

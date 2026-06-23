@@ -4,7 +4,6 @@ import { requireSession } from "@/lib/auth";
 import { getAllPosts } from "@/lib/posts/store";
 import AdminHeader from "@/components/admin/AdminHeader";
 import AdminPostList from "@/components/admin/AdminPostList";
-import SeedButton from "@/components/admin/SeedButton";
 
 export const metadata: Metadata = {
   title: "Kelola Kabar — Backoffice Tiska",
@@ -29,18 +28,14 @@ export default async function AdminDashboard() {
               Kelola promo, momen spesial, menu musiman & kabar acara.
             </p>
           </div>
-          <div className="flex items-center gap-2">
-            {/* Tombol sekali-pakai: isi konten contoh ke produksi. Dihapus setelah dipakai. */}
-            <SeedButton />
-            {posts.length > 0 && (
-              <Link
-                href="/admin/posts/new"
-                className="inline-flex items-center gap-1.5 rounded-lg bg-ad-btn px-4 py-2.5 text-[13px] font-semibold text-ad-btn-fg shadow-[0_1px_2px_var(--ad-shadow)] transition hover:brightness-[1.06] active:scale-[0.98]"
-              >
-                <span className="text-[15px] leading-none">+</span> Tulis kabar
-              </Link>
-            )}
-          </div>
+          {posts.length > 0 && (
+            <Link
+              href="/admin/posts/new"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-ad-btn px-4 py-2.5 text-[13px] font-semibold text-ad-btn-fg shadow-[0_1px_2px_var(--ad-shadow)] transition hover:brightness-[1.06] active:scale-[0.98]"
+            >
+              <span className="text-[15px] leading-none">+</span> Tulis kabar
+            </Link>
+          )}
         </div>
 
         <AdminPostList posts={posts} />
