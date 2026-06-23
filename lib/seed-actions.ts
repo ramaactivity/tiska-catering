@@ -1,12 +1,13 @@
 "use server";
 
-import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { requireSession } from "@/lib/auth";
 import { seedPosts } from "@/lib/posts/store";
 import { seedBanners } from "@/lib/banners/store";
 import type { Post } from "@/lib/posts/types";
 import type { Banner } from "@/lib/banners/types";
+
+export type SeedState = { ok?: boolean; info?: string; error?: string } | null;
 
 const WA = "https://wa.me/6281383108103";
 
@@ -139,13 +140,29 @@ const BANNERS: Banner[] = [
   },
 ];
 
-export async function seedExamplesAction(): Promise<void> {
-  await requireSession();
-  await seedPosts(POSTS);
-  await seedBanners(BANNERS);
-  revalidatePath("/");
-  revalidatePath("/kabar");
-  revalidatePath("/admin");
-  revalidatePath("/admin/banners");
-  redirect("/admin");
+export async function seedExamplesAction(
+  _prev: SeedState,
+  _formData: FormData,
+): Promise<SeedState> {
+  try {
+    await requireSession();
+    if (!process.env.BLOB_READ_WRITE_TOKEN) {
+      return {
+        error:
+          "Penyimpanan Blob produksi belum aktif (BLOB_READ_WRITE_TOKEN tidak ditemukan). Buka Vercel → Storage → Tiska-News → Connect ke project, atau Settings → Environment Variables, lalu redeploy.",
+      };
+    }
+    const addedPosts = await seedPosts(POSTS);
+    const addedBanners = await seedBanners(BANNERS);
+    revalidatePath("/");
+    revalidatePath("/kabar");
+    revalidatePath("/admin");
+    revalidatePath("/admin/banners");
+    return {
+      ok: true,
+      info: `${addedPosts} kabar & ${addedBanners} banner ditambahkan.`,
+    };
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : String(e) };
+  }
 }

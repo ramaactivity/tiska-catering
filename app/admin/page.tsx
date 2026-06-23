@@ -4,7 +4,7 @@ import { requireSession } from "@/lib/auth";
 import { getAllPosts } from "@/lib/posts/store";
 import AdminHeader from "@/components/admin/AdminHeader";
 import AdminPostList from "@/components/admin/AdminPostList";
-import { seedExamplesAction } from "@/lib/seed-actions";
+import SeedButton from "@/components/admin/SeedButton";
 
 export const metadata: Metadata = {
   title: "Kelola Kabar — Backoffice Tiska",
@@ -31,14 +31,7 @@ export default async function AdminDashboard() {
           </div>
           <div className="flex items-center gap-2">
             {/* Tombol sekali-pakai: isi konten contoh ke produksi. Dihapus setelah dipakai. */}
-            <form action={seedExamplesAction}>
-              <button
-                type="submit"
-                className="rounded-lg border border-ad-border bg-ad-input px-4 py-2.5 text-[13px] font-medium text-ad-text transition-colors hover:border-ad-accent hover:text-ad-accent active:scale-[0.98]"
-              >
-                Isi contoh
-              </button>
-            </form>
+            <SeedButton />
             {posts.length > 0 && (
               <Link
                 href="/admin/posts/new"
