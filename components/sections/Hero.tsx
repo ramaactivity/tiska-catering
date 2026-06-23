@@ -29,8 +29,10 @@ const item = {
   visible: { opacity: 1, y: 0, transition: { duration: 1, ease: EASE } },
 };
 
+type Foto = { src: string; alt: string };
+
 /** Hero: foto sinematik parallax + teks staggered masuk (docs/04 #1). */
-export default function Hero() {
+export default function Hero({ photo = images.hero }: { photo?: Foto }) {
   const ref = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
   // teks hero mulai naik saat tirai loader ±separuh terbuka (handoff mulus)
@@ -71,8 +73,8 @@ export default function Hero() {
         className="absolute inset-x-0 top-0 -z-10 h-[130%] will-change-transform"
       >
         <Image
-          src={images.hero.src}
-          alt={images.hero.alt}
+          src={photo.src}
+          alt={photo.alt}
           fill
           priority
           sizes="100vw"

@@ -20,7 +20,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
  * tidak pernah diam, pergantian tumpang-tindih mulus. Transform/opacity
  * saja; reduced-motion: statis tanpa autoplay.
  */
-export default function MenuRingkas() {
+export default function MenuRingkas({ photos = images.menuRingkas }: { photos?: Record<string, { src: string; alt: string }> }) {
   const [active, setActive] = useState(0);
   const [manual, setManual] = useState(false);
   const reduceMotion = useReducedMotion();
@@ -70,7 +70,7 @@ export default function MenuRingkas() {
             <Reveal delay={0.1}>
               <div className="relative h-[42vh] min-h-[260px] overflow-hidden rounded-lg md:h-[62vh] md:max-h-[640px]">
                 {tiles.map((tile, i) => {
-                  const foto = images.menuRingkas[tile.id];
+                  const foto = photos[tile.id];
                   if (!foto) return null;
                   const isActive = i === active;
                   return (

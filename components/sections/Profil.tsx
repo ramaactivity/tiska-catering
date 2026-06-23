@@ -21,7 +21,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
  * Foto: entrance fade-up + settle scale (bahasa motion hero), lalu
  * parallax berlawanan saat scroll — semua transform-only (GPU).
  */
-export default function Profil() {
+export default function Profil({ photos = images.profil }: { photos?: { src: string; alt: string }[] }) {
   const fotoRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
@@ -52,7 +52,7 @@ export default function Profil() {
         </div>
 
         <div ref={fotoRef} className="grid grid-cols-2 gap-4 md:col-span-6">
-          {images.profil.map((foto, i) => (
+          {photos.map((foto, i) => (
             <motion.div
               key={foto.src}
               style={

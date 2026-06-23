@@ -15,7 +15,7 @@ import Reveal from "@/components/motion/Reveal";
 import WordReveal from "@/components/motion/WordReveal";
 
 /** CTA penutup: foto parallax + "Send your love now" (docs/04 #10). */
-export default function CTA() {
+export default function CTA({ photo = images.cta }: { photo?: { src: string; alt: string } }) {
   const ref = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
@@ -41,8 +41,8 @@ export default function CTA() {
         className="absolute inset-x-0 -top-[15%] -z-10 h-[130%] will-change-transform"
       >
         <Image
-          src={images.cta.src}
-          alt={images.cta.alt}
+          src={photo.src}
+          alt={photo.alt}
           fill
           sizes="100vw"
           className="object-cover"

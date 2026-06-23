@@ -8,6 +8,7 @@ import CTA from "@/components/sections/CTA";
 import Reveal from "@/components/motion/Reveal";
 import { kabarPage } from "@/lib/content";
 import { getPublishedPostBySlug, getPublishedPosts } from "@/lib/posts/store";
+import { getSiteImages } from "@/lib/site-images";
 
 export const dynamic = "force-dynamic";
 
@@ -33,9 +34,8 @@ export default async function KabarDetail({ params }: Params) {
   const post = await getPublishedPostBySlug(slug);
   if (!post) notFound();
 
-  const lainnya = (await getPublishedPosts())
-    .filter((p) => p.id !== post.id)
-    .slice(0, 3);
+  const [lainnyaAll, si] = await Promise.all([getPublishedPosts(), getSiteImages()]);
+  const lainnya = lainnyaAll.filter((p) => p.id !== post.id).slice(0, 3);
   const isi = post.isi?.trim() ?? "";
   const isHTML = /<[a-z][\s\S]*>/i.test(isi);
   const paragraf = isHTML
@@ -161,7 +161,7 @@ export default async function KabarDetail({ params }: Params) {
           </section>
         )}
 
-        <CTA />
+        <CTA photo={si.cta} />
       </main>
       <Footer />
     </>

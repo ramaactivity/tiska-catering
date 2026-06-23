@@ -6,6 +6,7 @@ import KabarGrid from "@/components/sections/KabarGrid";
 import CTA from "@/components/sections/CTA";
 import { kabarPage } from "@/lib/content";
 import { getPublishedPosts } from "@/lib/posts/store";
+import { getSiteImages } from "@/lib/site-images";
 
 export const metadata: Metadata = {
   title: "Kabar — Tiska Catering | Promo, Momen & Menu Musiman",
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function KabarPage() {
-  const posts = await getPublishedPosts();
+  const [posts, si] = await Promise.all([getPublishedPosts(), getSiteImages()]);
 
   return (
     <>
@@ -28,7 +29,7 @@ export default async function KabarPage() {
           intro={kabarPage.intro}
         />
         <KabarGrid posts={posts} />
-        <CTA />
+        <CTA photo={si.cta} />
       </main>
       <Footer />
     </>

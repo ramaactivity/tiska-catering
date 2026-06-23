@@ -8,12 +8,12 @@ import WordReveal from "@/components/motion/WordReveal";
  * Halaman /menu: section per kategori — banner foto + grid item tipografis.
  * Struktur siap menerima foto per item saat aset asli masuk (Fase 4, docs/06).
  */
-export default function MenuKategori() {
+export default function MenuKategori({ photos = images.menuKategori }: { photos?: Record<string, { src: string; alt: string }> }) {
   return (
     <div className="bg-ink px-6 pb-[14vh] md:px-10">
       <div className="mx-auto flex max-w-[1280px] flex-col gap-[14vh]">
         {menuCategories.map((kategori, ki) => {
-          const banner = images.menuKategori[kategori.id];
+          const banner = photos[kategori.id];
           return (
             <section key={kategori.id} id={kategori.id}>
               <div className="mb-8 flex flex-wrap items-end justify-between gap-4 border-b border-line pb-6">

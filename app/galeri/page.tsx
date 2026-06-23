@@ -5,6 +5,7 @@ import PageHero from "@/components/sections/PageHero";
 import GaleriGrid from "@/components/sections/GaleriGrid";
 import CTA from "@/components/sections/CTA";
 import { galeriPage } from "@/lib/content";
+import { getSiteImages } from "@/lib/site-images";
 
 export const metadata: Metadata = {
   title: "Galeri — Tiska Catering | Portofolio Perayaan",
@@ -12,7 +13,8 @@ export const metadata: Metadata = {
     "Galeri momen perayaan bersama Tiska Catering — pernikahan, acara korporat, buffet, hingga hampers istimewa di Bogor, Jakarta, dan JaDeTaBek.",
 };
 
-export default function GaleriPage() {
+export default async function GaleriPage() {
+  const si = await getSiteImages();
   return (
     <>
       <Nav />
@@ -23,7 +25,7 @@ export default function GaleriPage() {
           intro={galeriPage.intro}
         />
         <GaleriGrid />
-        <CTA />
+        <CTA photo={si.cta} />
       </main>
       <Footer />
     </>

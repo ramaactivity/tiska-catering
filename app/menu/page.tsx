@@ -5,6 +5,7 @@ import PageHero from "@/components/sections/PageHero";
 import MenuKategori from "@/components/sections/MenuKategori";
 import CTA from "@/components/sections/CTA";
 import { menuPage } from "@/lib/content";
+import { getSiteImages } from "@/lib/site-images";
 
 export const metadata: Metadata = {
   title: "Menu — Tiska Catering | 250+ Pilihan Hidangan",
@@ -12,7 +13,8 @@ export const metadata: Metadata = {
     "Jelajahi 250+ pilihan menu Tiska Catering: Flavorful Indonesian, Delectable Asian, Pleasant Western, Pasta Special, Tumpeng, dan Festive Hampers.",
 };
 
-export default function MenuPage() {
+export default async function MenuPage() {
+  const si = await getSiteImages();
   return (
     <>
       <Nav />
@@ -22,8 +24,8 @@ export default function MenuPage() {
           judul={menuPage.judul}
           intro={menuPage.intro}
         />
-        <MenuKategori />
-        <CTA />
+        <MenuKategori photos={si.menuKategori} />
+        <CTA photo={si.cta} />
       </main>
       <Footer />
     </>

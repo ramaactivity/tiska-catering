@@ -13,28 +13,29 @@ import Klien from "@/components/sections/Klien";
 import CTA from "@/components/sections/CTA";
 import Footer from "@/components/layout/Footer";
 import { getActiveBanners } from "@/lib/banners/store";
+import { getSiteImages } from "@/lib/site-images";
 
 /* Beranda — 12 section lengkap sesuai urutan & ritme terang-gelap docs/04. */
 
 export default async function Home() {
-  const banners = await getActiveBanners();
+  const [banners, si] = await Promise.all([getActiveBanners(), getSiteImages()]);
 
   return (
     <>
       <Loader />
       <Nav />
       <main>
-        <Hero />
+        <Hero photo={si.hero} />
         <CampaignCarousel banners={banners} />
-        <Profil />
+        <Profil photos={si.profil} />
         <MengapaTiska />
         <Klien />
-        <Sejarah />
-        <Layanan />
+        <Sejarah photo={si.sejarah} />
+        <Layanan photos={si.layanan} />
         <Filosofi />
-        <MenuRingkas />
+        <MenuRingkas photos={si.menuRingkas} />
         <Testimoni />
-        <CTA />
+        <CTA photo={si.cta} />
       </main>
       <Footer />
     </>

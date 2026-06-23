@@ -13,7 +13,7 @@ const SPANS = [
 ];
 
 /** Layanan: 4 layanan dalam bento grid, latar gelap (docs/04 #5). */
-export default function Layanan() {
+export default function Layanan({ photos = images.layanan }: { photos?: { src: string; alt: string }[] }) {
   return (
     <section id="layanan" className="bg-ink px-6 py-[16vh] md:px-10">
       <div className="mx-auto max-w-[1280px]">
@@ -32,8 +32,8 @@ export default function Layanan() {
           {layanan.map((item, i) => (
             <Reveal key={item.judul} delay={i * 0.08} className={SPANS[i]}>
               <Tile
-                src={images.layanan[i].src}
-                alt={images.layanan[i].alt}
+                src={photos[i].src}
+                alt={photos[i].alt}
                 judul={item.judul}
                 deskripsi={item.deskripsi}
                 nomor={String(i + 1).padStart(2, "0")}

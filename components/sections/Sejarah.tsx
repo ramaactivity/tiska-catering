@@ -15,7 +15,7 @@ import WordReveal from "@/components/motion/WordReveal";
  * Foto & section menempel (pin), tahun 1980→2024 berganti seiring scroll.
  * Mobile & prefers-reduced-motion: degrade ke timeline statis yang anggun.
  */
-export default function Sejarah() {
+export default function Sejarah({ photo = images.sejarah }: { photo?: { src: string; alt: string } }) {
   const sectionRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
   const [pinned, setPinned] = useState(false);
@@ -106,7 +106,7 @@ export default function Sejarah() {
           Wrapper data-sejarah-foto di-zoom pelan oleh timeline scrub. */}
       <div data-sejarah-foto className="absolute inset-0 will-change-transform">
         <Image
-          src={images.sejarah.src}
+          src={photo.src}
           alt=""
           fill
           sizes="100vw"
