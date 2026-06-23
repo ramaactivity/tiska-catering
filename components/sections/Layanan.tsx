@@ -78,16 +78,15 @@ function PinnedThread({ photos }: { photos: Foto[] }) {
     target: sectionRef,
     offset: ["start start", "end end"],
   });
+  // geser lurus horizontal murni (tanpa gerak naik-turun)
   const x = useTransform(scrollYProgress, [0, 1], [0, -travel]);
-  // gerak melengkung halus: track naik sedikit di tengah lalu turun
-  const y = useTransform(scrollYProgress, [0, 0.5, 1], [34, -34, 34]);
 
   return (
     <div ref={sectionRef} style={{ height: `calc(100vh + ${travel}px)` }} className="relative mt-[6vh]">
       <div className="sticky top-0 flex h-screen items-center overflow-hidden">
         <motion.div
           ref={rowRef}
-          style={{ x, y }}
+          style={{ x }}
           className="relative flex h-[78vh] items-center gap-[7vw] px-[9vw] will-change-transform"
         >
           {/* Benang emas melintang */}
