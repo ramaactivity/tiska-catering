@@ -21,10 +21,18 @@ export default function CampaignCarousel({ banners }: { banners: Banner[] }) {
   const inView = useInView(ref, { margin: "-15% 0px" });
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [docHidden, setDocHidden] = useState(false);
   const startX = useRef<number | null>(null);
 
   const n = banners.length;
-  const autoplay = inView && !paused && !reduce && n > 1;
+  // Jangan animasikan yang tak terlihat: berhenti saat tab disembunyikan.
+  const autoplay = inView && !paused && !docHidden && !reduce && n > 1;
+
+  useEffect(() => {
+    const onVis = () => setDocHidden(document.hidden);
+    document.addEventListener("visibilitychange", onVis);
+    return () => document.removeEventListener("visibilitychange", onVis);
+  }, []);
 
   useEffect(() => {
     if (!autoplay) return;
@@ -69,10 +77,16 @@ export default function CampaignCarousel({ banners }: { banners: Banner[] }) {
               animate={
                 reduce
                   ? { opacity: isActive ? 1 : 0 }
-                  : { opacity: isActive ? 1 : 0, scale: isActive ? [1.05, 1.12] : 1.05 }
+                  : {
+                      opacity: isActive ? 1 : 0,
+                      scale: isActive ? [1.05, 1.12] : 1.05,
+                      // blur menyamarkan tumpang-tindih dua gambar saat crossfade
+                      filter: isActive ? "blur(0px)" : "blur(7px)",
+                    }
               }
               transition={{
                 opacity: { duration: 1.1, ease: EASE },
+                filter: { duration: 1.1, ease: EASE },
                 scale: { duration: ROTATE_MS / 1000 + 2, ease: "linear" },
               }}
               className="absolute inset-0 will-change-transform"

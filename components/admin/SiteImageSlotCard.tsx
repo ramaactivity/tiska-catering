@@ -180,7 +180,7 @@ export default function SiteImageSlotCard(props: SlotCardProps) {
                   type="button"
                   onClick={save}
                   disabled={saving || !area}
-                  className="rounded-lg bg-ad-btn px-5 py-2 text-[13px] font-semibold text-ad-btn-fg shadow-[0_1px_2px_var(--ad-shadow)] transition hover:brightness-[1.06] disabled:opacity-50"
+                  className="rounded-lg bg-ad-btn px-5 py-2 text-[13px] font-semibold text-ad-btn-fg shadow-[0_1px_2px_var(--ad-shadow)] transition hover:brightness-[1.06] active:scale-[0.98] disabled:opacity-50"
                 >
                   {saving ? "Menyimpan…" : "Simpan foto"}
                 </button>
