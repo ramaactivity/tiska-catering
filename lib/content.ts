@@ -189,27 +189,49 @@ export const layananHeader = {
     { text: "kami", italic: true },
   ] satisfies RichText,
   deskripsi:
-    "Empat layanan, satu standar — premium di setiap skala perayaan.",
+    "Dari hari sakral hingga makan siang harian — satu standar premium di setiap skala.",
 };
 
 export const layanan = [
   {
-    judul: "Private, Wedding & Party",
-    deskripsi: "Untuk setiap tawa, pelukan, dan perayaan.",
+    judul: "Wedding",
+    deskripsi:
+      "Hari paling sakral Anda, dirancang dengan rasa dan detail yang penuh makna.",
+  },
+  {
+    judul: "Private Event & Party",
+    deskripsi:
+      "Ulang tahun, syukuran, arisan, hingga perayaan keluarga yang hangat.",
   },
   {
     judul: "Corporate & Institusi",
     deskripsi:
-      "Rapat, seminar, gathering, hingga perayaan spesial perusahaan.",
+      "Rapat, seminar, gathering, hingga perayaan spesial perusahaan & instansi.",
   },
   {
-    judul: "Buffet & Foodstall",
+    judul: "Daily Catering",
     deskripsi:
-      "Sajian prasmanan dan foodstall interaktif yang menggugah selera.",
+      "Makan siang rutin untuk karyawan kantor, pabrik, dan instansi — konsisten setiap hari.",
   },
   {
-    judul: "Retail, Snack Box & Lunch Box",
-    deskripsi: "Solusi praktis dengan rasa premium khas Tiska.",
+    judul: "Fine Dining",
+    deskripsi:
+      "Sajian plated berkelas dengan table service yang elegan untuk acara istimewa.",
+  },
+  {
+    judul: "Buffet, Banquet & Foodstall",
+    deskripsi:
+      "Prasmanan skala besar dan foodstall interaktif yang menggugah selera.",
+  },
+  {
+    judul: "Hampers",
+    deskripsi:
+      "Bingkisan istimewa untuk berbagi kebahagiaan di momen-momen spesial.",
+  },
+  {
+    judul: "Snack & Lunch Box",
+    deskripsi:
+      "Kotak praktis dengan rasa premium khas Tiska untuk acara maupun keseharian.",
   },
 ];
 

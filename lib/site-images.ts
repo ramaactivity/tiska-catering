@@ -9,6 +9,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import { cache } from "react";
 import { images } from "@/lib/images";
+import { layanan as layananList } from "@/lib/content";
 export { uploadImage } from "@/lib/posts/store";
 
 type Foto = { src: string; alt: string };
@@ -117,12 +118,14 @@ export const SITE_IMAGE_GROUPS: { group: string; slots: ImageSlot[] }[] = [
   },
   {
     group: "Layanan",
-    slots: [
-      { key: "layanan-1", label: "Private, Wedding & Party", ratio: 3 / 4, ratioLabel: "3:4", size: "1200×1600", srcOf: (s) => s.layanan[0]?.src ?? "" },
-      { key: "layanan-2", label: "Corporate & Institusi", ratio: 3 / 2, ratioLabel: "3:2", size: "1500×1000", srcOf: (s) => s.layanan[1]?.src ?? "" },
-      { key: "layanan-3", label: "Buffet & Foodstall", ratio: 3 / 2, ratioLabel: "3:2", size: "1500×1000", srcOf: (s) => s.layanan[2]?.src ?? "" },
-      { key: "layanan-4", label: "Retail, Snack & Lunch Box", ratio: 3 / 2, ratioLabel: "3:2", size: "1500×1000", srcOf: (s) => s.layanan[3]?.src ?? "" },
-    ],
+    slots: images.layanan.map((_, i) => ({
+      key: `layanan-${i + 1}`,
+      label: `Layanan — ${layananList[i]?.judul ?? `Foto ${i + 1}`}`,
+      ratio: 3 / 4,
+      ratioLabel: "3:4",
+      size: "1200×1600",
+      srcOf: (s: ResolvedImages) => s.layanan[i]?.src ?? "",
+    })),
   },
   {
     group: "Menu (per kategori)",

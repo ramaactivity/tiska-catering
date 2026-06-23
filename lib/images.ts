@@ -14,20 +14,36 @@ export const images = {
   },
   layanan: [
     {
-      src: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1400&q=88",
-      alt: "Meja perjamuan pernikahan yang megah",
+      src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1200&q=88",
+      alt: "Resepsi pernikahan dengan tata meja elegan",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1200&q=88",
+      alt: "Perayaan keluarga penuh kehangatan",
     },
     {
       src: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1200&q=88",
       alt: "Suasana acara korporat",
     },
     {
+      src: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1200&q=88",
+      alt: "Hidangan dalam kemasan praktis untuk katering harian",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=88",
+      alt: "Sajian fine dining tertata berkelas",
+    },
+    {
       src: "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=1200&q=88",
       alt: "Sajian prasmanan tertata indah",
     },
     {
-      src: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1200&q=88",
-      alt: "Hidangan dalam kemasan praktis",
+      src: "https://images.unsplash.com/photo-1607344645866-009c320b63e0?auto=format&fit=crop&w=1200&q=88",
+      alt: "Bingkisan hampers istimewa berpita emas",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1432139555190-58524dae6a55?auto=format&fit=crop&w=1200&q=88",
+      alt: "Kotak makan praktis tertata rapi",
     },
   ],
   /** Foto kategori menu beranda — key = id kategori (lib/content.ts) */
