@@ -85,6 +85,21 @@ export async function updateBanner(id: string, input: BannerInput): Promise<Bann
   return banners[idx];
 }
 
+/** Tambah banner contoh yang belum ada (berdasarkan id). Kembalikan jumlah ditambah. */
+export async function seedBanners(items: Banner[]): Promise<number> {
+  const banners = await readRaw();
+  const existing = new Set(banners.map((b) => b.id));
+  let added = 0;
+  for (const it of items) {
+    if (!existing.has(it.id)) {
+      banners.push(it);
+      added++;
+    }
+  }
+  if (added) await writeRaw(banners);
+  return added;
+}
+
 export async function deleteBanner(id: string): Promise<void> {
   const banners = await readRaw();
   const target = banners.find((b) => b.id === id);

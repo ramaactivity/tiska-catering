@@ -152,6 +152,21 @@ export async function deletePost(id: string): Promise<void> {
   }
 }
 
+/** Tambah post contoh yang belum ada (berdasarkan id). Kembalikan jumlah ditambah. */
+export async function seedPosts(items: Post[]): Promise<number> {
+  const posts = await readRaw();
+  const existing = new Set(posts.map((p) => p.id));
+  let added = 0;
+  for (const it of items) {
+    if (!existing.has(it.id)) {
+      posts.push(it);
+      added++;
+    }
+  }
+  if (added) await writeRaw(posts);
+  return added;
+}
+
 // ─── Upload foto ──────────────────────────────────────────────────────────────
 
 export async function uploadImage(file: File): Promise<string> {

@@ -4,6 +4,7 @@ import { requireSession } from "@/lib/auth";
 import { getAllPosts } from "@/lib/posts/store";
 import AdminHeader from "@/components/admin/AdminHeader";
 import AdminPostList from "@/components/admin/AdminPostList";
+import { seedExamplesAction } from "@/lib/seed-actions";
 
 export const metadata: Metadata = {
   title: "Kelola Kabar — Backoffice Tiska",
@@ -28,14 +29,25 @@ export default async function AdminDashboard() {
               Kelola promo, momen spesial, menu musiman & kabar acara.
             </p>
           </div>
-          {posts.length > 0 && (
-            <Link
-              href="/admin/posts/new"
-              className="inline-flex items-center gap-1.5 rounded-lg bg-ad-btn px-4 py-2.5 text-[13px] font-semibold text-ad-btn-fg shadow-[0_1px_2px_var(--ad-shadow)] transition hover:brightness-[1.06] active:scale-[0.98]"
-            >
-              <span className="text-[15px] leading-none">+</span> Tulis kabar
-            </Link>
-          )}
+          <div className="flex items-center gap-2">
+            {/* Tombol sekali-pakai: isi konten contoh ke produksi. Dihapus setelah dipakai. */}
+            <form action={seedExamplesAction}>
+              <button
+                type="submit"
+                className="rounded-lg border border-ad-border bg-ad-input px-4 py-2.5 text-[13px] font-medium text-ad-text transition-colors hover:border-ad-accent hover:text-ad-accent active:scale-[0.98]"
+              >
+                Isi contoh
+              </button>
+            </form>
+            {posts.length > 0 && (
+              <Link
+                href="/admin/posts/new"
+                className="inline-flex items-center gap-1.5 rounded-lg bg-ad-btn px-4 py-2.5 text-[13px] font-semibold text-ad-btn-fg shadow-[0_1px_2px_var(--ad-shadow)] transition hover:brightness-[1.06] active:scale-[0.98]"
+              >
+                <span className="text-[15px] leading-none">+</span> Tulis kabar
+              </Link>
+            )}
+          </div>
         </div>
 
         <AdminPostList posts={posts} />
