@@ -10,11 +10,13 @@ import Reveal from "@/components/motion/Reveal";
 
 type Foto = { src: string; alt: string };
 const EASE = "cubic-bezier(0.16,1,0.3,1)";
+const THREAD =
+  "repeating-linear-gradient(90deg, rgba(196,160,90,0.55) 0 7px, transparent 7px 16px)";
 
 /**
- * Layanan: pinned horizontal scroll (docs/04 #5, redesign).
- * Desktop: section "ngepin", deretan kartu bergeser ke kiri saat scroll.
- * Mobile / reduced-motion: swipe horizontal native (snap).
+ * Layanan — "Benang Emas": perjalanan layanan di sepanjang benang emas.
+ * Desktop: pinned horizontal, stasiun zig-zag pada benang, gerak melengkung halus.
+ * Mobile / reduced-motion: swipe horizontal kartu premium.
  */
 export default function Layanan({ photos = images.layanan }: { photos?: Foto[] }) {
   const reduce = useReducedMotion();
@@ -32,7 +34,7 @@ export default function Layanan({ photos = images.layanan }: { photos?: Foto[] }
 
   return (
     <section id="layanan" className="bg-ink">
-      <div className="mx-auto max-w-[1280px] px-6 pt-[16vh] md:px-10">
+      <div className="mx-auto max-w-[1280px] px-6 pt-[15vh] md:px-10">
         <div className="flex flex-wrap items-end justify-between gap-5">
           <h2 className="font-display text-[clamp(34px,5.5vw,90px)] font-light leading-[0.92] tracking-[-0.025em] text-paper">
             <WordReveal segments={layananHeader.judul} />
@@ -41,19 +43,19 @@ export default function Layanan({ photos = images.layanan }: { photos?: Foto[] }
             <p className="max-w-[360px] text-[14px] leading-[1.7] text-[#9a9282]">
               {layananHeader.deskripsi}
               <span className="mt-2 block text-[11px] uppercase tracking-[0.22em] text-gold-soft/70">
-                {pinned ? "Scroll untuk menjelajah →" : "Geser untuk menjelajah →"}
+                {pinned ? "Scroll menyusuri benang →" : "Geser untuk menyusuri →"}
               </span>
             </p>
           </Reveal>
         </div>
       </div>
 
-      {pinned ? <PinnedRow photos={photos} /> : <SwipeRow photos={photos} />}
+      {pinned ? <PinnedThread photos={photos} /> : <SwipeRow photos={photos} />}
     </section>
   );
 }
 
-function PinnedRow({ photos }: { photos: Foto[] }) {
+function PinnedThread({ photos }: { photos: Foto[] }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const rowRef = useRef<HTMLDivElement>(null);
   const [travel, setTravel] = useState(0);
@@ -65,7 +67,7 @@ function PinnedRow({ photos }: { photos: Foto[] }) {
     };
     measure();
     window.addEventListener("resize", measure);
-    const t = setTimeout(measure, 300);
+    const t = setTimeout(measure, 350);
     return () => {
       window.removeEventListener("resize", measure);
       clearTimeout(t);
@@ -77,20 +79,120 @@ function PinnedRow({ photos }: { photos: Foto[] }) {
     offset: ["start start", "end end"],
   });
   const x = useTransform(scrollYProgress, [0, 1], [0, -travel]);
+  // gerak melengkung halus: track naik sedikit di tengah lalu turun
+  const y = useTransform(scrollYProgress, [0, 0.5, 1], [34, -34, 34]);
 
   return (
-    <div ref={sectionRef} style={{ height: `calc(100vh + ${travel}px)` }} className="relative mt-[9vh]">
+    <div ref={sectionRef} style={{ height: `calc(100vh + ${travel}px)` }} className="relative mt-[6vh]">
       <div className="sticky top-0 flex h-screen items-center overflow-hidden">
         <motion.div
           ref={rowRef}
-          style={{ x }}
-          className="flex gap-6 px-6 will-change-transform md:px-10"
+          style={{ x, y }}
+          className="relative flex h-[78vh] items-center gap-[7vw] px-[9vw] will-change-transform"
         >
+          {/* Benang emas melintang */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-1/2 h-px -translate-y-1/2"
+            style={{ backgroundImage: THREAD }}
+          />
           {layanan.map((s, i) => (
-            <ServiceCard key={s.judul} i={i} judul={s.judul} deskripsi={s.deskripsi} photo={photos[i]} />
+            <Station key={s.judul} i={i} judul={s.judul} deskripsi={s.deskripsi} photo={photos[i]} />
           ))}
-          <EndCard />
+          <EndStation />
         </motion.div>
+      </div>
+    </div>
+  );
+}
+
+function Station({
+  i,
+  judul,
+  deskripsi,
+  photo,
+}: {
+  i: number;
+  judul: string;
+  deskripsi: string;
+  photo?: Foto;
+}) {
+  const photoAbove = i % 2 === 0;
+  return (
+    <div className="relative h-full w-[230px] shrink-0">
+      {/* Angka indeks duduk di benang */}
+      <span
+        aria-hidden
+        className="absolute left-1/2 top-1/2 z-0 -translate-x-1/2 -translate-y-1/2 font-display text-[clamp(48px,4.4vw,74px)] font-light leading-none text-transparent [-webkit-text-stroke:1.2px_rgba(196,160,90,0.5)]"
+      >
+        {String(i + 1).padStart(2, "0")}
+      </span>
+
+      {/* Foto — satu sisi benang */}
+      <div className={`absolute left-1/2 w-[200px] -translate-x-1/2 ${photoAbove ? "bottom-1/2 mb-11" : "top-1/2 mt-11"}`}>
+        <div className="group relative overflow-hidden rounded-xl ring-1 ring-gold/25 shadow-[0_30px_60px_-24px_rgba(0,0,0,0.85)]">
+          <div className="relative aspect-[4/5]">
+            {photo && (
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                fill
+                sizes="200px"
+                className="object-cover transition-transform duration-[1300ms] will-change-transform group-hover:scale-[1.05]"
+                style={{ transitionTimingFunction: EASE }}
+              />
+            )}
+            <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,transparent_60%,rgba(12,11,8,0.35))]" />
+          </div>
+        </div>
+      </div>
+
+      {/* Caption — sisi seberang benang */}
+      <div className={`absolute left-1/2 w-[230px] -translate-x-1/2 text-center ${photoAbove ? "top-1/2 mt-11" : "bottom-1/2 mb-11"}`}>
+        <h3 className="font-display text-[clamp(20px,1.8vw,26px)] font-light leading-[1.12] text-gold-soft">
+          {judul}
+        </h3>
+        <p className="mx-auto mt-2 max-w-[210px] text-[12.5px] leading-[1.65] text-paper/65">
+          {deskripsi}
+        </p>
+        <a
+          href={company.whatsappLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group/cta mt-3 inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] text-gold-soft/90 transition-colors hover:text-gold-bright"
+        >
+          Tanya layanan ini
+          <span aria-hidden className="transition-transform duration-300 group-hover/cta:translate-x-1">→</span>
+        </a>
+      </div>
+    </div>
+  );
+}
+
+function EndStation() {
+  return (
+    <div className="relative flex h-full w-[360px] shrink-0 items-center justify-center">
+      <span aria-hidden className="absolute left-1/2 top-1/2 z-10 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold ring-4 ring-ink" />
+      <div className="absolute left-1/2 top-1/2 w-[340px] -translate-x-1/2 mt-9">
+        <p className="mb-3 flex items-center gap-3 text-[11px] uppercase tracking-[0.3em] text-gold-soft">
+          <span aria-hidden className="h-px w-8 bg-gold" /> Acara lain?
+        </p>
+        <h3 className="font-display text-[clamp(24px,2.2vw,34px)] font-light leading-[1.1] text-paper">
+          Setiap perayaan punya kebutuhannya sendiri.
+        </h3>
+        <p className="mt-3 max-w-[300px] text-[13.5px] leading-[1.8] text-paper/65">
+          Ceritakan acara Anda, kami rancang layanan yang paling pas.
+        </p>
+        <a
+          href={company.whatsappLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative mt-6 inline-flex w-fit items-center gap-2.5 overflow-hidden rounded-full border border-gold/70 px-7 py-3 text-[12px] uppercase tracking-[0.18em] text-gold-soft transition-colors duration-500 hover:text-ink active:scale-[0.98]"
+        >
+          <span aria-hidden className="absolute inset-0 translate-y-full bg-gold transition-transform duration-500 ease-out group-hover:translate-y-0" />
+          <span className="relative">Hubungi kami</span>
+          <span aria-hidden className="relative transition-transform duration-500 group-hover:translate-x-1">→</span>
+        </a>
       </div>
     </div>
   );
@@ -98,102 +200,32 @@ function PinnedRow({ photos }: { photos: Foto[] }) {
 
 function SwipeRow({ photos }: { photos: Foto[] }) {
   return (
-    <div className="mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-[14vh] [-ms-overflow-style:none] [scrollbar-width:none] md:px-10 [&::-webkit-scrollbar]:hidden">
+    <div className="mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-[14vh] [-ms-overflow-style:none] [scrollbar-width:none] md:px-10 [&::-webkit-scrollbar]:hidden">
       {layanan.map((s, i) => (
-        <ServiceCard key={s.judul} i={i} judul={s.judul} deskripsi={s.deskripsi} photo={photos[i]} mobile />
+        <article key={s.judul} className="w-[78vw] shrink-0 snap-center">
+          <div className="relative overflow-hidden rounded-2xl ring-1 ring-gold/25">
+            <div className="relative aspect-[4/5]">
+              {photos[i] && (
+                <Image src={photos[i].src} alt={photos[i].alt} fill sizes="78vw" className="object-cover" />
+              )}
+              <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,transparent_55%,rgba(12,11,8,0.5))]" />
+            </div>
+            <span aria-hidden className="absolute left-4 top-3 font-display text-[52px] font-light leading-none text-transparent [-webkit-text-stroke:1px_rgba(216,184,118,0.6)]">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+          </div>
+          <h3 className="mt-4 font-display text-[24px] font-light leading-[1.1] text-gold-soft">{s.judul}</h3>
+          <p className="mt-2 text-[13.5px] leading-[1.7] text-paper/70">{s.deskripsi}</p>
+          <a
+            href={company.whatsappLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-gold-soft"
+          >
+            Tanya layanan ini <span aria-hidden>→</span>
+          </a>
+        </article>
       ))}
-      <EndCard mobile />
     </div>
-  );
-}
-
-function ServiceCard({
-  i,
-  judul,
-  deskripsi,
-  photo,
-  mobile,
-}: {
-  i: number;
-  judul: string;
-  deskripsi: string;
-  photo?: Foto;
-  mobile?: boolean;
-}) {
-  return (
-    <article
-      className={`group relative shrink-0 snap-center overflow-hidden rounded-2xl ${
-        mobile ? "h-[64vh] w-[80vw]" : "h-[72vh] w-[clamp(360px,42vw,560px)]"
-      }`}
-    >
-      {photo && (
-        <Image
-          src={photo.src}
-          alt={photo.alt}
-          fill
-          sizes={mobile ? "80vw" : "50vw"}
-          className="object-cover transition-transform duration-[1200ms] will-change-transform group-hover:scale-[1.05]"
-          style={{ transitionTimingFunction: EASE }}
-        />
-      )}
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,11,8,0.45)_0%,transparent_28%,rgba(12,11,8,0.9)_88%)]"
-      />
-      <span
-        aria-hidden
-        className="absolute left-6 top-5 font-display text-[clamp(40px,4.6vw,62px)] font-light leading-none text-transparent [-webkit-text-stroke:1px_rgba(216,184,118,0.65)]"
-      >
-        {String(i + 1).padStart(2, "0")}
-      </span>
-      <div className="absolute inset-x-0 bottom-0 p-6 md:p-7">
-        <h3 className="font-display text-[clamp(24px,2.3vw,34px)] font-light leading-[1.06] text-paper">
-          {judul}
-        </h3>
-        <p className="mt-2.5 max-w-[360px] text-[13.5px] leading-[1.7] text-paper/75">
-          {deskripsi}
-        </p>
-        <a
-          href={company.whatsappLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group/cta mt-4 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-gold-soft transition-colors hover:text-gold-bright"
-        >
-          Tanya layanan ini
-          <span aria-hidden className="transition-transform duration-300 group-hover/cta:translate-x-1">→</span>
-        </a>
-      </div>
-    </article>
-  );
-}
-
-function EndCard({ mobile }: { mobile?: boolean }) {
-  return (
-    <article
-      className={`flex shrink-0 snap-center flex-col justify-center rounded-2xl border border-line bg-ink-2 px-8 ${
-        mobile ? "h-[64vh] w-[80vw]" : "h-[72vh] w-[clamp(300px,30vw,420px)]"
-      }`}
-    >
-      <p className="mb-4 flex items-center gap-3 text-[11px] uppercase tracking-[0.3em] text-gold-soft">
-        <span aria-hidden className="h-px w-8 bg-gold" />
-        Acara lain?
-      </p>
-      <h3 className="font-display text-[clamp(26px,2.4vw,38px)] font-light leading-[1.08] text-paper">
-        Setiap perayaan punya kebutuhannya sendiri.
-      </h3>
-      <p className="mt-3 max-w-[320px] text-[14px] leading-[1.8] text-paper/65">
-        Ceritakan acara Anda, kami rancang layanan yang paling pas.
-      </p>
-      <a
-        href={company.whatsappLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="group relative mt-7 inline-flex w-fit items-center gap-2.5 overflow-hidden rounded-full border border-gold/70 px-7 py-3 text-[12px] uppercase tracking-[0.18em] text-gold-soft transition-colors duration-500 hover:text-ink active:scale-[0.98]"
-      >
-        <span aria-hidden className="absolute inset-0 translate-y-full bg-gold transition-transform duration-500 ease-out group-hover:translate-y-0" />
-        <span className="relative">Hubungi kami</span>
-        <span aria-hidden className="relative transition-transform duration-500 group-hover:translate-x-1">→</span>
-      </a>
-    </article>
   );
 }
