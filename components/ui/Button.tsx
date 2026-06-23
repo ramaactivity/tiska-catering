@@ -30,7 +30,7 @@ export default function Button({
   return (
     <Link
       href={href}
-      className={`group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full border font-normal uppercase tracking-[0.18em] transition-colors duration-500 hover:text-ink ${color} ${pad} ${className}`}
+      className={`group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full border font-normal uppercase tracking-[0.18em] transition-colors duration-500 hover:text-ink active:scale-[0.98] ${color} ${pad} ${className}`}
     >
       <span
         aria-hidden

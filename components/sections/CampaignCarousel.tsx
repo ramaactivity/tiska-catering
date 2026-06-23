@@ -181,7 +181,7 @@ export default function CampaignCarousel({ banners }: { banners: Banner[] }) {
 function Cta({ href, label }: { href: string; label: string }) {
   const external = /^https?:\/\//i.test(href);
   const cls =
-    "group/cta relative inline-flex items-center gap-2.5 overflow-hidden rounded-full border border-gold/70 px-7 py-3 text-[12px] font-normal uppercase tracking-[0.18em] text-gold-soft transition-colors duration-500 hover:text-ink";
+    "group/cta relative inline-flex items-center gap-2.5 overflow-hidden rounded-full border border-gold/70 px-7 py-3 text-[12px] font-normal uppercase tracking-[0.18em] text-gold-soft transition-colors duration-500 hover:text-ink active:scale-[0.98]";
   const inner = (
     <>
       <span aria-hidden className="absolute inset-0 translate-y-full bg-gold transition-transform duration-500 ease-out group-hover/cta:translate-y-0" />
@@ -206,7 +206,7 @@ function Arrow({ dir, onClick }: { dir: "prev" | "next"; onClick: () => void }) 
       type="button"
       onClick={onClick}
       aria-label={dir === "prev" ? "Sebelumnya" : "Berikutnya"}
-      className="flex h-10 w-10 items-center justify-center rounded-full border border-paper/25 bg-ink/40 text-[18px] leading-none text-paper/80 backdrop-blur-sm transition-colors duration-300 hover:border-gold/60 hover:text-gold-bright"
+      className="flex h-10 w-10 items-center justify-center rounded-full border border-paper/25 bg-ink/40 text-[18px] leading-none text-paper/80 backdrop-blur-sm transition-[color,border-color,transform] duration-200 hover:border-gold/60 hover:text-gold-bright active:scale-90"
     >
       {dir === "prev" ? "‹" : "›"}
     </button>
