@@ -705,6 +705,34 @@ export const faqCategories: FaqCategory[] = [
   },
 ];
 
+// ─── Sertifikasi (trust strip — sebelum CTA) ────────────────────────────────
+// Fakta dari Rama: Tiska bersertifikat Halal & HACCP. Tidak mengarang badan
+// penerbit/nomor sertifikat. Emblem = tipografi (ganti logo resmi bila tersedia).
+
+export const sertifikasi = {
+  eyebrow: "Standar & Jaminan",
+  judul: [
+    { text: "Disiapkan dengan " },
+    { text: "standar tertinggi", italic: true },
+  ] satisfies RichText,
+  deskripsi:
+    "Setiap hidangan diolah di dapur yang bersertifikat Halal dan menerapkan sistem keamanan pangan HACCP — agar Anda dan para tamu menikmati setiap sajian dengan tenang.",
+  items: [
+    {
+      tag: "Halal",
+      judul: "Tersertifikasi Halal",
+      ket: "Bahan dan seluruh proses dapur sesuai ketentuan kehalalan.",
+      icon: "seal" as const,
+    },
+    {
+      tag: "HACCP",
+      judul: "Bersertifikat HACCP",
+      ket: "Sistem keamanan dan higienitas pangan yang terkontrol di tiap tahap.",
+      icon: "shield" as const,
+    },
+  ],
+};
+
 // ─── CTA Penutup ────────────────────────────────────────────────────────────
 
 export const cta = {
