@@ -152,9 +152,9 @@ export default function GaleriAcara({ items }: { items: GalleryPhoto[] }) {
           </div>
         </Reveal>
 
-        {/* Rail (jelajah semua foto) */}
+        {/* Rail berjalan tanpa henti (berhenti saat hover) */}
         <div className="mt-3">
-          <EventRail items={items} onOpen={(i) => setBox(i)} />
+          <EventRail items={items} onOpen={(i) => setBox(i)} marquee />
         </div>
       </div>
 

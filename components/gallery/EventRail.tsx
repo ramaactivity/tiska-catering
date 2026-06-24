@@ -2,81 +2,105 @@
 
 import { useRef } from "react";
 import Image from "next/image";
+import { useReducedMotion } from "framer-motion";
 import type { GalleryPhoto } from "@/components/gallery/Lightbox";
 
+type Item = GalleryPhoto & { gi?: number };
+
 /**
- * Rail horizontal foto acara — gaya Netflix:
- * - hover sebuah kartu → membesar & naik di atas tetangga (yang meredup)
- * - klik → buka lightbox (onOpen)
- * - panah ‹ › untuk geser; di mobile bisa di-swipe
+ * Rail foto acara.
+ * - `marquee`: berjalan horizontal tanpa henti (infinite loop); berhenti saat
+ *   di-hover. Dipakai di beranda.
+ * - default: native scroll + panah ‹ ›. Dipakai di /galeri (per kategori).
+ *
+ * Hover kartu = gambar zoom + kartu terangkat (footprint tetap, tidak menimpa
+ * tetangga). Klik = lightbox.
  */
 export default function EventRail({
   items,
   onOpen,
-  onActive,
+  marquee = false,
 }: {
-  items: (GalleryPhoto & { gi?: number })[];
+  items: Item[];
   onOpen: (i: number) => void;
-  onActive?: (i: number) => void;
+  marquee?: boolean;
 }) {
   const scroller = useRef<HTMLDivElement>(null);
+  const reduce = useReducedMotion();
 
-  const scroll = (dir: number) => {
+  const scrollBy = (dir: number) => {
     const el = scroller.current;
     if (!el) return;
     el.scrollBy({ left: dir * el.clientWidth * 0.8, behavior: "smooth" });
   };
 
+  // ── Mode marquee (beranda) — nonaktif bila reduced-motion ──
+  if (marquee && !reduce) {
+    const loop = [...items, ...items];
+    return (
+      <div className="group/rail relative overflow-hidden [-webkit-mask-image:linear-gradient(90deg,transparent,#000_4%,#000_96%,transparent)] [mask-image:linear-gradient(90deg,transparent,#000_4%,#000_96%,transparent)]">
+        <div className="gallery-marquee flex w-max gap-3 py-10 group-hover/rail:[animation-play-state:paused]">
+          {loop.map((it, i) => (
+            <RailCard key={i} it={it} onClick={() => onOpen(i % items.length)} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  // ── Mode native scroll + panah ──
   return (
     <div className="group/rail relative -mx-1">
-      <Arrow side="left" onClick={() => scroll(-1)} />
-      <Arrow side="right" onClick={() => scroll(1)} />
-
+      <Arrow side="left" onClick={() => scrollBy(-1)} />
+      <Arrow side="right" onClick={() => scrollBy(1)} />
       <div
         ref={scroller}
         className="flex snap-x gap-3 overflow-x-auto px-1 py-10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {items.map((it, i) => (
-          <button
-            key={`${it.src}-${i}`}
-            type="button"
-            onClick={() => onOpen(i)}
-            onMouseEnter={() => onActive?.(i)}
-            onFocus={() => onActive?.(i)}
-            className="group/card relative aspect-[4/3] w-[260px] shrink-0 snap-start overflow-hidden rounded-xl ring-1 ring-line transition-[transform,opacity,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform first:origin-left last:origin-right hover:z-30 hover:scale-[1.14] hover:opacity-100 hover:shadow-[0_30px_60px_-18px_rgba(0,0,0,0.8)] hover:ring-gold/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 sm:w-[300px] lg:group-hover/rail:opacity-55"
-          >
-            <Image
-              src={it.src}
-              alt={it.alt}
-              fill
-              sizes="300px"
-              className="object-cover transition-transform duration-700 ease-out group-hover/card:scale-105"
-            />
-            {/* gradien bawah agar caption terbaca */}
-            <div
-              aria-hidden
-              className="absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(14,13,10,0.82))]"
-            />
-            {/* caption */}
-            <div className="absolute inset-x-0 bottom-0 p-4 text-left">
-              <p className="text-[9px] uppercase tracking-[0.26em] text-gold-soft">
-                {it.kategori}
-              </p>
-              <p className="mt-1 line-clamp-1 translate-y-1 text-[12.5px] leading-snug text-paper/0 transition-all duration-500 group-hover/card:translate-y-0 group-hover/card:text-paper/85">
-                {it.judul ?? it.alt}
-              </p>
-            </div>
-            {/* ikon perbesar */}
-            <span
-              aria-hidden
-              className="absolute right-3 top-3 grid size-7 place-items-center rounded-full border border-paper/30 bg-ink/40 text-[12px] text-paper/85 opacity-0 backdrop-blur-sm transition-opacity duration-400 group-hover/card:opacity-100"
-            >
-              ⤢
-            </span>
-          </button>
+          <div key={`${it.src}-${i}`} className="snap-start">
+            <RailCard it={it} onClick={() => onOpen(i)} />
+          </div>
         ))}
       </div>
     </div>
+  );
+}
+
+/* Kartu — footprint tetap saat hover (tak menimpa tetangga): gambar zoom + angkat */
+function RailCard({ it, onClick }: { it: Item; onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="group/card relative aspect-[4/3] w-[200px] shrink-0 overflow-hidden rounded-lg ring-1 ring-line transition-[transform,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform hover:-translate-y-1.5 hover:shadow-[0_20px_44px_-16px_rgba(0,0,0,0.85)] hover:ring-gold/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 sm:w-[224px]"
+    >
+      <Image
+        src={it.src}
+        alt={it.alt}
+        fill
+        sizes="240px"
+        className="object-cover transition-transform duration-[900ms] ease-out group-hover/card:scale-110"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-[linear-gradient(180deg,transparent_42%,rgba(14,13,10,0.82))]"
+      />
+      <div className="absolute inset-x-0 bottom-0 p-3.5 text-left">
+        <p className="text-[8.5px] uppercase tracking-[0.24em] text-gold-soft">
+          {it.kategori}
+        </p>
+        <p className="mt-0.5 line-clamp-1 translate-y-1 text-[11.5px] leading-snug text-paper/0 transition-all duration-500 group-hover/card:translate-y-0 group-hover/card:text-paper/90">
+          {it.judul ?? it.alt}
+        </p>
+      </div>
+      <span
+        aria-hidden
+        className="absolute right-2.5 top-2.5 grid size-6 place-items-center rounded-full border border-paper/30 bg-ink/40 text-[11px] text-paper/85 opacity-0 backdrop-blur-sm transition-opacity duration-400 group-hover/card:opacity-100"
+      >
+        ⤢
+      </span>
+    </button>
   );
 }
 

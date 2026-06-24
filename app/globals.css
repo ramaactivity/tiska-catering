@@ -79,6 +79,19 @@ body {
   color: var(--ink);
 }
 
+/* Rail galeri berjalan tanpa henti (marquee); berhenti saat di-hover via JS class */
+@keyframes gallery-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.gallery-marquee {
+  animation: gallery-marquee 48s linear infinite;
+}
+
 /* Sapuan cahaya pada panel sertifikat (Sertifikasi) */
 @keyframes cert-shimmer {
   0% {
