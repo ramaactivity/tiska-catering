@@ -37,7 +37,7 @@ export default function GaleriRails({ items }: { items: GalleryPhoto[] }) {
     if (paused || reduce || highlights.length < 2) return;
     const t = setInterval(
       () => setActive((a) => (a + 1) % highlights.length),
-      6000,
+      4000,
     );
     return () => clearInterval(t);
   }, [paused, reduce, highlights.length]);

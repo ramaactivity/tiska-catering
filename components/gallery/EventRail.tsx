@@ -84,13 +84,13 @@ function RailCard({ it, onClick }: { it: Item; onClick: () => void }) {
       />
       <div
         aria-hidden
-        className="absolute inset-0 bg-[linear-gradient(180deg,transparent_42%,rgba(14,13,10,0.82))]"
+        className="absolute inset-0 bg-[linear-gradient(180deg,transparent_22%,rgba(14,13,10,0.5)_58%,rgba(14,13,10,0.94))]"
       />
       <div className="absolute inset-x-0 bottom-0 p-3.5 text-left">
-        <p className="text-[8.5px] uppercase tracking-[0.24em] text-gold-soft">
+        <p className="text-[9px] uppercase tracking-[0.22em] text-gold-soft">
           {it.kategori}
         </p>
-        <p className="mt-0.5 line-clamp-1 translate-y-1 text-[11.5px] leading-snug text-paper/0 transition-all duration-500 group-hover/card:translate-y-0 group-hover/card:text-paper/90">
+        <p className="mt-1 line-clamp-2 text-[12.5px] font-light leading-snug text-paper drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]">
           {it.judul ?? it.alt}
         </p>
       </div>

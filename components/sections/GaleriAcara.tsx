@@ -36,7 +36,7 @@ export default function GaleriAcara({ items }: { items: GalleryPhoto[] }) {
 
   useEffect(() => {
     if (paused || reduce || highlights.length < 2) return;
-    const t = setInterval(() => setHi((h) => (h + 1) % highlights.length), 6000);
+    const t = setInterval(() => setHi((h) => (h + 1) % highlights.length), 4000);
     return () => clearInterval(t);
   }, [paused, reduce, highlights.length]);
 
