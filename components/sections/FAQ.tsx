@@ -30,19 +30,22 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      className="bg-paper-bg px-6 py-[16vh] text-paper-ink md:px-10"
+      className="scroll-mt-24 bg-paper-bg px-6 py-[16vh] text-paper-ink md:scroll-mt-28 md:px-10"
     >
       <div className="mx-auto max-w-[1280px]">
-        {/* Header */}
-        <div className="mb-14 max-w-[640px] md:mb-20">
-          <Reveal>
-            <Eyebrow tone="light">{faqHeader.eyebrow}</Eyebrow>
-          </Reveal>
-          <h2 className="mt-7 font-display text-[clamp(34px,5.5vw,76px)] font-light leading-[0.96] tracking-[-0.025em]">
-            <RichTitle segments={faqHeader.judul} accentClass="text-gold-deep" />
-          </h2>
-          <Reveal delay={0.12}>
-            <p className="mt-6 max-w-[460px] text-[15px] leading-[1.8] text-paper-ink/60">
+        {/* Header — judul kiri, deskripsi kanan-bawah (selaras pola MengapaTiska,
+            mengisi ruang kanan-atas agar tidak kosong melompong). */}
+        <div className="mb-14 flex flex-col gap-8 md:mb-20 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-[680px]">
+            <Reveal>
+              <Eyebrow tone="light">{faqHeader.eyebrow}</Eyebrow>
+            </Reveal>
+            <h2 className="mt-7 font-display text-[clamp(34px,5.5vw,76px)] font-light leading-[0.96] tracking-[-0.025em]">
+              <RichTitle segments={faqHeader.judul} accentClass="text-gold-deep" />
+            </h2>
+          </div>
+          <Reveal delay={0.12} className="md:pb-2">
+            <p className="max-w-[360px] text-[15px] leading-[1.8] text-paper-ink/65">
               {faqHeader.deskripsi}
             </p>
           </Reveal>
@@ -124,7 +127,7 @@ function CategoryNav({
                 type="button"
                 onClick={() => onSelect(i)}
                 aria-current={isActive ? "true" : undefined}
-                className="group relative flex w-full items-start gap-3.5 rounded-md py-3 pl-4 pr-3 text-left transition-colors duration-300"
+                className="group relative flex w-full items-start gap-3.5 rounded-md py-3 pl-4 pr-3 text-left transition-colors duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold-deep/50"
               >
                 {/* Penanda batang emas saat aktif */}
                 <span
@@ -145,7 +148,7 @@ function CategoryNav({
                     className={`text-[15px] leading-tight transition-colors duration-300 ${
                       isActive
                         ? "text-paper-ink"
-                        : "text-paper-ink/55 group-hover:text-paper-ink/80"
+                        : "text-paper-ink/65 group-hover:text-paper-ink/90"
                     }`}
                   >
                     {c.label}
@@ -214,7 +217,7 @@ function AccordionRow({
           onClick={onToggle}
           aria-expanded={open}
           aria-controls={panelId}
-          className="group flex w-full items-start gap-5 py-6 text-left md:py-7"
+          className="group flex w-full items-start gap-5 rounded-sm py-6 text-left md:py-7 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold-deep/40"
         >
           <span className="mt-2 hidden font-display text-[12px] tabular-nums text-gold-deep/70 sm:block">
             {String(index + 1).padStart(2, "0")}
@@ -270,7 +273,7 @@ function Answer({ blocks }: { blocks: FaqBlock[] }) {
     <div className="flex flex-col gap-4">
       {blocks.map((block, i) =>
         "p" in block ? (
-          <p key={i} className="text-[15px] leading-[1.85] text-paper-ink/70">
+          <p key={i} className="text-[15px] leading-[1.8] text-paper-ink/75">
             {block.p}
           </p>
         ) : (
