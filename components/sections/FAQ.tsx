@@ -283,7 +283,7 @@ function Answer({ blocks }: { blocks: FaqBlock[] }) {
                 />
                 <span>
                   {row.term && (
-                    <span className="text-paper-ink">{row.term}</span>
+                    <span className="font-medium text-paper-ink">{row.term}</span>
                   )}
                   {row.term && " — "}
                   {row.text}
