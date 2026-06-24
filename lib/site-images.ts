@@ -10,12 +10,14 @@ import path from "path";
 import { cache } from "react";
 import { images } from "@/lib/images";
 import { layanan as layananList, teamGroups } from "@/lib/content";
-export { uploadImage } from "@/lib/posts/store";
+import { uploadImage } from "@/lib/posts/store";
+export { uploadImage };
 
 type Foto = { src: string; alt: string };
 type ResolvedImages = typeof images;
 
-const DATA_KEY = "site/images.json";
+const DATA_KEY = "site/images.json"; // legacy: satu file map (dibaca untuk kompatibilitas)
+const SLOT_PREFIX = "site/slots/"; // robust: satu blob per slot (anti lost-update)
 const DATA_DIR = path.join(process.cwd(), "data");
 const DATA_FILE = path.join(DATA_DIR, "site-images.json");
 
@@ -23,7 +25,8 @@ function blobEnabled(): boolean {
   return !!process.env.BLOB_READ_WRITE_TOKEN;
 }
 
-export async function readOverrides(): Promise<Record<string, string>> {
+/** Peta legacy {slot: url} dari site/images.json (foto lama tetap terbaca). */
+async function readLegacyMap(): Promise<Record<string, string>> {
   if (blobEnabled()) {
     const { list } = await import("@vercel/blob");
     const { blobs } = await list({ prefix: DATA_KEY, limit: 1 });
@@ -39,20 +42,79 @@ export async function readOverrides(): Promise<Record<string, string>> {
   }
 }
 
-export async function writeOverrides(map: Record<string, string>): Promise<void> {
+/**
+ * Peta override {slot: url}. Digabung dari dua sumber:
+ *  1. legacy site/images.json (kompatibilitas foto lama), lalu
+ *  2. per-slot blob site/slots/<slot>.jpg — MENANG. Tiap upload menulis file
+ *     sendiri (bukan read-modify-write satu map), jadi tak ada update yang
+ *     saling menimpa saat mengganti banyak foto beruntun. URL diberi ?v=
+ *     (waktu unggah) sebagai cache-bust agar foto baru langsung tampil.
+ */
+export async function readOverrides(): Promise<Record<string, string>> {
+  const map = await readLegacyMap();
+  if (blobEnabled()) {
+    const { list } = await import("@vercel/blob");
+    const { blobs } = await list({ prefix: SLOT_PREFIX });
+    for (const b of blobs) {
+      const slot = b.pathname.slice(SLOT_PREFIX.length).replace(/\.[^./]+$/, "");
+      if (slot) map[slot] = `${b.url}?v=${new Date(b.uploadedAt).getTime()}`;
+    }
+  }
+  return map;
+}
+
+/** Simpan foto satu slot (robust, satu file per slot). */
+export async function putSiteImage(slot: string, file: File): Promise<void> {
   if (blobEnabled()) {
     const { put } = await import("@vercel/blob");
-    await put(DATA_KEY, JSON.stringify(map, null, 2), {
+    await put(`${SLOT_PREFIX}${slot}.jpg`, file, {
       access: "public",
-      contentType: "application/json",
+      contentType: "image/jpeg",
       addRandomSuffix: false,
       allowOverwrite: true,
-      cacheControlMaxAge: 0,
+      cacheControlMaxAge: 31536000,
     });
     return;
   }
+  // Dev (fs, proses tunggal → aman pakai map lokal).
+  const url = await uploadImage(file);
+  const map = await readLegacyMap();
+  map[slot] = url;
   await fs.mkdir(DATA_DIR, { recursive: true });
   await fs.writeFile(DATA_FILE, JSON.stringify(map, null, 2), "utf8");
+}
+
+/** Hapus override satu slot (per-slot blob + entri legacy bila ada). */
+export async function removeSiteImage(slot: string): Promise<void> {
+  if (blobEnabled()) {
+    const { list, del, put } = await import("@vercel/blob");
+    const { blobs } = await list({ prefix: `${SLOT_PREFIX}${slot}.` });
+    await Promise.all(blobs.map((b) => del(b.url)));
+    const { blobs: legacy } = await list({ prefix: DATA_KEY, limit: 1 });
+    if (legacy.length) {
+      const res = await fetch(legacy[0].url, { cache: "no-store" });
+      if (res.ok) {
+        const map = (await res.json()) as Record<string, string>;
+        if (map[slot]) {
+          delete map[slot];
+          await put(DATA_KEY, JSON.stringify(map, null, 2), {
+            access: "public",
+            contentType: "application/json",
+            addRandomSuffix: false,
+            allowOverwrite: true,
+            cacheControlMaxAge: 0,
+          });
+        }
+      }
+    }
+    return;
+  }
+  const map = await readLegacyMap();
+  if (map[slot]) {
+    delete map[slot];
+    await fs.mkdir(DATA_DIR, { recursive: true });
+    await fs.writeFile(DATA_FILE, JSON.stringify(map, null, 2), "utf8");
+  }
 }
 
 function set(foto: Foto, src?: string): Foto {

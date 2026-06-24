@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Cropper from "react-easy-crop";
 import { saveSiteImageAction, resetSiteImageAction } from "@/lib/site-images-actions";
@@ -84,8 +84,16 @@ export default function SiteImageSlotCard(props: SlotCardProps) {
   const [area, setArea] = useState<Area | null>(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [toast, setToast] = useState<{ ok: boolean; msg: string } | null>(null);
 
   const onCropComplete = useCallback((_: Area, px: Area) => setArea(px), []);
+
+  // Popup notifikasi otomatis hilang setelah 3.5 detik.
+  useEffect(() => {
+    if (!toast) return;
+    const t = setTimeout(() => setToast(null), 3500);
+    return () => clearTimeout(t);
+  }, [toast]);
 
   const pick = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
@@ -116,18 +124,40 @@ export default function SiteImageSlotCard(props: SlotCardProps) {
       if (res?.error) {
         setError(res.error);
         setSaving(false);
+        setToast({ ok: false, msg: res.error });
         return;
       }
       close();
       setSaving(false);
+      setToast({ ok: true, msg: `Foto "${label}" berhasil diganti.` });
       router.refresh();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Gagal menyimpan.");
+      const msg = err instanceof Error ? err.message : "Gagal menyimpan.";
+      setError(msg);
       setSaving(false);
+      setToast({ ok: false, msg });
     }
   };
 
   return (
+    <>
+      {/* Popup notifikasi berhasil / gagal */}
+      {toast && (
+        <div
+          role="status"
+          aria-live="polite"
+          className="fixed left-1/2 top-5 z-[60] flex -translate-x-1/2 items-center gap-2.5 rounded-xl border px-4 py-3 text-[13px] font-medium shadow-lg"
+          style={
+            toast.ok
+              ? { background: "#0f3d2e", borderColor: "#1f7a55", color: "#d7f5e7" }
+              : { background: "#3d1414", borderColor: "#a23a3a", color: "#ffd9d9" }
+          }
+        >
+          <span aria-hidden className="text-[15px]">{toast.ok ? "✓" : "⚠"}</span>
+          <span>{toast.msg}</span>
+        </div>
+      )}
+
     <div className="overflow-hidden rounded-2xl border border-ad-border bg-ad-panel shadow-[0_1px_2px_var(--ad-shadow)]">
       <div className="relative aspect-[16/10] bg-ad-panel-2">
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -222,5 +252,6 @@ export default function SiteImageSlotCard(props: SlotCardProps) {
         </div>
       )}
     </div>
+    </>
   );
 }
