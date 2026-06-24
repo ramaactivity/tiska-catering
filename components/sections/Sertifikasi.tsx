@@ -5,9 +5,16 @@ import BlurToFocus from "@/components/motion/BlurToFocus";
 import WordReveal from "@/components/motion/WordReveal";
 
 /**
- * Sertifikasi — trust strip ramping di latar ink, tepat sebelum CTA.
- * Berperan sebagai "jabat tangan terakhir": jaminan Halal & HACCP sebelum kontak.
- * Emblem tipografi (ring emas + ikon) — siap diganti logo resmi bila tersedia.
+ * Sertifikasi — trust strip di latar ink, tepat sebelum CTA: jaminan Halal & HACCP
+ * sebagai "jabat tangan terakhir" sebelum kontak.
+ *
+ * Catatan aset:
+ * - Halal: logo resmi Halal Indonesia (BPJPH), public domain. Wajib di chip terang
+ *   karena warnanya ungu solid → tak terbaca di latar gelap, dan warnanya tidak
+ *   boleh diubah (mark teregulasi).
+ * - HACCP: badge "HACCP CERTIFIED" generik (baris nama certifier "by Quality
+ *   Assurance Services" sudah dihapus dari SVG agar tidak mengklaim badan tertentu).
+ *   Ganti dengan badge certifier asli Tiska bila tersedia.
  */
 export default function Sertifikasi() {
   return (
@@ -29,65 +36,44 @@ export default function Sertifikasi() {
           </p>
         </Reveal>
 
-        {/* Dua emblem, dipisah garis tipis (vertikal di desktop, horizontal di mobile) */}
-        <div className="mx-auto mt-14 flex max-w-[600px] flex-col items-stretch divide-y divide-line sm:flex-row sm:divide-x sm:divide-y-0">
+        {/* Dua badge pada chip terang (seal berbingkai) */}
+        <div className="mt-14 flex flex-col items-center justify-center gap-6 sm:flex-row sm:items-stretch">
           {sertifikasi.items.map((item, i) => (
-            <BlurToFocus
-              key={item.tag}
-              delay={0.1 + i * 0.12}
-              className="flex flex-1 flex-col items-center px-6 py-8 sm:py-2"
-            >
-              <Emblem icon={item.icon} />
-              <p className="mt-5 text-[11px] uppercase tracking-[0.3em] text-gold-soft">
-                {item.tag}
-              </p>
-              <p className="mt-2 font-display text-[19px] font-light text-paper">
-                {item.judul}
-              </p>
-              <p className="mt-2.5 max-w-[230px] text-[12.5px] leading-[1.65] text-[#8c8472]">
-                {item.ket}
-              </p>
+            <BlurToFocus key={item.kind} delay={0.1 + i * 0.12}>
+              <figure className="flex h-full w-[260px] flex-col items-center rounded-2xl border border-[#e3d9c3] bg-paper px-7 py-8 shadow-[0_18px_50px_-20px_rgba(0,0,0,0.65)]">
+                <div className="flex h-[80px] items-center justify-center">
+                  {item.kind === "halal" ? (
+                    // eslint-disable-next-line @next/next/no-img-element -- logo SVG statis, next/image tak mengoptimasi SVG
+                    <img
+                      src="/logos/sertifikasi/halal-indonesia.svg"
+                      alt="Logo Halal Indonesia"
+                      className="h-[78px] w-auto"
+                    />
+                  ) : (
+                    // eslint-disable-next-line @next/next/no-img-element -- logo SVG statis, next/image tak mengoptimasi SVG
+                    <img
+                      src="/logos/sertifikasi/haccp-certified.svg"
+                      alt="Logo HACCP Certified"
+                      className="h-[42px] w-auto"
+                    />
+                  )}
+                </div>
+                <figcaption className="mt-5">
+                  <p className="text-[10px] uppercase tracking-[0.28em] text-gold-deep">
+                    {item.tag}
+                  </p>
+                  <p className="mt-1.5 font-display text-[17px] font-light text-paper-ink">
+                    {item.judul}
+                  </p>
+                  <p className="mx-auto mt-2.5 max-w-[200px] text-[12px] leading-[1.6] text-paper-ink/55">
+                    {item.ket}
+                  </p>
+                </figcaption>
+              </figure>
             </BlurToFocus>
           ))}
         </div>
       </div>
     </section>
-  );
-}
-
-/* ── Emblem: ring emas + ikon (seal untuk Halal, perisai untuk HACCP) ── */
-function Emblem({ icon }: { icon: "seal" | "shield" }) {
-  return (
-    <span className="relative grid size-[60px] place-items-center">
-      {/* cincin ganda halus */}
-      <span aria-hidden className="absolute inset-0 rounded-full border border-gold/40" />
-      <span aria-hidden className="absolute inset-[5px] rounded-full border border-gold/20" />
-      <svg
-        width="26"
-        height="26"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="text-gold-soft"
-        aria-hidden
-      >
-        {icon === "seal" ? (
-          <>
-            {/* Seal bergerigi + centang */}
-            <path d="M12 2.6l2.1 1.5 2.5-.5 1 2.4 2.3 1.1-.5 2.5 1.5 2.1-1.5 2.1.5 2.5-2.3 1.1-1 2.4-2.5-.5L12 21.4l-2.1-1.5-2.5.5-1-2.4-2.3-1.1.5-2.5L3.1 12l1.5-2.1-.5-2.5 2.3-1.1 1-2.4 2.5.5z" />
-            <path d="M9 12l2.2 2.2L15.4 10" />
-          </>
-        ) : (
-          <>
-            {/* Perisai + centang */}
-            <path d="M12 2.6l7 2.7v5.5c0 4.4-3 8.1-7 9.6-4-1.5-7-5.2-7-9.6V5.3z" />
-            <path d="M8.8 12l2.2 2.2 4.2-4.4" />
-          </>
-        )}
-      </svg>
-    </span>
   );
 }

@@ -719,16 +719,16 @@ export const sertifikasi = {
     "Setiap hidangan diolah di dapur yang bersertifikat Halal dan menerapkan sistem keamanan pangan HACCP — agar Anda dan para tamu menikmati setiap sajian dengan tenang.",
   items: [
     {
-      tag: "Halal",
-      judul: "Tersertifikasi Halal",
+      kind: "halal" as const,
+      tag: "Tersertifikasi",
+      judul: "Halal Indonesia",
       ket: "Bahan dan seluruh proses dapur sesuai ketentuan kehalalan.",
-      icon: "seal" as const,
     },
     {
-      tag: "HACCP",
-      judul: "Bersertifikat HACCP",
-      ket: "Sistem keamanan dan higienitas pangan yang terkontrol di tiap tahap.",
-      icon: "shield" as const,
+      kind: "haccp" as const,
+      tag: "Bersertifikat",
+      judul: "Standar HACCP",
+      ket: "Sistem keamanan & higienitas pangan terkontrol di tiap tahap.",
     },
   ],
 };
