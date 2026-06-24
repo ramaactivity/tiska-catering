@@ -52,7 +52,7 @@ export default function GaleriRails({ items }: { items: GalleryPhoto[] }) {
         <div
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
-          className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl ring-1 ring-line sm:aspect-[2/1] lg:aspect-[21/9]"
+          className="relative aspect-[3/2] w-full overflow-hidden rounded-2xl ring-1 ring-line sm:aspect-[2/1] lg:aspect-auto lg:h-[min(56vh,560px)]"
         >
           <AnimatePresence>
             <motion.div
@@ -101,7 +101,7 @@ export default function GaleriRails({ items }: { items: GalleryPhoto[] }) {
                 <p className="text-[10px] uppercase tracking-[0.3em] text-gold-soft">
                   {cur.kategori}
                 </p>
-                <p className="mt-2 max-w-[520px] font-display text-[clamp(18px,2.6vw,30px)] font-light leading-tight text-paper">
+                <p className="mt-2 max-w-[560px] font-display text-[clamp(20px,3vw,36px)] font-light leading-tight text-paper">
                   {cur.alt}
                 </p>
               </motion.div>
