@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import type { Banner } from "@/lib/banners/types";
 
 const ROTATE_MS = 6000;
@@ -17,16 +17,14 @@ const EASE = [0.22, 1, 0.36, 1] as const;
  */
 export default function CampaignCarousel({ banners }: { banners: Banner[] }) {
   const reduce = useReducedMotion();
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { margin: "-15% 0px" });
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const [docHidden, setDocHidden] = useState(false);
   const startX = useRef<number | null>(null);
 
   const n = banners.length;
-  // Jangan animasikan yang tak terlihat: berhenti saat tab disembunyikan.
-  const autoplay = inView && !paused && !docHidden && !reduce && n > 1;
+  // Autoplay jalan begitu termuat; cukup berhenti saat hover/swipe atau tab disembunyikan.
+  const autoplay = !paused && !docHidden && !reduce && n > 1;
 
   useEffect(() => {
     const onVis = () => setDocHidden(document.hidden);
@@ -59,7 +57,6 @@ export default function CampaignCarousel({ banners }: { banners: Banner[] }) {
   return (
     <section className="bg-ink px-5 py-[11vh] md:px-10">
       <div
-        ref={ref}
         className="group relative mx-auto aspect-[4/5] w-full max-w-[1280px] touch-pan-y overflow-hidden rounded-2xl sm:aspect-[16/10] lg:aspect-[21/9]"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
@@ -74,31 +71,33 @@ export default function CampaignCarousel({ banners }: { banners: Banner[] }) {
             <motion.div
               key={b.id}
               initial={false}
-              animate={
-                reduce
-                  ? { opacity: isActive ? 1 : 0 }
-                  : {
-                      opacity: isActive ? 1 : 0,
-                      scale: isActive ? [1.05, 1.12] : 1.05,
-                      // blur menyamarkan tumpang-tindih dua gambar saat crossfade
-                      filter: isActive ? "blur(0px)" : "blur(7px)",
-                    }
-              }
+              animate={{
+                opacity: isActive ? 1 : 0,
+                // blur menyamarkan tumpang-tindih dua gambar saat crossfade
+                filter: reduce ? "none" : isActive ? "blur(0px)" : "blur(7px)",
+              }}
               transition={{
                 opacity: { duration: 1.1, ease: EASE },
                 filter: { duration: 1.1, ease: EASE },
-                scale: { duration: ROTATE_MS / 1000 + 2, ease: "linear" },
               }}
-              className="absolute inset-0 will-change-transform"
+              className="absolute inset-0"
             >
-              <Image
-                src={b.imageUrl}
-                alt={b.imageAlt}
-                fill
-                priority={i === 0}
-                sizes="(min-width: 1280px) 1280px, 100vw"
-                className="object-cover"
-              />
+              {/* Ken Burns di layer terpisah — initial sendiri agar zoom main sejak mount */}
+              <motion.div
+                className="absolute inset-0 will-change-transform"
+                initial={reduce ? false : { scale: 1.05 }}
+                animate={{ scale: reduce ? 1 : isActive ? 1.12 : 1.05 }}
+                transition={{ duration: ROTATE_MS / 1000 + 2, ease: "linear" }}
+              >
+                <Image
+                  src={b.imageUrl}
+                  alt={b.imageAlt}
+                  fill
+                  priority={i === 0}
+                  sizes="(min-width: 1280px) 1280px, 100vw"
+                  className="object-cover"
+                />
+              </motion.div>
             </motion.div>
           );
         })}
