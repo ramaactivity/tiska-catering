@@ -2,7 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useSpring,
+  useTransform,
+  useReducedMotion,
+} from "framer-motion";
 import { layanan, layananHeader, company } from "@/lib/content";
 import { images } from "@/lib/images";
 import WordReveal from "@/components/motion/WordReveal";
@@ -76,7 +82,9 @@ function PinnedRow({ photos }: { photos: Foto[] }) {
     target: sectionRef,
     offset: ["start start", "end end"],
   });
-  const x = useTransform(scrollYProgress, [0, 1], [0, -travel]);
+  // Peredam (spring) agar geser horizontal mulus mengejar scroll — bukan 1:1 yang patah.
+  const xRaw = useTransform(scrollYProgress, [0, 1], [0, -travel]);
+  const x = useSpring(xRaw, { stiffness: 120, damping: 32, mass: 0.45, restDelta: 0.5 });
 
   return (
     <div ref={sectionRef} style={{ height: `calc(100vh + ${travel}px)` }} className="relative mt-[9vh]">
