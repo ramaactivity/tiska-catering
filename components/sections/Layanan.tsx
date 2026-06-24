@@ -56,47 +56,58 @@ export default function Layanan({ photos = images.layanan }: { photos?: Foto[] }
 }
 
 function PinnedRow({ photos }: { photos: Foto[] }) {
-  const pinRef = useRef<HTMLDivElement>(null);
+  const outerRef = useRef<HTMLDivElement>(null);
   const rowRef = useRef<HTMLDivElement>(null);
+  const [travel, setTravel] = useState(0);
 
   useEffect(() => {
     const row = rowRef.current;
-    const pin = pinRef.current;
-    if (!row || !pin) return;
+    const outer = outerRef.current;
+    if (!row || !outer) return;
 
     gsap.registerPlugin(ScrollTrigger);
+    const measure = () => Math.max(0, row.scrollWidth - window.innerWidth);
+    setTravel(measure());
+
+    // Pin = CSS sticky (handoff vertikal→horizontal mulus, tanpa switch posisi).
+    // GSAP hanya menggerakkan geser horizontal (scrub, sinkron Lenis → frame-perfect).
     const ctx = gsap.context(() => {
-      const distance = () => Math.max(0, row.scrollWidth - window.innerWidth);
       gsap.to(row, {
-        x: () => -distance(),
+        x: () => -measure(),
         ease: "none",
         scrollTrigger: {
-          trigger: pin,
+          trigger: outer,
           start: "top top",
-          end: () => "+=" + distance(),
-          scrub: 1, // peredam: geser horizontal meluncur halus mengejar scroll
-          pin: true,
-          anticipatePin: 1, // kurangi sentakan saat pin mengunci
+          end: "bottom bottom",
+          scrub: 1,
           invalidateOnRefresh: true,
         },
       });
-    }, pin);
+    }, outer);
 
+    const onResize = () => {
+      setTravel(measure());
+      ScrollTrigger.refresh();
+    };
+    window.addEventListener("resize", onResize);
     const t = setTimeout(() => ScrollTrigger.refresh(), 400);
     return () => {
+      window.removeEventListener("resize", onResize);
       clearTimeout(t);
       ctx.revert();
     };
   }, []);
 
   return (
-    <div ref={pinRef} className="relative h-screen overflow-hidden">
-      <div className="flex h-screen items-center">
-        <div ref={rowRef} className="flex gap-6 px-6 will-change-transform md:px-10">
-          {layanan.map((s, i) => (
-            <ServiceCard key={s.judul} i={i} judul={s.judul} deskripsi={s.deskripsi} photo={photos[i]} />
-          ))}
-          <EndCard />
+    <div ref={outerRef} style={{ height: `calc(100vh + ${travel}px)` }} className="relative">
+      <div className="sticky top-0 h-screen overflow-hidden">
+        <div className="flex h-screen items-center">
+          <div ref={rowRef} className="flex gap-6 px-6 will-change-transform md:px-10">
+            {layanan.map((s, i) => (
+              <ServiceCard key={s.judul} i={i} judul={s.judul} deskripsi={s.deskripsi} photo={photos[i]} />
+            ))}
+            <EndCard />
+          </div>
         </div>
       </div>
     </div>
