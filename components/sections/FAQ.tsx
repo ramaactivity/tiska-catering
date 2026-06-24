@@ -30,7 +30,7 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      className="scroll-mt-24 bg-paper-bg px-6 py-[16vh] text-paper-ink md:scroll-mt-28 md:px-10"
+      className="scroll-mt-24 bg-paper-bg px-6 pb-[16vh] pt-[12vh] text-paper-ink md:scroll-mt-28 md:px-10"
     >
       <div className="mx-auto max-w-[1280px]">
         {/* Header — judul kiri, deskripsi kanan-bawah (selaras pola MengapaTiska,
@@ -82,7 +82,6 @@ export default function FAQ() {
                   {cat.items.map((item, i) => (
                     <AccordionRow
                       key={item.q}
-                      index={i}
                       question={item.q}
                       answer={item.a}
                       open={openQ === i}
@@ -194,13 +193,11 @@ function CategoryNav({
 
 /* ── Satu baris accordion ── */
 function AccordionRow({
-  index,
   question,
   answer,
   open,
   onToggle,
 }: {
-  index: number;
   question: string;
   answer: FaqBlock[];
   open: boolean;
@@ -217,13 +214,10 @@ function AccordionRow({
           onClick={onToggle}
           aria-expanded={open}
           aria-controls={panelId}
-          className="group flex w-full items-start gap-5 rounded-sm py-6 text-left md:py-7 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold-deep/40"
+          className="group flex w-full items-start gap-5 rounded-sm py-[22px] text-left md:py-6 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold-deep/40"
         >
-          <span className="mt-2 hidden font-display text-[12px] tabular-nums text-gold-deep/70 sm:block">
-            {String(index + 1).padStart(2, "0")}
-          </span>
           <span
-            className={`flex-1 font-display text-[clamp(18px,2.1vw,24px)] font-light leading-snug tracking-[-0.01em] transition-colors duration-300 ${
+            className={`flex-1 text-[clamp(16px,1.85vw,20px)] font-normal leading-snug tracking-[-0.005em] transition-colors duration-300 ${
               open ? "text-paper-ink" : "text-paper-ink/80 group-hover:text-paper-ink"
             }`}
           >
@@ -257,7 +251,7 @@ function AccordionRow({
             }}
             className="overflow-hidden"
           >
-            <div className="max-w-[58ch] pb-7 pl-0 sm:pl-[2.4rem] md:pb-9">
+            <div className="max-w-[62ch] pb-8 md:pb-9">
               <Answer blocks={answer} />
             </div>
           </motion.div>
