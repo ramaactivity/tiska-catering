@@ -14,6 +14,7 @@ function refresh() {
 export async function addGalleryAction(_prev: FormState, formData: FormData): Promise<FormState> {
   await requireSession();
   const imageAlt = String(formData.get("imageAlt") ?? "").trim();
+  const judul = String(formData.get("judul") ?? "").trim();
   const kategori = String(formData.get("kategori") ?? "").trim() || "Perayaan";
   const urutan = Number(formData.get("urutan") ?? 0) || 0;
 
@@ -23,7 +24,13 @@ export async function addGalleryAction(_prev: FormState, formData: FormData): Pr
   if (file.size > 8 * 1024 * 1024) return { error: "Ukuran gambar maksimal 8 MB." };
 
   const imageUrl = await store.uploadImage(file);
-  await store.createGallery({ imageUrl, imageAlt: imageAlt || kategori, kategori, urutan });
+  await store.createGallery({
+    imageUrl,
+    imageAlt: imageAlt || kategori,
+    judul: judul || undefined,
+    kategori,
+    urutan,
+  });
   refresh();
   return { ok: true };
 }

@@ -63,7 +63,7 @@ export default function EventRail({
                 {it.kategori}
               </p>
               <p className="mt-1 line-clamp-1 translate-y-1 text-[12.5px] leading-snug text-paper/0 transition-all duration-500 group-hover/card:translate-y-0 group-hover/card:text-paper/85">
-                {it.alt}
+                {it.judul ?? it.alt}
               </p>
             </div>
             {/* ikon perbesar */}

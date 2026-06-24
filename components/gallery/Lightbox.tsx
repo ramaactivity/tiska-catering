@@ -3,7 +3,12 @@
 import { useCallback, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-export type GalleryPhoto = { src: string; alt: string; kategori: string };
+export type GalleryPhoto = {
+  src: string;
+  alt: string;
+  kategori: string;
+  judul?: string;
+};
 
 /**
  * Lightbox foto reusable: overlay fullscreen, navigasi prev/next + keyboard,
@@ -104,7 +109,7 @@ export default function Lightbox({
                 {cur.kategori}
               </span>
               <span className="mt-1.5 block text-[13.5px] text-paper/70">
-                {cur.alt}
+                {cur.judul ?? cur.alt}
               </span>
             </figcaption>
           </motion.figure>

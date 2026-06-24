@@ -102,7 +102,7 @@ export default function GaleriRails({ items }: { items: GalleryPhoto[] }) {
                   {cur.kategori}
                 </p>
                 <p className="mt-2 max-w-[560px] font-display text-[clamp(20px,3vw,36px)] font-light leading-tight text-paper">
-                  {cur.alt}
+                  {cur.judul ?? cur.alt}
                 </p>
               </motion.div>
             </AnimatePresence>

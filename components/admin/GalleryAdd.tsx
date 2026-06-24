@@ -51,8 +51,19 @@ export default function GalleryAdd() {
             </div>
           </div>
           <div>
+            <label className={label}>Judul / caption (opsional)</label>
+            <input
+              name="judul"
+              placeholder="mis. Resepsi pernikahan adat di Bogor"
+              className={field}
+            />
+            <p className="mt-1 text-[11px] text-ad-subtle">
+              Tampil di billboard &amp; lightbox. Bila kosong, memakai teks alternatif.
+            </p>
+          </div>
+          <div>
             <label className={label}>Teks alternatif</label>
-            <input name="imageAlt" placeholder="Deskripsi singkat foto" className={field} />
+            <input name="imageAlt" placeholder="Deskripsi singkat foto (untuk aksesibilitas)" className={field} />
           </div>
           {state?.error && <p className="text-[12px] text-ad-danger">{state.error}</p>}
           <div>

@@ -13,6 +13,8 @@ export type GalleryItem = {
   id: string;
   imageUrl: string;
   imageAlt: string;
+  /** Judul/caption editorial (opsional) — dipakai billboard & lightbox; fallback ke imageAlt. */
+  judul?: string;
   kategori: string;
   urutan: number;
   createdAt: string;
@@ -71,11 +73,16 @@ export async function getAllGallery(): Promise<GalleryItem[]> {
 
 /** Untuk publik: item tersimpan, atau foto bawaan bila kosong. */
 export async function getPublicGallery(): Promise<
-  { src: string; alt: string; kategori: string }[]
+  { src: string; alt: string; kategori: string; judul?: string }[]
 > {
   const items = (await readRaw()).sort(byUrutan);
   if (items.length)
-    return items.map((i) => ({ src: i.imageUrl, alt: i.imageAlt, kategori: i.kategori }));
+    return items.map((i) => ({
+      src: i.imageUrl,
+      alt: i.imageAlt,
+      kategori: i.kategori,
+      judul: i.judul,
+    }));
   return images.galeri;
 }
 
@@ -110,6 +117,7 @@ export async function seedGalleryDefaults(): Promise<number> {
     id: randomUUID(),
     imageUrl: g.src,
     imageAlt: g.alt,
+    judul: g.judul,
     kategori: g.kategori,
     urutan: i + 1,
     createdAt: new Date(now + i).toISOString(),
