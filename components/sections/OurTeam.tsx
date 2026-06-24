@@ -37,14 +37,14 @@ function initials(nama: string): string {
 /** Bracket sudut emas yang "mengunci" ke posisi saat aktif. */
 function Corners({ on }: { on: boolean }) {
   const base =
-    "pointer-events-none absolute h-4 w-4 border-gold transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)]";
+    "pointer-events-none absolute h-3.5 w-3.5 border-gold transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)]";
   const show = on ? "opacity-100" : "opacity-0";
   return (
     <>
-      <span aria-hidden className={`${base} ${show} border-l border-t ${on ? "left-2 top-2" : "left-0.5 top-0.5"}`} />
-      <span aria-hidden className={`${base} ${show} border-r border-t ${on ? "right-2 top-2" : "right-0.5 top-0.5"}`} />
-      <span aria-hidden className={`${base} ${show} border-b border-l ${on ? "bottom-2 left-2" : "bottom-0.5 left-0.5"}`} />
-      <span aria-hidden className={`${base} ${show} border-b border-r ${on ? "bottom-2 right-2" : "bottom-0.5 right-0.5"}`} />
+      <span aria-hidden className={`${base} ${show} rounded-tl-[5px] border-l border-t ${on ? "left-2.5 top-2.5" : "left-1 top-1"}`} />
+      <span aria-hidden className={`${base} ${show} rounded-tr-[5px] border-r border-t ${on ? "right-2.5 top-2.5" : "right-1 top-1"}`} />
+      <span aria-hidden className={`${base} ${show} rounded-bl-[5px] border-b border-l ${on ? "bottom-2.5 left-2.5" : "bottom-1 left-1"}`} />
+      <span aria-hidden className={`${base} ${show} rounded-br-[5px] border-b border-r ${on ? "bottom-2.5 right-2.5" : "bottom-1 right-1"}`} />
     </>
   );
 }
@@ -170,7 +170,7 @@ export default function OurTeam({ photos = images.team }: { photos?: Photos }) {
 
                 {/* Nomor + penanda pimpinan */}
                 <span
-                  className={`absolute bottom-2 left-2.5 flex items-center gap-1.5 font-display text-[10px] tabular-nums tracking-wider transition-colors duration-300 ${
+                  className={`absolute bottom-2.5 left-7 flex items-center gap-1.5 font-display text-[10px] tabular-nums tracking-wider transition-colors duration-300 ${
                     on ? "text-gold-soft" : "text-paper/55"
                   }`}
                 >

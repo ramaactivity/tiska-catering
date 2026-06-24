@@ -859,7 +859,7 @@ export const teamGroups: TeamGroup[] = [
       },
       {
         id: "asep",
-        nama: "Asep Saefulloh",
+        nama: "Asep Saepulloh",
         jabatan: "Kapten",
         bio: "Mengkoordinasi penyajian di lokasi dengan ketelitian, agar setiap tamu terlayani dengan baik.",
       },

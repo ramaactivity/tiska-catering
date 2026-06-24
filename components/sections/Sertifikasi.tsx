@@ -49,10 +49,10 @@ export default function Sertifikasi() {
             </span>
 
             {/* Sudut bracket (gaya piagam) */}
-            <Bracket className="left-3.5 top-3.5 border-b-0 border-r-0" />
-            <Bracket className="right-3.5 top-3.5 border-b-0 border-l-0" />
-            <Bracket className="bottom-3.5 left-3.5 border-r-0 border-t-0" />
-            <Bracket className="bottom-3.5 right-3.5 border-l-0 border-t-0" />
+            <Bracket className="left-3.5 top-3.5 rounded-tl-[7px] border-b-0 border-r-0" />
+            <Bracket className="right-3.5 top-3.5 rounded-tr-[7px] border-b-0 border-l-0" />
+            <Bracket className="bottom-3.5 left-3.5 rounded-bl-[7px] border-r-0 border-t-0" />
+            <Bracket className="bottom-3.5 right-3.5 rounded-br-[7px] border-l-0 border-t-0" />
 
             {sertifikasi.items.map((item, i) => (
               <BlurToFocus key={item.kind} delay={0.24 + i * 0.14}>
