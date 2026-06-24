@@ -8,9 +8,9 @@ import { menuPage } from "@/lib/content";
 import { getSiteImages } from "@/lib/site-images";
 
 export const metadata: Metadata = {
-  title: "Menu — Tiska Catering | 250+ Pilihan Hidangan",
+  title: "Menu — Tiska Catering | 800+ Pilihan Hidangan",
   description:
-    "Jelajahi 250+ pilihan menu Tiska Catering: Flavorful Indonesian, Delectable Asian, Pleasant Western, Pasta Special, Tumpeng, dan Festive Hampers.",
+    "Jelajahi 800+ pilihan menu Tiska Catering: Flavorful Indonesian, Delectable Asian, Pleasant Western, Pasta Special, Tumpeng, dan Festive Hampers.",
 };
 
 export default async function MenuPage() {

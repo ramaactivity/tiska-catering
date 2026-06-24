@@ -9,6 +9,7 @@ import Layanan from "@/components/sections/Layanan";
 import Filosofi from "@/components/sections/Filosofi";
 import MenuRingkas from "@/components/sections/MenuRingkas";
 import Testimoni from "@/components/sections/Testimoni";
+import FAQ from "@/components/sections/FAQ";
 import Klien from "@/components/sections/Klien";
 import CTA from "@/components/sections/CTA";
 import Footer from "@/components/layout/Footer";
@@ -38,6 +39,7 @@ export default async function Home() {
         <Filosofi />
         <MenuRingkas photos={si.menuRingkas} />
         <Testimoni />
+        <FAQ />
         <CTA photo={si.cta} />
       </main>
       <Footer />

@@ -30,7 +30,7 @@ Semua teks final dalam Bahasa Indonesia. Copy sudah dipoles agar elegan & tidak 
 - 35+ tahun pengalaman
 - 350+ acara/perayaan per tahun
 - 10.000+ pesanan per bulan
-- 250+ pilihan menu
+- 800+ pilihan menu
 - 25 karyawan
 - 1000 M² area dapur
 - 2500+ tamu dapat dilayani per hari
@@ -68,7 +68,7 @@ Semua teks final dalam Bahasa Indonesia. Copy sudah dipoles agar elegan & tidak 
 - **35+** Tahun pengalaman — Resep warisan tiga generasi, konsisten sejak 1980; rasa yang bisa Anda percaya.
 - **350+** Acara per tahun — Dari pernikahan intim hingga gala korporat, setiap skala terasa istimewa.
 - **10.000+** Pesanan per bulan — Skala produksi teruji menjamin ketepatan dan kualitas, sebanyak apa pun tamu.
-- **250+** Pilihan menu — Indonesian, Asian, Western; tiap selera dan tema dapat kami sesuaikan.
+- **800+** Pilihan menu — Indonesian, Asian, Western, hingga Mediterranean; tiap selera dan tema dapat kami sesuaikan.
 
 ## Sejarah (timeline)
 

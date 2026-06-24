@@ -45,7 +45,7 @@ Ini satu-satunya efek "berat" yang disarankan. Foto latar tetap (pinned), sement
 
 ## Halaman /menu
 
-- Hero ringkas: judul "Menu" + intro singkat (250+ pilihan).
+- Hero ringkas: judul "Menu" + intro singkat (800+ pilihan).
 - Section per kategori: Flavorful Indonesian, Delectable Asian, Pleasant Western, Pasta Special, Tumpeng, Festive Hampers.
 - Tiap kategori: grid foto item + nama (data di `03-content-copy.md`).
 - Efek: blur-to-focus reveal per kategori saat scroll (FM). Lenis aktif.

@@ -42,7 +42,7 @@ export const company = {
     { value: 35, suffix: "+", label: "tahun pengalaman" },
     { value: 350, suffix: "+", label: "acara/perayaan per tahun" },
     { value: 10000, suffix: "+", label: "pesanan per bulan" },
-    { value: 250, suffix: "+", label: "pilihan menu" },
+    { value: 800, suffix: "+", label: "pilihan menu" },
     { value: 25, suffix: "", label: "karyawan" },
     { value: 1000, suffix: "", label: "M² area dapur" },
     { value: 2500, suffix: "+", label: "tamu dapat dilayani per hari" },
@@ -59,6 +59,7 @@ export const nav = {
     { label: "Menu", href: "/menu" },
     { label: "Kabar", href: "/kabar" },
     { label: "Klien", href: "/#klien" },
+    { label: "FAQ", href: "/#faq" },
   ],
   // Keputusan Rama: tombol Kontak di nav → langsung WhatsApp Ida Raodah
   cta: { label: "Kontak", href: company.whatsappLink },
@@ -135,7 +136,7 @@ export const reasons = [
       "Skala produksi teruji menjamin ketepatan dan kualitas, sebanyak apa pun tamu.",
   },
   {
-    value: 250,
+    value: 800,
     suffix: "+",
     label: "Pilihan menu",
     deskripsi:
@@ -250,9 +251,9 @@ export const menuPage = {
     { text: "Menu " },
     { text: "kami", italic: true },
   ] satisfies RichText,
-  // intro memakai copy reasons docs/03 (250+ pilihan menu)
+  // intro memakai copy reasons docs/03 (800+ pilihan menu)
   intro:
-    "250+ pilihan menu — Indonesian, Asian, Western; tiap selera dan tema dapat kami sesuaikan.",
+    "800+ pilihan menu — Indonesian, Asian, Western, hingga Mediterranean; tiap selera dan tema dapat kami sesuaikan.",
 };
 
 // ─── Halaman /galeri ────────────────────────────────────────────────────────
@@ -381,7 +382,7 @@ export const menuCategories = [
 // ─── Menu ringkas (beranda — 4 kategori unggulan, link ke /menu) ────────────
 
 export const menuRingkas = {
-  eyebrow: "250+ Pilihan Menu",
+  eyebrow: "800+ Pilihan Menu",
   judul: [
     { text: "Cita rasa " },
     { text: "tanpa batas", italic: true },
@@ -493,6 +494,217 @@ export const klien = {
   ],
 };
 
+// ─── FAQ (pertanyaan umum) ──────────────────────────────────────────────────
+// Sumber jawaban: catatan Rama. Copy dirapikan agar tenang & ringkas (brand: anggun,
+// bukan hard-sell). Angka menu seragam "800+" di seluruh situs (statistik, reasons, menuPage).
+
+/** Satu blok jawaban: paragraf (`p`) atau daftar berlabel (`list`). */
+export type FaqBlock =
+  | { p: string }
+  | { list: { term?: string; text: string }[] };
+
+export type FaqItem = { q: string; a: FaqBlock[] };
+export type FaqCategory = {
+  id: string;
+  label: string;
+  ringkas: string;
+  items: FaqItem[];
+};
+
+export const faqHeader = {
+  eyebrow: "Pertanyaan Umum",
+  judul: [
+    { text: "Hal yang sering " },
+    { text: "ditanyakan", italic: true },
+  ] satisfies RichText,
+  deskripsi:
+    "Semua yang perlu Anda tahu sebelum merayakan momen bersama kami — dari layanan dan menu hingga ketentuan biaya. Pilih topik di samping.",
+  ctaTanya: "Masih ada yang ingin ditanyakan?",
+  cta: { label: "Tanya via WhatsApp", href: company.whatsappLink },
+};
+
+export const faqCategories: FaqCategory[] = [
+  {
+    id: "layanan",
+    label: "Layanan & Acara",
+    ringkas: "Jenis acara & bentuk layanan",
+    items: [
+      {
+        q: "Tiska melayani jenis acara apa saja?",
+        a: [
+          {
+            p: "Dari momen privat — pernikahan, lamaran, ulang tahun, hingga syukuran keluarga — sampai agenda korporat, gathering, dan acara institusi berskala besar. Setiap skala kami tangani dengan standar yang sama.",
+          },
+        ],
+      },
+      {
+        q: "Apa saja bentuk layanan kateringnya?",
+        a: [
+          { p: "Kami menyiapkan delapan bentuk layanan agar sesuai kebutuhan acara Anda:" },
+          {
+            list: [
+              { term: "Wedding", text: "Katering pernikahan menyeluruh yang elegan." },
+              { term: "Private Event & Party", text: "Ulang tahun, syukuran, arisan, dan momen hangat keluarga." },
+              { term: "Corporate & Institusi", text: "Rapat, seminar, gathering, hingga perayaan perusahaan." },
+              { term: "Daily Catering", text: "Makan siang rutin untuk kantor, pabrik, dan instansi dengan menu harian bervariasi." },
+              { term: "Fine Dining", text: "Sajian plated berkelas dengan table service." },
+              { term: "Buffet, Banquet & Foodstall", text: "Prasmanan skala besar dan area foodstall interaktif." },
+              { term: "Hampers", text: "Bingkisan eksklusif untuk berbagi kebahagiaan." },
+              { term: "Snack & Lunch Box", text: "Solusi praktis berkualitas untuk beragam kebutuhan." },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "pemesanan",
+    label: "Pemesanan & Pengiriman",
+    ringkas: "Minimum, area, waktu, & cara pesan",
+    items: [
+      {
+        q: "Bagaimana cara memesannya?",
+        a: [
+          {
+            p: "Cukup hubungi tim kami via WhatsApp. Kami akan berdiskusi soal tanggal, jumlah tamu, dan selera acara Anda, lalu menyiapkan penawaran yang sesuai.",
+          },
+        ],
+      },
+      {
+        q: "Berapa minimum pemesanannya?",
+        a: [
+          {
+            p: "Minimum 25 pax untuk buffet maupun meal box. Untuk acara yang lebih intim, kami juga dapat melayani mulai 20 pax dengan penyesuaian pada ketentuan minimum Service Charge.",
+          },
+        ],
+      },
+      {
+        q: "Di mana lokasi Tiska, dan area mana saja yang dilayani?",
+        a: [
+          {
+            p: "Dapur pusat kami berada di Jl. Julang 1 No. 3, Tanah Sereal, Kota Bogor. Kami melayani pengiriman katering untuk seluruh wilayah Jabodetabek.",
+          },
+        ],
+      },
+      {
+        q: "Dapur di Bogor — apakah makanan tetap aman dikirim ke Jakarta dan sekitarnya?",
+        a: [
+          {
+            p: "Tentu aman. Jarak tempuh ke area Jabodetabek umumnya 1–2 jam, dan kami menerapkan standar pengemasan serta logistik yang ketat — makanan tiba dalam keadaan segar, higienis, dan terjaga kualitasnya.",
+          },
+        ],
+      },
+      {
+        q: "Kapan sebaiknya saya memesan?",
+        a: [
+          {
+            p: "Agar kami dapat mempersiapkan acara Anda dengan maksimal, sebaiknya konfirmasi pemesanan dilakukan selambat-lambatnya 14 hari sebelum hari H.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "menu",
+    label: "Menu & Rasa",
+    ringkas: "Pilihan, vegetarian, custom, & test food",
+    items: [
+      {
+        q: "Ada berapa banyak pilihan menu, dan masakan apa saja?",
+        a: [
+          {
+            p: "Lebih dari 800 pilihan menu, dengan ragam yang sangat luas — mulai dari hidangan khas Nusantara, Western, Asian, hingga Mediterranean.",
+          },
+        ],
+      },
+      {
+        q: "Apakah ada menu vegetarian atau menu custom?",
+        a: [
+          {
+            p: "Ada. Kami menyediakan menu vegetarian, dan Anda dapat berdiskusi dengan tim untuk menyusun menu custom sesuai selera atau tema acara.",
+          },
+        ],
+      },
+      {
+        q: "Bisakah saya test food dulu sebelum memesan?",
+        a: [
+          {
+            p: "Bisa. Demi kenyamanan Anda, hidangan test food juga dapat kami antar langsung ke rumah atau kantor.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "hospitality",
+    label: "Hospitality & Live Cooking",
+    ringkas: "Fine dining, banquet, & station",
+    items: [
+      {
+        q: "Apakah Tiska melayani plating, banquet service, dan fine dining?",
+        a: [
+          {
+            p: "Ya. Kami berpengalaman menangani fine dining dan banquet dengan standar penyajian berkelas — cocok untuk menjamu tamu VIP maupun VVIP Anda.",
+          },
+        ],
+      },
+      {
+        q: "Bisakah menghadirkan live cooking seperti Egg Station, Grill, BBQ, atau Steak?",
+        a: [
+          {
+            p: "Bisa. Kami kerap menghadirkan area live cooking interaktif yang membuat suasana santap di acara Anda terasa lebih hidup dan eksklusif.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "biaya",
+    label: "Biaya & Ketentuan",
+    ringkas: "Service charge, box, & pengiriman",
+    items: [
+      {
+        q: "Apakah ada Service Charge, dan bagaimana ketentuannya?",
+        a: [
+          { p: "Ketentuan biaya kami transparan, mengikuti lokasi dan profil klien:" },
+          {
+            list: [
+              {
+                term: "Korporat — Jabodetabek",
+                text: "Pajak Restoran (PB1) 10% dari total tagihan makanan, ditambah Service Charge 21% (atau minimal Rp2.500.000, dipilih yang lebih besar).",
+              },
+              {
+                term: "Pribadi — Jakarta & sekitarnya",
+                text: "Service Charge 21% (atau minimal Rp2.500.000, dipilih yang lebih besar).",
+              },
+              {
+                term: "Pribadi — Bogor",
+                text: "Service Charge 15% (atau minimal Rp1.500.000, dipilih yang lebih besar).",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        q: "Bagaimana dengan pesanan bentuk box — ada biaya tambahan?",
+        a: [
+          {
+            p: "Pesanan khusus bentuk box minimal 25 box. Untuk klien korporat, dikenakan tambahan PB1 sebesar 10%.",
+          },
+        ],
+      },
+      {
+        q: "Apakah ada biaya pengiriman?",
+        a: [
+          {
+            p: "Ya, biaya pengiriman berlaku untuk seluruh area, baik Bogor maupun Jakarta. Besarnya disesuaikan secara adil dengan jarak lokasi acara dan jumlah pesanan Anda.",
+          },
+        ],
+      },
+    ],
+  },
+];
+
 // ─── CTA Penutup ────────────────────────────────────────────────────────────
 
 export const cta = {
@@ -517,6 +729,7 @@ export const footer = {
       { label: "Menu", href: "/menu" },
       { label: "Galeri", href: "/galeri" },
       { label: "Klien", href: "/#klien" },
+      { label: "FAQ", href: "/#faq" },
     ],
     hubungi: [
       {
