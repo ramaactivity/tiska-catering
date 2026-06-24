@@ -27,18 +27,50 @@ function loadImage(src: string): Promise<HTMLImageElement> {
   });
 }
 
-async function getCroppedBlob(src: string, area: Area, maxW = 2000): Promise<Blob> {
+/** Ambil lebar disarankan dari label ukuran (mis. "1000×1000" → 1000). */
+function targetWidthFrom(size: string, fallback = 2000): number {
+  const n = parseInt(size, 10);
+  return Number.isFinite(n) && n > 0 ? n : fallback;
+}
+
+/**
+ * Crop + auto-compress yang tetap tajam:
+ * - hanya memperkecil ke lebar disarankan (tak pernah memperbesar → tak pecah),
+ * - downscale kualitas tinggi (imageSmoothingQuality),
+ * - kualitas JPEG mulai tinggi (0.92), turun bertahap HANYA bila masih > maxBytes.
+ */
+async function getCroppedBlob(
+  src: string,
+  area: Area,
+  targetW = 2000,
+  maxBytes = 1_200_000,
+): Promise<Blob> {
   const img = await loadImage(src);
-  const scale = area.width > maxW ? maxW / area.width : 1;
+  const scale = area.width > targetW ? targetW / area.width : 1;
   const canvas = document.createElement("canvas");
   canvas.width = Math.max(1, Math.round(area.width * scale));
   canvas.height = Math.max(1, Math.round(area.height * scale));
   const ctx = canvas.getContext("2d");
   if (!ctx) throw new Error("Canvas tidak didukung.");
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = "high";
   ctx.drawImage(img, area.x, area.y, area.width, area.height, 0, 0, canvas.width, canvas.height);
-  return new Promise((resolve, reject) =>
-    canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("Gagal memproses gambar."))), "image/jpeg", 0.9),
-  );
+
+  const encode = (q: number) =>
+    new Promise<Blob>((resolve, reject) =>
+      canvas.toBlob(
+        (b) => (b ? resolve(b) : reject(new Error("Gagal memproses gambar."))),
+        "image/jpeg",
+        q,
+      ),
+    );
+
+  const qualities = [0.92, 0.86, 0.8, 0.74, 0.68];
+  let blob = await encode(qualities[0]);
+  for (let i = 1; i < qualities.length && blob.size > maxBytes; i++) {
+    blob = await encode(qualities[i]);
+  }
+  return blob;
 }
 
 export default function SiteImageSlotCard(props: SlotCardProps) {
@@ -76,7 +108,7 @@ export default function SiteImageSlotCard(props: SlotCardProps) {
     setSaving(true);
     setError(null);
     try {
-      const blob = await getCroppedBlob(fileSrc, area);
+      const blob = await getCroppedBlob(fileSrc, area, targetWidthFrom(size));
       const fd = new FormData();
       fd.append("slot", slotKey);
       fd.append("image", new File([blob], `${slotKey}.jpg`, { type: "image/jpeg" }));
@@ -138,7 +170,7 @@ export default function SiteImageSlotCard(props: SlotCardProps) {
             <div className="flex items-center justify-between border-b border-ad-border px-5 py-3">
               <div>
                 <p className="text-[14px] font-semibold text-ad-text">Atur foto: {label}</p>
-                <p className="text-[12px] text-ad-subtle">Geser & zoom untuk menempatkan, rasio {ratioLabel}.</p>
+                <p className="text-[12px] text-ad-subtle">Geser & zoom untuk menempatkan, rasio {ratioLabel}. Foto otomatis dikompres tetap tajam.</p>
               </div>
               <button type="button" onClick={close} className="rounded-md px-2 py-1 text-[18px] leading-none text-ad-muted transition-colors hover:text-ad-text">
                 ×
