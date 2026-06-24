@@ -2,13 +2,35 @@
 
 import { useId, useState } from "react";
 import Link from "next/link";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+  type Variants,
+} from "framer-motion";
 import { faqHeader, faqCategories, type FaqBlock } from "@/lib/content";
 import Eyebrow from "@/components/ui/Eyebrow";
 import RichTitle from "@/components/ui/RichTitle";
 import Reveal from "@/components/motion/Reveal";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
+// Pegas lembut untuk indikator yang "meluncur" (magic-move).
+const SLIDE = { type: "spring", stiffness: 380, damping: 34 } as const;
+
+// Daftar pertanyaan stagger-in tiap ganti topik.
+const LIST_V: Variants = {
+  show: { transition: { staggerChildren: 0.06, delayChildren: 0.04 } },
+  exit: { opacity: 0, transition: { duration: 0.2 } },
+};
+const ROW_V: Variants = {
+  hidden: { opacity: 0, y: 14 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
+};
+// Isi jawaban naik berurutan saat dibuka.
+const BLOCK_V: Variants = {
+  hidden: { opacity: 0, y: 8 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE } },
+};
 
 /**
  * FAQ — section terang (memecah deret gelap Testimoni→CTA) dengan navigasi
@@ -19,6 +41,7 @@ export default function FAQ() {
   // Kategori aktif & pertanyaan terbuka (single-open agar bersih).
   const [activeCat, setActiveCat] = useState(0);
   const [openQ, setOpenQ] = useState(0);
+  const reduce = useReducedMotion();
 
   const cat = faqCategories[activeCat];
 
@@ -54,10 +77,7 @@ export default function FAQ() {
         <div className="grid grid-cols-1 gap-y-10 lg:grid-cols-[300px_1fr] lg:gap-x-20">
           {/* ── Navigasi kategori ── */}
           <div className="lg:sticky lg:top-28 lg:self-start">
-            <CategoryNav
-              active={activeCat}
-              onSelect={selectCat}
-            />
+            <CategoryNav active={activeCat} onSelect={selectCat} />
 
             {/* Kartu "masih ada pertanyaan?" — hanya tampil di desktop di kolom kiri */}
             <div className="mt-10 hidden border-t border-line-d pt-8 lg:block">
@@ -71,25 +91,25 @@ export default function FAQ() {
           {/* ── Daftar pertanyaan (accordion) ── */}
           <div className="min-w-0">
             <AnimatePresence mode="wait">
-              <motion.div
+              <motion.ul
                 key={cat.id}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.45, ease: EASE }}
+                className="border-t border-line-d"
+                initial={reduce ? false : "hidden"}
+                animate="show"
+                exit={reduce ? undefined : "exit"}
+                variants={reduce ? undefined : LIST_V}
               >
-                <ul className="border-t border-line-d">
-                  {cat.items.map((item, i) => (
-                    <AccordionRow
-                      key={item.q}
-                      question={item.q}
-                      answer={item.a}
-                      open={openQ === i}
-                      onToggle={() => setOpenQ(openQ === i ? -1 : i)}
-                    />
-                  ))}
-                </ul>
-              </motion.div>
+                {cat.items.map((item, i) => (
+                  <AccordionRow
+                    key={item.q}
+                    question={item.q}
+                    answer={item.a}
+                    open={openQ === i}
+                    onToggle={() => setOpenQ(openQ === i ? -1 : i)}
+                    variants={reduce ? undefined : ROW_V}
+                  />
+                ))}
+              </motion.ul>
             </AnimatePresence>
 
             {/* CTA versi mobile — di bawah daftar */}
@@ -128,13 +148,22 @@ function CategoryNav({
                 aria-current={isActive ? "true" : undefined}
                 className="group relative flex w-full items-start gap-3.5 rounded-md py-3 pl-4 pr-3 text-left transition-colors duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold-deep/50"
               >
-                {/* Penanda batang emas saat aktif */}
-                <span
-                  aria-hidden
-                  className={`absolute left-0 top-1/2 h-0 w-[2px] -translate-y-1/2 bg-gold-deep transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                    isActive ? "h-[62%]" : "group-hover:h-[28%]"
-                  }`}
-                />
+                {/* Batang emas yang meluncur antar kategori (magic-move) */}
+                {isActive && (
+                  <motion.span
+                    layoutId="faq-rail-bar"
+                    aria-hidden
+                    transition={SLIDE}
+                    className="absolute left-0 top-[19%] h-[62%] w-[2px] rounded-full bg-gold-deep"
+                  />
+                )}
+                {/* Petunjuk hover untuk item non-aktif */}
+                {!isActive && (
+                  <span
+                    aria-hidden
+                    className="absolute left-0 top-1/2 h-0 w-[2px] -translate-y-1/2 rounded-full bg-gold-deep/50 transition-all duration-300 group-hover:h-[28%]"
+                  />
+                )}
                 <span
                   className={`mt-px font-display text-[12px] tabular-nums transition-colors duration-300 ${
                     isActive ? "text-gold-deep" : "text-paper-ink/35"
@@ -197,27 +226,38 @@ function AccordionRow({
   answer,
   open,
   onToggle,
+  variants,
 }: {
   question: string;
   answer: FaqBlock[];
   open: boolean;
   onToggle: () => void;
+  variants?: Variants;
 }) {
   const reduceMotion = useReducedMotion();
   const panelId = useId();
 
   return (
-    <li className="border-b border-line-d">
+    <motion.li variants={variants} className="border-b border-line-d">
       <h3>
         <button
           type="button"
           onClick={onToggle}
           aria-expanded={open}
           aria-controls={panelId}
-          className="group flex w-full items-start gap-5 rounded-sm py-[22px] text-left md:py-6 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold-deep/40"
+          className="group relative flex w-full items-start gap-5 rounded-sm py-[22px] pl-5 text-left transition-colors duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold-deep/40 md:py-6"
         >
+          {/* Tick emas pada pertanyaan terbuka — meluncur antar pertanyaan */}
+          {open && (
+            <motion.span
+              layoutId="faq-q-bar"
+              aria-hidden
+              transition={SLIDE}
+              className="absolute left-0 top-1/2 -mt-2.5 h-5 w-[2px] rounded-full bg-gold-deep"
+            />
+          )}
           <span
-            className={`flex-1 text-[clamp(16px,1.85vw,20px)] font-normal leading-snug tracking-[-0.005em] transition-colors duration-300 ${
+            className={`flex-1 text-[clamp(16px,1.85vw,20px)] font-normal leading-snug tracking-[-0.005em] transition-[color,transform] duration-300 group-hover:translate-x-[3px] ${
               open ? "text-paper-ink" : "text-paper-ink/80 group-hover:text-paper-ink"
             }`}
           >
@@ -251,27 +291,45 @@ function AccordionRow({
             }}
             className="overflow-hidden"
           >
-            <div className="max-w-[62ch] pb-8 md:pb-9">
+            <div className="max-w-[62ch] pb-8 pl-5 md:pb-9">
               <Answer blocks={answer} />
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </li>
+    </motion.li>
   );
 }
 
-/* ── Render isi jawaban: paragraf & daftar berlabel ── */
+/* ── Render isi jawaban: paragraf & daftar berlabel (naik berurutan saat buka) ── */
 function Answer({ blocks }: { blocks: FaqBlock[] }) {
+  const reduce = useReducedMotion();
   return (
-    <div className="flex flex-col gap-4">
+    <motion.div
+      className="flex flex-col gap-4"
+      initial={reduce ? false : "hidden"}
+      animate="show"
+      variants={
+        reduce
+          ? undefined
+          : { show: { transition: { staggerChildren: 0.05, delayChildren: 0.06 } } }
+      }
+    >
       {blocks.map((block, i) =>
         "p" in block ? (
-          <p key={i} className="text-[15px] leading-[1.8] text-paper-ink/75">
+          <motion.p
+            key={i}
+            variants={reduce ? undefined : BLOCK_V}
+            className="text-[15px] leading-[1.8] text-paper-ink/75"
+          >
             {block.p}
-          </p>
+          </motion.p>
         ) : (
-          <ul key={i} className="flex flex-col gap-3">
+          <motion.ul
+            key={i}
+            variants={reduce ? undefined : BLOCK_V}
+            className="flex flex-col gap-3"
+          >
             {block.list.map((row, j) => (
               <li
                 key={j}
@@ -290,10 +348,10 @@ function Answer({ blocks }: { blocks: FaqBlock[] }) {
                 </span>
               </li>
             ))}
-          </ul>
+          </motion.ul>
         ),
       )}
-    </div>
+    </motion.div>
   );
 }
 
