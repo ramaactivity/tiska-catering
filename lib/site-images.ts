@@ -9,7 +9,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import { cache } from "react";
 import { images } from "@/lib/images";
-import { layanan as layananList } from "@/lib/content";
+import { layanan as layananList, teamGroups } from "@/lib/content";
 export { uploadImage } from "@/lib/posts/store";
 
 type Foto = { src: string; alt: string };
@@ -78,8 +78,14 @@ export const getSiteImages = cache(async (): Promise<ResolvedImages> => {
     if (si.menuKategori[cat]) si.menuKategori[cat] = set(si.menuKategori[cat], url);
     if (si.menuRingkas[cat]) si.menuRingkas[cat] = set(si.menuRingkas[cat], url);
   }
+  for (const id of Object.keys(si.team)) {
+    si.team[id] = set(si.team[id], ov[`team-${id}`]);
+  }
   return si;
 });
+
+/** Foto placeholder netral untuk preview slot tim di /admin (sebelum upload). */
+export const TEAM_PLACEHOLDER = "/images/team-placeholder.svg";
 
 // ─── Registry slot (untuk UI /admin/foto) ────────────────────────────────────
 
@@ -115,6 +121,19 @@ export const SITE_IMAGE_GROUPS: { group: string; slots: ImageSlot[] }[] = [
       { key: "sejarah", label: "Sejarah (latar)", ratio: 16 / 9, ratioLabel: "16:9", size: "1600×900", srcOf: (s) => s.sejarah.src },
       { key: "cta", label: "Ajakan / CTA (latar)", ratio: 16 / 9, ratioLabel: "16:9", size: "2000×1125", srcOf: (s) => s.cta.src },
     ],
+  },
+  {
+    group: "Tim — Our Team",
+    slots: teamGroups.flatMap((grp) =>
+      grp.members.map((m) => ({
+        key: `team-${m.id}`,
+        label: `${m.nama} — ${m.jabatan}`,
+        ratio: 1,
+        ratioLabel: "1:1",
+        size: "1000×1000",
+        srcOf: (s: ResolvedImages) => s.team[m.id]?.src || TEAM_PLACEHOLDER,
+      })),
+    ),
   },
   {
     group: "Layanan",

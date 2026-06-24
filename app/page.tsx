@@ -11,6 +11,7 @@ import MenuRingkas from "@/components/sections/MenuRingkas";
 import Testimoni from "@/components/sections/Testimoni";
 import FAQ from "@/components/sections/FAQ";
 import Sertifikasi from "@/components/sections/Sertifikasi";
+import OurTeam from "@/components/sections/OurTeam";
 import Klien from "@/components/sections/Klien";
 import CTA from "@/components/sections/CTA";
 import Footer from "@/components/layout/Footer";
@@ -42,6 +43,7 @@ export default async function Home() {
         <Testimoni />
         <FAQ />
         <Sertifikasi />
+        <OurTeam photos={si.team} />
         <CTA photo={si.cta} />
       </main>
       <Footer />

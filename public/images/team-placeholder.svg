@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" role="img" aria-label="Foto belum tersedia">
+  <rect width="800" height="1000" fill="#e9e0cf"/>
+  <g fill="#c4a05a" opacity="0.45">
+    <circle cx="400" cy="400" r="150"/>
+    <path d="M170 920c0-150 103-250 230-250s230 100 230 250z"/>
+  </g>
+</svg>

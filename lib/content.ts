@@ -733,6 +733,133 @@ export const sertifikasi = {
   ],
 };
 
+// ─── Tim (Our Team) ─────────────────────────────────────────────────────────
+// Sumber: company profile Tiska 2025 ("dewan direksi") + tambahan dari Rama.
+// `id` dipakai sebagai kunci slot foto (lihat lib/images.ts → team & /admin/foto).
+// Bilingual (ID/EN) menyusul; untuk sekarang konten Bahasa Indonesia.
+
+export type TeamMember = {
+  id: string;
+  nama: string;
+  jabatan: string;
+  /** Bio singkat (berbasis peran, bukan klaim pribadi). Edit bebas oleh Rama. */
+  bio?: string;
+};
+export type TeamGroup = {
+  id: string;
+  label: string;
+  /** true = ditampilkan sebagai kartu besar (pimpinan) */
+  featured?: boolean;
+  members: TeamMember[];
+};
+
+export const teamHeader = {
+  eyebrow: "Tim Kami",
+  judul: [
+    { text: "Orang di balik setiap " },
+    { text: "perayaan", italic: true },
+  ] satisfies RichText,
+  // Manifesto budaya — kredibel & profesional tanpa hard-sell (aturan brand docs/03).
+  deskripsi:
+    "Bagi tim kami, katering adalah keahlian — bukan sekadar pekerjaan. Passionate pada rasa, telaten pada detail, dan tulus dalam setiap pelayanan; itulah yang menjaga standar Tiska selama tiga generasi.",
+  /** Nilai yang dipegang tim — ditampilkan sebagai strip editorial. */
+  nilai: ["Passion", "Craftsmanship", "Pelayanan tulus", "Konsistensi"],
+};
+
+export const teamGroups: TeamGroup[] = [
+  {
+    id: "pimpinan",
+    label: "Pimpinan",
+    featured: true,
+    members: [
+      {
+        id: "bimo",
+        nama: "Bimo Haryo Dewanto",
+        jabatan: "Chief of Ideation",
+        bio: "Menjaga arah kreatif Tiska — memastikan setiap menu dan pengalaman terasa baru tanpa kehilangan akar rasa yang dijaga tiga generasi.",
+      },
+      {
+        id: "rita",
+        nama: "Rita Ariyani",
+        jabatan: "Chief Executive Officer",
+        bio: "Memimpin operasional dan standar mutu Tiska, dari perencanaan di dapur hingga pelayanan tuntas di hari acara.",
+      },
+    ],
+  },
+  {
+    id: "manajemen",
+    label: "Manajemen",
+    members: [
+      {
+        id: "ida",
+        nama: "Ida Raodah",
+        jabatan: "Finance",
+        bio: "Mengelola keuangan dan perencanaan biaya agar setiap acara berjalan rapi, transparan, dan dapat diandalkan.",
+      },
+      {
+        id: "ariz",
+        nama: "Ariz Rakhma",
+        jabatan: "Sales & Marketing",
+        bio: "Titik temu pertama klien — mendengarkan kebutuhan acara dan menerjemahkannya menjadi rencana yang pas.",
+      },
+      {
+        id: "reza",
+        nama: "Reza Devyan",
+        jabatan: "Accounting",
+        bio: "Menjaga ketelitian pencatatan dan transparansi setiap pesanan, hingga detail terkecil.",
+      },
+      {
+        id: "ramadan",
+        nama: "Ramadan Saputra",
+        jabatan: "Business Development",
+        bio: "Membangun kemitraan dan memperluas jangkauan layanan Tiska ke lebih banyak perayaan.",
+      },
+    ],
+  },
+  {
+    id: "operasional",
+    label: "Dapur & Operasional",
+    members: [
+      {
+        id: "laksmi",
+        nama: "Dr. Laksmi Dewayani, M.Gizi, Sp.GK",
+        jabatan: "Ahli Gizi",
+        bio: "Memastikan setiap hidangan seimbang dan aman, memadukan cita rasa dengan standar gizi yang terukur.",
+      },
+      {
+        id: "sarinah",
+        nama: "Sarinah",
+        jabatan: "Head Kitchen",
+        bio: "Memimpin dapur produksi, menjaga konsistensi rasa di setiap skala pesanan, sekecil atau sebesar apa pun acaranya.",
+      },
+      {
+        id: "sulistiyowati",
+        nama: "Sulistiyowati",
+        jabatan: "Head Baker",
+        bio: "Mengepalai pastry dan bakery — telaten pada tekstur, rasa, dan tampilan setiap kue dan roti.",
+      },
+      {
+        id: "yoga",
+        nama: "Yoga Gusmantara",
+        jabatan: "Kapten",
+        bio: "Memimpin tim pelayanan di lapangan, memastikan acara Anda berjalan mulus dari awal hingga akhir.",
+      },
+      {
+        id: "asep",
+        nama: "Asep Saefulloh",
+        jabatan: "Kapten",
+        bio: "Mengkoordinasi penyajian di lokasi dengan ketelitian, agar setiap tamu terlayani dengan baik.",
+      },
+      {
+        id: "sukir",
+        nama: "Sukir Edi Setiyawan",
+        jabatan: "Kapten",
+        bio: "Menjaga ritme pelayanan dan detail di hari acara, dari persiapan hingga sajian terakhir.",
+      },
+    ],
+  },
+];
+
 // ─── CTA Penutup ────────────────────────────────────────────────────────────
 
 export const cta = {
