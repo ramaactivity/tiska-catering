@@ -6,20 +6,25 @@ import WordReveal from "@/components/motion/WordReveal";
 
 /**
  * Sertifikasi — trust strip di latar ink, tepat sebelum CTA: jaminan Halal & HACCP
- * sebagai "jabat tangan terakhir" sebelum kontak.
+ * sebagai "jabat tangan terakhir" sebelum kontak. Disajikan sebagai satu "plat
+ * sertifikat" berbingkai ganda emas (kesan piagam resmi) + glow emas halus.
  *
  * Catatan aset:
- * - Halal: logo resmi Halal Indonesia (BPJPH), public domain. Wajib di chip terang
- *   karena warnanya ungu solid → tak terbaca di latar gelap, dan warnanya tidak
- *   boleh diubah (mark teregulasi).
- * - HACCP: badge "HACCP CERTIFIED" generik (baris nama certifier "by Quality
- *   Assurance Services" sudah dihapus dari SVG agar tidak mengklaim badan tertentu).
- *   Ganti dengan badge certifier asli Tiska bila tersedia.
+ * - Halal: logo resmi Halal Indonesia (BPJPH), public domain. Wajib di plat terang
+ *   (warna ungu solid tak terbaca di latar gelap; warna mark tidak boleh diubah).
+ * - HACCP: badge "HACCP CERTIFIED" generik (baris certifier "by Quality Assurance
+ *   Services" sudah dihapus dari SVG agar tidak mengklaim badan tertentu).
  */
 export default function Sertifikasi() {
   return (
-    <section className="border-t border-line bg-ink px-6 py-[14vh] text-center md:px-10">
-      <div className="mx-auto max-w-[820px]">
+    <section className="relative overflow-hidden border-t border-line bg-ink px-6 py-[15vh] text-center md:px-10">
+      {/* Glow emas halus untuk kedalaman */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-[56%] -z-0 h-[640px] w-[1000px] max-w-[130vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(196,160,90,0.13),transparent_68%)]"
+      />
+
+      <div className="relative mx-auto max-w-[860px]">
         <Reveal>
           <Eyebrow tone="dark" lines="both" className="justify-center">
             {sertifikasi.eyebrow}
@@ -36,43 +41,61 @@ export default function Sertifikasi() {
           </p>
         </Reveal>
 
-        {/* Dua badge pada chip terang (seal berbingkai) */}
-        <div className="mt-14 flex flex-col items-center justify-center gap-6 sm:flex-row sm:items-stretch">
-          {sertifikasi.items.map((item, i) => (
-            <BlurToFocus key={item.kind} delay={0.1 + i * 0.12}>
-              <figure className="flex h-full w-[260px] flex-col items-center rounded-2xl border border-[#e3d9c3] bg-paper px-7 py-8 shadow-[0_18px_50px_-20px_rgba(0,0,0,0.65)]">
-                <div className="flex h-[80px] items-center justify-center">
-                  {item.kind === "halal" ? (
-                    // eslint-disable-next-line @next/next/no-img-element -- logo SVG statis, next/image tak mengoptimasi SVG
-                    <img
-                      src="/logos/sertifikasi/halal-indonesia.svg"
-                      alt="Logo Halal Indonesia"
-                      className="h-[78px] w-auto"
-                    />
-                  ) : (
-                    // eslint-disable-next-line @next/next/no-img-element -- logo SVG statis, next/image tak mengoptimasi SVG
-                    <img
-                      src="/logos/sertifikasi/haccp-certified.svg"
-                      alt="Logo HACCP Certified"
-                      className="h-[42px] w-auto"
-                    />
-                  )}
-                </div>
-                <figcaption className="mt-5">
-                  <p className="text-[10px] uppercase tracking-[0.28em] text-gold-deep">
+        {/* Plat sertifikat */}
+        <BlurToFocus delay={0.1}>
+          <div className="relative mx-auto mt-16 max-w-[680px] rounded-[20px] border border-gold/25 bg-[linear-gradient(160deg,#f7f2e9,#e9e0cf)] shadow-[0_40px_90px_-30px_rgba(0,0,0,0.75)]">
+            {/* Bingkai dalam (gaya piagam) */}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-3 rounded-[12px] border border-gold-deep/30"
+            />
+            {/* Berlian di titik temu pembatas (desktop) */}
+            <span
+              aria-hidden
+              className="absolute left-1/2 top-1/2 hidden size-[9px] -translate-x-1/2 -translate-y-1/2 rotate-45 border border-gold-deep/45 bg-paper sm:block"
+            />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2">
+              {sertifikasi.items.map((item, i) => (
+                <div
+                  key={item.kind}
+                  className={`flex flex-col items-center px-10 pb-[46px] pt-[52px] ${
+                    i === 0
+                      ? "border-gold-deep/15 max-sm:border-b sm:border-r"
+                      : ""
+                  }`}
+                >
+                  <div className="flex h-[104px] items-center justify-center">
+                    {item.kind === "halal" ? (
+                      // eslint-disable-next-line @next/next/no-img-element -- logo SVG statis, next/image tak mengoptimasi SVG
+                      <img
+                        src="/logos/sertifikasi/halal-indonesia.svg"
+                        alt="Logo Halal Indonesia"
+                        className="h-[100px] w-auto"
+                      />
+                    ) : (
+                      // eslint-disable-next-line @next/next/no-img-element -- logo SVG statis, next/image tak mengoptimasi SVG
+                      <img
+                        src="/logos/sertifikasi/haccp-certified.svg"
+                        alt="Logo HACCP Certified"
+                        className="h-[56px] w-auto"
+                      />
+                    )}
+                  </div>
+                  <p className="mt-[22px] text-[10.5px] uppercase tracking-[0.3em] text-gold-deep">
                     {item.tag}
                   </p>
-                  <p className="mt-1.5 font-display text-[17px] font-light text-paper-ink">
+                  <p className="mt-2 font-display text-[20px] font-light text-paper-ink">
                     {item.judul}
                   </p>
-                  <p className="mx-auto mt-2.5 max-w-[200px] text-[12px] leading-[1.6] text-paper-ink/55">
+                  <p className="mx-auto mt-3 max-w-[210px] text-[12.5px] leading-[1.6] text-paper-ink/55">
                     {item.ket}
                   </p>
-                </figcaption>
-              </figure>
-            </BlurToFocus>
-          ))}
-        </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </BlurToFocus>
       </div>
     </section>
   );
