@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import {
   motion,
+  cubicBezier,
   useScroll,
   useSpring,
   useTransform,
@@ -82,9 +83,13 @@ function PinnedRow({ photos }: { photos: Foto[] }) {
     target: sectionRef,
     offset: ["start start", "end end"],
   });
-  // Peredam (spring) agar geser horizontal mulus mengejar scroll — bukan 1:1 yang patah.
-  const xRaw = useTransform(scrollYProgress, [0, 1], [0, -travel]);
-  const x = useSpring(xRaw, { stiffness: 120, damping: 32, mass: 0.45, restDelta: 0.5 });
+  // Easing in-out di pemetaan: geser horizontal melambat halus saat MENDEKATI &
+  // MENINGGALKAN section (nggak langsung kena/patah saat scroll cepat dihentak),
+  // lalu spring overdamped meluncur tanpa sentakan.
+  const xRaw = useTransform(scrollYProgress, [0, 1], [0, -travel], {
+    ease: cubicBezier(0.42, 0, 0.4, 1),
+  });
+  const x = useSpring(xRaw, { stiffness: 70, damping: 26, mass: 0.7, restDelta: 0.4 });
 
   return (
     <div ref={sectionRef} style={{ height: `calc(100vh + ${travel}px)` }} className="relative mt-[9vh]">
