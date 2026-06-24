@@ -81,7 +81,9 @@ export async function getPublicGallery(): Promise<
       src: i.imageUrl,
       alt: i.imageAlt,
       kategori: i.kategori,
-      judul: i.judul,
+      // Backfill judul untuk item placeholder lama (ter-seed sebelum field judul
+      // ada) dengan mencocokkan src ke lib/images. Foto asli pakai judul tersimpan.
+      judul: i.judul ?? images.galeri.find((g) => g.src === i.imageUrl)?.judul,
     }));
   return images.galeri;
 }
