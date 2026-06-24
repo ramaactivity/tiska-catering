@@ -2,14 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import {
-  motion,
-  cubicBezier,
-  useScroll,
-  useSpring,
-  useTransform,
-  useReducedMotion,
-} from "framer-motion";
+import { useReducedMotion } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { layanan, layananHeader, company } from "@/lib/content";
 import { images } from "@/lib/images";
 import WordReveal from "@/components/motion/WordReveal";
@@ -19,8 +14,8 @@ type Foto = { src: string; alt: string };
 const EASE = "cubic-bezier(0.16,1,0.3,1)";
 
 /**
- * Layanan: pinned horizontal scroll (docs/04 #5, redesign).
- * Desktop: section "ngepin", deretan kartu bergeser ke kiri saat scroll.
+ * Layanan: pinned horizontal scroll (docs/04 #5).
+ * Desktop: GSAP ScrollTrigger pin + scrub — frame-perfect & sinkron Lenis (mulus).
  * Mobile / reduced-motion: swipe horizontal native (snap).
  */
 export default function Layanan({ photos = images.layanan }: { photos?: Foto[] }) {
@@ -39,7 +34,7 @@ export default function Layanan({ photos = images.layanan }: { photos?: Foto[] }
 
   return (
     <section id="layanan" className="bg-ink">
-      <div className="mx-auto max-w-[1280px] px-6 pt-[16vh] md:px-10">
+      <div className="mx-auto max-w-[1280px] px-6 pb-[6vh] pt-[16vh] md:px-10">
         <div className="flex flex-wrap items-end justify-between gap-5">
           <h2 className="font-display text-[clamp(34px,5.5vw,90px)] font-light leading-[0.92] tracking-[-0.025em] text-paper">
             <WordReveal segments={layananHeader.judul} />
@@ -61,49 +56,48 @@ export default function Layanan({ photos = images.layanan }: { photos?: Foto[] }
 }
 
 function PinnedRow({ photos }: { photos: Foto[] }) {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const pinRef = useRef<HTMLDivElement>(null);
   const rowRef = useRef<HTMLDivElement>(null);
-  const [travel, setTravel] = useState(0);
 
   useEffect(() => {
-    const measure = () => {
-      if (!rowRef.current) return;
-      setTravel(Math.max(0, rowRef.current.scrollWidth - window.innerWidth));
-    };
-    measure();
-    window.addEventListener("resize", measure);
-    const t = setTimeout(measure, 300);
+    const row = rowRef.current;
+    const pin = pinRef.current;
+    if (!row || !pin) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+    const ctx = gsap.context(() => {
+      const distance = () => Math.max(0, row.scrollWidth - window.innerWidth);
+      gsap.to(row, {
+        x: () => -distance(),
+        ease: "none",
+        scrollTrigger: {
+          trigger: pin,
+          start: "top top",
+          end: () => "+=" + distance(),
+          scrub: 1, // peredam: geser horizontal meluncur halus mengejar scroll
+          pin: true,
+          anticipatePin: 1, // kurangi sentakan saat pin mengunci
+          invalidateOnRefresh: true,
+        },
+      });
+    }, pin);
+
+    const t = setTimeout(() => ScrollTrigger.refresh(), 400);
     return () => {
-      window.removeEventListener("resize", measure);
       clearTimeout(t);
+      ctx.revert();
     };
   }, []);
 
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"],
-  });
-  // Easing in-out di pemetaan: geser horizontal melambat halus saat MENDEKATI &
-  // MENINGGALKAN section (nggak langsung kena/patah saat scroll cepat dihentak),
-  // lalu spring overdamped meluncur tanpa sentakan.
-  const xRaw = useTransform(scrollYProgress, [0, 1], [0, -travel], {
-    ease: cubicBezier(0.42, 0, 0.4, 1),
-  });
-  const x = useSpring(xRaw, { stiffness: 70, damping: 26, mass: 0.7, restDelta: 0.4 });
-
   return (
-    <div ref={sectionRef} style={{ height: `calc(100vh + ${travel}px)` }} className="relative mt-[9vh]">
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-        <motion.div
-          ref={rowRef}
-          style={{ x }}
-          className="flex gap-6 px-6 will-change-transform md:px-10"
-        >
+    <div ref={pinRef} className="relative h-screen overflow-hidden">
+      <div className="flex h-screen items-center">
+        <div ref={rowRef} className="flex gap-6 px-6 will-change-transform md:px-10">
           {layanan.map((s, i) => (
             <ServiceCard key={s.judul} i={i} judul={s.judul} deskripsi={s.deskripsi} photo={photos[i]} />
           ))}
           <EndCard />
-        </motion.div>
+        </div>
       </div>
     </div>
   );
@@ -111,7 +105,7 @@ function PinnedRow({ photos }: { photos: Foto[] }) {
 
 function SwipeRow({ photos }: { photos: Foto[] }) {
   return (
-    <div className="mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-[14vh] [-ms-overflow-style:none] [scrollbar-width:none] md:px-10 [&::-webkit-scrollbar]:hidden">
+    <div className="mt-2 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-[14vh] [-ms-overflow-style:none] [scrollbar-width:none] md:px-10 [&::-webkit-scrollbar]:hidden">
       {layanan.map((s, i) => (
         <ServiceCard key={s.judul} i={i} judul={s.judul} deskripsi={s.deskripsi} photo={photos[i]} mobile />
       ))}
