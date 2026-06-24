@@ -256,6 +256,19 @@ export const menuPage = {
     "800+ pilihan menu — Indonesian, Asian, Western, hingga Mediterranean; tiap selera dan tema dapat kami sesuaikan.",
 };
 
+// ─── Galeri Acara (beranda — featured + rail, gaya sinematik) ───────────────
+
+export const galeriAcara = {
+  eyebrow: "Portofolio",
+  judul: [
+    { text: "Momen yang kami " },
+    { text: "rayakan", italic: true },
+  ] satisfies RichText,
+  deskripsi:
+    "Sorotan perayaan yang kami layani — dari pernikahan hingga jamuan korporat.",
+  cta: { label: "Lihat galeri lengkap", href: "/galeri" },
+};
+
 // ─── Halaman /galeri ────────────────────────────────────────────────────────
 
 export const galeriPage = {

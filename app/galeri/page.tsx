@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import PageHero from "@/components/sections/PageHero";
-import GaleriGrid from "@/components/sections/GaleriGrid";
+import GaleriRails from "@/components/sections/GaleriRails";
 import CTA from "@/components/sections/CTA";
 import { galeriPage } from "@/lib/content";
 import { getSiteImages } from "@/lib/site-images";
@@ -27,7 +27,7 @@ export default async function GaleriPage() {
           judul={galeriPage.judul}
           intro={galeriPage.intro}
         />
-        <GaleriGrid items={galeri} />
+        <GaleriRails items={galeri} />
         <CTA photo={si.cta} />
       </main>
       <Footer />

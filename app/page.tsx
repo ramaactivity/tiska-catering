@@ -12,11 +12,13 @@ import Testimoni from "@/components/sections/Testimoni";
 import FAQ from "@/components/sections/FAQ";
 import Sertifikasi from "@/components/sections/Sertifikasi";
 import OurTeam from "@/components/sections/OurTeam";
+import GaleriAcara from "@/components/sections/GaleriAcara";
 import Klien from "@/components/sections/Klien";
 import CTA from "@/components/sections/CTA";
 import Footer from "@/components/layout/Footer";
 import { getActiveBanners } from "@/lib/banners/store";
 import { getSiteImages } from "@/lib/site-images";
+import { getPublicGallery } from "@/lib/gallery/store";
 
 /* Beranda — 12 section lengkap sesuai urutan & ritme terang-gelap docs/04. */
 
@@ -24,7 +26,11 @@ import { getSiteImages } from "@/lib/site-images";
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const [banners, si] = await Promise.all([getActiveBanners(), getSiteImages()]);
+  const [banners, si, galeri] = await Promise.all([
+    getActiveBanners(),
+    getSiteImages(),
+    getPublicGallery(),
+  ]);
 
   return (
     <>
@@ -38,6 +44,7 @@ export default async function Home() {
         <Klien />
         <Sejarah photo={si.sejarah} />
         <Layanan photos={si.layanan} />
+        <GaleriAcara items={galeri} />
         <Filosofi />
         <MenuRingkas photos={si.menuRingkas} />
         <Testimoni />
