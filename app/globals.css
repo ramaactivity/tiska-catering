@@ -79,6 +79,25 @@ body {
   color: var(--ink);
 }
 
+/* Sapuan cahaya pada panel sertifikat (Sertifikasi) */
+@keyframes cert-shimmer {
+  0% {
+    transform: translateX(-130%);
+  }
+  55%,
+  100% {
+    transform: translateX(360%);
+  }
+}
+.cert-shimmer {
+  animation: cert-shimmer 5.5s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cert-shimmer {
+    animation: none;
+  }
+}
+
 /* ============================================================
    Backoffice (/admin) — sistem tema terang & gelap.
    Token semantik berlapis: bg (kanvas) < panel < input, dengan
