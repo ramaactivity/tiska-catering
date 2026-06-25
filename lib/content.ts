@@ -210,6 +210,16 @@ export const layanan = [
       "Rapat, seminar, gathering, hingga perayaan spesial perusahaan & instansi.",
   },
   {
+    judul: "Snack & Lunch Box",
+    deskripsi:
+      "Kotak praktis dengan rasa premium khas Tiska untuk acara maupun keseharian.",
+  },
+  {
+    judul: "Hampers",
+    deskripsi:
+      "Bingkisan istimewa untuk berbagi kebahagiaan di momen-momen spesial.",
+  },
+  {
     judul: "Everyday Meal Catering",
     deskripsi:
       "Makan harian untuk rumah maupun kantor — masakan rumahan yang konsisten dan terpercaya setiap hari.",
@@ -233,16 +243,6 @@ export const layanan = [
     judul: "Tampah",
     deskripsi:
       "Aneka jajan pasar dan hidangan tradisional dalam tampah anyaman bambu — hangat dan membumi.",
-  },
-  {
-    judul: "Hampers",
-    deskripsi:
-      "Bingkisan istimewa untuk berbagi kebahagiaan di momen-momen spesial.",
-  },
-  {
-    judul: "Snack & Lunch Box",
-    deskripsi:
-      "Kotak praktis dengan rasa premium khas Tiska untuk acara maupun keseharian.",
   },
 ];
 
@@ -569,13 +569,13 @@ export const faqCategories: FaqCategory[] = [
               { term: "Wedding", text: "Katering pernikahan menyeluruh yang elegan." },
               { term: "Private Event & Party", text: "Ulang tahun, syukuran, arisan, dan momen hangat keluarga." },
               { term: "Corporate & Institusi", text: "Rapat, seminar, gathering, hingga perayaan perusahaan." },
+              { term: "Snack & Lunch Box", text: "Solusi praktis berkualitas untuk beragam kebutuhan." },
+              { term: "Hampers", text: "Bingkisan eksklusif untuk berbagi kebahagiaan." },
               { term: "Everyday Meal Catering", text: "Makan harian untuk rumah maupun kantor, konsisten setiap hari." },
               { term: "Fine Dining", text: "Sajian plated berkelas dengan table service." },
               { term: "Buffet, Banquet & Foodstall", text: "Prasmanan skala besar dan area foodstall interaktif." },
               { term: "Tumpeng", text: "Nasi tumpeng untuk syukuran dan tasyakuran." },
               { term: "Tampah", text: "Aneka jajan pasar dalam tampah anyaman bambu." },
-              { term: "Hampers", text: "Bingkisan eksklusif untuk berbagi kebahagiaan." },
-              { term: "Snack & Lunch Box", text: "Solusi praktis berkualitas untuk beragam kebutuhan." },
             ],
           },
         ],

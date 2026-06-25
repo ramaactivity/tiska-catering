@@ -26,6 +26,14 @@ export const images = {
       alt: "Suasana acara korporat",
     },
     {
+      src: "https://images.unsplash.com/photo-1432139555190-58524dae6a55?auto=format&fit=crop&w=1200&q=88",
+      alt: "Kotak makan praktis tertata rapi",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1607344645866-009c320b63e0?auto=format&fit=crop&w=1200&q=88",
+      alt: "Bingkisan hampers istimewa berpita emas",
+    },
+    {
       src: "/images/layanan/everyday-meal.jpg",
       alt: "Nasi kotak lengkap untuk makan harian rumahan dan kantoran",
     },
@@ -44,14 +52,6 @@ export const images = {
     {
       src: "/images/layanan/tampah.jpg",
       alt: "Aneka jajan pasar tradisional dalam tampah anyaman bambu",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1607344645866-009c320b63e0?auto=format&fit=crop&w=1200&q=88",
-      alt: "Bingkisan hampers istimewa berpita emas",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1432139555190-58524dae6a55?auto=format&fit=crop&w=1200&q=88",
-      alt: "Kotak makan praktis tertata rapi",
     },
   ],
   /** Foto kategori menu beranda — key = id kategori (lib/content.ts) */
