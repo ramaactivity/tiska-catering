@@ -114,14 +114,13 @@ export default function CampaignCarousel({ banners }: { banners: Banner[] }) {
         />
 
         {/* Logo Tiska — pojok kanan atas, rata kanan dengan panah di bawahnya.
-            Backing pill (selaras tombol panah) menjamin logo selalu terbaca
-            di atas foto apa pun, seterang apa pun. */}
-        <div
+            Tanpa backing/pill — keterbacaan dijaga drop-shadow berlapis. */}
+        <img
+          src={NAV_LOGO}
+          alt="Tiska Catering"
           aria-hidden
-          className="pointer-events-none absolute right-6 top-5 z-10 flex items-center rounded-2xl border border-paper/10 bg-ink/45 px-4 py-2.5 backdrop-blur-md md:right-12 md:top-7 md:px-5 md:py-3"
-        >
-          <img src={NAV_LOGO} alt="Tiska Catering" className="h-9 w-auto md:h-11" />
-        </div>
+          className="pointer-events-none absolute right-6 top-5 z-10 h-9 w-auto [filter:drop-shadow(0_1px_2px_rgba(0,0,0,0.85))_drop-shadow(0_2px_14px_rgba(0,0,0,0.6))] md:right-12 md:top-7 md:h-11"
+        />
 
         {/* Teks per slide */}
         <div className="absolute inset-0 flex items-center">
