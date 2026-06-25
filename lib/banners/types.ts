@@ -16,6 +16,9 @@ export type Banner = {
   /** Urutan tampil (kecil = duluan) */
   urutan: number;
   aktif: boolean;
+  /** Jadwal tampil — tanggal "YYYY-MM-DD" zona WIB. Kosong = tanpa batas. */
+  mulaiAt?: string;
+  selesaiAt?: string;
   createdAt: string;
   updatedAt: string;
 };

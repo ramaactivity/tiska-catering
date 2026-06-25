@@ -55,8 +55,32 @@ function byUrutan(a: Banner, b: Banner): number {
 }
 
 /** Banner aktif, terurut — untuk carousel publik. */
+/** Tanggal hari ini "YYYY-MM-DD" zona WIB (Asia/Jakarta). */
+export function todayJakarta(): string {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Jakarta",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date());
+}
+
+export type BannerStatus = "live" | "scheduled" | "ended" | "off";
+
+/** Status tayang banner relatif terhadap jadwal & toggle aktif. */
+export function bannerStatus(b: Banner, today = todayJakarta()): BannerStatus {
+  if (!b.aktif) return "off";
+  if (b.mulaiAt && today < b.mulaiAt) return "scheduled";
+  if (b.selesaiAt && today > b.selesaiAt) return "ended";
+  return "live";
+}
+
+/** Banner yang sedang tayang (aktif + dalam jadwal), terurut — carousel publik. */
 export async function getActiveBanners(): Promise<Banner[]> {
-  return (await readRaw()).filter((b) => b.aktif).sort(byUrutan);
+  const today = todayJakarta();
+  return (await readRaw())
+    .filter((b) => bannerStatus(b, today) === "live")
+    .sort(byUrutan);
 }
 
 export async function getAllBanners(): Promise<Banner[]> {

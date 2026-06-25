@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { requireSession } from "@/lib/auth";
-import { getAllBanners } from "@/lib/banners/store";
+import { getAllBanners, bannerStatus } from "@/lib/banners/store";
+import { formatTanggal } from "@/components/admin/ui";
 import BannerDeleteButton from "@/components/admin/BannerDeleteButton";
 
 export const metadata: Metadata = { title: "Banner — Backoffice Tiska" };
@@ -53,7 +54,13 @@ export default async function BannersPage() {
           </div>
         ) : (
           <ul className="grid gap-3">
-            {banners.map((b) => (
+            {banners.map((b) => {
+              const st = bannerStatus(b);
+              const range =
+                b.mulaiAt || b.selesaiAt
+                  ? `${b.mulaiAt ? formatTanggal(b.mulaiAt) : "…"} – ${b.selesaiAt ? formatTanggal(b.selesaiAt) : "…"}`
+                  : null;
+              return (
               <li
                 key={b.id}
                 className="flex items-center gap-4 rounded-2xl bg-ad-panel p-3 shadow-[0_1px_2px_var(--ad-shadow)] ring-1 ring-inset ring-ad-border/70 transition-all duration-300 hover:shadow-[0_12px_28px_-16px_var(--ad-shadow)] hover:ring-ad-border-strong"
@@ -64,10 +71,12 @@ export default async function BannersPage() {
                   <p className="truncate text-[15px] font-semibold text-ad-text">{b.judul}</p>
                   <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px]">
                     <span className="text-ad-subtle">Urutan {b.urutan}</span>
-                    {b.aktif ? (
-                      <span className="font-medium" style={{ color: "#4f9a8f" }}>● Aktif</span>
-                    ) : (
-                      <span className="text-ad-subtle">○ Nonaktif</span>
+                    {st === "live" && <span className="font-medium" style={{ color: "#4f9a8f" }}>● Tayang</span>}
+                    {st === "scheduled" && <span className="font-medium text-ad-accent">◷ Terjadwal{b.mulaiAt ? ` · mulai ${formatTanggal(b.mulaiAt)}` : ""}</span>}
+                    {st === "ended" && <span className="text-ad-subtle">○ Berakhir{b.selesaiAt ? ` ${formatTanggal(b.selesaiAt)}` : ""}</span>}
+                    {st === "off" && <span className="text-ad-subtle">○ Nonaktif</span>}
+                    {range && st !== "scheduled" && st !== "ended" && (
+                      <span className="text-ad-subtle">· {range}</span>
                     )}
                   </div>
                 </div>
@@ -81,7 +90,8 @@ export default async function BannersPage() {
                   <BannerDeleteButton id={b.id} judul={b.judul} />
                 </div>
               </li>
-            ))}
+              );
+            })}
           </ul>
         )}
     </>

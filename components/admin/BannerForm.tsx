@@ -108,6 +108,23 @@ export default function BannerForm({ banner }: { banner?: Banner }) {
                 <p className={hint}>Angka kecil tampil lebih dulu.</p>
               </div>
               <div className="border-t border-ad-border pt-4">
+                <p className="mb-2.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-ad-subtle">Jadwal tayang</p>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <div>
+                    <label className={label}>Tampil mulai</label>
+                    <input type="date" name="mulaiAt" defaultValue={banner?.mulaiAt} className={field} />
+                  </div>
+                  <div>
+                    <label className={label}>Sampai</label>
+                    <input type="date" name="selesaiAt" defaultValue={banner?.selesaiAt} className={field} />
+                  </div>
+                </div>
+                <p className={hint}>
+                  Opsional. Kosongkan untuk tayang tanpa batas. Banner otomatis muncul &amp;
+                  berhenti sesuai jadwal (zona WIB) — cocok untuk Lebaran, Natal, HUT RI, dsb.
+                </p>
+              </div>
+              <div className="border-t border-ad-border pt-4">
                 <label className="flex cursor-pointer items-start gap-3">
                   <input type="checkbox" name="aktif" defaultChecked={banner ? banner.aktif : true} className="peer sr-only" />
                   <span className="mt-0.5 flex h-5 w-9 shrink-0 items-center rounded-full bg-ad-border-strong p-0.5 transition-colors peer-checked:bg-ad-btn peer-checked:[&>span]:translate-x-4">

@@ -26,8 +26,12 @@ export async function saveBannerAction(_prev: FormState, formData: FormData): Pr
   const ctaHref = String(formData.get("ctaHref") ?? "").trim() || company.whatsappLink;
   const urutan = Number(formData.get("urutan") ?? 0) || 0;
   const aktif = formData.get("aktif") === "on";
+  const mulaiAt = String(formData.get("mulaiAt") ?? "").trim() || undefined;
+  const selesaiAt = String(formData.get("selesaiAt") ?? "").trim() || undefined;
 
   if (!judul) return { error: "Judul wajib diisi." };
+  if (mulaiAt && selesaiAt && mulaiAt > selesaiAt)
+    return { error: "Tanggal selesai harus sama atau setelah tanggal mulai." };
 
   const file = formData.get("image");
   let imageUrl = String(formData.get("currentImageUrl") ?? "").trim();
@@ -48,6 +52,8 @@ export async function saveBannerAction(_prev: FormState, formData: FormData): Pr
     ctaHref,
     urutan,
     aktif,
+    mulaiAt,
+    selesaiAt,
   };
 
   if (id) {
