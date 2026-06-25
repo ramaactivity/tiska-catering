@@ -12,6 +12,32 @@ export const images = {
     src: "https://images.unsplash.com/photo-1530062845289-9109b2c9c868?auto=format&fit=crop&w=1400&q=88",
     alt: "Suasana persiapan hidangan katering",
   },
+  /**
+   * Foto per-era untuk scrollytelling Sejarah — urut sesuai timeline (lib/content.ts).
+   * Placeholder; Fase 4 diganti foto arsip asli Tiska (lihat docs/06).
+   */
+  sejarahTimeline: [
+    {
+      src: "/images/layanan/tampah.jpg",
+      alt: "Aneka kue tampah tradisional — cikal bakal Tiska dari dapur rumahan",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1400&q=90",
+      alt: "Resepsi pernikahan besar dengan tata meja elegan",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1400&q=90",
+      alt: "Sajian fine dining tertata berkelas — sentuhan seni generasi baru",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1607344645866-009c320b63e0?auto=format&fit=crop&w=1400&q=90",
+      alt: "Bingkisan hampers istimewa berpita emas",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=1400&q=90",
+      alt: "Sajian prasmanan megah tertata indah",
+    },
+  ],
   layanan: [
     {
       src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1200&q=88",

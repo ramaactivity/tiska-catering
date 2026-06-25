@@ -5,7 +5,7 @@
  */
 
 /** Potongan judul; bagian `italic: true` dirender Instrument Serif italic warna emas. */
-export type RichText = { text: string; italic?: boolean }[];
+export type RichText = { text: string; italic?: boolean; br?: boolean }[];
 
 export type Stat = { value: number; suffix: string; label: string };
 
@@ -150,7 +150,7 @@ export const sejarah = {
   eyebrow: "Perjalanan Kami",
   judul: [
     { text: "Tiga generasi, " },
-    { text: "satu dedikasi", italic: true },
+    { text: "satu dedikasi", italic: true, br: true },
   ] satisfies RichText,
 };
 
@@ -162,8 +162,8 @@ export const timeline = [
   },
   {
     tahun: "1990",
-    judul: "Era katering masakan",
-    teks: "Berkembang melayani dari acara rumahan hingga pernikahan besar di gedung-gedung Bogor dan Jakarta.",
+    judul: "Dari kue ke masakan",
+    teks: "Tak lagi sebatas aneka kue — kini menghadirkan beragam masakan, melayani acara rumahan hingga pernikahan besar di gedung-gedung Bogor dan Jakarta.",
   },
   {
     tahun: "2017",

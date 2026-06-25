@@ -9,7 +9,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import { cache } from "react";
 import { images } from "@/lib/images";
-import { layanan as layananList, teamGroups } from "@/lib/content";
+import { layanan as layananList, teamGroups, timeline } from "@/lib/content";
 import { uploadImage } from "@/lib/posts/store";
 export { uploadImage };
 
@@ -127,8 +127,10 @@ export const getSiteImages = cache(async (): Promise<ResolvedImages> => {
   const si: ResolvedImages = structuredClone(images);
 
   si.hero = set(si.hero, ov["hero"]);
-  si.sejarah = set(si.sejarah, ov["sejarah"]);
   si.cta = set(si.cta, ov["cta"]);
+  for (let i = 0; i < si.sejarahTimeline.length; i++) {
+    si.sejarahTimeline[i] = set(si.sejarahTimeline[i], ov[`sejarah-${i + 1}`]);
+  }
   if (si.profil[0]) si.profil[0] = set(si.profil[0], ov["profil-1"]);
   if (si.profil[1]) si.profil[1] = set(si.profil[1], ov["profil-2"]);
   for (let i = 0; i < si.layanan.length; i++) {
@@ -180,9 +182,19 @@ export const SITE_IMAGE_GROUPS: { group: string; slots: ImageSlot[] }[] = [
       { key: "hero", label: "Hero (latar utama)", ratio: 16 / 9, ratioLabel: "16:9", size: "2000×1125", srcOf: (s) => s.hero.src },
       { key: "profil-1", label: "Profil — foto kiri", ratio: 3 / 4, ratioLabel: "3:4", size: "1200×1600", srcOf: (s) => s.profil[0]?.src ?? "" },
       { key: "profil-2", label: "Profil — foto kanan", ratio: 4 / 5, ratioLabel: "4:5", size: "1200×1500", srcOf: (s) => s.profil[1]?.src ?? "" },
-      { key: "sejarah", label: "Sejarah (latar)", ratio: 16 / 9, ratioLabel: "16:9", size: "1600×900", srcOf: (s) => s.sejarah.src },
       { key: "cta", label: "Ajakan / CTA (latar)", ratio: 16 / 9, ratioLabel: "16:9", size: "2000×1125", srcOf: (s) => s.cta.src },
     ],
+  },
+  {
+    group: "Sejarah (foto per era)",
+    slots: timeline.map((era, i) => ({
+      key: `sejarah-${i + 1}`,
+      label: `${era.tahun} — ${era.judul}`,
+      ratio: 4 / 5,
+      ratioLabel: "4:5",
+      size: "1200×1500",
+      srcOf: (s: ResolvedImages) => s.sejarahTimeline[i]?.src ?? "",
+    })),
   },
   {
     group: "Tim — Our Team",

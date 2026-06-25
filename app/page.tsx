@@ -42,7 +42,7 @@ export default async function Home() {
         <Profil photos={si.profil} />
         <MengapaTiska />
         <Klien />
-        <Sejarah photo={si.sejarah} />
+        <Sejarah photos={si.sejarahTimeline} />
         <Layanan photos={si.layanan} />
         <GaleriAcara items={galeri} />
         <Filosofi />

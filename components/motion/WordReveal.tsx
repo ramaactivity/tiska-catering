@@ -24,8 +24,10 @@ export default function WordReveal({
 
   return (
     <>
-      {segments.map((seg, si) =>
-        seg.text.split(" ").map((word, wi) => {
+      {segments.map((seg, si) => (
+        <span key={si} className="contents">
+          {seg.br ? <span className="block h-0 w-full" /> : null}
+          {seg.text.split(" ").map((word, wi) => {
           if (!word) return null;
           const delay = wordIndex++ * stagger;
           return (
@@ -47,8 +49,9 @@ export default function WordReveal({
               {" "}
             </motion.span>
           );
-        }),
-      )}
+          })}
+        </span>
+      ))}
     </>
   );
 }
