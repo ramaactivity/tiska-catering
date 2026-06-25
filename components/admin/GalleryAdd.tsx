@@ -24,9 +24,9 @@ export default function GalleryAdd() {
   return (
     <form
       action={formAction}
-      className="rounded-2xl border border-ad-border bg-ad-panel p-4 shadow-[0_1px_3px_var(--ad-shadow)]"
+      className="rounded-2xl bg-ad-panel p-5 shadow-[0_1px_3px_var(--ad-shadow)] ring-1 ring-inset ring-ad-border/70"
     >
-      <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.08em] text-ad-subtle">
+      <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-ad-subtle">
         Tambah foto galeri
       </p>
       <div key={key} className="grid gap-4 md:grid-cols-[200px_1fr]">
@@ -70,7 +70,7 @@ export default function GalleryAdd() {
             <button
               type="submit"
               disabled={pending}
-              className="rounded-lg bg-ad-btn px-5 py-2.5 text-[13px] font-semibold text-ad-btn-fg shadow-[0_1px_2px_var(--ad-shadow)] transition hover:brightness-[1.06] active:scale-[0.98] disabled:opacity-50"
+              className="rounded-xl bg-ad-btn px-5 py-2.5 text-[13px] font-semibold text-ad-btn-fg shadow-[0_1px_2px_var(--ad-shadow)] transition hover:brightness-[1.06] active:scale-[0.98] disabled:opacity-50"
             >
               {pending ? "Menambahkan…" : "Tambah ke galeri"}
             </button>

@@ -134,7 +134,7 @@ export default function CropImageInput({
                 <button type="button" onClick={closeModal} className="rounded-lg px-4 py-2 text-[13px] text-ad-muted transition-colors hover:bg-ad-bg hover:text-ad-text">
                   Batal
                 </button>
-                <button type="button" onClick={apply} disabled={busy || !area} className="rounded-lg bg-ad-btn px-5 py-2 text-[13px] font-semibold text-ad-btn-fg shadow-[0_1px_2px_var(--ad-shadow)] transition hover:brightness-[1.06] active:scale-[0.98] disabled:opacity-50">
+                <button type="button" onClick={apply} disabled={busy || !area} className="rounded-xl bg-ad-btn px-5 py-2 text-[13px] font-semibold text-ad-btn-fg shadow-[0_1px_2px_var(--ad-shadow)] transition hover:brightness-[1.06] active:scale-[0.98] disabled:opacity-50">
                   {busy ? "Memproses…" : "Pakai foto"}
                 </button>
               </div>

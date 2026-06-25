@@ -27,16 +27,24 @@ export default async function GalleryAdminPage() {
         </div>
 
         {items.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-ad-border-strong bg-ad-panel px-6 py-12 text-center shadow-[0_1px_2px_var(--ad-shadow)]">
-            <p className="text-[15px] font-semibold text-ad-text">Galeri masih memakai foto bawaan</p>
+          <div className="rounded-2xl border border-dashed border-ad-border-strong bg-ad-panel px-6 py-16 text-center shadow-[0_1px_2px_var(--ad-shadow)]">
+            <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-ad-accent-weak text-ad-accent">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="3" width="7.5" height="7.5" rx="1.6" />
+                <rect x="13.5" y="3" width="7.5" height="7.5" rx="1.6" />
+                <rect x="3" y="13.5" width="7.5" height="7.5" rx="1.6" />
+                <rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.6" />
+              </svg>
+            </div>
+            <h2 className="font-display text-[22px] font-light text-ad-text">Galeri masih memakai foto bawaan</h2>
             <p className="mx-auto mt-2 max-w-[460px] text-[14px] leading-[1.7] text-ad-muted">
               Tambahkan foto di atas, atau mulai dari foto bawaan supaya bisa kamu
-              kelola (atur ulang & ganti dengan foto asli).
+              kelola (atur ulang &amp; ganti dengan foto asli).
             </p>
-            <form action={seedGalleryAction} className="mt-5">
+            <form action={seedGalleryAction} className="mt-6">
               <button
                 type="submit"
-                className="rounded-lg border border-ad-border bg-ad-input px-5 py-2.5 text-[13px] font-medium text-ad-text transition-colors hover:border-ad-accent hover:text-ad-accent active:scale-[0.98]"
+                className="rounded-xl border border-ad-border bg-ad-input px-5 py-2.5 text-[13px] font-medium text-ad-text transition-colors hover:border-ad-accent hover:text-ad-accent active:scale-[0.98]"
               >
                 Mulai dari foto bawaan
               </button>
@@ -45,7 +53,7 @@ export default async function GalleryAdminPage() {
         ) : (
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
             {items.map((it) => (
-              <div key={it.id} className="group relative overflow-hidden rounded-xl border border-ad-border bg-ad-panel">
+              <div key={it.id} className="group relative overflow-hidden rounded-xl bg-ad-panel ring-1 ring-inset ring-ad-border/70 transition-all duration-300 hover:shadow-[0_12px_28px_-16px_var(--ad-shadow)] hover:ring-ad-border-strong">
                 <div className="relative aspect-[4/5]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={it.imageUrl} alt={it.imageAlt} className="absolute inset-0 h-full w-full object-cover" />

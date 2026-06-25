@@ -211,15 +211,17 @@ export default function SiteImageSlotCard(props: SlotCardProps) {
 
       {/* Modal cropper */}
       {fileSrc && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4" role="dialog" aria-modal="true">
-          <div className="flex w-full max-w-[680px] flex-col overflow-hidden rounded-2xl border border-ad-border bg-ad-panel shadow-2xl">
-            <div className="flex items-center justify-between border-b border-ad-border px-5 py-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/75 p-4 backdrop-blur-sm" role="dialog" aria-modal="true">
+          <div className="flex w-full max-w-[680px] flex-col overflow-hidden rounded-3xl bg-ad-panel shadow-[0_40px_100px_-30px_rgba(0,0,0,0.6)] ring-1 ring-inset ring-ad-border">
+            <div className="flex items-start justify-between gap-4 border-b border-ad-border px-5 py-4">
               <div>
-                <p className="text-[14px] font-semibold text-ad-text">Atur foto: {label}</p>
-                <p className="text-[12px] text-ad-subtle">Geser & zoom untuk menempatkan, rasio {ratioLabel}. Foto otomatis dikompres tetap tajam.</p>
+                <p className="font-display text-[17px] font-light text-ad-text">Atur foto: {label}</p>
+                <p className="mt-0.5 text-[12px] text-ad-subtle">Geser &amp; zoom untuk menempatkan (rasio {ratioLabel}). Otomatis dikompres tetap tajam.</p>
               </div>
-              <button type="button" onClick={close} className="rounded-md px-2 py-1 text-[18px] leading-none text-ad-muted transition-colors hover:text-ad-text">
-                ×
+              <button type="button" onClick={close} aria-label="Tutup" className="flex size-8 shrink-0 items-center justify-center rounded-full text-ad-muted transition-colors hover:bg-ad-bg hover:text-ad-text">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                  <path d="M6 6l12 12M18 6L6 18" />
+                </svg>
               </button>
             </div>
 
@@ -251,14 +253,14 @@ export default function SiteImageSlotCard(props: SlotCardProps) {
               </div>
               {error && <p className="mb-2 text-[12px] text-ad-danger">{error}</p>}
               <div className="flex items-center justify-end gap-2">
-                <button type="button" onClick={close} className="rounded-lg px-4 py-2 text-[13px] text-ad-muted transition-colors hover:bg-ad-bg hover:text-ad-text">
+                <button type="button" onClick={close} className="rounded-xl px-4 py-2 text-[13px] text-ad-muted transition-colors hover:bg-ad-bg hover:text-ad-text">
                   Batal
                 </button>
                 <button
                   type="button"
                   onClick={save}
                   disabled={saving || !area}
-                  className="rounded-lg bg-ad-btn px-5 py-2 text-[13px] font-semibold text-ad-btn-fg shadow-[0_1px_2px_var(--ad-shadow)] transition hover:brightness-[1.06] active:scale-[0.98] disabled:opacity-50"
+                  className="rounded-xl bg-ad-btn px-5 py-2 text-[13px] font-semibold text-ad-btn-fg shadow-[0_1px_2px_var(--ad-shadow)] transition hover:brightness-[1.06] active:scale-[0.98] disabled:opacity-50"
                 >
                   {saving ? "Menyimpan…" : "Simpan foto"}
                 </button>

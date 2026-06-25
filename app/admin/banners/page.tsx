@@ -23,7 +23,7 @@ export default async function BannersPage() {
           {banners.length > 0 && (
             <Link
               href="/admin/banners/new"
-              className="inline-flex items-center gap-1.5 rounded-lg bg-ad-btn px-4 py-2.5 text-[13px] font-semibold text-ad-btn-fg shadow-[0_1px_2px_var(--ad-shadow)] transition hover:brightness-[1.06] active:scale-[0.98]"
+              className="inline-flex items-center gap-1.5 rounded-xl bg-ad-btn px-4 py-2.5 text-[13px] font-semibold text-ad-btn-fg shadow-[0_1px_2px_var(--ad-shadow)] transition hover:brightness-[1.06] active:scale-[0.98]"
             >
               <span className="text-[15px] leading-none">+</span> Tambah banner
             </Link>
@@ -32,17 +32,21 @@ export default async function BannersPage() {
 
         {banners.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-ad-border-strong bg-ad-panel px-6 py-16 text-center shadow-[0_1px_2px_var(--ad-shadow)]">
-            <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--ad-accent-weak)] text-[20px] text-ad-accent">
-              ▭
+            <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-ad-accent-weak text-ad-accent">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="6" width="18" height="12" rx="2" />
+                <path d="M3 14l4.5-4 4 3.5L16 8l5 4.5" />
+                <circle cx="9" cy="10" r="1.2" />
+              </svg>
             </div>
-            <h2 className="text-[18px] font-semibold text-ad-text">Belum ada banner</h2>
+            <h2 className="font-display text-[22px] font-light text-ad-text">Belum ada banner</h2>
             <p className="mx-auto mt-2 max-w-[440px] text-[14px] leading-[1.7] text-ad-muted">
               Tambahkan banner campaign atau promo. Beberapa banner akan berputar
               otomatis sebagai carousel besar di beranda.
             </p>
             <Link
               href="/admin/banners/new"
-              className="mt-6 inline-flex items-center gap-2 rounded-lg bg-ad-btn px-5 py-2.5 text-[13px] font-semibold text-ad-btn-fg shadow-[0_1px_2px_var(--ad-shadow)] transition hover:brightness-[1.06] active:scale-[0.98]"
+              className="mt-6 inline-flex items-center gap-2 rounded-xl bg-ad-btn px-5 py-2.5 text-[13px] font-semibold text-ad-btn-fg shadow-[0_1px_2px_var(--ad-shadow)] transition hover:brightness-[1.06] active:scale-[0.98]"
             >
               Tambah banner pertama
             </Link>
@@ -52,10 +56,10 @@ export default async function BannersPage() {
             {banners.map((b) => (
               <li
                 key={b.id}
-                className="flex items-center gap-4 rounded-2xl border border-ad-border bg-ad-panel p-3 shadow-[0_1px_2px_var(--ad-shadow)]"
+                className="flex items-center gap-4 rounded-2xl bg-ad-panel p-3 shadow-[0_1px_2px_var(--ad-shadow)] ring-1 ring-inset ring-ad-border/70 transition-all duration-300 hover:shadow-[0_12px_28px_-16px_var(--ad-shadow)] hover:ring-ad-border-strong"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={b.imageUrl} alt="" className="h-14 w-24 shrink-0 rounded-lg object-cover ring-1 ring-ad-border" />
+                <img src={b.imageUrl} alt="" className="h-14 w-24 shrink-0 rounded-xl object-cover ring-1 ring-ad-border" />
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-[15px] font-semibold text-ad-text">{b.judul}</p>
                   <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px]">

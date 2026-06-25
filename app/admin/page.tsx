@@ -28,7 +28,7 @@ export default async function AdminDashboard() {
           {posts.length > 0 && (
             <Link
               href="/admin/posts/new"
-              className="inline-flex items-center gap-1.5 rounded-lg bg-ad-btn px-4 py-2.5 text-[13px] font-semibold text-ad-btn-fg shadow-[0_1px_2px_var(--ad-shadow)] transition hover:brightness-[1.06] active:scale-[0.98]"
+              className="inline-flex items-center gap-1.5 rounded-xl bg-ad-btn px-4 py-2.5 text-[13px] font-semibold text-ad-btn-fg shadow-[0_1px_2px_var(--ad-shadow)] transition hover:brightness-[1.06] active:scale-[0.98]"
             >
               <span className="text-[15px] leading-none">+</span> Tulis kabar
             </Link>

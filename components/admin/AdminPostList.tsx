@@ -50,11 +50,11 @@ export default function AdminPostList({ posts }: { posts: Post[] }) {
       </div>
 
       {tampil.length === 0 ? (
-        <p className="rounded-2xl border border-ad-border bg-ad-panel py-14 text-center text-[14px] text-ad-muted shadow-[0_1px_2px_var(--ad-shadow)]">
+        <p className="rounded-2xl bg-ad-panel py-14 text-center text-[14px] text-ad-muted shadow-[0_1px_2px_var(--ad-shadow)] ring-1 ring-inset ring-ad-border/70">
           Tidak ada postingan {filter === "draft" ? "draft" : "terbit"}.
         </p>
       ) : (
-        <ul className="divide-y divide-ad-border overflow-hidden rounded-2xl border border-ad-border bg-ad-panel shadow-[0_1px_3px_var(--ad-shadow)]">
+        <ul className="divide-y divide-ad-border/70 overflow-hidden rounded-2xl bg-ad-panel shadow-[0_1px_3px_var(--ad-shadow)] ring-1 ring-inset ring-ad-border/70">
           {tampil.map((post) => (
             <PostRow key={post.id} post={post} />
           ))}
@@ -75,7 +75,7 @@ function PostRow({ post }: { post: Post }) {
         <img
           src={post.imageUrl}
           alt=""
-          className="h-16 w-16 shrink-0 rounded-lg object-cover ring-1 ring-ad-border"
+          className="h-16 w-16 shrink-0 rounded-xl object-cover ring-1 ring-ad-border"
         />
         <div className="min-w-0 flex-1">
           <p className="truncate text-[15px] font-semibold text-ad-text transition-colors group-hover:text-ad-accent">
@@ -133,10 +133,10 @@ function Tab({
       type="button"
       onClick={onClick}
       aria-pressed={aktif}
-      className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[13px] font-medium transition-colors ${
+      className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-medium transition-all duration-200 ${
         aktif
-          ? "bg-[var(--ad-accent-weak)] text-ad-accent"
-          : "text-ad-muted hover:bg-[var(--ad-accent-weak)] hover:text-ad-text"
+          ? "bg-ad-text text-ad-bg shadow-[0_4px_14px_-4px_var(--ad-shadow)]"
+          : "bg-ad-panel text-ad-muted ring-1 ring-inset ring-ad-border hover:text-ad-text hover:ring-ad-border-strong"
       }`}
     >
       {children}
@@ -155,17 +155,21 @@ function Count({ children }: { children: React.ReactNode }) {
 function EmptyState() {
   return (
     <div className="rounded-2xl border border-dashed border-ad-border-strong bg-ad-panel px-6 py-16 text-center shadow-[0_1px_2px_var(--ad-shadow)]">
-      <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--ad-accent-weak)] text-[20px] text-ad-accent">
-        ✦
+      <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-ad-accent-weak text-ad-accent">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M4 5h11a1 1 0 0 1 1 1v12a2 2 0 0 0 2 2H6a2 2 0 0 1-2-2V5Z" />
+          <path d="M16 8h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2" />
+          <path d="M7 8.5h6M7 12h6M7 15.5h4" />
+        </svg>
       </div>
-      <h2 className="text-[18px] font-semibold text-ad-text">Belum ada kabar</h2>
+      <h2 className="font-display text-[22px] font-light text-ad-text">Belum ada kabar</h2>
       <p className="mx-auto mt-2 max-w-[440px] text-[14px] leading-[1.7] text-ad-muted">
         Tulis kabar pertamamu: penawaran bulan ini, menu musiman baru, atau cerita
         acara yang baru kamu layani. Tampil otomatis di halaman Kabar.
       </p>
       <Link
         href="/admin/posts/new"
-        className="mt-6 inline-flex items-center gap-2 rounded-lg bg-ad-btn px-5 py-2.5 text-[13px] font-semibold text-ad-btn-fg shadow-[0_1px_2px_var(--ad-shadow)] transition hover:brightness-[1.06] active:scale-[0.98]"
+        className="mt-6 inline-flex items-center gap-2 rounded-xl bg-ad-btn px-5 py-2.5 text-[13px] font-semibold text-ad-btn-fg shadow-[0_1px_2px_var(--ad-shadow)] transition hover:brightness-[1.06] active:scale-[0.98]"
       >
         Tulis kabar pertama
       </Link>
