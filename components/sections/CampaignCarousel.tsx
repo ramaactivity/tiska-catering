@@ -113,20 +113,13 @@ export default function CampaignCarousel({ banners }: { banners: Banner[] }) {
           className="absolute inset-0 bg-[linear-gradient(0deg,rgba(12,11,8,0.7),transparent_42%)]"
         />
 
-        {/* Scrim diagonal pojok kanan atas — gradient lembut yang menggelap
-            ke arah sudut, memudar ke dalam foto. Tanpa pill/box, tapi logo
-            tetap terbaca di atas foto apa pun. */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute right-0 top-0 h-[42%] w-[44%] bg-[linear-gradient(225deg,rgba(12,11,8,0.62)_0%,rgba(12,11,8,0.3)_34%,transparent_70%)]"
-        />
-
-        {/* Logo Tiska — pojok kanan atas, rata kanan dengan panah di bawahnya */}
+        {/* Logo Tiska — pojok kiri atas, di atas eyebrow & judul slide.
+            Sisi kiri sudah digelapkan scrim teks, jadi logo selalu terbaca. */}
         <img
           src={NAV_LOGO}
           alt="Tiska Catering"
           aria-hidden
-          className="pointer-events-none absolute right-6 top-5 z-10 h-9 w-auto [filter:drop-shadow(0_1px_3px_rgba(0,0,0,0.5))] md:right-12 md:top-7 md:h-11"
+          className="pointer-events-none absolute left-6 top-5 z-10 h-9 w-auto [filter:drop-shadow(0_1px_3px_rgba(0,0,0,0.5))] md:left-12 md:top-7 md:h-11"
         />
 
         {/* Teks per slide */}
