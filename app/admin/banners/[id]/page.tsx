@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireSession } from "@/lib/auth";
 import { getBannerById } from "@/lib/banners/store";
-import AdminHeader from "@/components/admin/AdminHeader";
 import BannerForm from "@/components/admin/BannerForm";
 import BannerDeleteButton from "@/components/admin/BannerDeleteButton";
 
@@ -20,9 +19,7 @@ export default async function EditBannerPage({ params }: Params) {
 
   return (
     <>
-      <AdminHeader />
-      <main className="mx-auto max-w-[1400px] px-5 py-8 md:px-8 md:py-10">
-        <Link href="/admin/banners" className="text-[13px] text-ad-muted transition-colors hover:text-ad-accent">
+      <Link href="/admin/banners" className="text-[13px] text-ad-muted transition-colors hover:text-ad-accent">
           ← Banner
         </Link>
         <div className="mb-6 mt-3 flex items-center justify-between gap-4">
@@ -30,7 +27,6 @@ export default async function EditBannerPage({ params }: Params) {
           <BannerDeleteButton id={banner.id} judul={banner.judul} />
         </div>
         <BannerForm banner={banner} />
-      </main>
     </>
   );
 }

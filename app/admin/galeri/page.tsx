@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { requireSession } from "@/lib/auth";
 import { getAllGallery } from "@/lib/gallery/store";
 import { seedGalleryAction } from "@/lib/gallery/actions";
-import AdminHeader from "@/components/admin/AdminHeader";
 import GalleryAdd from "@/components/admin/GalleryAdd";
 import GalleryDeleteButton from "@/components/admin/GalleryDeleteButton";
 
@@ -15,9 +14,7 @@ export default async function GalleryAdminPage() {
 
   return (
     <>
-      <AdminHeader />
-      <main className="mx-auto max-w-[1100px] px-5 py-9 md:px-8 md:py-12">
-        <div className="mb-6">
+      <div className="mb-6">
           <h1 className="text-[27px] font-bold tracking-tight text-ad-text">Galeri</h1>
           <p className="mt-1 max-w-[640px] text-[14px] leading-[1.6] text-ad-muted">
             Foto-foto di halaman Galeri. Tambah dengan crop, atur urutan & kategori,
@@ -65,7 +62,6 @@ export default async function GalleryAdminPage() {
             ))}
           </div>
         )}
-      </main>
     </>
   );
 }

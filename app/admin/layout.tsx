@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import AdminThemeProvider from "@/components/admin/AdminThemeProvider";
+import AdminShell from "@/components/admin/AdminShell";
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-/** Kanvas backoffice: tema dibaca dari cookie (default terang) → tanpa flash. */
+/** Kanvas backoffice: tema dari cookie (default terang) + shell sidebar. */
 export default async function AdminLayout({
   children,
 }: {
@@ -15,5 +16,9 @@ export default async function AdminLayout({
   const theme =
     (await cookies()).get("admin_theme")?.value === "dark" ? "dark" : "light";
 
-  return <AdminThemeProvider initialTheme={theme}>{children}</AdminThemeProvider>;
+  return (
+    <AdminThemeProvider initialTheme={theme}>
+      <AdminShell>{children}</AdminShell>
+    </AdminThemeProvider>
+  );
 }

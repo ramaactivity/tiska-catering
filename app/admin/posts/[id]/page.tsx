@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireSession } from "@/lib/auth";
 import { getPostById } from "@/lib/posts/store";
-import AdminHeader from "@/components/admin/AdminHeader";
 import PostForm from "@/components/admin/PostForm";
 import DeleteButton from "@/components/admin/DeleteButton";
 
@@ -23,9 +22,7 @@ export default async function EditPostPage({ params }: Params) {
 
   return (
     <>
-      <AdminHeader />
-      <main className="mx-auto max-w-[1400px] px-5 py-8 md:px-8 md:py-10">
-        <Link
+      <Link
           href="/admin"
           className="text-[13px] text-ad-muted transition-colors hover:text-ad-accent"
         >
@@ -36,7 +33,6 @@ export default async function EditPostPage({ params }: Params) {
           <DeleteButton id={post.id} judul={post.judul} />
         </div>
         <PostForm post={post} />
-      </main>
     </>
   );
 }

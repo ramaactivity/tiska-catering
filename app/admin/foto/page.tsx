@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { requireSession } from "@/lib/auth";
 import { getSiteImages, readOverrides, SITE_IMAGE_GROUPS } from "@/lib/site-images";
-import AdminHeader from "@/components/admin/AdminHeader";
 import SiteImageSlotCard from "@/components/admin/SiteImageSlotCard";
 
 export const metadata: Metadata = { title: "Foto Website — Backoffice Tiska" };
@@ -14,9 +13,7 @@ export default async function FotoPage() {
 
   return (
     <>
-      <AdminHeader />
-      <main className="mx-auto max-w-[1100px] px-5 py-9 md:px-8 md:py-12">
-        <div className="mb-2">
+      <div className="mb-2">
           <h1 className="text-[27px] font-bold tracking-tight text-ad-text">Foto Website</h1>
           <p className="mt-1 max-w-[640px] text-[14px] leading-[1.6] text-ad-muted">
             Ganti foto di tiap bagian halaman. Saat mengganti, kamu bisa menggeser
@@ -30,7 +27,7 @@ export default async function FotoPage() {
             <h2 className="mb-4 text-[12px] font-semibold uppercase tracking-[0.1em] text-ad-subtle">
               {g.group}
             </h2>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {g.slots.map((s) => (
                 <SiteImageSlotCard
                   key={s.key}
@@ -46,7 +43,6 @@ export default async function FotoPage() {
             </div>
           </section>
         ))}
-      </main>
     </>
   );
 }

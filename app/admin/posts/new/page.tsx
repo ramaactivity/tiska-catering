@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { requireSession } from "@/lib/auth";
-import AdminHeader from "@/components/admin/AdminHeader";
 import PostForm from "@/components/admin/PostForm";
 
 export const metadata: Metadata = {
@@ -13,9 +12,7 @@ export default async function NewPostPage() {
 
   return (
     <>
-      <AdminHeader />
-      <main className="mx-auto max-w-[1400px] px-5 py-8 md:px-8 md:py-10">
-        <Link
+      <Link
           href="/admin"
           className="text-[13px] text-ad-muted transition-colors hover:text-ad-accent"
         >
@@ -25,7 +22,6 @@ export default async function NewPostPage() {
           Tulis kabar baru
         </h1>
         <PostForm />
-      </main>
     </>
   );
 }

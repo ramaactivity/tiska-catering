@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { requireSession } from "@/lib/auth";
 import { getAllBanners } from "@/lib/banners/store";
-import AdminHeader from "@/components/admin/AdminHeader";
 import BannerDeleteButton from "@/components/admin/BannerDeleteButton";
 
 export const metadata: Metadata = { title: "Banner — Backoffice Tiska" };
@@ -14,9 +13,7 @@ export default async function BannersPage() {
 
   return (
     <>
-      <AdminHeader />
-      <main className="mx-auto max-w-[1100px] px-5 py-9 md:px-8 md:py-12">
-        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+      <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <div>
             <h1 className="text-[27px] font-bold tracking-tight text-ad-text">Banner</h1>
             <p className="mt-1 text-[14px] text-ad-muted">
@@ -83,7 +80,6 @@ export default async function BannersPage() {
             ))}
           </ul>
         )}
-      </main>
     </>
   );
 }

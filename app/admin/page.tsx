@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { requireSession } from "@/lib/auth";
 import { getAllPosts } from "@/lib/posts/store";
-import AdminHeader from "@/components/admin/AdminHeader";
 import AdminPostList from "@/components/admin/AdminPostList";
 
 export const metadata: Metadata = {
@@ -17,9 +16,7 @@ export default async function AdminDashboard() {
 
   return (
     <>
-      <AdminHeader />
-      <main className="mx-auto max-w-[1100px] px-5 py-9 md:px-8 md:py-12">
-        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+      <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <div>
             <h1 className="text-[27px] font-bold tracking-tight text-ad-text">
               Kabar
@@ -39,7 +36,6 @@ export default async function AdminDashboard() {
         </div>
 
         <AdminPostList posts={posts} />
-      </main>
     </>
   );
 }
