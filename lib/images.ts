@@ -26,8 +26,8 @@ export const images = {
       alt: "Suasana acara korporat",
     },
     {
-      src: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1200&q=88",
-      alt: "Hidangan dalam kemasan praktis untuk katering harian",
+      src: "/images/layanan/everyday-meal.jpg",
+      alt: "Nasi kotak lengkap untuk makan harian rumahan dan kantoran",
     },
     {
       src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=88",
@@ -36,6 +36,14 @@ export const images = {
     {
       src: "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=1200&q=88",
       alt: "Sajian prasmanan tertata indah",
+    },
+    {
+      src: "/images/layanan/tumpeng.jpg",
+      alt: "Nasi tumpeng tersaji di atas daun pisang untuk syukuran",
+    },
+    {
+      src: "/images/layanan/tampah.jpg",
+      alt: "Aneka jajan pasar tradisional dalam tampah anyaman bambu",
     },
     {
       src: "https://images.unsplash.com/photo-1607344645866-009c320b63e0?auto=format&fit=crop&w=1200&q=88",
