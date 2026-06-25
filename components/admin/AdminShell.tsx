@@ -68,6 +68,19 @@ const NAV: NavItem[] = [
       </svg>
     ),
   },
+  {
+    href: "/admin/hari-spesial",
+    label: "Hari Spesial",
+    desc: "Kalender & reminder",
+    match: (p) => p.startsWith("/admin/hari-spesial"),
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="4.5" width="18" height="16" rx="2.5" />
+        <path d="M3 9h18M8 2.5v4M16 2.5v4" />
+        <path d="M12 12.5l.9 1.9 2 .3-1.45 1.4.35 2L12 17.1l-1.8.95.35-2L9.1 14.7l2-.3z" />
+      </svg>
+    ),
+  },
 ];
 
 function Brand() {

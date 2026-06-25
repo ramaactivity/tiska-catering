@@ -14,11 +14,19 @@ const hint = "mt-1.5 text-[12px] leading-[1.5] text-ad-subtle";
 const panel = "rounded-2xl bg-ad-panel p-5 shadow-[0_1px_3px_var(--ad-shadow)] ring-1 ring-inset ring-ad-border/70";
 const panelHead = "mb-3.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-ad-subtle";
 
-export default function BannerForm({ banner }: { banner?: Banner }) {
+type BannerDefaults = { judul?: string; label?: string; mulaiAt?: string; selesaiAt?: string };
+
+export default function BannerForm({
+  banner,
+  defaults,
+}: {
+  banner?: Banner;
+  defaults?: BannerDefaults;
+}) {
   const [state, formAction, pending] = useActionState<FormState, FormData>(saveBannerAction, null);
-  const [judul, setJudul] = useState(banner?.judul ?? "");
+  const [judul, setJudul] = useState(banner?.judul ?? defaults?.judul ?? "");
   const [subjudul, setSubjudul] = useState(banner?.subjudul ?? "");
-  const [labelTxt, setLabelTxt] = useState(banner?.label ?? "");
+  const [labelTxt, setLabelTxt] = useState(banner?.label ?? defaults?.label ?? "");
 
   return (
     <form action={formAction} className="pb-24">
@@ -112,11 +120,11 @@ export default function BannerForm({ banner }: { banner?: Banner }) {
                 <div className="grid gap-3 sm:grid-cols-2">
                   <div>
                     <label className={label}>Tampil mulai</label>
-                    <input type="date" name="mulaiAt" defaultValue={banner?.mulaiAt} className={field} />
+                    <input type="date" name="mulaiAt" defaultValue={banner?.mulaiAt ?? defaults?.mulaiAt} className={field} />
                   </div>
                   <div>
                     <label className={label}>Sampai</label>
-                    <input type="date" name="selesaiAt" defaultValue={banner?.selesaiAt} className={field} />
+                    <input type="date" name="selesaiAt" defaultValue={banner?.selesaiAt ?? defaults?.selesaiAt} className={field} />
                   </div>
                 </div>
                 <p className={hint}>
