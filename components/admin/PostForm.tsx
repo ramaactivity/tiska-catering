@@ -14,9 +14,9 @@ const field =
 const label = "mb-1.5 block text-[12.5px] font-semibold text-ad-text";
 const hint = "mt-1.5 text-[12px] leading-[1.5] text-ad-subtle";
 const panel =
-  "rounded-2xl border border-ad-border bg-ad-panel p-4 shadow-[0_1px_3px_var(--ad-shadow)]";
+  "rounded-2xl bg-ad-panel p-5 shadow-[0_1px_3px_var(--ad-shadow)] ring-1 ring-inset ring-ad-border/70";
 const panelHead =
-  "mb-3 text-[11px] font-semibold uppercase tracking-[0.08em] text-ad-subtle";
+  "mb-3.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-ad-subtle";
 
 export default function PostForm({ post }: { post?: Post }) {
   const [state, formAction, pending] = useActionState<FormState, FormData>(
@@ -41,7 +41,7 @@ export default function PostForm({ post }: { post?: Post }) {
         value={judul}
         onChange={(e) => setJudul(e.target.value)}
         placeholder="Judul kabar…"
-        className="w-full border-b border-ad-border bg-transparent pb-2.5 text-[28px] font-bold tracking-tight text-ad-text outline-none transition-colors placeholder:text-ad-subtle/70 focus:border-ad-accent"
+        className="w-full border-b border-ad-border bg-transparent pb-2.5 font-display text-[clamp(26px,3vw,32px)] font-light tracking-tight text-ad-text outline-none transition-colors placeholder:text-ad-subtle/60 focus:border-ad-accent"
       />
 
       <div className="mt-7 grid items-start gap-7 lg:grid-cols-[minmax(0,1fr)_390px]">
@@ -229,7 +229,7 @@ export default function PostForm({ post }: { post?: Post }) {
           <div className="flex items-center gap-2">
             <Link
               href="/admin"
-              className="rounded-lg px-4 py-2 text-[13px] text-ad-muted transition-colors hover:bg-ad-bg hover:text-ad-text"
+              className="rounded-xl px-4 py-2 text-[13px] text-ad-muted transition-colors hover:bg-ad-bg hover:text-ad-text"
             >
               Batal
             </Link>

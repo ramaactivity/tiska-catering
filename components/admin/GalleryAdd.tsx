@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useState } from "react";
 import { useRouter } from "next/navigation";
 import { addGalleryAction, type FormState } from "@/lib/gallery/actions";
 import CropImageInput from "@/components/admin/CropImageInput";
@@ -11,15 +11,19 @@ const label = "mb-1.5 block text-[12.5px] font-semibold text-ad-text";
 
 export default function GalleryAdd() {
   const router = useRouter();
-  const [state, formAction, pending] = useActionState<FormState, FormData>(addGalleryAction, null);
   const [key, setKey] = useState(0);
-
-  useEffect(() => {
-    if (state?.ok) {
-      setKey((k) => k + 1); // reset field (termasuk foto) untuk tambah berikutnya
-      router.refresh();
-    }
-  }, [state, router]);
+  // Reset dilakukan di dalam action (bukan useEffect) agar tak ada setState-in-effect.
+  const [state, formAction, pending] = useActionState<FormState, FormData>(
+    async (prev, fd) => {
+      const res = await addGalleryAction(prev, fd);
+      if (res?.ok) {
+        setKey((k) => k + 1); // reset field (termasuk foto) untuk tambah berikutnya
+        router.refresh();
+      }
+      return res;
+    },
+    null,
+  );
 
   return (
     <form
