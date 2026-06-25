@@ -9,6 +9,7 @@ import {
   toggleDayAction,
   deleteDayAction,
   refreshSourceAction,
+  testReminderAction,
   type FormState,
 } from "@/lib/special-days/actions";
 import {
@@ -73,11 +74,11 @@ export default function SpecialDayManager({
   const router = useRouter();
   const [tab, setTab] = useState<"upcoming" | "all">("upcoming");
   const [editing, setEditing] = useState<SpecialDay | null>(null);
-  const [toast, setToast] = useState<string | null>(null);
+  const [toast, setToast] = useState<{ msg: string; ok: boolean } | null>(null);
 
-  const flash = (m: string) => {
-    setToast(m);
-    setTimeout(() => setToast(null), 3000);
+  const flash = (msg: string, ok = true) => {
+    setToast({ msg, ok });
+    setTimeout(() => setToast(null), 4000);
   };
 
   // Tambah
@@ -120,6 +121,16 @@ export default function SpecialDayManager({
     null,
   );
 
+  // Tes email reminder
+  const [, testAction, testing] = useActionState<FormState, FormData>(
+    async () => {
+      const res = await testReminderAction();
+      flash(res?.ok ? (res.info ?? "Email uji terkirim.") : (res?.error ?? "Gagal mengirim."), !!res?.ok);
+      return res;
+    },
+    null,
+  );
+
   const shown = useMemo(() => {
     if (tab === "upcoming") return days.filter((d) => d.aktif && d.tanggal >= today);
     return days;
@@ -133,8 +144,15 @@ export default function SpecialDayManager({
   return (
     <div>
       {toast && (
-        <div className="fixed left-1/2 top-5 z-[60] -translate-x-1/2 rounded-xl border border-[#1f7a55] bg-[#0f3d2e] px-4 py-3 text-[13px] font-medium text-[#d7f5e7] shadow-lg">
-          ✓ {toast}
+        <div
+          className="fixed left-1/2 top-5 z-[60] -translate-x-1/2 rounded-xl border px-4 py-3 text-[13px] font-medium shadow-lg"
+          style={
+            toast.ok
+              ? { background: "#0f3d2e", borderColor: "#1f7a55", color: "#d7f5e7" }
+              : { background: "#3d1414", borderColor: "#a23a3a", color: "#ffd9d9" }
+          }
+        >
+          {toast.ok ? "✓" : "⚠"} {toast.msg}
         </div>
       )}
 
@@ -206,19 +224,35 @@ export default function SpecialDayManager({
             <span className="ml-1.5 text-[11px] tabular-nums opacity-70">{days.length}</span>
           </button>
         </div>
-        <form action={refreshAction}>
-          <button
-            type="submit"
-            disabled={refreshing}
-            className="inline-flex items-center gap-2 rounded-xl border border-ad-border bg-ad-input px-4 py-2 text-[13px] font-medium text-ad-text transition-colors hover:border-ad-accent hover:text-ad-accent disabled:opacity-50"
-          >
-            <svg className={refreshing ? "animate-spin" : ""} width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M3 12a9 9 0 1 0 3-6.7L3 8" />
-              <path d="M3 3v5h5" />
-            </svg>
-            {refreshing ? "Menarik data…" : "Tarik dari sumber publik"}
-          </button>
-        </form>
+        <div className="flex items-center gap-2">
+          <form action={testAction}>
+            <button
+              type="submit"
+              disabled={testing}
+              title="Kirim email uji ke penerima reminder"
+              className="inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-[13px] font-medium text-ad-muted transition-colors hover:bg-ad-bg hover:text-ad-text disabled:opacity-50"
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="5" width="18" height="14" rx="2" />
+                <path d="M3 7l9 6 9-6" />
+              </svg>
+              {testing ? "Mengirim…" : "Tes email"}
+            </button>
+          </form>
+          <form action={refreshAction}>
+            <button
+              type="submit"
+              disabled={refreshing}
+              className="inline-flex items-center gap-2 rounded-xl border border-ad-border bg-ad-input px-4 py-2 text-[13px] font-medium text-ad-text transition-colors hover:border-ad-accent hover:text-ad-accent disabled:opacity-50"
+            >
+              <svg className={refreshing ? "animate-spin" : ""} width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 12a9 9 0 1 0 3-6.7L3 8" />
+                <path d="M3 3v5h5" />
+              </svg>
+              {refreshing ? "Menarik data…" : "Tarik dari sumber publik"}
+            </button>
+          </form>
+        </div>
       </div>
       {refreshState?.info && <p className="-mt-2 mb-4 text-[12px] text-ad-subtle">{refreshState.info}</p>}
 

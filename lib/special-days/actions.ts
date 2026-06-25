@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { requireSession } from "@/lib/auth";
 import * as store from "./store";
 import { getSourceDays } from "./source";
+import { sendTestReminder } from "./reminder";
 import { SPECIAL_CATEGORIES, type SpecialCategory } from "./types";
 
 export type FormState = { ok?: boolean; error?: string; info?: string } | null;
@@ -71,4 +72,13 @@ export async function refreshSourceAction(): Promise<FormState> {
   refresh();
   const base = added > 0 ? `${added} hari baru ditambahkan.` : "Sudah paling baru, tidak ada tambahan.";
   return { ok: true, info: apiFail ? `${base} (Sebagian sumber API gagal, memakai daftar bawaan.)` : base };
+}
+
+/** Kirim email uji untuk verifikasi setup Resend. */
+export async function testReminderAction(): Promise<FormState> {
+  await requireSession();
+  const r = await sendTestReminder();
+  return r.ok
+    ? { ok: true, info: "Email uji terkirim — cek inbox penerima." }
+    : { error: r.reason ?? "Gagal mengirim email uji." };
 }
