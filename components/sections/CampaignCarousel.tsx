@@ -229,9 +229,12 @@ function Arrow({ dir, onClick }: { dir: "prev" | "next"; onClick: () => void }) 
       type="button"
       onClick={onClick}
       aria-label={dir === "prev" ? "Sebelumnya" : "Berikutnya"}
-      className="flex h-10 w-10 items-center justify-center rounded-full border border-paper/25 bg-ink/40 text-[18px] leading-none text-paper/80 backdrop-blur-sm transition-[color,border-color,transform] duration-200 hover:border-gold/60 hover:text-gold-bright active:scale-90"
+      className="flex h-10 w-10 items-center justify-center rounded-full border border-paper/25 bg-ink/40 text-paper/80 backdrop-blur-sm transition-[color,border-color,transform] duration-200 hover:border-gold/60 hover:text-gold-bright active:scale-90"
     >
-      {dir === "prev" ? "‹" : "›"}
+      {/* Chevron simetris terhadap pusat (12,12) → presisi di tengah lingkaran */}
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        {dir === "prev" ? <path d="M15 5l-6 7 6 7" /> : <path d="M9 5l6 7-6 7" />}
+      </svg>
     </button>
   );
 }
