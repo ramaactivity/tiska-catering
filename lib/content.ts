@@ -158,7 +158,7 @@ export const timeline = [
   {
     tahun: "1980",
     judul: "Dari dapur rumahan",
-    teks: "Ibu Sri Kadarwati (Ibu Titiek) bersama Drg. Hari Poernomo merintis dengan Aneka Kue Tampah Mini, memasok katering ternama di Bogor & Jakarta.",
+    teks: "Ibu Sri Kadarwati (Ibu Titiek) bersama (alm.) Drg. Hari Poernomo merintis dengan Aneka Kue Tampah Mini, memasok ke katering-katering ternama di Jabodetabek.",
   },
   {
     tahun: "1990",
