@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
+import { NAV_LOGO } from "@/lib/logos-base64";
 import type { Banner } from "@/lib/banners/types";
 
 const ROTATE_MS = 6000;
@@ -110,6 +111,14 @@ export default function CampaignCarousel({ banners }: { banners: Banner[] }) {
         <div
           aria-hidden
           className="absolute inset-0 bg-[linear-gradient(0deg,rgba(12,11,8,0.7),transparent_42%)]"
+        />
+
+        {/* Logo Tiska — pojok kanan atas, rata kanan dengan panah di bawahnya */}
+        <img
+          src={NAV_LOGO}
+          alt="Tiska Catering"
+          aria-hidden
+          className="pointer-events-none absolute right-6 top-5 z-10 h-8 w-auto opacity-90 [filter:drop-shadow(0_1px_6px_rgba(0,0,0,0.55))] md:right-12 md:top-7 md:h-9"
         />
 
         {/* Teks per slide */}
