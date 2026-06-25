@@ -34,16 +34,20 @@ export const images = {
       alt: "Bingkisan hampers istimewa berpita emas",
     },
     {
+      src: "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=1200&q=88",
+      alt: "Sajian prasmanan tertata indah",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1744175331258-f4758acce6ca?auto=format&fit=crop&w=1200&q=88",
+      alt: "Stall sate dipanggang di atas bara — live cooking station",
+    },
+    {
       src: "/images/layanan/everyday-meal.jpg",
       alt: "Nasi kotak lengkap untuk makan harian rumahan dan kantoran",
     },
     {
       src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=88",
       alt: "Sajian fine dining tertata berkelas",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=1200&q=88",
-      alt: "Sajian prasmanan tertata indah",
     },
     {
       src: "/images/layanan/tumpeng.jpg",

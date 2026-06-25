@@ -220,6 +220,16 @@ export const layanan = [
       "Bingkisan istimewa untuk berbagi kebahagiaan di momen-momen spesial.",
   },
   {
+    judul: "Buffet & Banquet",
+    deskripsi:
+      "Prasmanan skala besar yang tertata megah untuk perayaan dan jamuan resmi.",
+  },
+  {
+    judul: "Foodstall",
+    deskripsi:
+      "Stall hidangan interaktif yang menghidupkan suasana — tamu memilih langsung di tempat.",
+  },
+  {
     judul: "Everyday Meal Catering",
     deskripsi:
       "Makan harian untuk rumah maupun kantor — masakan rumahan yang konsisten dan terpercaya setiap hari.",
@@ -228,11 +238,6 @@ export const layanan = [
     judul: "Fine Dining",
     deskripsi:
       "Sajian plated berkelas dengan table service yang elegan untuk acara istimewa.",
-  },
-  {
-    judul: "Buffet, Banquet & Foodstall",
-    deskripsi:
-      "Prasmanan skala besar dan foodstall interaktif yang menggugah selera.",
   },
   {
     judul: "Tumpeng",
@@ -563,7 +568,7 @@ export const faqCategories: FaqCategory[] = [
       {
         q: "Apa saja bentuk layanan kateringnya?",
         a: [
-          { p: "Kami menyiapkan sepuluh bentuk layanan agar sesuai kebutuhan acara Anda:" },
+          { p: "Kami menyiapkan sebelas bentuk layanan agar sesuai kebutuhan acara Anda:" },
           {
             list: [
               { term: "Wedding", text: "Katering pernikahan menyeluruh yang elegan." },
@@ -571,9 +576,10 @@ export const faqCategories: FaqCategory[] = [
               { term: "Corporate & Institusi", text: "Rapat, seminar, gathering, hingga perayaan perusahaan." },
               { term: "Snack & Lunch Box", text: "Solusi praktis berkualitas untuk beragam kebutuhan." },
               { term: "Hampers", text: "Bingkisan eksklusif untuk berbagi kebahagiaan." },
+              { term: "Buffet & Banquet", text: "Prasmanan skala besar untuk perayaan dan jamuan resmi." },
+              { term: "Foodstall", text: "Stall hidangan interaktif yang menghidupkan suasana acara." },
               { term: "Everyday Meal Catering", text: "Makan harian untuk rumah maupun kantor, konsisten setiap hari." },
               { term: "Fine Dining", text: "Sajian plated berkelas dengan table service." },
-              { term: "Buffet, Banquet & Foodstall", text: "Prasmanan skala besar dan area foodstall interaktif." },
               { term: "Tumpeng", text: "Nasi tumpeng untuk syukuran dan tasyakuran." },
               { term: "Tampah", text: "Aneka jajan pasar dalam tampah anyaman bambu." },
             ],
