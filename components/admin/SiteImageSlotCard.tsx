@@ -158,38 +158,54 @@ export default function SiteImageSlotCard(props: SlotCardProps) {
         </div>
       )}
 
-    <div className="overflow-hidden rounded-2xl border border-ad-border bg-ad-panel shadow-[0_1px_2px_var(--ad-shadow)]">
-      <div className="relative aspect-[16/10] bg-ad-panel-2">
+    <div className="group overflow-hidden rounded-2xl bg-ad-panel ring-1 ring-inset ring-ad-border/70 shadow-[0_1px_3px_var(--ad-shadow)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_38px_-18px_var(--ad-shadow)] hover:ring-ad-border-strong">
+      <button
+        type="button"
+        onClick={() => fileRef.current?.click()}
+        aria-label={`Ganti foto ${label}`}
+        className="relative block aspect-[16/10] w-full overflow-hidden bg-ad-panel-2"
+      >
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={currentSrc} alt="" className="absolute inset-0 h-full w-full object-cover" />
+        <img
+          src={currentSrc}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+        />
+        <span className="absolute inset-0 flex items-center justify-center bg-ink/0 opacity-0 transition-all duration-300 group-hover:bg-ink/45 group-hover:opacity-100">
+          <span className="flex items-center gap-1.5 rounded-full bg-white/95 px-3.5 py-1.5 text-[12px] font-semibold text-ink shadow-md">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2L8 5h8l1.5 2h2A1.5 1.5 0 0 1 21 8.5V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8.5Z" />
+              <circle cx="12" cy="13" r="3.2" />
+            </svg>
+            Ganti foto
+          </span>
+        </span>
         {overridden && (
-          <span className="absolute left-2 top-2 rounded-md bg-ad-btn/90 px-1.5 py-0.5 text-[10px] font-semibold text-ad-btn-fg">
+          <span className="absolute left-2.5 top-2.5 rounded-full bg-ink/65 px-2.5 py-0.5 text-[10px] font-medium text-white backdrop-blur-sm">
             Disesuaikan
           </span>
         )}
-      </div>
-      <div className="p-3.5">
-        <p className="text-[14px] font-semibold text-ad-text">{label}</p>
-        <p className="mt-0.5 text-[12px] text-ad-subtle">
-          Rasio {ratioLabel} · disarankan {size}px
+      </button>
+      <div className="px-4 py-3.5">
+        <p className="text-[13.5px] font-semibold tracking-tight text-ad-text">{label}</p>
+        <p className="mt-0.5 text-[11.5px] text-ad-subtle">
+          Rasio {ratioLabel} · {size}px
         </p>
-        <div className="mt-3 flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => fileRef.current?.click()}
-            className="rounded-lg border border-ad-border bg-ad-input px-3 py-1.5 text-[12px] font-medium text-ad-text transition-colors hover:border-ad-accent hover:text-ad-accent"
-          >
-            Ganti foto
-          </button>
-          {overridden && (
-            <form action={resetSiteImageAction}>
-              <input type="hidden" name="slot" value={slotKey} />
-              <button type="submit" className="rounded-lg px-2.5 py-1.5 text-[12px] text-ad-subtle transition-colors hover:text-ad-text">
-                Kembalikan default
-              </button>
-            </form>
-          )}
-        </div>
+        {overridden && (
+          <form action={resetSiteImageAction} className="mt-2.5">
+            <input type="hidden" name="slot" value={slotKey} />
+            <button
+              type="submit"
+              className="inline-flex items-center gap-1 text-[11.5px] text-ad-subtle transition-colors hover:text-ad-accent"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 12a9 9 0 1 0 3-6.7L3 8" />
+                <path d="M3 3v5h5" />
+              </svg>
+              Kembalikan default
+            </button>
+          </form>
+        )}
         <input ref={fileRef} type="file" accept="image/*" className="sr-only" onChange={pick} />
       </div>
 

@@ -15,7 +15,7 @@ export default async function GalleryAdminPage() {
   return (
     <>
       <div className="mb-6">
-          <h1 className="text-[27px] font-bold tracking-tight text-ad-text">Galeri</h1>
+          <h1 className="font-display text-[clamp(26px,3vw,34px)] font-light tracking-tight text-ad-text">Galeri</h1>
           <p className="mt-1 max-w-[640px] text-[14px] leading-[1.6] text-ad-muted">
             Foto-foto di halaman Galeri. Tambah dengan crop, atur urutan & kategori,
             hapus yang tak terpakai. Selama kosong, halaman publik memakai foto bawaan.

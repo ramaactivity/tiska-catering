@@ -18,7 +18,7 @@ export default async function AdminDashboard() {
     <>
       <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h1 className="text-[27px] font-bold tracking-tight text-ad-text">
+            <h1 className="font-display text-[clamp(26px,3vw,34px)] font-light tracking-tight text-ad-text">
               Kabar
             </h1>
             <p className="mt-1 text-[14px] text-ad-muted">

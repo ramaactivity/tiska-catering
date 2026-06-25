@@ -15,7 +15,7 @@ export default async function BannersPage() {
     <>
       <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h1 className="text-[27px] font-bold tracking-tight text-ad-text">Banner</h1>
+            <h1 className="font-display text-[clamp(26px,3vw,34px)] font-light tracking-tight text-ad-text">Banner</h1>
             <p className="mt-1 text-[14px] text-ad-muted">
               Banner besar yang berputar (carousel) di bagian atas beranda.
             </p>
