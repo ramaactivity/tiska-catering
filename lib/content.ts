@@ -39,7 +39,7 @@ export const company = {
     { nama: "Rita Ariyani", jabatan: "Chief Executive Officer" },
   ],
   statistik: [
-    { value: 35, suffix: "+", label: "tahun pengalaman" },
+    { value: 45, suffix: "+", label: "tahun pengalaman" },
     { value: 350, suffix: "+", label: "acara/perayaan per tahun" },
     { value: 10000, suffix: "+", label: "pesanan per bulan" },
     { value: 800, suffix: "+", label: "pilihan menu" },
@@ -115,7 +115,7 @@ export const mengapa = {
 
 export const reasons = [
   {
-    value: 35,
+    value: 45,
     suffix: "+",
     label: "Tahun pengalaman",
     deskripsi:
