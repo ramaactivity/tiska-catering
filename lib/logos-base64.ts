@@ -1,4 +1,4 @@
-// Logo Tiska kini file statis (public/logo-tiska.png) — di-cache browser/CDN,
-// tidak lagi di-inline base64 ke HTML tiap request (audit perf, 26 Jun 2026).
-// Nama file dipertahankan agar import lama (Nav/Footer/CampaignCarousel) tetap jalan.
-export const NAV_LOGO = "/logo-tiska.png";
+// Logo Tiska: file statis WebP (public/logo-tiska.webp) — di-cache browser/CDN,
+// tidak di-inline base64 ke HTML. Resolusi 335x160 (~3.6x ukuran tampil maks 44px),
+// tajam di layar retina mana pun. Nama export dipertahankan agar import lama jalan.
+export const NAV_LOGO = "/logo-tiska.webp";
