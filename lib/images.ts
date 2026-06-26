@@ -30,6 +30,10 @@ export const images = {
       alt: "Sajian fine dining tertata berkelas — sentuhan seni generasi baru",
     },
     {
+      src: "https://images.unsplash.com/photo-1530062845289-9109b2c9c868?auto=format&fit=crop&w=1400&q=90",
+      alt: "Dapur produksi Kitchen Hub di Bintaro",
+    },
+    {
       src: "https://images.unsplash.com/photo-1607344645866-009c320b63e0?auto=format&fit=crop&w=1400&q=90",
       alt: "Bingkisan hampers istimewa berpita emas",
     },

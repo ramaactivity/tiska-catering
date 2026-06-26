@@ -168,12 +168,17 @@ export const timeline = [
   {
     tahun: "2017",
     judul: "Regenerasi & seni baru",
-    teks: "Bimo Haryo Dewanto & Rita Ariyani menghadirkan sentuhan seni dan cita rasa baru, mendirikan Kitchen Hub di Bintaro.",
+    teks: "Tongkat estafet beralih ke Bimo Haryo Dewanto & Rita Ariyani — rebranding menyeluruh, identitas baru, dan inovasi cita rasa yang lebih modern.",
+  },
+  {
+    tahun: "2019",
+    judul: "Dapur baru di Bintaro",
+    teks: "Kitchen Hub di Bintaro berdiri, mendekatkan layanan ke klien Jakarta dan sekitarnya dengan kesegaran yang lebih terjaga.",
   },
   {
     tahun: "2020",
     judul: "Bertahan & berinovasi",
-    teks: "Di tengah pandemi, pulih lewat inovasi ritel — peluncuran Hampers “Nasi Keranjang”.",
+    teks: "Di tengah pandemi COVID-19, Tiska tetap bertahan dan berinovasi — berkembang di segmen pernikahan melalui kehadiran aneka hampers dan Nasi Keranjang.",
   },
   {
     tahun: "2024",
@@ -471,17 +476,42 @@ export const filosofi = {
 
 export const testimoni = {
   eyebrow: "Dari mereka yang mempercayakan momennya",
-  kutipan:
-    "Hidangan yang mengesankan, kehangatan yang membuat hari pernikahan kami terasa sempurna.",
-  kutipanRich: [
-    { text: "Hidangan yang " },
-    { text: "mengesankan,", italic: true },
-    { text: " kehangatan yang membuat hari pernikahan kami terasa " },
-    { text: "sempurna.", italic: true },
-  ] satisfies RichText,
-  kutipanAsli: "Puas banget, makanannya enak.",
-  nama: "Teuku Wisnu & Shireen Sungkar",
-  peran: "Klien Pernikahan",
+  // CATATAN: kutipan Bima Arya & Dedie/Yanti Rachim di bawah masih PLACEHOLDER
+  // (ditandai placeholder:true) — ganti dengan kutipan asli sebelum dianggap final.
+  daftar: [
+    {
+      kutipanRich: [
+        { text: "Hidangan yang " },
+        { text: "mengesankan,", italic: true },
+        { text: " kehangatan yang membuat acara kami terasa " },
+        { text: "sempurna.", italic: true },
+      ] satisfies RichText,
+      nama: "Teuku Wisnu & Shireen Sungkar",
+      peran: "Acara Peluncuran",
+    },
+    {
+      kutipanRich: [
+        { text: "Rasa dan pelayanannya membuat hari pernikahan kami terasa " },
+        { text: "hangat", italic: true },
+        { text: " dan " },
+        { text: "berkesan.", italic: true },
+      ] satisfies RichText,
+      nama: "Bima Arya",
+      peran: "Pernikahan · Bogor",
+      placeholder: true,
+    },
+    {
+      kutipanRich: [
+        { text: "Sudah berkali-kali kami percayakan jamuannya kepada Tiska — " },
+        { text: "terakhir saat open house Idulfitri,", italic: true },
+        { text: " dan tamu selalu " },
+        { text: "terkesan.", italic: true },
+      ] satisfies RichText,
+      nama: "Dedie Rachim & Yanti Rachim",
+      peran: "Open House Idulfitri · Bogor",
+      placeholder: true,
+    },
+  ],
 };
 
 // ─── Klien (logo wall) ──────────────────────────────────────────────────────
