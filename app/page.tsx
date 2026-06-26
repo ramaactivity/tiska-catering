@@ -22,11 +22,10 @@ import { getPublicGallery } from "@/lib/gallery/store";
 
 /* Beranda — 12 section lengkap sesuai urutan & ritme terang-gelap docs/04. */
 
-// ISR: halaman di-cache di edge (TTFB cepat), tapi tetap segar —
-//  • update dari /admin instan via revalidatePath("/") di action terkait
-//    (banner, foto, galeri, posts);
-//  • revalidate berkala sebagai jaring untuk banner terjadwal/cron.
-export const revalidate = 60;
+// Selalu render segar agar banner & foto yang diganti dari /admin langsung tampil.
+// (Catatan: edge-caching/ISR butuh adopsi model "use cache" Next 16 + invalidasi
+//  ber-tag — ditunda sebagai pekerjaan terpisah agar tak ada risiko konten basi.)
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const [banners, si, galeri] = await Promise.all([
