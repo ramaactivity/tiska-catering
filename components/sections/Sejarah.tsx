@@ -174,7 +174,7 @@ export default function Sejarah({
   if (!pinned) {
     // Versi statis: kartu editorial landscape (foto + tahun + cerita).
     return (
-      <section className="relative isolate overflow-hidden px-6 py-[16vh] md:px-10">
+      <section className="relative isolate overflow-hidden px-6 py-20 md:px-10 md:py-[16vh]">
         {stage}
         <div className="mx-auto max-w-[1280px]">
           <div className="mb-14">{heading}</div>

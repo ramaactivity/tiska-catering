@@ -7,7 +7,7 @@ import WordReveal from "@/components/motion/WordReveal";
 /** Mengapa Tiska: 4 reason-card dengan counter, latar gelap (docs/04 #3). */
 export default function MengapaTiska() {
   return (
-    <section className="bg-ink px-6 py-[16vh] md:px-10">
+    <section className="bg-ink px-6 py-20 md:px-10 md:py-[16vh]">
       <div className="mx-auto max-w-[1280px]">
         <div className="mb-16 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <h2 className="font-display text-[clamp(34px,5.5vw,82px)] font-light leading-[0.94] tracking-[-0.025em] text-paper">

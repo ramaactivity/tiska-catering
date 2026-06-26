@@ -27,7 +27,7 @@ const OPTIK: Record<string, string> = {
 /** Klien: logo wall terbuka di latar terang (docs/04 #9). */
 export default function Klien() {
   return (
-    <section id="klien" className="bg-paper-bg px-6 py-[16vh] md:px-10">
+    <section id="klien" className="bg-paper-bg px-6 py-20 md:px-10 md:py-[16vh]">
       <div className="mx-auto max-w-[1280px]">
         <div className="mb-14 text-center">
           <Reveal>

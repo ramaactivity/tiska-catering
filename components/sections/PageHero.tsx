@@ -11,7 +11,7 @@ type PageHeroProps = {
 /** Hero ringkas untuk halaman sekunder (/menu, /galeri). */
 export default function PageHero({ eyebrow, judul, intro }: PageHeroProps) {
   return (
-    <section className="bg-ink px-6 pb-[10vh] pt-[26vh] text-center md:px-10">
+    <section className="bg-ink px-6 pb-12 pt-32 text-center md:px-10 md:pb-[10vh] md:pt-[26vh]">
       <div className="mx-auto max-w-[1280px]">
         <Reveal>
           <p className="mb-7 flex items-center justify-center gap-4 text-[11px] uppercase tracking-[0.34em] text-gold-soft">

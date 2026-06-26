@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { teamHeader, teamGroups, type TeamMember } from "@/lib/content";
+import { useMotionProfile } from "@/components/motion/useMotionProfile";
 import { images } from "@/lib/images";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/motion/Reveal";
@@ -52,7 +53,7 @@ function Corners({ on }: { on: boolean }) {
 export default function OurTeam({ photos = images.team }: { photos?: Photos }) {
   const [activeId, setActiveId] = useState(roster[0]?.id ?? "");
   const [touched, setTouched] = useState(false);
-  const reduce = useReducedMotion();
+  const { reduce, lite } = useMotionProfile();
   const active = roster.find((r) => r.id === activeId) ?? roster[0];
 
   const select = (id: string) => {
@@ -63,7 +64,7 @@ export default function OurTeam({ photos = images.team }: { photos?: Photos }) {
   return (
     <section
       id="tim"
-      className="relative overflow-hidden border-t border-white/[0.07] bg-ink px-6 py-[15vh] md:px-10"
+      className="relative overflow-hidden border-t border-white/[0.07] bg-ink px-6 py-20 md:px-10 md:py-[15vh]"
     >
       {/* Glow emas hangat */}
       <div
@@ -120,7 +121,7 @@ export default function OurTeam({ photos = images.team }: { photos?: Photos }) {
                 aria-pressed={on}
                 aria-label={`${m.nama}, ${m.jabatan}`}
                 data-on={on}
-                initial={reduce ? false : { opacity: 0, filter: "blur(10px)", scale: 0.94 }}
+                initial={reduce ? false : { opacity: 0, filter: lite ? "blur(0px)" : "blur(10px)", scale: 0.94 }}
                 whileInView={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
                 viewport={{ once: true, margin: "-8% 0px" }}
                 transition={{ duration: 0.7, delay: Math.min(i, 11) * 0.045, ease: EASE }}

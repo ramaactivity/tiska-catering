@@ -33,7 +33,7 @@ export default function Profil({ photos = images.profil }: { photos?: { src: str
   const driftKanan = useTransform(scrollYProgress, [0, 1], [-20, 52]);
 
   return (
-    <section id="profil" className="bg-paper-bg px-6 py-[18vh] md:px-10">
+    <section id="profil" className="bg-paper-bg px-6 py-24 md:px-10 md:py-[18vh]">
       <div className="mx-auto grid max-w-[1280px] items-center gap-14 md:grid-cols-12">
         <div className="md:col-span-6">
           <Reveal>

@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import type { RichText } from "@/lib/content";
+import { useMotionProfile } from "./useMotionProfile";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -19,7 +20,7 @@ export default function WordReveal({
   accentClass = "text-gold-soft",
   stagger = 0.06,
 }: WordRevealProps) {
-  const reduceMotion = useReducedMotion();
+  const { reduce, lite } = useMotionProfile();
   let wordIndex = 0;
 
   return (
@@ -37,9 +38,9 @@ export default function WordReveal({
                 seg.italic ? `font-accent italic ${accentClass}` : ""
               }`}
               initial={
-                reduceMotion
+                reduce
                   ? false
-                  : { opacity: 0, y: "0.4em", filter: "blur(8px)" }
+                  : { opacity: 0, y: "0.4em", filter: lite ? "blur(0px)" : "blur(8px)" }
               }
               whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               viewport={{ once: true, margin: "-10% 0px" }}

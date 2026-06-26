@@ -17,7 +17,7 @@ import WordReveal from "@/components/motion/WordReveal";
  */
 export default function Sertifikasi() {
   return (
-    <section className="relative overflow-hidden border-t border-line bg-ink px-6 py-[12vh] md:px-10">
+    <section className="relative overflow-hidden border-t border-line bg-ink px-6 py-16 md:px-10 md:py-[12vh]">
       {/* Glow emas di sisi kanan — tembus kaca panel */}
       <div
         aria-hidden

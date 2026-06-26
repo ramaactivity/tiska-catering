@@ -3,8 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { NAV_LOGO } from "@/lib/logos-base64";
+import { useMotionProfile } from "@/components/motion/useMotionProfile";
 import type { Banner } from "@/lib/banners/types";
 
 const ROTATE_MS = 6000;
@@ -17,7 +18,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
  * (sentuh). Reduced-motion: statis tanpa autoplay.
  */
 export default function CampaignCarousel({ banners }: { banners: Banner[] }) {
-  const reduce = useReducedMotion();
+  const { reduce, lite } = useMotionProfile();
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const [docHidden, setDocHidden] = useState(false);
@@ -56,7 +57,7 @@ export default function CampaignCarousel({ banners }: { banners: Banner[] }) {
   };
 
   return (
-    <section className="bg-ink px-5 py-[11vh] md:px-10">
+    <section className="bg-ink px-5 py-12 md:px-10 md:py-[11vh]">
       <div
         className="group relative mx-auto aspect-[4/5] w-full max-w-[1280px] touch-pan-y overflow-hidden rounded-2xl sm:aspect-[16/10] lg:aspect-[21/9]"
         onMouseEnter={() => setPaused(true)}
@@ -75,7 +76,7 @@ export default function CampaignCarousel({ banners }: { banners: Banner[] }) {
               animate={{
                 opacity: isActive ? 1 : 0,
                 // blur menyamarkan tumpang-tindih dua gambar saat crossfade
-                filter: reduce ? "none" : isActive ? "blur(0px)" : "blur(7px)",
+                filter: lite ? "none" : isActive ? "blur(0px)" : "blur(7px)",
               }}
               transition={{
                 opacity: { duration: 1.1, ease: EASE },
@@ -204,7 +205,7 @@ export default function CampaignCarousel({ banners }: { banners: Banner[] }) {
 function Cta({ href, label }: { href: string; label: string }) {
   const external = /^https?:\/\//i.test(href);
   const cls =
-    "group/cta relative inline-flex items-center gap-2.5 overflow-hidden rounded-full border border-gold/70 px-7 py-3 text-[12px] font-normal uppercase tracking-[0.18em] text-gold-soft transition-colors duration-500 hover:text-ink active:scale-[0.98]";
+    "group/cta relative inline-flex items-center gap-2.5 overflow-hidden rounded-full border border-gold/70 px-7 py-3.5 text-[12px] font-normal uppercase tracking-[0.18em] text-gold-soft transition-colors duration-500 hover:text-ink active:scale-[0.98]";
   const inner = (
     <>
       <span aria-hidden className="absolute inset-0 translate-y-full bg-gold transition-transform duration-500 ease-out group-hover/cta:translate-y-0" />

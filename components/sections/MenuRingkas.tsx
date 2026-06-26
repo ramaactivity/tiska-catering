@@ -46,7 +46,7 @@ export default function MenuRingkas({ photos = images.menuRingkas }: { photos?: 
   };
 
   return (
-    <section className="flex flex-col justify-center bg-ink px-6 py-[12vh] md:min-h-svh md:px-10 md:py-[6vh]">
+    <section className="flex flex-col justify-center bg-ink px-6 py-20 md:min-h-svh md:px-10 md:py-[6vh]">
       <div className="mx-auto w-full max-w-[1280px]">
         <div className="mb-7 flex flex-wrap items-end justify-between gap-4 md:mb-9">
           <div>

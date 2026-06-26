@@ -28,7 +28,7 @@ export default function CTA({ photo = images.cta }: { photo?: { src: string; alt
     <section
       ref={ref}
       id="kontak"
-      className="relative isolate overflow-hidden px-6 py-[24vh] text-center md:px-10"
+      className="relative isolate overflow-hidden px-6 py-24 text-center md:px-10 md:py-[24vh]"
     >
       {/* Dimming via overlay, bukan filter — filter pada layer ber-parallax
           memaksa re-raster foto fullscreen tiap frame. */}

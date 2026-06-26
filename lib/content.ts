@@ -570,7 +570,7 @@ export const faqHeader = {
     { text: "ditanyakan", italic: true },
   ] satisfies RichText,
   deskripsi:
-    "Semua yang perlu Anda tahu sebelum merayakan momen bersama kami — dari layanan dan menu hingga ketentuan biaya. Pilih topik di samping.",
+    "Semua yang perlu Anda tahu sebelum merayakan momen bersama kami — dari layanan dan menu hingga ketentuan biaya. Pilih topik yang Anda butuhkan.",
   ctaTanya: "Masih ada yang ingin ditanyakan?",
   cta: { label: "Tanya via WhatsApp", href: company.whatsappLink },
 };

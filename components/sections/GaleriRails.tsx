@@ -46,7 +46,7 @@ export default function GaleriRails({ items }: { items: GalleryPhoto[] }) {
   const cur = items[highlights[active] ?? 0];
 
   return (
-    <section className="bg-ink px-6 pb-[14vh] md:px-10">
+    <section className="bg-ink px-6 pb-16 md:px-10 md:pb-[14vh]">
       <div className="mx-auto max-w-[1280px]">
         {/* Billboard */}
         <div

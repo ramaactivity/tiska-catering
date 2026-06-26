@@ -12,7 +12,7 @@ export default function GaleriGrid({
   items?: { src: string; alt: string; kategori: string }[];
 }) {
   return (
-    <section className="bg-ink px-6 pb-[14vh] md:px-10">
+    <section className="bg-ink px-6 pb-16 md:px-10 md:pb-[14vh]">
       <div className="mx-auto max-w-[1280px] columns-2 gap-4 md:columns-3">
         {items.map((foto, i) => (
           <Reveal

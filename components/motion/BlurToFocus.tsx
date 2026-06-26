@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import type { ReactNode } from "react";
+import { useMotionProfile } from "./useMotionProfile";
 
 type BlurToFocusProps = {
   children: ReactNode;
@@ -21,16 +22,19 @@ export default function BlurToFocus({
   blur = 12,
   className,
 }: BlurToFocusProps) {
-  const reduceMotion = useReducedMotion();
+  const { reduce, lite } = useMotionProfile();
 
-  if (reduceMotion) {
+  if (reduce) {
     return <div className={className}>{children}</div>;
   }
+
+  // Mobile: pertahankan reveal opacity yang murah, lepas filter blur (mahal di GPU HP).
+  const b = lite ? 0 : blur;
 
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, filter: `blur(${blur}px)` }}
+      initial={{ opacity: 0, filter: `blur(${b}px)` }}
       whileInView={{ opacity: 1, filter: "blur(0px)" }}
       viewport={{ once: true, margin: "-10% 0px" }}
       transition={{ duration, delay, ease: EASE }}

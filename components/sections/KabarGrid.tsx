@@ -29,10 +29,10 @@ export default function KabarGrid({ posts }: KabarGridProps) {
   );
 
   return (
-    <section className="bg-ink px-6 pb-[16vh] md:px-10">
+    <section className="bg-ink px-6 pb-20 md:px-10 md:pb-[16vh]">
       <div className="mx-auto max-w-[1280px]">
         {posts.length === 0 ? (
-          <p className="py-[8vh] text-center text-[15px] leading-[1.8] text-paper/60">
+          <p className="py-16 text-center text-[15px] leading-[1.8] text-paper/60 md:py-[8vh]">
             {kabarPage.kosong}
           </p>
         ) : (

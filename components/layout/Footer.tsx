@@ -6,7 +6,7 @@ import Reveal from "@/components/motion/Reveal";
 /** Footer: kolom navigasi/kontak/sosial + wordmark TISKA raksasa (docs/04 #11). */
 export default function Footer() {
   return (
-    <footer className="overflow-hidden border-t border-line bg-ink-2 px-6 pb-10 pt-[11vh] md:px-10">
+    <footer className="overflow-hidden border-t border-line bg-ink-2 px-6 pb-10 pt-16 md:px-10 md:pt-[11vh]">
       <div className="mx-auto max-w-[1280px]">
         <div className="grid grid-cols-1 gap-12 pb-16 sm:grid-cols-2 lg:grid-cols-4">
           <Reveal>

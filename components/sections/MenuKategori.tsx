@@ -10,7 +10,7 @@ import WordReveal from "@/components/motion/WordReveal";
  */
 export default function MenuKategori({ photos = images.menuKategori }: { photos?: Record<string, { src: string; alt: string }> }) {
   return (
-    <div className="bg-ink px-6 pb-[14vh] md:px-10">
+    <div className="bg-ink px-6 pb-16 md:px-10 md:pb-[14vh]">
       <div className="mx-auto flex max-w-[1280px] flex-col gap-[14vh]">
         {menuCategories.map((kategori, ki) => {
           const banner = photos[kategori.id];

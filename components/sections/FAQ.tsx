@@ -53,7 +53,7 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      className="scroll-mt-24 bg-paper-bg px-6 pb-[16vh] pt-[12vh] text-paper-ink md:scroll-mt-28 md:px-10"
+      className="scroll-mt-24 bg-paper-bg px-6 pb-20 pt-16 text-paper-ink md:scroll-mt-28 md:px-10 md:pb-[16vh] md:pt-[12vh]"
     >
       <div className="mx-auto max-w-[1280px]">
         {/* Header — judul kiri, deskripsi kanan-bawah (selaras pola MengapaTiska,

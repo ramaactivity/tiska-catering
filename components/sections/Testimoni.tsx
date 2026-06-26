@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { testimoni } from "@/lib/content";
 import type { RichText } from "@/lib/content";
 import Reveal from "@/components/motion/Reveal";
+import { useMotionProfile } from "@/components/motion/useMotionProfile";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const AUTOPLAY_MS = 7000;
@@ -34,7 +35,7 @@ export default function Testimoni() {
   const items = testimoni.daftar;
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const reduce = useReducedMotion();
+  const { reduce, lite } = useMotionProfile();
 
   useEffect(() => {
     if (reduce || paused || items.length < 2) return;
@@ -48,7 +49,7 @@ export default function Testimoni() {
   const active = items[index];
 
   return (
-    <section className="relative overflow-hidden bg-ink-2 px-6 py-[18vh] md:px-10">
+    <section className="relative overflow-hidden bg-ink-2 px-6 py-20 md:px-10 md:py-[18vh]">
       <div
         aria-hidden
         className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(196,160,90,0.09),transparent_60%)]"
@@ -70,9 +71,9 @@ export default function Testimoni() {
             <motion.div
               key={index}
               className="col-start-1 row-start-1"
-              initial={reduce ? false : { opacity: 0, y: 18, filter: "blur(8px)" }}
+              initial={reduce ? false : { opacity: 0, y: 18, filter: lite ? "blur(0px)" : "blur(8px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              exit={reduce ? { opacity: 0 } : { opacity: 0, y: -14, filter: "blur(8px)" }}
+              exit={reduce ? { opacity: 0 } : { opacity: 0, y: -14, filter: lite ? "blur(0px)" : "blur(8px)" }}
               transition={{ duration: 0.7, ease: EASE }}
             >
               <blockquote className="font-display text-[clamp(27px,4.2vw,58px)] font-light leading-[1.2] tracking-[-0.025em] text-paper">
@@ -90,7 +91,7 @@ export default function Testimoni() {
 
         {/* Dot navigasi */}
         {items.length > 1 && (
-          <div className="mt-12 flex items-center justify-center gap-3">
+          <div className="mt-10 flex items-center justify-center md:mt-12">
             {items.map((t, i) => (
               <button
                 key={i}
@@ -98,12 +99,16 @@ export default function Testimoni() {
                 onClick={() => setIndex(i)}
                 aria-label={`Tampilkan testimoni ${t.nama}`}
                 aria-current={i === index}
-                className={`h-1.5 rounded-full transition-all duration-500 ${
-                  i === index
-                    ? "w-7 bg-gold-soft"
-                    : "w-1.5 bg-paper/25 hover:bg-paper/45"
-                }`}
-              />
+                className="group flex h-11 items-center px-2"
+              >
+                <span
+                  className={`h-1.5 rounded-full transition-all duration-500 ${
+                    i === index
+                      ? "w-7 bg-gold-soft"
+                      : "w-1.5 bg-paper/25 group-hover:bg-paper/45"
+                  }`}
+                />
+              </button>
             ))}
           </div>
         )}

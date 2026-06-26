@@ -34,7 +34,7 @@ export default function Layanan({ photos = images.layanan }: { photos?: Foto[] }
 
   return (
     <section id="layanan" className="bg-ink">
-      <div className="mx-auto max-w-[1280px] px-6 pb-[6vh] pt-[16vh] md:px-10">
+      <div className="mx-auto max-w-[1280px] px-6 pb-8 pt-20 md:px-10 md:pb-[6vh] md:pt-[16vh]">
         <div className="flex flex-wrap items-end justify-between gap-5">
           <h2 className="font-display text-[clamp(34px,5.5vw,90px)] font-light leading-[0.92] tracking-[-0.025em] text-paper">
             <WordReveal segments={layananHeader.judul} />
@@ -116,7 +116,7 @@ function PinnedRow({ photos }: { photos: Foto[] }) {
 
 function SwipeRow({ photos }: { photos: Foto[] }) {
   return (
-    <div className="mt-2 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-[14vh] [-ms-overflow-style:none] [scrollbar-width:none] md:px-10 [&::-webkit-scrollbar]:hidden">
+    <div className="mt-2 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-16 [-ms-overflow-style:none] [scrollbar-width:none] md:px-10 md:pb-[14vh] [&::-webkit-scrollbar]:hidden">
       {layanan.map((s, i) => (
         <ServiceCard key={s.judul} i={i} judul={s.judul} deskripsi={s.deskripsi} photo={photos[i]} mobile />
       ))}

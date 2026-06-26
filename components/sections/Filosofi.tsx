@@ -5,7 +5,7 @@ import WordReveal from "@/components/motion/WordReveal";
 /** Filosofi: color block emas penuh, pull quote kata-per-kata (docs/04 #6). */
 export default function Filosofi() {
   return (
-    <section className="bg-gold-deep px-6 py-[20vh] md:px-10">
+    <section className="bg-gold-deep px-6 py-24 md:px-10 md:py-[20vh]">
       <div className="mx-auto max-w-[1100px] text-center">
         <blockquote className="font-display text-[clamp(32px,5.5vw,88px)] font-light leading-[1.04] tracking-[-0.025em] text-ink">
           {/* aksen italic mewarisi warna ink */}

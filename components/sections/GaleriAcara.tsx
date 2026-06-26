@@ -45,7 +45,7 @@ export default function GaleriAcara({ items }: { items: GalleryPhoto[] }) {
   const cur = items[activeGi];
 
   return (
-    <section id="galeri" className="relative overflow-hidden bg-ink px-6 py-[13vh] md:px-10">
+    <section id="galeri" className="relative overflow-hidden bg-ink px-6 py-16 md:px-10 md:py-[13vh]">
       <div className="mx-auto max-w-[1280px]">
         {/* Header */}
         <div className="mb-9 flex flex-wrap items-end justify-between gap-y-6">
