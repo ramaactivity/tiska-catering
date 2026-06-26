@@ -140,7 +140,7 @@ export const reasons = [
     suffix: "+",
     label: "Pilihan menu",
     deskripsi:
-      "Indonesian, Asian, Western; tiap selera dan tema dapat kami sesuaikan.",
+      "Indonesian, Asian, Western, Mediterranean, Peranakan, Vegetarian; tiap selera dan tema dapat kami sesuaikan.",
   },
 ];
 
@@ -273,7 +273,7 @@ export const menuPage = {
   ] satisfies RichText,
   // intro memakai copy reasons docs/03 (800+ pilihan menu)
   intro:
-    "800+ pilihan menu — Indonesian, Asian, Western, hingga Mediterranean; tiap selera dan tema dapat kami sesuaikan.",
+    "800+ pilihan menu — Indonesian, Asian, Western, Mediterranean, Peranakan, hingga Vegetarian; tiap selera dan tema dapat kami sesuaikan.",
 };
 
 // ─── Galeri Acara (beranda — featured + rail, gaya sinematik) ───────────────
