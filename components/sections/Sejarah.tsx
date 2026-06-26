@@ -3,8 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { sejarah, timeline } from "@/lib/content";
 import { images } from "@/lib/images";
 import Eyebrow from "@/components/ui/Eyebrow";
@@ -44,6 +42,18 @@ export default function Sejarah({
 
   useEffect(() => {
     if (!pinned || !sectionRef.current) return;
+
+    // GSAP + ScrollTrigger di-load on-demand (hanya desktop tanpa reduced-motion)
+    // → keluar dari bundle JS awal. Logika timeline tidak berubah.
+    let cancelled = false;
+    let cleanup = () => {};
+
+    (async () => {
+    const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([
+      import("gsap"),
+      import("gsap/ScrollTrigger"),
+    ]);
+    if (cancelled || !sectionRef.current) return;
     gsap.registerPlugin(ScrollTrigger);
 
     const eras = gsap.utils.toArray<HTMLElement>("[data-era]", sectionRef.current);
@@ -131,9 +141,15 @@ export default function Sejarah({
     // jeda tahan untuk era terakhir hingga akhir rentang scroll
     tl.set({}, {}, timeline.length);
 
-    return () => {
+    cleanup = () => {
       tl.scrollTrigger?.kill();
       tl.kill();
+    };
+    })();
+
+    return () => {
+      cancelled = true;
+      cleanup();
     };
   }, [pinned]);
 

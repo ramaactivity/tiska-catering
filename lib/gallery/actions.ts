@@ -7,6 +7,7 @@ import * as store from "@/lib/gallery/store";
 export type FormState = { ok?: boolean; error?: string } | null;
 
 function refresh() {
+  revalidatePath("/"); // beranda menampilkan galeri (GaleriAcara)
   revalidatePath("/galeri");
   revalidatePath("/admin/galeri");
 }

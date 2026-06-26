@@ -22,8 +22,11 @@ import { getPublicGallery } from "@/lib/gallery/store";
 
 /* Beranda — 12 section lengkap sesuai urutan & ritme terang-gelap docs/04. */
 
-// Selalu render segar agar banner & foto yang diganti dari /admin langsung tampil.
-export const dynamic = "force-dynamic";
+// ISR: halaman di-cache di edge (TTFB cepat), tapi tetap segar —
+//  • update dari /admin instan via revalidatePath("/") di action terkait
+//    (banner, foto, galeri, posts);
+//  • revalidate berkala sebagai jaring untuk banner terjadwal/cron.
+export const revalidate = 60;
 
 export default async function Home() {
   const [banners, si, galeri] = await Promise.all([
