@@ -481,20 +481,16 @@ export const testimoni = {
   daftar: [
     {
       kutipanRich: [
-        { text: "Hidangan yang " },
-        { text: "mengesankan,", italic: true },
-        { text: " kehangatan yang membuat acara kami terasa " },
-        { text: "sempurna.", italic: true },
+        { text: "Acaranya lancar, tamu-tamu senang. Itu yang " },
+        { text: "penting buat kami.", italic: true },
       ] satisfies RichText,
       nama: "Teuku Wisnu & Shireen Sungkar",
       peran: "Acara Peluncuran",
     },
     {
       kutipanRich: [
-        { text: "Rasa dan pelayanannya membuat hari pernikahan kami terasa " },
-        { text: "hangat", italic: true },
-        { text: " dan " },
-        { text: "berkesan.", italic: true },
+        { text: "Pernikahan kami berjalan tenang. Buat saya, itu sudah " },
+        { text: "lebih dari cukup.", italic: true },
       ] satisfies RichText,
       nama: "Bima Arya",
       peran: "Pernikahan · Bogor",
@@ -502,10 +498,8 @@ export const testimoni = {
     },
     {
       kutipanRich: [
-        { text: "Sudah berkali-kali kami percayakan jamuannya kepada Tiska — " },
-        { text: "terakhir saat open house Idulfitri,", italic: true },
-        { text: " dan tamu selalu " },
-        { text: "terkesan.", italic: true },
+        { text: "Open house kami selalu ramai, dan tamu-tamu pulang dengan " },
+        { text: "senang.", italic: true },
       ] satisfies RichText,
       nama: "Dedie Rachim & Yanti Rachim",
       peran: "Open House Idulfitri · Bogor",
@@ -627,7 +621,7 @@ export const faqCategories: FaqCategory[] = [
         q: "Bagaimana cara memesannya?",
         a: [
           {
-            p: "Cukup hubungi tim kami via WhatsApp. Kami akan berdiskusi soal tanggal, jumlah tamu, dan selera acara Anda, lalu menyiapkan penawaran yang sesuai.",
+            p: "Cukup hubungi tim kami via WhatsApp. Kami akan berdiskusi soal tanggal, jumlah tamu, konsep acara, kebutuhan dan pilihan menu untuk acara Anda, lalu menyiapkan penawaran yang sesuai.",
           },
         ],
       },
@@ -635,7 +629,7 @@ export const faqCategories: FaqCategory[] = [
         q: "Berapa minimum pemesanannya?",
         a: [
           {
-            p: "Minimum 25 pax untuk buffet maupun meal box. Untuk acara yang lebih intim, kami juga dapat melayani mulai 20 pax dengan penyesuaian pada ketentuan minimum Service Charge.",
+            p: "Minimum 25 pax untuk buffet maupun meal box. Untuk acara yang lebih intim, kami juga dapat melayani mulai 20 pax dengan penyesuaian pada ketentuan Minimum Layanan Service (Service Charge).",
           },
         ],
       },
@@ -643,15 +637,15 @@ export const faqCategories: FaqCategory[] = [
         q: "Di mana lokasi Tiska, dan area mana saja yang dilayani?",
         a: [
           {
-            p: "Dapur pusat kami berada di Jl. Julang 1 No. 3, Tanah Sereal, Kota Bogor. Kami melayani pengiriman katering untuk seluruh wilayah Jabodetabek.",
+            p: "Dapur pusat kami berada di Kota Bogor — tepatnya Jl. Julang 1 No. 3, Tanah Sereal. Kami melayani pengiriman katering untuk seluruh wilayah Jabodetabek.",
           },
         ],
       },
       {
-        q: "Dapur di Bogor — apakah makanan tetap aman dikirim ke Jakarta dan sekitarnya?",
+        q: "Dapur di Kota Bogor — apakah makanan tetap aman dikirim ke Jakarta dan sekitarnya?",
         a: [
           {
-            p: "Tentu aman. Jarak tempuh ke area Jabodetabek umumnya 1–2 jam, dan kami menerapkan standar pengemasan serta logistik yang ketat — makanan tiba dalam keadaan segar, higienis, dan terjaga kualitasnya.",
+            p: "Tentu aman. Jarak tempuh ke area Jabodetabek umumnya 1–2 jam, dan kami menerapkan pengemasan dan logistik yang sesuai standar — makanan tiba dalam keadaan segar, higienis, dan terjaga kualitasnya.",
           },
         ],
       },
@@ -659,7 +653,17 @@ export const faqCategories: FaqCategory[] = [
         q: "Kapan sebaiknya saya memesan?",
         a: [
           {
-            p: "Agar kami dapat mempersiapkan acara Anda dengan maksimal, sebaiknya konfirmasi pemesanan dilakukan selambat-lambatnya 14 hari sebelum hari H.",
+            p: "Semakin awal semakin baik agar persiapan maksimal. Sebagai panduan, sebaiknya konfirmasi dilakukan selambat-lambatnya:",
+          },
+          {
+            list: [
+              { term: "Acara besar", text: "H-30 — mis. pernikahan atau gala berskala besar." },
+              { term: "Acara sedang", text: "H-14." },
+              { term: "Acara casual", text: "H-3." },
+            ],
+          },
+          {
+            p: "Untuk pesanan mendadak, silakan tetap hubungi admin kami — akan kami usahakan dan diskusikan kemungkinannya.",
           },
         ],
       },
@@ -725,24 +729,38 @@ export const faqCategories: FaqCategory[] = [
     ringkas: "Service charge, box, & pengiriman",
     items: [
       {
-        q: "Apakah ada Service Charge, dan bagaimana ketentuannya?",
+        q: "Apa itu Minimum Layanan Service (Service Charge), dan berapa besarnya?",
         a: [
-          { p: "Ketentuan biaya kami transparan, mengikuti lokasi dan profil klien:" },
+          {
+            p: "Minimum Layanan Service (Service Charge) adalah biaya layanan yang menyesuaikan kebutuhan acara — terpisah dari harga menu makanan. Besarnya mengikuti lokasi acara:",
+          },
           {
             list: [
               {
-                term: "Korporat — Jabodetabek",
-                text: "Pajak Restoran (PB1) 10% dari total tagihan makanan, ditambah Service Charge 21% (atau minimal Rp2.500.000, dipilih yang lebih besar).",
+                term: "Bogor & sekitarnya",
+                text: "15% dari total, atau minimal Rp1.500.000 — dipilih yang lebih besar.",
               },
               {
-                term: "Pribadi — Jakarta & sekitarnya",
-                text: "Service Charge 21% (atau minimal Rp2.500.000, dipilih yang lebih besar).",
-              },
-              {
-                term: "Pribadi — Bogor",
-                text: "Service Charge 15% (atau minimal Rp1.500.000, dipilih yang lebih besar).",
+                term: "Jabodetabek",
+                text: "hingga 21% dari total, atau minimal Rp2.500.000 — dipilih yang lebih besar.",
               },
             ],
+          },
+        ],
+      },
+      {
+        q: "Apakah ada pajak atau biaya lain di luar harga menu?",
+        a: [
+          {
+            p: "Ya. Seluruh harga dikenakan Pajak Restoran (PB1) 10%, dan harga menu dapat menyesuaikan sewaktu-waktu. Standar layanan berlaku untuk durasi acara 4–6 jam (terhitung sejak tiba di lokasi); untuk acara di luar Jabodetabek dikenakan tambahan bea transportasi sesuai kebutuhan.",
+          },
+        ],
+      },
+      {
+        q: "Bagaimana dengan cover charge dan kerusakan peralatan?",
+        a: [
+          {
+            p: "Bila venue di luar rekanan kami menerapkan cover charge, akan kami informasikan sesuai kebijakan venue. Kehilangan atau kerusakan peralatan selama acara dihitung sesuai tabel penggantian yang berlaku.",
           },
         ],
       },
