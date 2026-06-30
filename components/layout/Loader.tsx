@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   LOADER_TIMING,
@@ -63,28 +63,29 @@ export default function Loader() {
 
         <p
           style={{ fontVariationSettings: "'opsz' 144" }}
-          className="my-[18px] font-display text-[clamp(34px,7vw,84px)] font-light leading-none text-paper"
+          className="my-[18px] max-w-[14ch] text-center font-display text-[clamp(34px,7vw,84px)] font-light leading-[1.05] text-paper"
         >
-          <span className="inline-block overflow-hidden align-bottom">
-            <motion.span
-              className="inline-block"
-              initial={{ y: "110%" }}
-              animate={{ y: 0 }}
-              transition={{ duration: 1.1, delay: 0.5, ease: WORD_EASE }}
-            >
-              Celebrate
-            </motion.span>
-          </span>{" "}
-          <span className="inline-block overflow-hidden align-bottom">
-            <motion.span
-              className="inline-block font-accent italic text-gold-soft"
-              initial={{ y: "110%" }}
-              animate={{ y: 0 }}
-              transition={{ duration: 1.1, delay: 0.62, ease: WORD_EASE }}
-            >
-              love
-            </motion.span>
-          </span>
+          {[
+            { t: "Let's" },
+            { t: "Celebrate" },
+            { t: "Love", accent: true },
+            { t: "with" },
+            { t: "Us" },
+          ].map((w, i, arr) => (
+            <Fragment key={i}>
+              <span className="inline-block overflow-hidden align-bottom">
+                <motion.span
+                  className={`inline-block ${w.accent ? "font-accent italic text-gold-soft" : ""}`}
+                  initial={{ y: "110%" }}
+                  animate={{ y: 0 }}
+                  transition={{ duration: 1.1, delay: 0.5 + i * 0.1, ease: WORD_EASE }}
+                >
+                  {w.t}
+                </motion.span>
+              </span>
+              {i < arr.length - 1 ? " " : null}
+            </Fragment>
+          ))}
         </p>
 
         <motion.span
