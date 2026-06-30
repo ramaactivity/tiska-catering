@@ -133,7 +133,7 @@ export const reasons = [
     suffix: "+",
     label: "Pesanan per bulan",
     deskripsi:
-      "Skala produksi teruji menjamin ketepatan dan kualitas, sebanyak apa pun tamu.",
+      "Skala produksi teruji menjamin ketepatan waktu, kualitas makanan, dan pelayanan yang dapat diandalkan.",
   },
   {
     value: 800,
@@ -513,7 +513,7 @@ export const testimoni = {
 export const klien = {
   eyebrow: "Dipercaya oleh institusi terkemuka",
   judul: [
-    { text: "Mereka merayakan " },
+    { text: "Mereka merayakannya " },
     { text: "bersama kami", italic: true },
   ] satisfies RichText,
   caption:
