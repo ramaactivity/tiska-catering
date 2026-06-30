@@ -12,6 +12,7 @@ import { company } from "@/lib/content";
 import { getUpcoming, daysUntil, todayJakarta } from "./store";
 import { addDaysStr } from "./source";
 import type { SpecialDay } from "./types";
+import { remoteStorageEnabled, readJsonObject, writeJsonObject } from "@/lib/storage";
 
 /** Offset hari sebelum (dan tepat) hari-H yang dikirimi reminder. */
 const OFFSETS = [7, 1, 0];
@@ -20,18 +21,9 @@ const SITE = "https://www.tiskacatering.com";
 const SENT_KEY = "special-days/reminders-sent.json";
 const SENT_FILE = path.join(process.cwd(), "data", "special-days-reminders-sent.json");
 
-function blobEnabled(): boolean {
-  return !!process.env.BLOB_READ_WRITE_TOKEN;
-}
-
 async function readSent(): Promise<string[]> {
-  if (blobEnabled()) {
-    const { list } = await import("@vercel/blob");
-    const { blobs } = await list({ prefix: SENT_KEY, limit: 1 });
-    if (!blobs.length) return [];
-    const res = await fetch(blobs[0].url, { cache: "no-store" });
-    if (!res.ok) return [];
-    return (await res.json()) as string[];
+  if (remoteStorageEnabled()) {
+    return (await readJsonObject<string[]>(SENT_KEY)) ?? [];
   }
   try {
     return JSON.parse(await fs.readFile(SENT_FILE, "utf8")) as string[];
@@ -41,15 +33,8 @@ async function readSent(): Promise<string[]> {
 }
 
 async function writeSent(keys: string[]): Promise<void> {
-  if (blobEnabled()) {
-    const { put } = await import("@vercel/blob");
-    await put(SENT_KEY, JSON.stringify(keys, null, 2), {
-      access: "public",
-      contentType: "application/json",
-      addRandomSuffix: false,
-      allowOverwrite: true,
-      cacheControlMaxAge: 0,
-    });
+  if (remoteStorageEnabled()) {
+    await writeJsonObject(SENT_KEY, keys);
     return;
   }
   await fs.mkdir(path.dirname(SENT_FILE), { recursive: true });

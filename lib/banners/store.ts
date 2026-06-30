@@ -1,5 +1,5 @@
 /**
- * Penyimpanan Banner — pola sama dgn lib/posts/store (Vercel Blob / fs fallback).
+ * Penyimpanan Banner — pola sama dgn lib/posts/store (Cloudflare R2 / fs fallback).
  * Foto memakai uploadImage bersama dari posts/store.
  */
 
@@ -7,24 +7,16 @@ import { promises as fs } from "fs";
 import path from "path";
 import { randomUUID } from "crypto";
 import type { Banner, BannerInput } from "./types";
+import { remoteStorageEnabled, readJsonObject, writeJsonObject, deleteObjectByUrl } from "@/lib/storage";
 export { uploadImage } from "@/lib/posts/store";
 
 const DATA_KEY = "banner/banners.json";
 const DATA_DIR = path.join(process.cwd(), "data");
 const DATA_FILE = path.join(DATA_DIR, "banners.json");
 
-function blobEnabled(): boolean {
-  return !!process.env.BLOB_READ_WRITE_TOKEN;
-}
-
 async function readRaw(): Promise<Banner[]> {
-  if (blobEnabled()) {
-    const { list } = await import("@vercel/blob");
-    const { blobs } = await list({ prefix: DATA_KEY, limit: 1 });
-    if (!blobs.length) return [];
-    const res = await fetch(blobs[0].url, { cache: "no-store" });
-    if (!res.ok) return [];
-    return (await res.json()) as Banner[];
+  if (remoteStorageEnabled()) {
+    return (await readJsonObject<Banner[]>(DATA_KEY)) ?? [];
   }
   try {
     return JSON.parse(await fs.readFile(DATA_FILE, "utf8")) as Banner[];
@@ -34,15 +26,8 @@ async function readRaw(): Promise<Banner[]> {
 }
 
 async function writeRaw(banners: Banner[]): Promise<void> {
-  if (blobEnabled()) {
-    const { put } = await import("@vercel/blob");
-    await put(DATA_KEY, JSON.stringify(banners, null, 2), {
-      access: "public",
-      contentType: "application/json",
-      addRandomSuffix: false,
-      allowOverwrite: true,
-      cacheControlMaxAge: 0,
-    });
+  if (remoteStorageEnabled()) {
+    await writeJsonObject(DATA_KEY, banners);
     return;
   }
   await fs.mkdir(DATA_DIR, { recursive: true });
@@ -128,10 +113,9 @@ export async function deleteBanner(id: string): Promise<void> {
   const banners = await readRaw();
   const target = banners.find((b) => b.id === id);
   await writeRaw(banners.filter((b) => b.id !== id));
-  if (target?.imageUrl && blobEnabled() && target.imageUrl.includes(".blob.vercel-storage.com")) {
+  if (target?.imageUrl && remoteStorageEnabled()) {
     try {
-      const { del } = await import("@vercel/blob");
-      await del(target.imageUrl);
+      await deleteObjectByUrl(target.imageUrl);
     } catch {
       /* abaikan */
     }

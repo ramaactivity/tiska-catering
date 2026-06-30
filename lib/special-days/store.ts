@@ -1,6 +1,6 @@
 /**
  * Penyimpanan Hari Spesial — pola sama dgn lib/banners/store
- * (Vercel Blob / fs fallback). CRUD penuh + merge dari sumber (API) yang
+ * (Cloudflare R2 / fs fallback). CRUD penuh + merge dari sumber (API) yang
  * tidak menimpa entri yang sudah ada (pilihan Rama aman dari refresh).
  */
 
@@ -8,14 +8,11 @@ import { promises as fs } from "fs";
 import path from "path";
 import { randomUUID } from "crypto";
 import type { SpecialDay, SpecialDayInput } from "./types";
+import { remoteStorageEnabled, readJsonObject, writeJsonObject } from "@/lib/storage";
 
 const DATA_KEY = "special-days/days.json";
 const DATA_DIR = path.join(process.cwd(), "data");
 const DATA_FILE = path.join(DATA_DIR, "special-days.json");
-
-function blobEnabled(): boolean {
-  return !!process.env.BLOB_READ_WRITE_TOKEN;
-}
 
 /** Tanggal hari ini "YYYY-MM-DD" zona WIB. */
 export function todayJakarta(): string {
@@ -35,13 +32,8 @@ export function daysUntil(tanggal: string, today = todayJakarta()): number {
 }
 
 async function readRaw(): Promise<SpecialDay[]> {
-  if (blobEnabled()) {
-    const { list } = await import("@vercel/blob");
-    const { blobs } = await list({ prefix: DATA_KEY, limit: 1 });
-    if (!blobs.length) return [];
-    const res = await fetch(blobs[0].url, { cache: "no-store" });
-    if (!res.ok) return [];
-    return (await res.json()) as SpecialDay[];
+  if (remoteStorageEnabled()) {
+    return (await readJsonObject<SpecialDay[]>(DATA_KEY)) ?? [];
   }
   try {
     return JSON.parse(await fs.readFile(DATA_FILE, "utf8")) as SpecialDay[];
@@ -51,15 +43,8 @@ async function readRaw(): Promise<SpecialDay[]> {
 }
 
 async function writeRaw(days: SpecialDay[]): Promise<void> {
-  if (blobEnabled()) {
-    const { put } = await import("@vercel/blob");
-    await put(DATA_KEY, JSON.stringify(days, null, 2), {
-      access: "public",
-      contentType: "application/json",
-      addRandomSuffix: false,
-      allowOverwrite: true,
-      cacheControlMaxAge: 0,
-    });
+  if (remoteStorageEnabled()) {
+    await writeJsonObject(DATA_KEY, days);
     return;
   }
   await fs.mkdir(DATA_DIR, { recursive: true });

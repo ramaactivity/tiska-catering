@@ -1,7 +1,7 @@
 /**
  * Penyimpanan "Kabar" — native, tanpa CMS pihak ketiga.
  *
- * Produksi  : Vercel Blob (data JSON + foto) — aktif bila env BLOB_READ_WRITE_TOKEN ada.
+ * Produksi  : Cloudflare R2 (data JSON + foto) — aktif bila kredensial R2 ada.
  * Lokal/dev : filesystem (data/posts.json + public/uploads) — agar bisa dites tanpa provisioning.
  *
  * Semua fungsi hanya untuk server (route handler / server action / server component).
@@ -12,26 +12,24 @@ import path from "path";
 import { randomUUID } from "crypto";
 import type { Post, PostInput } from "./types";
 import { slugify } from "./types";
+import {
+  remoteStorageEnabled,
+  readJsonObject,
+  writeJsonObject,
+  putFileObject,
+  deleteObjectByUrl,
+} from "@/lib/storage";
 
 const DATA_KEY = "kabar/posts.json";
 const DATA_DIR = path.join(process.cwd(), "data");
 const DATA_FILE = path.join(DATA_DIR, "posts.json");
 const UPLOAD_DIR = path.join(process.cwd(), "public", "uploads");
 
-function blobEnabled(): boolean {
-  return !!process.env.BLOB_READ_WRITE_TOKEN;
-}
-
 // ─── Baca/tulis mentah ──────────────────────────────────────────────────────
 
 async function readRaw(): Promise<Post[]> {
-  if (blobEnabled()) {
-    const { list } = await import("@vercel/blob");
-    const { blobs } = await list({ prefix: DATA_KEY, limit: 1 });
-    if (!blobs.length) return [];
-    const res = await fetch(blobs[0].url, { cache: "no-store" });
-    if (!res.ok) return [];
-    return (await res.json()) as Post[];
+  if (remoteStorageEnabled()) {
+    return (await readJsonObject<Post[]>(DATA_KEY)) ?? [];
   }
   try {
     const raw = await fs.readFile(DATA_FILE, "utf8");
@@ -42,15 +40,8 @@ async function readRaw(): Promise<Post[]> {
 }
 
 async function writeRaw(posts: Post[]): Promise<void> {
-  if (blobEnabled()) {
-    const { put } = await import("@vercel/blob");
-    await put(DATA_KEY, JSON.stringify(posts, null, 2), {
-      access: "public",
-      contentType: "application/json",
-      addRandomSuffix: false,
-      allowOverwrite: true,
-      cacheControlMaxAge: 0, // data harus selalu segar saat di-overwrite
-    });
+  if (remoteStorageEnabled()) {
+    await writeJsonObject(DATA_KEY, posts);
     return;
   }
   await fs.mkdir(DATA_DIR, { recursive: true });
@@ -141,11 +132,10 @@ export async function deletePost(id: string): Promise<void> {
   const target = posts.find((p) => p.id === id);
   const next = posts.filter((p) => p.id !== id);
   await writeRaw(next);
-  // hapus foto (best-effort) bila tersimpan di Blob
-  if (target?.imageUrl && blobEnabled() && target.imageUrl.includes(".blob.vercel-storage.com")) {
+  // hapus foto (best-effort) bila tersimpan di R2
+  if (target?.imageUrl && remoteStorageEnabled()) {
     try {
-      const { del } = await import("@vercel/blob");
-      await del(target.imageUrl);
+      await deleteObjectByUrl(target.imageUrl);
     } catch {
       /* abaikan kegagalan hapus foto */
     }
@@ -172,13 +162,8 @@ export async function seedPosts(items: Post[]): Promise<number> {
 export async function uploadImage(file: File): Promise<string> {
   const ext = extFromFile(file);
   const name = `${Date.now()}-${randomUUID().slice(0, 8)}${ext}`;
-  if (blobEnabled()) {
-    const { put } = await import("@vercel/blob");
-    const blob = await put(`kabar/img/${name}`, file, {
-      access: "public",
-      addRandomSuffix: false,
-    });
-    return blob.url;
+  if (remoteStorageEnabled()) {
+    return putFileObject(`kabar/img/${name}`, file);
   }
   await fs.mkdir(UPLOAD_DIR, { recursive: true });
   const buf = Buffer.from(await file.arrayBuffer());

@@ -17,7 +17,12 @@ const nextConfig: NextConfig = {
         hostname: "images.unsplash.com",
       },
       {
-        // Foto Kabar yang diunggah dari /admin (Vercel Blob)
+        // Foto yang diunggah dari /admin (Supabase Storage — public URL)
+        protocol: "https",
+        hostname: "*.supabase.co",
+      },
+      {
+        // Legacy: foto lama dari Vercel Blob (sebelum migrasi)
         protocol: "https",
         hostname: "*.public.blob.vercel-storage.com",
       },
