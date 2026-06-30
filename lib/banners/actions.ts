@@ -74,3 +74,10 @@ export async function deleteBannerAction(formData: FormData): Promise<void> {
   refreshPublic();
   redirect("/admin/banners");
 }
+
+/** Isi banner contoh memakai foto bawaan (hanya bila masih kosong). */
+export async function seedBannersAction(): Promise<void> {
+  await requireSession();
+  await store.seedBannerDefaults();
+  refreshPublic();
+}

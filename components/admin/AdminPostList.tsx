@@ -9,6 +9,7 @@ import {
   formatTanggal,
 } from "@/components/admin/ui";
 import DeleteButton from "@/components/admin/DeleteButton";
+import { seedPostsAction } from "@/lib/posts/actions";
 
 type Filter = "all" | "published" | "draft";
 
@@ -167,12 +168,22 @@ function EmptyState() {
         Tulis kabar pertamamu: penawaran bulan ini, menu musiman baru, atau cerita
         acara yang baru kamu layani. Tampil otomatis di halaman Kabar.
       </p>
-      <Link
-        href="/admin/posts/new"
-        className="mt-6 inline-flex items-center gap-2 rounded-xl bg-ad-btn px-5 py-2.5 text-[13px] font-semibold text-ad-btn-fg shadow-[0_1px_2px_var(--ad-shadow)] transition hover:brightness-[1.06] active:scale-[0.98]"
-      >
-        Tulis kabar pertama
-      </Link>
+      <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+        <Link
+          href="/admin/posts/new"
+          className="inline-flex items-center gap-2 rounded-xl bg-ad-btn px-5 py-2.5 text-[13px] font-semibold text-ad-btn-fg shadow-[0_1px_2px_var(--ad-shadow)] transition hover:brightness-[1.06] active:scale-[0.98]"
+        >
+          Tulis kabar pertama
+        </Link>
+        <form action={seedPostsAction}>
+          <button
+            type="submit"
+            className="rounded-xl border border-ad-border bg-ad-input px-5 py-2.5 text-[13px] font-medium text-ad-text transition-colors hover:border-ad-accent hover:text-ad-accent active:scale-[0.98]"
+          >
+            Mulai dari contoh
+          </button>
+        </form>
+      </div>
       <div className="mt-6 flex flex-wrap justify-center gap-2 text-[12px] text-ad-subtle">
         <span className="rounded-full border border-ad-border px-3 py-1">
           Promo bulan ini

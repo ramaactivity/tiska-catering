@@ -4,6 +4,7 @@ import { requireSession } from "@/lib/auth";
 import { getAllBanners, bannerStatus } from "@/lib/banners/store";
 import { formatTanggal } from "@/components/admin/ui";
 import BannerDeleteButton from "@/components/admin/BannerDeleteButton";
+import { seedBannersAction } from "@/lib/banners/actions";
 
 export const metadata: Metadata = { title: "Banner — Backoffice Tiska" };
 export const dynamic = "force-dynamic";
@@ -45,12 +46,22 @@ export default async function BannersPage() {
               Tambahkan banner campaign atau promo. Beberapa banner akan berputar
               otomatis sebagai carousel besar di beranda.
             </p>
-            <Link
-              href="/admin/banners/new"
-              className="mt-6 inline-flex items-center gap-2 rounded-xl bg-ad-btn px-5 py-2.5 text-[13px] font-semibold text-ad-btn-fg shadow-[0_1px_2px_var(--ad-shadow)] transition hover:brightness-[1.06] active:scale-[0.98]"
-            >
-              Tambah banner pertama
-            </Link>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+              <Link
+                href="/admin/banners/new"
+                className="inline-flex items-center gap-2 rounded-xl bg-ad-btn px-5 py-2.5 text-[13px] font-semibold text-ad-btn-fg shadow-[0_1px_2px_var(--ad-shadow)] transition hover:brightness-[1.06] active:scale-[0.98]"
+              >
+                Tambah banner pertama
+              </Link>
+              <form action={seedBannersAction}>
+                <button
+                  type="submit"
+                  className="rounded-xl border border-ad-border bg-ad-input px-5 py-2.5 text-[13px] font-medium text-ad-text transition-colors hover:border-ad-accent hover:text-ad-accent active:scale-[0.98]"
+                >
+                  Mulai dari contoh
+                </button>
+              </form>
+            </div>
           </div>
         ) : (
           <ul className="grid gap-3">

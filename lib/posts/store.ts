@@ -12,6 +12,8 @@ import path from "path";
 import { randomUUID } from "crypto";
 import type { Post, PostInput } from "./types";
 import { slugify } from "./types";
+import { images } from "@/lib/images";
+import { company } from "@/lib/content";
 import {
   remoteStorageEnabled,
   readJsonObject,
@@ -140,6 +142,73 @@ export async function deletePost(id: string): Promise<void> {
       /* abaikan kegagalan hapus foto */
     }
   }
+}
+
+/**
+ * Isi kabar contoh (mockup) memakai foto bawaan — hanya bila masih kosong.
+ * Semua terbit & bisa Rama edit/hapus. Kembalikan jumlah ditambah.
+ */
+export async function seedPostDefaults(): Promise<number> {
+  if ((await readRaw()).length) return 0;
+  const now = Date.now();
+  const base = [
+    {
+      id: "sample-promo",
+      kategori: "promo" as const,
+      judul: "Paket Prasmanan Spesial",
+      ringkasan:
+        "Pilihan menu prasmanan lengkap untuk acara keluarga maupun kantor, tersaji rapi dan menggugah selera.",
+      isi: "Tiska menyiapkan paket prasmanan dengan ragam hidangan Nusantara dan internasional, disesuaikan dengan jumlah tamu dan tema acara Anda.\n\nSetiap paket sudah termasuk penataan meja, peralatan saji, dan tim pelayanan yang menjaga acara berjalan mulus dari awal hingga akhir.",
+      imageUrl: images.menuRingkas.indonesian.src,
+      imageAlt: "Sajian prasmanan khas Indonesia",
+      periode: "Berlaku bulan ini",
+      featured: true,
+    },
+    {
+      id: "sample-menu",
+      kategori: "menu" as const,
+      judul: "Menu Musiman: Cita Rasa Peranakan",
+      ringkasan: "Sentuhan rempah khas Peranakan hadir musim ini — kaya rasa, tersaji elegan.",
+      isi: "Untuk musim ini kami menghadirkan rangkaian hidangan Peranakan, perpaduan tradisi yang berpadu apik dalam setiap sajian.\n\nTersedia untuk prasmanan maupun set menu, cocok melengkapi acara istimewa Anda.",
+      imageUrl: images.menuKategori.peranakan.src,
+      imageAlt: "Hidangan Peranakan berempah",
+      periode: "Tersedia musim ini",
+      featured: false,
+    },
+    {
+      id: "sample-campaign",
+      kategori: "campaign" as const,
+      judul: "Merayakan Momen Bersama Tiska",
+      ringkasan: "Setiap perayaan layak dirawat dengan saksama — biar momennya yang jadi sorotan.",
+      isi: "Bagi kami, katering bukan sekadar hidangan, melainkan bagian dari momen kebersamaan Anda.\n\nDari perayaan kecil hingga acara besar, kami menjaga setiap detail agar Anda bisa menikmati harinya dengan tenang.",
+      imageUrl: images.cta.src,
+      imageAlt: "Perayaan penuh kehangatan bersama Tiska",
+      periode: "",
+      featured: false,
+    },
+    {
+      id: "sample-kabar",
+      kategori: "kabar" as const,
+      judul: "Catatan dari Dapur Tiska",
+      ringkasan: "Sekilas cerita di balik ketelatenan yang dijaga tiga generasi.",
+      isi: "Di balik setiap sajian ada proses panjang — memilih bahan terbaik, meracik bumbu, hingga memastikan rasa yang konsisten.\n\nKami senang berbagi cerita seputar perjalanan dan kegiatan Tiska di sini.",
+      imageUrl: images.sejarah.src,
+      imageAlt: "Suasana persiapan hidangan katering",
+      periode: "",
+      featured: false,
+    },
+  ];
+  const samples: Post[] = base.map((p, i) => ({
+    ...p,
+    slug: slugify(p.judul),
+    ctaLabel: "Tanya via WhatsApp",
+    ctaHref: company.whatsappLink,
+    published: true,
+    createdAt: new Date(now + i).toISOString(),
+    updatedAt: new Date(now + i).toISOString(),
+  }));
+  await writeRaw(samples);
+  return samples.length;
 }
 
 /** Tambah post contoh yang belum ada (berdasarkan id). Kembalikan jumlah ditambah. */

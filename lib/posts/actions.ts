@@ -100,6 +100,13 @@ export async function deletePostAction(formData: FormData): Promise<void> {
   redirect("/admin");
 }
 
+/** Isi kabar contoh memakai foto bawaan (hanya bila masih kosong). */
+export async function seedPostsAction(): Promise<void> {
+  await requireSession();
+  await store.seedPostDefaults();
+  refreshPublic();
+}
+
 /** Segarkan halaman publik yang menampilkan kabar (beranda statis perlu di-revalidate). */
 function refreshPublic() {
   revalidatePath("/");

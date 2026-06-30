@@ -8,6 +8,8 @@ import path from "path";
 import { randomUUID } from "crypto";
 import type { Banner, BannerInput } from "./types";
 import { remoteStorageEnabled, readJsonObject, writeJsonObject, deleteObjectByUrl } from "@/lib/storage";
+import { images } from "@/lib/images";
+import { company } from "@/lib/content";
 export { uploadImage } from "@/lib/posts/store";
 
 const DATA_KEY = "banner/banners.json";
@@ -92,6 +94,64 @@ export async function updateBanner(id: string, input: BannerInput): Promise<Bann
   banners[idx] = { ...banners[idx], ...input, updatedAt: new Date().toISOString() };
   await writeRaw(banners);
   return banners[idx];
+}
+
+/**
+ * Isi banner contoh (mockup) memakai foto bawaan — hanya bila masih kosong.
+ * Rama bisa edit/ganti/hapus seperti banner biasa. Kembalikan jumlah ditambah.
+ */
+export async function seedBannerDefaults(): Promise<number> {
+  if ((await readRaw()).length) return 0;
+  const now = Date.now();
+  const at = (i: number) => new Date(now + i).toISOString();
+  const samples: Banner[] = [
+    {
+      id: "sample-pernikahan",
+      label: "Layanan Unggulan",
+      judul: "Pernikahan yang Berkesan",
+      subjudul:
+        "Sajian anggun untuk hari paling istimewa — dirawat dengan ketelatenan tiga generasi.",
+      imageUrl: images.hero.src,
+      imageAlt: "Resepsi pernikahan dengan tata meja elegan",
+      ctaLabel: "Konsultasi Menu",
+      ctaHref: company.whatsappLink,
+      urutan: 1,
+      aktif: true,
+      createdAt: at(0),
+      updatedAt: at(0),
+    },
+    {
+      id: "sample-hampers",
+      label: "Bingkisan",
+      judul: "Hampers Istimewa",
+      subjudul: "Rangkaian hampers berpita emas untuk berbagi kebahagiaan di momen spesial.",
+      imageUrl: images.menuKategori.hampers.src,
+      imageAlt: "Bingkisan hampers istimewa berpita emas",
+      ctaLabel: "Lihat Pilihan",
+      ctaHref: company.whatsappLink,
+      urutan: 2,
+      aktif: true,
+      createdAt: at(1),
+      updatedAt: at(1),
+    },
+    {
+      id: "sample-prasmanan",
+      label: "Prasmanan",
+      judul: "Cita Rasa untuk Setiap Perayaan",
+      subjudul:
+        "Dari syukuran keluarga hingga acara korporat — tersaji rapi dan menggugah selera.",
+      imageUrl: images.cta.src,
+      imageAlt: "Sajian prasmanan tertata indah",
+      ctaLabel: "Tanya Ketersediaan",
+      ctaHref: company.whatsappLink,
+      urutan: 3,
+      aktif: true,
+      createdAt: at(2),
+      updatedAt: at(2),
+    },
+  ];
+  await writeRaw(samples);
+  return samples.length;
 }
 
 /** Tambah banner contoh yang belum ada (berdasarkan id). Kembalikan jumlah ditambah. */
