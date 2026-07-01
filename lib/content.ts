@@ -72,7 +72,8 @@ export const hero = {
   judul: [
     { text: "Celebrate " },
     { text: "love", italic: true },
-    { text: " with the finest " },
+    { text: " with the " },
+    { text: "finest ", italic: true, br: true },
     { text: "flavours", italic: true },
   ] satisfies RichText,
   subjudul:
@@ -126,7 +127,7 @@ export const reasons = [
     suffix: "+",
     label: "Acara per tahun",
     deskripsi:
-      "Dari pernikahan intim hingga gala korporat, setiap skala terasa istimewa.",
+      "Dari perayaan personal seperti pernikahan dan acara privat, hingga agenda bisnis mulai dari meeting, training, launching, sampai gala korporat. Sebesar apa pun skalanya, fokus kami adalah menjadikan momen Anda berjalan istimewa.",
   },
   {
     value: 10000,

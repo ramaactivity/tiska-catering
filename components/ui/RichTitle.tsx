@@ -13,15 +13,16 @@ export default function RichTitle({
 }: RichTitleProps) {
   return (
     <>
-      {segments.map((s, i) =>
-        s.italic ? (
-          <em key={i} className={`font-accent italic ${accentClass}`}>
-            {s.text}
-          </em>
-        ) : (
-          <span key={i}>{s.text}</span>
-        ),
-      )}
+      {segments.map((s, i) => (
+        <span key={i} className="contents">
+          {s.br ? <span className="block h-0 w-full" /> : null}
+          {s.italic ? (
+            <em className={`font-accent italic ${accentClass}`}>{s.text}</em>
+          ) : (
+            <span>{s.text}</span>
+          )}
+        </span>
+      ))}
     </>
   );
 }
