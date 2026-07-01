@@ -36,7 +36,7 @@ export const company = {
   tiktokLink: "https://www.tiktok.com/@tiska.catering",
   kepemimpinan: [
     { nama: "Bimo Haryo Dewanto", jabatan: "Chief of Ideation" },
-    { nama: "Rita Ariyani", jabatan: "Chief Executive Officer" },
+    { nama: "Rita Ariyani", jabatan: "Chief Operations Officer" },
   ],
   statistik: [
     { value: 45, suffix: "+", label: "tahun pengalaman" },
@@ -856,13 +856,13 @@ export const teamGroups: TeamGroup[] = [
         id: "bimo",
         nama: "Bimo Haryo Dewanto",
         jabatan: "Chief of Ideation",
-        bio: "Menjaga arah kreatif Tiska — memastikan setiap menu dan pengalaman terasa baru tanpa kehilangan akar rasa yang dijaga tiga generasi.",
+        bio: "Menjaga arah inovasi Tiska — memastikan setiap pengembangan bisnis dan layanan selalu relevan, tanpa kehilangan nilai fundamental yang telah dijaga selama tiga generasi.",
       },
       {
         id: "rita",
         nama: "Rita Ariyani",
-        jabatan: "Chief Executive Officer",
-        bio: "Memimpin operasional dan standar mutu Tiska, dari perencanaan di dapur hingga pelayanan tuntas di hari acara.",
+        jabatan: "Chief Operations Officer",
+        bio: "Menjadi jiwa di balik setiap sajian Tiska. Melalui sentuhannya, inovasi menu dihidupkan, keindahan dekorasi dirangkai, dan setiap acara terasa begitu personal dengan kualitas rasa yang tak pernah kehilangan nyawanya.",
       },
     ],
   },
