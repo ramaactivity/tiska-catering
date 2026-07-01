@@ -67,10 +67,18 @@ function PinnedRow({ photos }: { photos: Foto[] }) {
     gsap.registerPlugin(ScrollTrigger);
     // Jarak geser horizontal = kelebihan lebar baris terhadap layar.
     const distance = () => Math.max(0, row.scrollWidth - window.innerWidth);
+    // Tinggi kontainer = 1 layar + jarak geser → ruang scroll untuk horizontal.
+    // Di-set imperatif (bukan React state yg telat commit) & dihitung ULANG
+    // tepat sebelum tiap refresh via "refreshInit" — jadi selalu akurat walau
+    // section pin Sejarah di atasnya baru dimuat async & menggeser posisi.
+    const setHeight = () => {
+      outer.style.height = window.innerHeight + distance() + "px";
+    };
+    setHeight();
 
-    // Pin native ScrollTrigger (sama seperti Sejarah) → spacer & start/end
-    // dihitung konsisten oleh ScrollTrigger, tak balapan dgn section pin lain
-    // di atasnya. anticipatePin menghaluskan handoff saat mulai menempel.
+    // Pin = CSS sticky (handoff vertikal→horizontal mulus, TANPA switch
+    // position:fixed → tak ada lompatan/snap). GSAP hanya menggeser horizontal
+    // (scrub, sinkron Lenis → frame-perfect).
     const ctx = gsap.context(() => {
       gsap.to(row, {
         x: () => -distance(),
@@ -78,16 +86,14 @@ function PinnedRow({ photos }: { photos: Foto[] }) {
         scrollTrigger: {
           trigger: outer,
           start: "top top",
-          end: () => "+=" + distance(),
-          pin: true,
-          anticipatePin: 1,
+          end: "bottom bottom",
           scrub: 1,
           invalidateOnRefresh: true,
         },
       });
     }, outer);
 
-    // Recalibrate setelah aset/font di atas selesai (posisi start akurat).
+    ScrollTrigger.addEventListener("refreshInit", setHeight);
     const refresh = () => ScrollTrigger.refresh();
     window.addEventListener("resize", refresh);
     window.addEventListener("load", refresh);
@@ -95,6 +101,7 @@ function PinnedRow({ photos }: { photos: Foto[] }) {
     const t = setTimeout(refresh, 600);
 
     return () => {
+      ScrollTrigger.removeEventListener("refreshInit", setHeight);
       window.removeEventListener("resize", refresh);
       window.removeEventListener("load", refresh);
       clearTimeout(t);
@@ -103,15 +110,15 @@ function PinnedRow({ photos }: { photos: Foto[] }) {
   }, []);
 
   return (
-    // bg-ink + z-10: saat di-pin (position:fixed) kontainer harus opak agar
-    // section Sejarah di belakangnya tidak menembus.
-    <div ref={outerRef} className="relative z-10 h-screen overflow-hidden bg-ink">
-      <div className="flex h-screen items-center">
-        <div ref={rowRef} className="flex gap-6 px-6 will-change-transform md:px-10">
-          {layanan.map((s, i) => (
-            <ServiceCard key={s.judul} i={i} judul={s.judul} deskripsi={s.deskripsi} photo={photos[i]} />
-          ))}
-          <EndCard />
+    <div ref={outerRef} className="relative bg-ink">
+      <div className="sticky top-0 h-screen overflow-hidden">
+        <div className="flex h-screen items-center">
+          <div ref={rowRef} className="flex gap-6 px-6 will-change-transform md:px-10">
+            {layanan.map((s, i) => (
+              <ServiceCard key={s.judul} i={i} judul={s.judul} deskripsi={s.deskripsi} photo={photos[i]} />
+            ))}
+            <EndCard />
+          </div>
         </div>
       </div>
     </div>
