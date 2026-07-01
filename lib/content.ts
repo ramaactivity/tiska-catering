@@ -885,8 +885,8 @@ export const teamGroups: TeamGroup[] = [
       {
         id: "reza",
         nama: "Reza Devyan",
-        jabatan: "Accounting",
-        bio: "Menjaga ketelitian pencatatan dan transparansi setiap pesanan, hingga detail terkecil.",
+        jabatan: "Finance & Accounting",
+        bio: "Bukan sekadar mencatat angka, melainkan menjaga standar kualitas dari balik layar. Mengelola anggaran dan bahan baku dengan teliti, memastikan klien selalu mendapatkan rasa dan pengalaman terbaik.",
       },
       {
         id: "ramadan",
