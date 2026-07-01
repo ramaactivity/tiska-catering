@@ -58,7 +58,6 @@ export default function Layanan({ photos = images.layanan }: { photos?: Foto[] }
 function PinnedRow({ photos }: { photos: Foto[] }) {
   const outerRef = useRef<HTMLDivElement>(null);
   const rowRef = useRef<HTMLDivElement>(null);
-  const [travel, setTravel] = useState(0);
 
   useEffect(() => {
     const row = rowRef.current;
@@ -66,48 +65,51 @@ function PinnedRow({ photos }: { photos: Foto[] }) {
     if (!row || !outer) return;
 
     gsap.registerPlugin(ScrollTrigger);
-    const measure = () => Math.max(0, row.scrollWidth - window.innerWidth);
-    setTravel(measure());
+    // Jarak geser horizontal = kelebihan lebar baris terhadap layar.
+    const distance = () => Math.max(0, row.scrollWidth - window.innerWidth);
 
-    // Pin = CSS sticky (handoff vertikal→horizontal mulus, tanpa switch posisi).
-    // GSAP hanya menggerakkan geser horizontal (scrub, sinkron Lenis → frame-perfect).
+    // Pin native ScrollTrigger (sama seperti Sejarah) → spacer & start/end
+    // dihitung konsisten oleh ScrollTrigger, tak balapan dgn section pin lain
+    // di atasnya. anticipatePin menghaluskan handoff saat mulai menempel.
     const ctx = gsap.context(() => {
       gsap.to(row, {
-        x: () => -measure(),
+        x: () => -distance(),
         ease: "none",
         scrollTrigger: {
           trigger: outer,
           start: "top top",
-          end: "bottom bottom",
+          end: () => "+=" + distance(),
+          pin: true,
+          anticipatePin: 1,
           scrub: 1,
           invalidateOnRefresh: true,
         },
       });
     }, outer);
 
-    const onResize = () => {
-      setTravel(measure());
-      ScrollTrigger.refresh();
-    };
-    window.addEventListener("resize", onResize);
-    const t = setTimeout(() => ScrollTrigger.refresh(), 400);
+    // Recalibrate setelah aset/font di atas selesai (posisi start akurat).
+    const refresh = () => ScrollTrigger.refresh();
+    window.addEventListener("resize", refresh);
+    window.addEventListener("load", refresh);
+    document.fonts?.ready.then(refresh).catch(() => {});
+    const t = setTimeout(refresh, 600);
+
     return () => {
-      window.removeEventListener("resize", onResize);
+      window.removeEventListener("resize", refresh);
+      window.removeEventListener("load", refresh);
       clearTimeout(t);
       ctx.revert();
     };
   }, []);
 
   return (
-    <div ref={outerRef} style={{ height: `calc(100vh + ${travel}px)` }} className="relative">
-      <div className="sticky top-0 h-screen overflow-hidden">
-        <div className="flex h-screen items-center">
-          <div ref={rowRef} className="flex gap-6 px-6 will-change-transform md:px-10">
-            {layanan.map((s, i) => (
-              <ServiceCard key={s.judul} i={i} judul={s.judul} deskripsi={s.deskripsi} photo={photos[i]} />
-            ))}
-            <EndCard />
-          </div>
+    <div ref={outerRef} className="relative h-screen overflow-hidden">
+      <div className="flex h-screen items-center">
+        <div ref={rowRef} className="flex gap-6 px-6 will-change-transform md:px-10">
+          {layanan.map((s, i) => (
+            <ServiceCard key={s.judul} i={i} judul={s.judul} deskripsi={s.deskripsi} photo={photos[i]} />
+          ))}
+          <EndCard />
         </div>
       </div>
     </div>
