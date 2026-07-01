@@ -98,13 +98,15 @@ function PinnedRow({ photos }: { photos: Foto[] }) {
     window.addEventListener("resize", refresh);
     window.addEventListener("load", refresh);
     document.fonts?.ready.then(refresh).catch(() => {});
-    const t = setTimeout(refresh, 600);
+    // Beberapa tick: pastikan posisi akurat setelah section pin lain (Sejarah)
+    // & aset di atas selesai menata tinggi halaman.
+    const timers = [300, 900, 1600].map((ms) => setTimeout(refresh, ms));
 
     return () => {
       ScrollTrigger.removeEventListener("refreshInit", setHeight);
       window.removeEventListener("resize", refresh);
       window.removeEventListener("load", refresh);
-      clearTimeout(t);
+      timers.forEach(clearTimeout);
       ctx.revert();
     };
   }, []);
