@@ -190,14 +190,14 @@ export default function OurTeam({ photos = images.team }: { photos?: Photos }) {
         </div>
 
         {/* ── Panel detail ─────────────────────────────────────────────────── */}
-        <div className="mt-12 grid items-center gap-y-8 border-t border-white/10 pt-10 md:grid-cols-12 md:gap-10">
+        <div className="mt-12 grid items-start gap-y-8 border-t border-white/10 pt-10 md:grid-cols-12 md:gap-10">
           {/* Nama besar */}
           <motion.div
             key={active.id}
             initial={reduce ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: EASE }}
-            className="md:col-span-7"
+            className="md:col-span-6"
           >
             <p className="mb-3 text-[10px] uppercase tracking-[0.32em] text-gold-soft">
               {active.group}
@@ -215,7 +215,7 @@ export default function OurTeam({ photos = images.team }: { photos?: Photos }) {
           </motion.div>
 
           {/* Bio */}
-          <div className="md:col-span-5 md:border-l md:border-white/10 md:pl-10">
+          <div className="md:col-span-6 md:border-l md:border-white/10 md:pl-10">
             <motion.p
               key={`${active.id}-bio`}
               initial={reduce ? false : { opacity: 0, y: 18 }}
