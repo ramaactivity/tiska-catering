@@ -220,7 +220,7 @@ export default function SiteImageSlotCard(props: SlotCardProps) {
 
       {/* Modal cropper */}
       {fileSrc && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/75 p-4 backdrop-blur-sm" role="dialog" aria-modal="true">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/90 p-4" role="dialog" aria-modal="true">
           <div className="flex w-full max-w-[680px] flex-col overflow-hidden rounded-3xl bg-ad-panel shadow-[0_40px_100px_-30px_rgba(0,0,0,0.6)] ring-1 ring-inset ring-ad-border">
             <div className="flex items-start justify-between gap-4 border-b border-ad-border px-5 py-4">
               <div>

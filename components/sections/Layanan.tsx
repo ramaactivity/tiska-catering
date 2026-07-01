@@ -1,10 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { useReducedMotion } from "framer-motion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { layanan, layananHeader, company } from "@/lib/content";
 import { images } from "@/lib/images";
 import WordReveal from "@/components/motion/WordReveal";
@@ -14,27 +11,46 @@ type Foto = { src: string; alt: string };
 const EASE = "cubic-bezier(0.16,1,0.3,1)";
 
 /**
- * Layanan: pinned horizontal scroll (docs/04 #5).
- * Desktop: GSAP ScrollTrigger pin + scrub — frame-perfect & sinkron Lenis (mulus).
- * Mobile / reduced-motion: swipe horizontal native (snap).
+ * Layanan: carousel horizontal dengan tombol panah (docs/04 #5).
+ * Digeser via panah / trackpad / sentuh — snap rapi, tanpa scroll-jacking
+ * (dulu pinned GSAP; diganti agar mulus & andal, mudah dipakai).
  */
 export default function Layanan({ photos = images.layanan }: { photos?: Foto[] }) {
-  const reduce = useReducedMotion();
-  const [isDesktop, setIsDesktop] = useState(false);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(true);
 
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 768px)");
-    const sync = () => setIsDesktop(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
+  const sync = useCallback(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    setCanPrev(el.scrollLeft > 8);
+    setCanNext(el.scrollLeft < el.scrollWidth - el.clientWidth - 8);
   }, []);
 
-  const pinned = isDesktop && !reduce;
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    sync();
+    el.addEventListener("scroll", sync, { passive: true });
+    window.addEventListener("resize", sync);
+    return () => {
+      el.removeEventListener("scroll", sync);
+      window.removeEventListener("resize", sync);
+    };
+  }, [sync]);
+
+  const nudge = (dir: 1 | -1) => {
+    const el = trackRef.current;
+    if (!el) return;
+    const card = el.querySelector<HTMLElement>("[data-card]");
+    const gap = 24; // gap-6
+    const step = card ? card.offsetWidth + gap : el.clientWidth * 0.8;
+    el.scrollBy({ left: dir * step, behavior: "smooth" });
+  };
 
   return (
-    <section id="layanan" className="bg-ink">
-      <div className="mx-auto max-w-[1280px] px-6 pb-8 pt-20 md:px-10 md:pb-[6vh] md:pt-[16vh]">
+    <section id="layanan" className="bg-ink pb-14 md:pb-[10vh]">
+      <div className="mx-auto max-w-[1280px] px-6 pb-8 pt-20 md:px-10 md:pt-[16vh]">
         <div className="flex flex-wrap items-end justify-between gap-5">
           <h2 className="font-display text-[clamp(34px,5.5vw,90px)] font-light leading-[0.92] tracking-[-0.025em] text-paper">
             <WordReveal segments={layananHeader.judul} />
@@ -43,98 +59,46 @@ export default function Layanan({ photos = images.layanan }: { photos?: Foto[] }
             <p className="max-w-[360px] text-[14px] leading-[1.7] text-[#9a9282]">
               {layananHeader.deskripsi}
               <span className="mt-2 block text-[11px] uppercase tracking-[0.22em] text-gold-soft/70">
-                {pinned ? "Scroll untuk menjelajah →" : "Geser untuk menjelajah →"}
+                Geser atau pakai panah →
               </span>
             </p>
           </Reveal>
         </div>
       </div>
 
-      {pinned ? <PinnedRow photos={photos} /> : <SwipeRow photos={photos} />}
+      <div className="relative">
+        <div
+          ref={trackRef}
+          className="flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-pl-6 px-6 scroll-smooth md:scroll-pl-10 md:px-10 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {layanan.map((s, i) => (
+            <ServiceCard key={s.judul} i={i} judul={s.judul} deskripsi={s.deskripsi} photo={photos[i]} />
+          ))}
+          <EndCard />
+        </div>
+
+        <Arrow dir="prev" onClick={() => nudge(-1)} show={canPrev} />
+        <Arrow dir="next" onClick={() => nudge(1)} show={canNext} />
+      </div>
     </section>
   );
 }
 
-function PinnedRow({ photos }: { photos: Foto[] }) {
-  const outerRef = useRef<HTMLDivElement>(null);
-  const rowRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const row = rowRef.current;
-    const outer = outerRef.current;
-    if (!row || !outer) return;
-
-    gsap.registerPlugin(ScrollTrigger);
-    // Jarak geser horizontal = kelebihan lebar baris terhadap layar.
-    const distance = () => Math.max(0, row.scrollWidth - window.innerWidth);
-    // Tinggi kontainer = 1 layar + jarak geser → ruang scroll untuk horizontal.
-    // Di-set imperatif (bukan React state yg telat commit) & dihitung ULANG
-    // tepat sebelum tiap refresh via "refreshInit" — jadi selalu akurat walau
-    // section pin Sejarah di atasnya baru dimuat async & menggeser posisi.
-    const setHeight = () => {
-      outer.style.height = window.innerHeight + distance() + "px";
-    };
-    setHeight();
-
-    // Pin = CSS sticky (handoff vertikal→horizontal mulus, TANPA switch
-    // position:fixed → tak ada lompatan/snap). GSAP hanya menggeser horizontal
-    // (scrub, sinkron Lenis → frame-perfect).
-    const ctx = gsap.context(() => {
-      gsap.to(row, {
-        x: () => -distance(),
-        ease: "none",
-        scrollTrigger: {
-          trigger: outer,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 1,
-          invalidateOnRefresh: true,
-        },
-      });
-    }, outer);
-
-    ScrollTrigger.addEventListener("refreshInit", setHeight);
-    const refresh = () => ScrollTrigger.refresh();
-    window.addEventListener("resize", refresh);
-    window.addEventListener("load", refresh);
-    document.fonts?.ready.then(refresh).catch(() => {});
-    // Beberapa tick: pastikan posisi akurat setelah section pin lain (Sejarah)
-    // & aset di atas selesai menata tinggi halaman.
-    const timers = [300, 900, 1600].map((ms) => setTimeout(refresh, ms));
-
-    return () => {
-      ScrollTrigger.removeEventListener("refreshInit", setHeight);
-      window.removeEventListener("resize", refresh);
-      window.removeEventListener("load", refresh);
-      timers.forEach(clearTimeout);
-      ctx.revert();
-    };
-  }, []);
-
+function Arrow({ dir, onClick, show }: { dir: "prev" | "next"; onClick: () => void; show: boolean }) {
+  const isNext = dir === "next";
   return (
-    <div ref={outerRef} className="relative bg-ink">
-      <div className="sticky top-0 h-screen overflow-hidden">
-        <div className="flex h-screen items-center">
-          <div ref={rowRef} className="flex gap-6 px-6 will-change-transform md:px-10">
-            {layanan.map((s, i) => (
-              <ServiceCard key={s.judul} i={i} judul={s.judul} deskripsi={s.deskripsi} photo={photos[i]} />
-            ))}
-            <EndCard />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function SwipeRow({ photos }: { photos: Foto[] }) {
-  return (
-    <div className="mt-2 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-16 [-ms-overflow-style:none] [scrollbar-width:none] md:px-10 md:pb-[14vh] [&::-webkit-scrollbar]:hidden">
-      {layanan.map((s, i) => (
-        <ServiceCard key={s.judul} i={i} judul={s.judul} deskripsi={s.deskripsi} photo={photos[i]} mobile />
-      ))}
-      <EndCard mobile />
-    </div>
+    <button
+      type="button"
+      aria-label={isNext ? "Layanan berikutnya" : "Layanan sebelumnya"}
+      onClick={onClick}
+      className={`absolute top-1/2 z-10 hidden size-12 -translate-y-1/2 items-center justify-center rounded-full border border-gold/40 bg-ink/70 text-gold-soft backdrop-blur-sm transition-all duration-300 hover:border-gold hover:bg-ink/90 hover:text-gold-bright active:scale-95 md:flex ${
+        isNext ? "right-4 lg:right-8" : "left-4 lg:left-8"
+      } ${show ? "opacity-100" : "pointer-events-none opacity-0"}`}
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        {isNext ? <path d="M9 6l6 6-6 6" /> : <path d="M15 6l-6 6 6 6" />}
+      </svg>
+    </button>
   );
 }
 
@@ -143,26 +107,23 @@ function ServiceCard({
   judul,
   deskripsi,
   photo,
-  mobile,
 }: {
   i: number;
   judul: string;
   deskripsi: string;
   photo?: Foto;
-  mobile?: boolean;
 }) {
   return (
     <article
-      className={`group relative shrink-0 snap-center overflow-hidden rounded-2xl ${
-        mobile ? "h-[64vh] w-[80vw]" : "h-[72vh] w-[clamp(360px,42vw,560px)]"
-      }`}
+      data-card
+      className="group relative h-[62vh] w-[82vw] shrink-0 snap-start overflow-hidden rounded-2xl sm:w-[60vw] md:h-[72vh] md:w-[clamp(360px,42vw,560px)]"
     >
       {photo && (
         <Image
           src={photo.src}
           alt={photo.alt}
           fill
-          sizes={mobile ? "80vw" : "50vw"}
+          sizes="(min-width: 768px) 50vw, 82vw"
           className="object-cover transition-transform duration-[1200ms] will-change-transform group-hover:scale-[1.05]"
           style={{ transitionTimingFunction: EASE }}
         />
@@ -198,12 +159,11 @@ function ServiceCard({
   );
 }
 
-function EndCard({ mobile }: { mobile?: boolean }) {
+function EndCard() {
   return (
     <article
-      className={`flex shrink-0 snap-center flex-col justify-center rounded-2xl border border-line bg-ink-2 px-8 ${
-        mobile ? "h-[64vh] w-[80vw]" : "h-[72vh] w-[clamp(300px,30vw,420px)]"
-      }`}
+      data-card
+      className="flex h-[62vh] w-[82vw] shrink-0 snap-start flex-col justify-center rounded-2xl border border-line bg-ink-2 px-8 sm:w-[60vw] md:h-[72vh] md:w-[clamp(300px,30vw,420px)]"
     >
       <p className="mb-4 flex items-center gap-3 text-[11px] uppercase tracking-[0.3em] text-gold-soft">
         <span aria-hidden className="h-px w-8 bg-gold" />
