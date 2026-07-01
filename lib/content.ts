@@ -901,12 +901,6 @@ export const teamGroups: TeamGroup[] = [
     label: "Dapur & Operasional",
     members: [
       {
-        id: "laksmi",
-        nama: "Dr. Laksmi Dewayani, M.Gizi, Sp.GK",
-        jabatan: "Ahli Gizi",
-        bio: "Memastikan setiap hidangan seimbang dan aman, memadukan cita rasa dengan standar gizi yang terukur.",
-      },
-      {
         id: "sarinah",
         nama: "Sarinah",
         jabatan: "Head Kitchen",
