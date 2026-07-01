@@ -873,8 +873,8 @@ export const teamGroups: TeamGroup[] = [
       {
         id: "ida",
         nama: "Ida Raodah",
-        jabatan: "Finance",
-        bio: "Mengelola keuangan dan perencanaan biaya agar setiap acara berjalan rapi, transparan, dan dapat diandalkan.",
+        jabatan: "Client Experience Partner",
+        bio: "Menjadi wajah dan pendengar bagi setiap cerita yang datang. Menjembatani harapan klien dengan eksekusi nyata, memastikan mereka menyambut acara istimewanya dengan tenang.",
       },
       {
         id: "ariz",
