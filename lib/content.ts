@@ -873,14 +873,14 @@ export const teamGroups: TeamGroup[] = [
       {
         id: "ida",
         nama: "Ida Raodah",
-        jabatan: "Client Experience Partner",
+        jabatan: "Senior Client Experience Partner",
         bio: "Menjadi wajah dan pendengar bagi setiap cerita yang datang. Menjembatani harapan klien dengan eksekusi nyata, memastikan mereka menyambut acara istimewanya dengan tenang.",
       },
       {
         id: "ariz",
         nama: "Ariz Rakhma",
-        jabatan: "Sales & Marketing",
-        bio: "Titik temu pertama klien — mendengarkan kebutuhan acara dan menerjemahkannya menjadi rencana yang pas.",
+        jabatan: "Junior Client Experience Partner",
+        bio: "Titik temu pertama bagi setiap cerita yang datang. Mendampingi harapan klien menuju eksekusi nyata, agar mereka menyambut acara istimewanya dengan tenang.",
       },
       {
         id: "reza",
