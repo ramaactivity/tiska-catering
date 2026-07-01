@@ -103,7 +103,9 @@ function PinnedRow({ photos }: { photos: Foto[] }) {
   }, []);
 
   return (
-    <div ref={outerRef} className="relative h-screen overflow-hidden">
+    // bg-ink + z-10: saat di-pin (position:fixed) kontainer harus opak agar
+    // section Sejarah di belakangnya tidak menembus.
+    <div ref={outerRef} className="relative z-10 h-screen overflow-hidden bg-ink">
       <div className="flex h-screen items-center">
         <div ref={rowRef} className="flex gap-6 px-6 will-change-transform md:px-10">
           {layanan.map((s, i) => (
