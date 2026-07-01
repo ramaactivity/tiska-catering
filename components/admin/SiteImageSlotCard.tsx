@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Cropper from "react-easy-crop";
 import { saveSiteImageAction, resetSiteImageAction } from "@/lib/site-images-actions";
+import { lockScroll, unlockScroll } from "@/lib/lenis-lock";
 
 type Area = { x: number; y: number; width: number; height: number };
 
@@ -87,6 +88,14 @@ export default function SiteImageSlotCard(props: SlotCardProps) {
   const [toast, setToast] = useState<{ ok: boolean; msg: string } | null>(null);
 
   const onCropComplete = useCallback((_: Area, px: Area) => setArea(px), []);
+
+  // Kunci scroll latar selama modal cropper terbuka → cegah latar bergerak di
+  // balik blur (kedip) & konflik wheel-zoom dengan Lenis.
+  useEffect(() => {
+    if (!fileSrc) return;
+    lockScroll();
+    return () => unlockScroll();
+  }, [fileSrc]);
 
   // Popup notifikasi otomatis hilang setelah 3.5 detik.
   useEffect(() => {

@@ -1,8 +1,9 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Cropper from "react-easy-crop";
 import { getCroppedFile, type CropArea } from "@/lib/crop-image";
+import { lockScroll, unlockScroll } from "@/lib/lenis-lock";
 
 type Props = {
   /** nama field form (yang dibaca server action) */
@@ -41,6 +42,13 @@ export default function CropImageInput({
   const [error, setError] = useState<string | null>(null);
 
   const onCropComplete = useCallback((_: CropArea, px: CropArea) => setArea(px), []);
+
+  // Kunci scroll latar selama modal cropper terbuka (cegah kedip & konflik wheel).
+  useEffect(() => {
+    if (!fileSrc) return;
+    lockScroll();
+    return () => unlockScroll();
+  }, [fileSrc]);
 
   const pick = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];

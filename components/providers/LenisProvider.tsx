@@ -4,6 +4,7 @@ import { useEffect, type ReactNode } from "react";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { setLenis } from "@/lib/lenis-lock";
 
 /**
  * Smooth scroll global + sinkronisasi Lenis–GSAP ScrollTrigger.
@@ -18,6 +19,7 @@ export default function LenisProvider({ children }: { children: ReactNode }) {
 
     gsap.registerPlugin(ScrollTrigger);
     const lenis = new Lenis();
+    setLenis(lenis); // agar modal bisa mengunci scroll (cegah kedip di cropper)
     lenis.on("scroll", ScrollTrigger.update);
     const raf = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(raf);
@@ -26,6 +28,7 @@ export default function LenisProvider({ children }: { children: ReactNode }) {
     return () => {
       gsap.ticker.remove(raf);
       gsap.ticker.lagSmoothing(500, 33);
+      setLenis(null);
       lenis.destroy();
     };
   }, []);
