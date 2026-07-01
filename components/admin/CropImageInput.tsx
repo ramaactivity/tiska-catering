@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Cropper from "react-easy-crop";
 import { getCroppedFile, type CropArea } from "@/lib/crop-image";
 import { lockScroll, unlockScroll } from "@/lib/lenis-lock";
@@ -117,8 +118,8 @@ export default function CropImageInput({
         )}
       </button>
 
-      {fileSrc && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4" role="dialog" aria-modal="true">
+      {fileSrc && typeof document !== "undefined" && createPortal(
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4" role="dialog" aria-modal="true">
           <div className="flex w-full max-w-[680px] flex-col overflow-hidden rounded-2xl border border-ad-border bg-ad-panel shadow-2xl">
             <div className="flex items-center justify-between border-b border-ad-border px-5 py-3">
               <div>
@@ -148,7 +149,8 @@ export default function CropImageInput({
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
     </>
   );

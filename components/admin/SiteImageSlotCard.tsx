@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import Cropper from "react-easy-crop";
 import { saveSiteImageAction, resetSiteImageAction } from "@/lib/site-images-actions";
@@ -218,8 +219,10 @@ export default function SiteImageSlotCard(props: SlotCardProps) {
         <input ref={fileRef} type="file" accept="image/*" className="sr-only" onChange={pick} />
       </div>
 
-      {/* Modal cropper */}
-      {fileSrc && (
+      {/* Modal cropper — di-portal ke <body> agar lepas dari kartu (yang punya
+          overflow-hidden + hover:transform → sebelumnya bikin modal fixed
+          terpotong/kedip). */}
+      {fileSrc && typeof document !== "undefined" && createPortal(
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/90 p-4" role="dialog" aria-modal="true">
           <div className="flex w-full max-w-[680px] flex-col overflow-hidden rounded-3xl bg-ad-panel shadow-[0_40px_100px_-30px_rgba(0,0,0,0.6)] ring-1 ring-inset ring-ad-border">
             <div className="flex items-start justify-between gap-4 border-b border-ad-border px-5 py-4">
@@ -276,7 +279,8 @@ export default function SiteImageSlotCard(props: SlotCardProps) {
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
     </div>
     </>
