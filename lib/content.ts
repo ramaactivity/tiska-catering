@@ -769,7 +769,7 @@ export const faqCategories: FaqCategory[] = [
         q: "Bagaimana dengan pesanan bentuk box — ada biaya tambahan?",
         a: [
           {
-            p: "Pesanan khusus bentuk box minimal 25 box. Untuk klien korporat, dikenakan tambahan PB1 sebesar 10%.",
+            p: "Tidak ada biaya tambahan. Pesanan khusus bentuk box minimal 25 box dan dikenakan pajak PB1 sebesar 10%.",
           },
         ],
       },
