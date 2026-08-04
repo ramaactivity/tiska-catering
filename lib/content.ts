@@ -41,7 +41,7 @@ export const company = {
   statistik: [
     { value: 45, suffix: "+", label: "tahun pengalaman" },
     { value: 350, suffix: "+", label: "acara/perayaan per tahun" },
-    { value: 10000, suffix: "+", label: "pesanan per bulan" },
+    { value: 8000, suffix: "+", label: "pesanan per bulan" },
     { value: 800, suffix: "+", label: "pilihan menu" },
     { value: 25, suffix: "", label: "karyawan" },
     { value: 1000, suffix: "", label: "M² area dapur" },
@@ -130,7 +130,7 @@ export const reasons = [
       "Dari perayaan personal seperti pernikahan dan acara privat, hingga agenda bisnis mulai dari meeting, training, launching, sampai gala korporat. Sebesar apa pun skalanya, fokus kami adalah menjadikan momen Anda berjalan istimewa.",
   },
   {
-    value: 10000,
+    value: 8000,
     suffix: "+",
     label: "Pesanan per bulan",
     deskripsi:
