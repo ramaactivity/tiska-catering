@@ -1,8 +1,9 @@
 # 07 — Backoffice "Kabar" (Promo, Campaign, Menu Musiman, Kabar)
 
 Sistem postingan yang bisa di-update berkala dari halaman admin di website sendiri —
-**native, tanpa CMS pihak ketiga**. Data & foto disimpan di **Vercel Blob** (produk
-first-party Vercel, satu atap akun Vercel Tiska).
+**native, tanpa CMS pihak ketiga**. Data & foto disimpan di **Supabase Storage**
+(sejak 30 Jun 2026 — menggantikan Vercel Blob yang kena limit Hobby). Free tier:
+1 GB storage, 5 GB transfer/bln, tanpa kartu kredit, boleh komersial.
 
 > Prinsip brand tetap dijaga: tampil sebagai "Kabar & Sorotan" yang anggun, bukan
 > spanduk diskon. Lihat CLAUDE.md.
@@ -36,25 +37,31 @@ Kalau tidak ada postingan terbit, section Sorotan di beranda otomatis hilang dan
 
 ---
 
-## Setup PRODUKSI (sekali saja, di dashboard Vercel — TANPA CLI)
+## Setup PRODUKSI (sekali saja, di dashboard — TANPA CLI)
 
 Tanpa langkah ini, `/admin` belum bisa dipakai di produksi (by default aman: login ditolak).
 
-### 1. Buat Blob store
+### 1. Buat bucket di Supabase
 
-Vercel → project **tiska-catering** → tab **Storage** → **Create Database** →
-**Blob** → beri nama (mis. `tiska-kabar`) → Connect ke project.
-Ini otomatis menambahkan env `BLOB_READ_WRITE_TOKEN`. **Wajib** — di produksi data
-disimpan di Blob, bukan filesystem.
+Supabase → project Tiska → **Storage** → **New bucket** → nama `tiska-media`,
+set **Public** (agar foto bisa dibaca langsung lewat URL publik). Ambil
+**Project URL** & **service_role key** di **Settings → API**.
 
-### 2. Tambah 2 environment variable
+### 2. Tambah environment variable di Vercel
 
-Vercel → project → **Settings → Environment Variables** (scope: Production, boleh juga Preview):
+Vercel → project **tiska-catering** → **Settings → Environment Variables**
+(scope: Production + Preview):
 
 | Name | Value |
 |---|---|
+| `SUPABASE_URL` | Project URL Supabase (mis. `https://xxxx.supabase.co`) |
+| `SUPABASE_SERVICE_ROLE_KEY` | service_role key — **rahasia**, jangan pernah masuk repo |
+| `SUPABASE_BUCKET` | `tiska-media` (opsional; ini nilai default) |
 | `ADMIN_PASSWORD` | kata sandi login admin (pilih yang kuat) |
 | `ADMIN_SESSION_SECRET` | string acak panjang — generate: `openssl rand -hex 32` |
+
+Tanpa `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` lengkap, sistem jatuh ke
+filesystem — di Vercel itu read-only, jadi simpan post akan GAGAL.
 
 ### 3. Redeploy
 
@@ -66,15 +73,18 @@ atau trigger ulang dari dashboard. Setelah live, buka `/admin` dan login.
 
 ## Catatan teknis
 
-- **Lokal/dev:** tanpa env Blob, sistem otomatis pakai filesystem (`data/posts.json` +
+- **Lokal/dev:** tanpa env Supabase, sistem otomatis pakai filesystem (`data/posts.json` +
   `public/uploads/`) supaya bisa dicoba lokal. Keduanya di-`.gitignore` (tidak ikut
   ke produksi). Kata sandi dev default: `tiska-dev`.
 - **Keamanan:** sesi = cookie httpOnly bertanda-tangan HMAC (kunci `ADMIN_SESSION_SECRET`),
   berlaku 7 hari. Ganti `ADMIN_SESSION_SECRET` = semua sesi lama langsung gugur.
-- **Foto:** maksimal 8 MB, harus file gambar. Di produksi diunggah ke Blob; saat post
-  dihapus, fotonya ikut dihapus (best-effort).
+- **Foto:** maksimal 8 MB, harus file gambar. Di produksi diunggah ke bucket Supabase;
+  saat post dihapus, fotonya ikut dihapus (best-effort).
+- **Anti-pause Supabase:** project free di-pause bila 7 hari tanpa aktivitas. Cron
+  harian `/api/cron/special-days` menyentuh storage tiap hari supaya tetap aktif.
 - **Kesegaran:** halaman publik di-revalidate otomatis tiap simpan/hapus, jadi update
   tampil hampir seketika.
-- **File terkait:** `lib/posts/{types,store,actions}.ts`, `lib/auth.ts`,
+- **File terkait:** `lib/storage.ts` (abstraksi Supabase Storage),
+  `lib/posts/{types,store,actions}.ts`, `lib/auth.ts`,
   `app/admin/**`, `app/kabar/**`, `components/admin/**`,
   `components/sections/{Sorotan,KabarGrid}.tsx`.
