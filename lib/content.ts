@@ -891,7 +891,7 @@ export const teamGroups: TeamGroup[] = [
       {
         id: "ramadan",
         nama: "Ramadan Saputra",
-        jabatan: "Business Development",
+        jabatan: "Creative, Digital & AI Lead",
         bio: "Menjalin kedekatan yang bermakna agar Tiska selalu terhubung dengan klien secara emosional. Melakukan adaptasi pengembangan bisnis dan komunikasi melalui platform digital untuk memastikan setiap langkah yang diambil menjadi solusi utuh bagi pengalaman dan kebutuhan klien.",
       },
     ],
