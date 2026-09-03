@@ -111,6 +111,25 @@ body {
   }
 }
 
+/* Equalizer tombol musik undangan Open Table */
+@keyframes ot-eq {
+  0%,
+  100% {
+    height: 6px;
+  }
+  50% {
+    height: 15px;
+  }
+}
+.ot-eq {
+  animation: ot-eq 0.9s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ot-eq {
+    animation: none;
+  }
+}
+
 /* ============================================================
    Backoffice (/admin) — sistem tema terang & gelap.
    Token semantik berlapis: bg (kanvas) < panel < input, dengan

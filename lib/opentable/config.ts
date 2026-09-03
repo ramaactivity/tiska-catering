@@ -34,6 +34,13 @@ export const PIC = {
   hpTampil: "0813-8310-8103",
 } as const;
 
+/**
+ * Musik latar. Kosongkan untuk mematikan fitur sepenuhnya (toggle tidak dirender).
+ * Isi dengan path berkas di /public setelah trek berlisensi tersedia.
+ */
+export const MUSIK_SRC = "";
+export const MUSIK_VOLUME = 0.35;
+
 /** Basis URL untuk membangun tautan undangan, tiket, dan QR. */
 export const SITE_URL = "https://tiskacatering.com";
 
