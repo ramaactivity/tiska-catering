@@ -266,3 +266,28 @@ export const tiketCopy = {
   ubah: "Ubah atau batalkan",
   kembali: "Buka undangan",
 } as const;
+
+export const checkinCopy = {
+  cariPlaceholder: "Cari nama atau perusahaan…",
+  kodePlaceholder: "Kode tiket, mis. 6v9uyb",
+  tombolKode: "Check-in",
+  tombolScan: "Pindai QR",
+  tombolTutupScan: "Tutup pemindai",
+  tombolFoto: "Foto QR",
+  tombolCheckin: "Check-in",
+  tombolBatal: "Batalkan",
+  sudah: "Sudah masuk",
+  kosong: "Belum ada tamu terkonfirmasi.",
+  tidakKetemu: "Tidak ada yang cocok.",
+  izinKamera:
+    "Kamera tidak bisa dibuka. Gunakan tombol Foto QR, ketik kode manual, atau cari namanya di daftar.",
+  petunjuk:
+    "Cara tercepat: cari namanya di daftar lalu ketuk Check-in. Pemindai QR tersedia bila diperlukan.",
+} as const;
+
+export const referralAdminCopy = {
+  kosong: "Belum ada rekomendasi tamu.",
+  jadikanTamu: "Jadikan tamu undangan",
+  channelSendiri: "Dikirim sendiri",
+  channelTitip: "Dititipkan ke Tiska",
+} as const;

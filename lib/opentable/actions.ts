@@ -23,6 +23,12 @@ export type FormState = {
   /** Kode tiket hasil RSVP — dipakai form untuk mengarahkan ke e-tiket. */
   kode?: string;
   status?: RsvpStatus;
+  /**
+   * Data rekomendasi yang sudah ternormalisasi di server. Layar sukses memakai
+   * ini, bukan state klien — nomor "+62 812…" pun sudah jadi "62812…" di sini,
+   * dan tautan WhatsApp tetap benar apa pun yang diketik tamu.
+   */
+  referral?: { nama: string; kontak: string; hp: string };
 } | null;
 
 const ADMIN_PATH = "/admin/open-table";
@@ -162,7 +168,7 @@ export async function submitReferralAction(
     }
 
     segarkan();
-    return { ok: true };
+    return { ok: true, referral: { nama: ref.nama, kontak: ref.kontak, hp } };
   } catch {
     return { error: "Rekomendasi gagal tersimpan. Coba lagi sebentar lagi." };
   }

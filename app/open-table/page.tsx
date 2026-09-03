@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getGuestByKode, getRsvpByGuestKode } from "@/lib/opentable/store";
 import { bersihkanKode, tampilHp } from "@/lib/opentable/kode";
 import { terbitkanToken } from "@/lib/opentable/antispam";
-import { WAJIB_KODE, rsvpDitutup } from "@/lib/opentable/config";
+import { WAJIB_KODE, rsvpDitutup, tautanUndangan } from "@/lib/opentable/config";
 import { fotoOpenTable } from "@/lib/opentable/images";
 import OpenTableExperience from "@/components/opentable/OpenTableExperience";
 import Pembuka from "@/components/opentable/Pembuka";
@@ -11,6 +11,7 @@ import Rundown from "@/components/opentable/Rundown";
 import MenuTasting from "@/components/opentable/MenuTasting";
 import Lokasi from "@/components/opentable/Lokasi";
 import RsvpForm from "@/components/opentable/RsvpForm";
+import ReferralForm from "@/components/opentable/ReferralForm";
 import Penutup from "@/components/opentable/Penutup";
 
 export const dynamic = "force-dynamic";
@@ -64,12 +65,20 @@ export default async function OpenTablePage({ searchParams }: Props) {
       <MenuTasting foto={fotoOpenTable.menu} />
       <Lokasi foto={fotoOpenTable.lokasi} />
       {formTampil && (
-        <RsvpForm
-          token={terbitkanToken()}
-          kode={guest?.kode ?? ""}
-          awal={awal}
-          ditutup={rsvpDitutup()}
-        />
+        <>
+          <RsvpForm
+            token={terbitkanToken()}
+            kode={guest?.kode ?? ""}
+            awal={awal}
+            ditutup={rsvpDitutup()}
+          />
+          <ReferralForm
+            token={terbitkanToken()}
+            kode={guest?.kode ?? ""}
+            perujuk={awal.nama}
+            tautanUmum={tautanUndangan()}
+          />
+        </>
       )}
       <Penutup />
     </OpenTableExperience>
