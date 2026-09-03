@@ -2,9 +2,12 @@ import { tautanUndangan } from "@/lib/opentable/config";
 import { naskahWa } from "@/lib/opentable/content";
 import { isiNaskah, tampilHp, waLink } from "@/lib/opentable/kode";
 import { GUEST_STATUS_LABEL, type Guest, type GuestStatus } from "@/lib/opentable/types";
+import Link from "next/link";
 import { deleteGuestAction } from "@/lib/opentable/actions";
+import { guestAdminCopy } from "@/lib/opentable/content";
 import SendButtons from "./SendButtons";
 import EmailButton from "./EmailButton";
+import GuestEditRow from "./GuestEditRow";
 
 const WARNA: Record<GuestStatus, string> = {
   "belum-kirim": "#8f8160",
@@ -27,7 +30,14 @@ function StatusPil({ status, kali }: { status: GuestStatus; kali: number }) {
   );
 }
 
-export default function GuestTable({ guests }: { guests: Guest[] }) {
+export default function GuestTable({
+  guests,
+  editId,
+}: {
+  guests: Guest[];
+  /** id tamu yang sedang disunting, dari ?edit= — mode sunting server-rendered. */
+  editId?: string;
+}) {
   return (
     <div className="overflow-hidden rounded-2xl border border-ad-border bg-ad-panel">
       <table className="w-full border-collapse text-left">
@@ -41,6 +51,7 @@ export default function GuestTable({ guests }: { guests: Guest[] }) {
         </thead>
         <tbody>
           {guests.map((g) => {
+            if (g.id === editId) return <GuestEditRow key={g.id} guest={g} />;
             const tautan = tautanUndangan(g.nama, g.kode);
             const pesan = isiNaskah(naskahWa, { nama: g.nama, link: tautan });
             return (
@@ -64,26 +75,32 @@ export default function GuestTable({ guests }: { guests: Guest[] }) {
                   <StatusPil status={g.status} kali={g.openCount} />
                 </td>
                 <td className="px-4 py-3.5">
-                  <SendButtons
-                    id={g.id}
-                    waHref={waLink(g.hp, pesan)}
-                    tautan={tautan}
-                    punyaHp={!!g.hp}
-                  />
-                  <div className="mt-0.5 flex items-center justify-end gap-1">
+                  <div className="flex flex-wrap items-center justify-end gap-x-1 gap-y-1">
+                    <SendButtons
+                      id={g.id}
+                      waHref={waLink(g.hp, pesan)}
+                      tautan={tautan}
+                      punyaHp={!!g.hp}
+                    />
                     {g.email && (
-                      <EmailButton id={g.id} label="Kirim email" labelProses="Mengirim…" />
+                      <EmailButton id={g.id} label={guestAdminCopy.kirimEmail} labelProses="…" />
                     )}
-                  </div>
-                  <form action={deleteGuestAction} className="mt-1 flex justify-end">
-                    <input type="hidden" name="id" value={g.id} />
-                    <button
-                      type="submit"
-                      className="rounded-lg px-2.5 py-1 text-[11.5px] text-ad-subtle transition-colors hover:bg-ad-danger/10 hover:text-ad-danger"
+                    <Link
+                      href={`/admin/open-table?edit=${g.id}`}
+                      className="rounded-lg px-2.5 py-1.5 text-[12px] text-ad-subtle transition-colors hover:bg-ad-accent-weak hover:text-ad-accent"
                     >
-                      Hapus
-                    </button>
-                  </form>
+                      {guestAdminCopy.ubah}
+                    </Link>
+                    <form action={deleteGuestAction}>
+                      <input type="hidden" name="id" value={g.id} />
+                      <button
+                        type="submit"
+                        className="rounded-lg px-2.5 py-1.5 text-[12px] text-ad-subtle transition-colors hover:bg-ad-danger/10 hover:text-ad-danger"
+                      >
+                        {guestAdminCopy.hapus}
+                      </button>
+                    </form>
+                  </div>
                 </td>
               </tr>
             );

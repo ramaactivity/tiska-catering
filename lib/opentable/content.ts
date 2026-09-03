@@ -291,3 +291,27 @@ export const referralAdminCopy = {
   channelSendiri: "Dikirim sendiri",
   channelTitip: "Dititipkan ke Tiska",
 } as const;
+
+export const guestAdminCopy = {
+  cariPlaceholder: "Cari nama, perusahaan, atau nomor…",
+  filter: {
+    all: "Semua",
+    "belum-kirim": "Belum dikirim",
+    terkirim: "Terkirim",
+    dibuka: "Dibuka",
+    rsvp: "Sudah RSVP",
+    nohp: "Tanpa nomor",
+  },
+  salinSemua: "Salin semua tautan",
+  salinSemuaSelesai: "Tersalin",
+  unduhCsv: "Unduh CSV",
+  ubah: "Ubah",
+  simpan: "Simpan",
+  batal: "Batal",
+  hapus: "Hapus",
+  kirimWa: "Kirim WA",
+  kirimEmail: "Kirim email",
+  salinTautan: "Salin tautan",
+  tersalin: "Tersalin",
+  tidakKetemu: "Tidak ada tamu yang cocok dengan pencarian itu.",
+} as const;

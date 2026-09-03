@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { requireSession } from "@/lib/auth";
 import * as store from "./store";
 import { parseGuestCsv } from "./csv";
@@ -209,6 +210,8 @@ export async function updateGuestAction(
   _prev: FormState,
   formData: FormData,
 ): Promise<FormState> {
+  // Sukses berakhir dengan redirect() yang melempar, jadi jalur ini hanya
+  // pernah mengembalikan nilai saat gagal — sama seperti loginAction.
   await requireSession();
   const id = String(formData.get("id") ?? "").trim();
   const nama = String(formData.get("nama") ?? "").trim();
@@ -224,10 +227,11 @@ export async function updateGuestAction(
       email: String(formData.get("email") ?? "").trim().slice(0, 120),
     });
     segarkan();
-    return { ok: true, info: "Tersimpan." };
   } catch {
     return { error: "Gagal menyimpan. Coba lagi." };
   }
+  // Keluar dari mode sunting (didorong searchParams ?edit=), seperti loginAction.
+  redirect(ADMIN_PATH);
 }
 
 export async function deleteGuestAction(formData: FormData): Promise<void> {

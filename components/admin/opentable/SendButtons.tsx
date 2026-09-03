@@ -44,11 +44,11 @@ export default function SendButtons({
   }
 
   return (
-    <div className="flex items-center justify-end gap-1.5">
+    <>
       <button
         type="button"
         onClick={salin}
-        className="rounded-lg px-2.5 py-1.5 text-[12px] text-ad-subtle transition-colors hover:bg-ad-accent-weak hover:text-ad-text"
+        className="rounded-lg px-2.5 py-1.5 text-[12px] text-ad-subtle transition-colors hover:bg-ad-accent-weak hover:text-ad-accent"
       >
         {tersalin ? "Tersalin" : "Salin tautan"}
       </button>
@@ -63,6 +63,6 @@ export default function SendButtons({
           Kirim WA
         </a>
       )}
-    </div>
+    </>
   );
 }

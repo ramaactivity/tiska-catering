@@ -21,7 +21,7 @@ export default function EmailButton({
   );
 
   return (
-    <form action={formAction} className={utama ? "" : "inline"}>
+    <form action={formAction} className={utama ? "" : "contents"}>
       {id && <input type="hidden" name="id" value={id} />}
       <button
         type="submit"
