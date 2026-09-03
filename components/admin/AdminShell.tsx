@@ -81,6 +81,20 @@ const NAV: NavItem[] = [
       </svg>
     ),
   },
+  {
+    href: "/admin/open-table",
+    label: "Open Table",
+    desc: "Undangan & RSVP",
+    match: (p) => p.startsWith("/admin/open-table"),
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4 20v-1.5a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4V20" />
+        <path d="M12 14.5V11" />
+        <path d="M7 4h10a0 0 0 0 1 0 0 5 5 0 0 1-5 5 5 5 0 0 1-5-5Z" />
+        <path d="M17 5h1.5a1.8 1.8 0 0 1 0 3.6h-.9M7 5H5.5a1.8 1.8 0 0 0 0 3.6h.9" />
+      </svg>
+    ),
+  },
 ];
 
 function Brand() {
