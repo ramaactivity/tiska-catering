@@ -4,10 +4,26 @@ import { revalidatePath } from "next/cache";
 import { requireSession } from "@/lib/auth";
 import * as store from "./store";
 import { parseGuestCsv } from "./csv";
-import { normalHp } from "./kode";
-import type { Kanal, ReferralStatus, RsvpStatus } from "./types";
+import { bersihkanKode, normalHp } from "./kode";
+import { HONEYPOT, tokenSah } from "./antispam";
+import { MAKS_PAX, rsvpDitutup } from "./config";
+import { kirimEmailKonfirmasi, kirimEmailReferral } from "./email";
+import {
+  PREFERENSI_VALUES,
+  type Kanal,
+  type ReferralChannel,
+  type ReferralStatus,
+  type RsvpStatus,
+} from "./types";
 
-export type FormState = { ok?: boolean; error?: string; info?: string } | null;
+export type FormState = {
+  ok?: boolean;
+  error?: string;
+  info?: string;
+  /** Kode tiket hasil RSVP — dipakai form untuk mengarahkan ke e-tiket. */
+  kode?: string;
+  status?: RsvpStatus;
+} | null;
 
 const ADMIN_PATH = "/admin/open-table";
 
@@ -16,6 +32,140 @@ function segarkan(): void {
   revalidatePath(`${ADMIN_PATH}/rsvp`);
   revalidatePath(`${ADMIN_PATH}/referral`);
   revalidatePath(`${ADMIN_PATH}/checkin`);
+}
+
+// ─── Form publik ──────────────────────────────────────────────────────────────
+
+const EMAIL_POLA = /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/;
+
+const potong = (v: FormDataEntryValue | null, maks: number): string =>
+  String(v ?? "").trim().slice(0, maks);
+
+/**
+ * Gerbang anti-spam bersama untuk kedua form publik.
+ * Mengembalikan "diam" bila jebakan terisi: form membalas seolah berhasil dan
+ * tidak menulis apa pun. Bot tidak pernah diberi tahu bahwa ia gagal.
+ */
+function periksaSpam(formData: FormData): "lolos" | "diam" | "token" {
+  if (potong(formData.get(HONEYPOT), 200)) return "diam";
+  if (!tokenSah(String(formData.get("t") ?? ""))) return "token";
+  return "lolos";
+}
+
+const PESAN_TOKEN = "Sesi formulir sudah kedaluwarsa. Muat ulang halaman lalu coba lagi.";
+
+export async function submitRsvpAction(
+  _prev: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  const gerbang = periksaSpam(formData);
+  if (gerbang === "diam") return { ok: true };
+  if (gerbang === "token") return { error: PESAN_TOKEN };
+
+  if (rsvpDitutup()) {
+    return { error: "Masa konfirmasi sudah ditutup. Silakan hubungi Ida Raodah." };
+  }
+
+  const nama = potong(formData.get("nama"), 80);
+  if (!nama) return { error: "Nama wajib diisi." };
+
+  const hadir = String(formData.get("hadir") ?? "") === "ya";
+
+  const hp = normalHp(String(formData.get("hp") ?? ""));
+  if (!hp) return { error: "Nomor WhatsApp belum benar. Contoh: 0812 3456 7890." };
+
+  const email = potong(formData.get("email"), 120);
+  if (email && !EMAIL_POLA.test(email)) return { error: "Format email belum benar." };
+
+  const paxMentah = Number(formData.get("pax"));
+  const pax = hadir
+    ? Math.min(Math.max(Number.isFinite(paxMentah) ? paxMentah : 1, 1), MAKS_PAX)
+    : 1;
+
+  const preferensi = formData
+    .getAll("preferensi")
+    .map((v) => String(v))
+    .filter((v) => PREFERENSI_VALUES.includes(v));
+
+  const pendamping = formData
+    .getAll("pendamping")
+    .map((v) => String(v).trim().slice(0, 80))
+    .filter(Boolean)
+    .slice(0, MAKS_PAX - 1);
+
+  try {
+    const rsvp = await store.submitRsvp({
+      guestKode: bersihkanKode(String(formData.get("k") ?? "")) || null,
+      hadir,
+      pax,
+      nama,
+      jabatan: potong(formData.get("jabatan"), 100),
+      perusahaan: potong(formData.get("perusahaan"), 100),
+      email,
+      hp,
+      preferensi,
+      pendamping,
+      alergi: potong(formData.get("alergi"), 300),
+      catatan: potong(formData.get("catatan"), 500),
+    });
+
+    // Email konfirmasi tidak boleh menggagalkan RSVP yang sudah tersimpan.
+    try {
+      await kirimEmailKonfirmasi(rsvp);
+    } catch {
+      /* abaikan — kursinya sudah aman */
+    }
+
+    segarkan();
+    return { ok: true, kode: rsvp.kode, status: rsvp.status };
+  } catch {
+    return { error: "Konfirmasi gagal tersimpan. Coba lagi sebentar lagi." };
+  }
+}
+
+export async function submitReferralAction(
+  _prev: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  const gerbang = periksaSpam(formData);
+  if (gerbang === "diam") return { ok: true };
+  if (gerbang === "token") return { error: PESAN_TOKEN };
+
+  const nama = potong(formData.get("nama"), 80);
+  if (!nama) return { error: "Nama rekan wajib diisi." };
+
+  const kontakMentah = potong(formData.get("kontak"), 120);
+  const hp = normalHp(kontakMentah);
+  const kontak = hp || kontakMentah;
+  if (!kontak || (!hp && !EMAIL_POLA.test(kontak))) {
+    return { error: "Isi nomor WhatsApp atau email rekan Anda." };
+  }
+
+  const channel: ReferralChannel =
+    String(formData.get("channel") ?? "titip") === "sendiri" ? "sendiri" : "titip";
+
+  try {
+    const ref = await store.createReferral({
+      referrerKode: bersihkanKode(String(formData.get("k") ?? "")) || null,
+      referrerNama: potong(formData.get("perujuk"), 80),
+      nama,
+      jabatan: potong(formData.get("jabatan"), 100),
+      perusahaan: potong(formData.get("perusahaan"), 100),
+      kontak,
+      channel,
+    });
+
+    try {
+      await kirimEmailReferral(ref);
+    } catch {
+      /* notifikasi internal gagal — rekomendasinya tetap tersimpan */
+    }
+
+    segarkan();
+    return { ok: true };
+  } catch {
+    return { error: "Rekomendasi gagal tersimpan. Coba lagi sebentar lagi." };
+  }
 }
 
 // ─── Tamu undangan ────────────────────────────────────────────────────────────

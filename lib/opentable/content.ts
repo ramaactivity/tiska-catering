@@ -177,3 +177,92 @@ export const penutup = {
   nama: "Keluarga Tiska Catering",
   sejak: "Melayani sejak 1980",
 } as const;
+
+export const rsvpCopy = {
+  eyebrow: "Konfirmasi Kehadiran",
+  judul: [
+    { text: "Kami " },
+    { text: "menunggu kabar", italic: true },
+    { text: " Anda" },
+  ] satisfies RichText,
+  intro:
+    "Mohon konfirmasi paling lambat 30 September 2026. Kursi terbatas dan kami menyiapkan hidangan sesuai jumlah yang hadir.",
+  label: {
+    hadir: "Apakah Anda berkenan hadir?",
+    hadirYa: "Ya, saya hadir",
+    hadirTidak: "Maaf, berhalangan",
+    nama: "Nama lengkap",
+    jabatan: "Jabatan",
+    perusahaan: "Perusahaan",
+    hp: "Nomor WhatsApp",
+    email: "Email",
+    pax: "Jumlah yang hadir",
+    paxCatatan: "Termasuk Anda. Maksimal satu pendamping.",
+    paxSatuan: "orang",
+    pendamping: "Nama pendamping",
+    preferensi: "Preferensi makanan",
+    preferensiCatatan: "Boleh pilih lebih dari satu, boleh dilewati.",
+    alergi: "Alergi atau pantangan",
+    alergiPlaceholder: "Mis. alergi udang, tidak makan pedas",
+    catatan: "Pesan untuk kami",
+    catatanPlaceholder: "Opsional",
+  },
+  tombol: "Kirim konfirmasi",
+  tombolProses: "Mengirim…",
+  wajib: "wajib",
+  opsional: "opsional",
+  suksesHadir: "Terima kasih. Kursi Anda sudah kami siapkan — e-tiket sedang dibuka.",
+  suksesWaitlist:
+    "Terima kasih. Kursi untuk sesi ini sudah penuh, nama Anda kami tempatkan pada daftar tunggu dan kami kabari begitu ada tempat.",
+  suksesTidak: "Terima kasih telah mengabari kami. Semoga ada kesempatan lain.",
+  ditutup:
+    "Masa konfirmasi telah ditutup. Bila Anda tetap berkenan hadir, silakan hubungi Ida Raodah secara langsung.",
+  lihatTiket: "Lihat e-tiket",
+} as const;
+
+export const referralCopy = {
+  eyebrow: "Ajak Rekan",
+  judul: [
+    { text: "Ada nama yang " },
+    { text: "sebaiknya ikut", italic: true },
+    { text: "?" },
+  ] satisfies RichText,
+  intro:
+    "Malam ini juga tentang siapa yang duduk bersebelahan. Bila ada kolega yang menurut Anda layak berada di meja ini, tuliskan namanya — Anda boleh mengundang sendiri, atau menitipkannya kepada kami.",
+  label: {
+    nama: "Nama rekan",
+    jabatan: "Jabatan",
+    perusahaan: "Perusahaan",
+    kontak: "Nomor WhatsApp atau email",
+    channel: "Siapa yang mengirim undangannya?",
+    channelSendiri: "Saya kirim sendiri",
+    channelSendiriCatatan: "Pesan undangan disiapkan, tinggal Anda kirim dari WhatsApp Anda.",
+    channelTitip: "Titip Tiska",
+    channelTitipCatatan: "Tim kami yang menghubungi secara resmi.",
+  },
+  tombol: "Kirim rekomendasi",
+  tombolProses: "Mengirim…",
+  tombolWa: "Kirim undangan via WhatsApp",
+  tombolEmail: "Kirim undangan via email",
+  sukses: "Terima kasih. Rekomendasi Anda sudah kami terima.",
+  suksesSendiri: "Pesan undangan sudah siap. Tekan tombol di bawah untuk mengirimnya.",
+  tambahLagi: "Rekomendasikan nama lain",
+} as const;
+
+export const tiketCopy = {
+  eyebrow: "E-Tiket",
+  judul: "Tiska Open Table",
+  petunjuk: "Tunjukkan QR ini kepada petugas saat tiba di lokasi.",
+  kodeLabel: "Kode tiket",
+  atasNama: "Atas nama",
+  jumlah: "Jumlah",
+  orang: "orang",
+  waitlistJudul: "Anda berada di daftar tunggu",
+  waitlistIsi:
+    "Kursi untuk sesi ini telah terisi penuh. Kami akan mengabari Anda secara pribadi begitu ada tempat yang tersedia.",
+  declinedJudul: "Konfirmasi Anda tercatat",
+  declinedIsi: "Terima kasih telah menyempatkan diri mengabari kami.",
+  sudahCheckin: "Sudah check-in",
+  ubah: "Ubah atau batalkan",
+  kembali: "Buka undangan",
+} as const;
