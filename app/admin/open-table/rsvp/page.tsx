@@ -3,6 +3,7 @@ import { requireSession } from "@/lib/auth";
 import { getRsvps } from "@/lib/opentable/store";
 import { RSVP_STATUS_LABEL, type RsvpStatus } from "@/lib/opentable/types";
 import RsvpTable from "@/components/admin/opentable/RsvpTable";
+import ReminderButton from "@/components/admin/opentable/ReminderButton";
 
 export const dynamic = "force-dynamic";
 
@@ -45,12 +46,15 @@ export default async function RsvpAdminPage({ searchParams }: Props) {
             );
           })}
         </div>
-        <a
-          href="/admin/open-table/rsvp/export"
-          className="rounded-xl border border-ad-border px-3.5 py-2 text-[12.5px] text-ad-muted transition-colors hover:border-ad-accent hover:text-ad-accent"
-        >
-          Unduh CSV
-        </a>
+        <div className="flex items-start gap-2">
+          <ReminderButton />
+          <a
+            href="/admin/open-table/rsvp/export"
+            className="rounded-xl border border-ad-border px-3.5 py-2 text-[12.5px] text-ad-muted transition-colors hover:border-ad-accent hover:text-ad-accent"
+          >
+            Unduh CSV
+          </a>
+        </div>
       </div>
 
       {rows.length === 0 ? (

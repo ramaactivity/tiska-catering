@@ -2,6 +2,7 @@ import { requireSession } from "@/lib/auth";
 import { getGuests } from "@/lib/opentable/store";
 import GuestImport from "@/components/admin/opentable/GuestImport";
 import GuestTable from "@/components/admin/opentable/GuestTable";
+import EmailButton from "@/components/admin/opentable/EmailButton";
 
 export const dynamic = "force-dynamic";
 
@@ -11,6 +12,7 @@ export default async function DaftarUndanganPage() {
 
   const terkirim = guests.filter((g) => g.status !== "belum-kirim").length;
   const dibuka = guests.filter((g) => g.openedAt).length;
+  const belumEmail = guests.filter((g) => g.email && g.status === "belum-kirim").length;
 
   return (
     <>
@@ -28,9 +30,18 @@ export default async function DaftarUndanganPage() {
         </div>
       ) : (
         <>
-          <p className="mb-3 text-[12.5px] text-ad-subtle">
-            {guests.length} tamu · {terkirim} sudah dikirimi · {dibuka} membuka undangan
-          </p>
+          <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+            <p className="text-[12.5px] text-ad-subtle">
+              {guests.length} tamu · {terkirim} sudah dikirimi · {dibuka} membuka undangan
+            </p>
+            {belumEmail > 0 && (
+              <EmailButton
+                utama
+                label={`Kirim email ke ${belumEmail} tamu`}
+                labelProses="Mengirim…"
+              />
+            )}
+          </div>
           <GuestTable guests={guests} />
         </>
       )}

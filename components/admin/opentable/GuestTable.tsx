@@ -4,6 +4,7 @@ import { isiNaskah, tampilHp, waLink } from "@/lib/opentable/kode";
 import { GUEST_STATUS_LABEL, type Guest, type GuestStatus } from "@/lib/opentable/types";
 import { deleteGuestAction } from "@/lib/opentable/actions";
 import SendButtons from "./SendButtons";
+import EmailButton from "./EmailButton";
 
 const WARNA: Record<GuestStatus, string> = {
   "belum-kirim": "#8f8160",
@@ -69,6 +70,11 @@ export default function GuestTable({ guests }: { guests: Guest[] }) {
                     tautan={tautan}
                     punyaHp={!!g.hp}
                   />
+                  <div className="mt-0.5 flex items-center justify-end gap-1">
+                    {g.email && (
+                      <EmailButton id={g.id} label="Kirim email" labelProses="Mengirim…" />
+                    )}
+                  </div>
                   <form action={deleteGuestAction} className="mt-1 flex justify-end">
                     <input type="hidden" name="id" value={g.id} />
                     <button

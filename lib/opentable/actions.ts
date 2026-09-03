@@ -7,7 +7,7 @@ import { parseGuestCsv } from "./csv";
 import { bersihkanKode, normalHp } from "./kode";
 import { HONEYPOT, tokenSah } from "./antispam";
 import { MAKS_PAX, rsvpDitutup } from "./config";
-import { kirimEmailKonfirmasi, kirimEmailReferral } from "./email";
+import { kirimEmailKonfirmasi, kirimEmailReferral, kirimEmailUndangan } from "./email";
 import {
   PREFERENSI_VALUES,
   type Kanal,
@@ -246,6 +246,75 @@ export async function markGuestSentAction(formData: FormData): Promise<void> {
   if (!id) return;
   await store.markGuestSent(id, channel === "email" ? "email" : "wa");
   segarkan();
+}
+
+/**
+ * Kirim undangan lewat email — satu tamu (id) atau seluruh tamu yang punya
+ * email dan belum pernah dikirimi (id kosong).
+ *
+ * WhatsApp tetap kanal utama: domain pengirim yang baru langsung mengirim 50
+ * email ke inbox korporat adalah pemicu filter spam klasik, dan eksekutif
+ * Indonesia membaca WhatsApp. Email di sini berperan sebagai jejak formal.
+ */
+export async function sendInviteEmailAction(
+  _prev: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  await requireSession();
+  if (!process.env.RESEND_API_KEY) {
+    return { error: "RESEND_API_KEY belum diset di server." };
+  }
+
+  const id = String(formData.get("id") ?? "").trim();
+  const semua = await store.getGuests();
+  const target = id
+    ? semua.filter((g) => g.id === id && g.email)
+    : semua.filter((g) => g.email && g.status === "belum-kirim");
+
+  if (!target.length) return { error: "Tidak ada tamu dengan alamat email yang perlu dikirimi." };
+
+  let terkirim = 0;
+  for (const g of target) {
+    const ok = await kirimEmailUndangan(g);
+    if (ok) {
+      terkirim++;
+      await store.markGuestSent(g.id, "email");
+    }
+  }
+  segarkan();
+
+  if (!terkirim) {
+    return {
+      error:
+        "Resend menolak mengirim. Untuk alamat selain pemilik akun Resend, domain tiskacatering.com harus diverifikasi dulu.",
+    };
+  }
+  return { ok: true, info: `${terkirim} undangan terkirim lewat email.` };
+}
+
+/** Pengingat untuk tamu yang sudah dikirimi undangan tapi belum mengonfirmasi. */
+export async function sendReminderEmailAction(
+  _prev: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  await requireSession();
+  void formData;
+  if (!process.env.RESEND_API_KEY) {
+    return { error: "RESEND_API_KEY belum diset di server." };
+  }
+
+  const semua = await store.getGuests();
+  const target = semua.filter((g) => g.email && g.status !== "rsvp" && g.status !== "belum-kirim");
+  if (!target.length) return { error: "Semua tamu yang punya email sudah mengonfirmasi." };
+
+  let terkirim = 0;
+  for (const g of target) {
+    if (await kirimEmailUndangan(g)) terkirim++;
+  }
+  segarkan();
+  return terkirim
+    ? { ok: true, info: `${terkirim} pengingat terkirim.` }
+    : { error: "Resend menolak mengirim. Cek verifikasi domain." };
 }
 
 // ─── RSVP (admin) ─────────────────────────────────────────────────────────────
