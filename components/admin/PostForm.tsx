@@ -183,6 +183,13 @@ export default function PostForm({ post }: { post?: Post }) {
                     </option>
                   ))}
                 </select>
+                {kategori === "kisah" && (
+                  <p className={hint}>
+                    Wajib izin klien. Sebut nama klien, jenis acara & venue di judul
+                    (mis. &ldquo;Pernikahan Rani &amp; Dimas di Puri Begawan&rdquo;) agar
+                    ditemukan di Google.
+                  </p>
+                )}
               </div>
               <div>
                 <label className={label}>Periode</label>

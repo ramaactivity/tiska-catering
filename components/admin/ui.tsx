@@ -8,6 +8,7 @@ import type { PostCategory } from "@/lib/posts/types";
 
 /** Warna aksen per kategori (mid-tone agar terbaca di tema terang & gelap). */
 export const KATEGORI_WARNA: Record<PostCategory, string> = {
+  kisah: "#a8864a",
   promo: "#bf922f",
   campaign: "#bd6f80",
   menu: "#4f9a8f",

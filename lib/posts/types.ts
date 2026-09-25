@@ -1,9 +1,10 @@
 /**
  * Tipe & util untuk "Kabar" — postingan yang dikelola dari /admin.
- * Empat kategori menutupi: promo/paket, momen/campaign, menu musiman, kabar/kegiatan.
+ * Kategori: kisah perayaan klien (SEO + "customer as spotlight"), promo/paket,
+ * momen/campaign, menu musiman, kabar/kegiatan.
  */
 
-export const POST_CATEGORIES = ["promo", "campaign", "menu", "kabar"] as const;
+export const POST_CATEGORIES = ["kisah", "promo", "campaign", "menu", "kabar"] as const;
 export type PostCategory = (typeof POST_CATEGORIES)[number];
 
 export type Post = {

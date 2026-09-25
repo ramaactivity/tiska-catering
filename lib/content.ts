@@ -318,6 +318,7 @@ export const kabarPage = {
     "Cerita perayaan, penawaran musiman, dan kabar terbaru dari dapur Tiska Catering.",
   semua: "Semua",
   kategoriLabel: {
+    kisah: "Kisah Perayaan",
     promo: "Promo",
     campaign: "Momen Spesial",
     menu: "Menu Musiman",
