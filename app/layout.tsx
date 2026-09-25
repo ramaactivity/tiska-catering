@@ -61,6 +61,9 @@ const jsonLd = {
     addressCountry: "ID",
   },
   hasMenu: `${SITE_URL}/menu`,
+  // Titik & tautan listing Google Maps "Tiska Catering" (dapur pusat, Tanah Sereal)
+  geo: { "@type": "GeoCoordinates", latitude: -6.5725808, longitude: 106.7976087 },
+  hasMap: "https://maps.google.com/?cid=15206880014487295910",
   areaServed: [
     "Jakarta",
     "Bogor",
