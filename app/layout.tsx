@@ -46,6 +46,8 @@ const jsonLd = {
   slogan: company.tagline,
   foundingDate: String(company.berdiri),
   url: SITE_URL,
+  logo: `${SITE_URL}/logo-tiska.webp`,
+  image: `${SITE_URL}/opengraph-image`,
   telephone: company.teleponKantor,
   email: company.email,
   servesCuisine: ["Indonesian", "Asian", "Western"],
@@ -58,6 +60,7 @@ const jsonLd = {
     addressCountry: "ID",
   },
   areaServed: ["Bogor", "Jakarta", "Depok", "Tangerang", "Bekasi"],
+  sameAs: [company.instagramLink, company.facebookLink, company.tiktokLink],
 };
 
 export default function RootLayout({

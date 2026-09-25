@@ -9,9 +9,16 @@ import { getPublishedPosts } from "@/lib/posts/store";
 import { getSiteImages } from "@/lib/site-images";
 
 export const metadata: Metadata = {
-  title: "Kabar — Tiska Catering | Promo, Momen & Menu Musiman",
+  title: "Kabar | Promo, Momen & Menu Musiman",
   description:
     "Kabar terbaru Tiska Catering — penawaran musiman, momen spesial, dan menu pilihan untuk perayaan Anda di Bogor, Jakarta, dan sekitarnya.",
+  alternates: { canonical: "/kabar" },
+  openGraph: {
+    url: "/kabar",
+    title: "Kabar | Promo, Momen & Menu Musiman — Tiska Catering",
+    description:
+      "Kabar terbaru Tiska Catering — penawaran musiman, momen spesial, dan menu pilihan untuk perayaan Anda di Bogor, Jakarta, dan sekitarnya.",
+  },
 };
 
 export const dynamic = "force-dynamic";

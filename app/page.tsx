@@ -19,6 +19,32 @@ import Footer from "@/components/layout/Footer";
 import { getActiveBanners } from "@/lib/banners/store";
 import { getSiteImages } from "@/lib/site-images";
 import { getPublicGallery } from "@/lib/gallery/store";
+import type { Metadata } from "next";
+import { faqCategories } from "@/lib/content";
+
+export const metadata: Metadata = { alternates: { canonical: "/" } };
+
+// FAQ sebagai rich result di Google — teks sama persis dengan section FAQ.
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqCategories.flatMap((c) =>
+    c.items.map((it) => ({
+      "@type": "Question",
+      name: it.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: it.a
+          .map((b) =>
+            "p" in b
+              ? b.p
+              : b.list.map((l) => (l.term ? `${l.term}: ${l.text}` : l.text)).join("; "),
+          )
+          .join(" "),
+      },
+    })),
+  ),
+};
 
 /* Beranda — 12 section lengkap sesuai urutan & ritme terang-gelap docs/04. */
 
@@ -36,6 +62,10 @@ export default async function Home() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <Loader />
       <Nav />
       <main>

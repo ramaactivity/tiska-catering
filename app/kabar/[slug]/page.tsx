@@ -17,14 +17,19 @@ type Params = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPublishedPostBySlug(slug);
-  if (!post) return { title: "Kabar tidak ditemukan — Tiska Catering" };
+  if (!post) return { title: "Kabar tidak ditemukan" };
   return {
-    title: `${post.judul} — Tiska Catering`,
+    title: post.judul,
     description: post.ringkasan,
+    alternates: { canonical: `/kabar/${post.slug}` },
     openGraph: {
+      type: "article",
+      url: `/kabar/${post.slug}`,
       title: post.judul,
       description: post.ringkasan,
-      images: [{ url: post.imageUrl }],
+      publishedTime: post.createdAt,
+      modifiedTime: post.updatedAt,
+      images: [{ url: post.imageUrl, alt: post.imageAlt }],
     },
   };
 }
@@ -42,8 +47,24 @@ export default async function KabarDetail({ params }: Params) {
     ? []
     : isi.split(/\n{2,}/).map((p) => p.trim()).filter(Boolean);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.judul,
+    description: post.ringkasan,
+    image: [post.imageUrl],
+    datePublished: post.createdAt,
+    dateModified: post.updatedAt,
+    author: { "@type": "Organization", name: "Tiska Catering" },
+    publisher: { "@type": "Organization", name: "Tiska Catering" },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
       <Nav />
       <main>
         <article className="bg-ink px-6 pt-[24vh] pb-[12vh] md:px-10">
