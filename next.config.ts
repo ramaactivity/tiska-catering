@@ -3,7 +3,16 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // URL situs PHP lama (mis. /index.php) masih terindeks Google → arahkan permanen.
   async redirects() {
-    return [{ source: "/:path(.*\\.php)", destination: "/", permanent: true }];
+    return [
+      { source: "/:path(.*\\.php)", destination: "/", permanent: true },
+      // Satu alamat resmi (tanpa www) agar Google tidak melihat situs kembar.
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.tiskacatering.com" }],
+        destination: "https://tiskacatering.com/:path*",
+        permanent: true,
+      },
+    ];
   },
   // Upload foto dari /admin lewat Server Action. Default Next.js cuma 1 MB →
   // foto hasil crop (mis. potret tim 1000×1000) sering >1 MB dan ke-block
