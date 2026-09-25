@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useInView, useReducedMotion } from "framer-motion";
-import { menuRingkas } from "@/lib/content";
+import { t, type Lang } from "@/lib/i18n";
 import { images } from "@/lib/images";
 import Reveal from "@/components/motion/Reveal";
 import WordReveal from "@/components/motion/WordReveal";
@@ -20,7 +20,8 @@ const EASE = [0.22, 1, 0.36, 1] as const;
  * tidak pernah diam, pergantian tumpang-tindih mulus. Transform/opacity
  * saja; reduced-motion: statis tanpa autoplay.
  */
-export default function MenuRingkas({ photos = images.menuRingkas }: { photos?: Record<string, { src: string; alt: string }> }) {
+export default function MenuRingkas({ photos = images.menuRingkas, lang = "id" }: { photos?: Record<string, { src: string; alt: string }>; lang?: Lang }) {
+  const { menuRingkas, ui } = t(lang);
   const [active, setActive] = useState(0);
   const [manual, setManual] = useState(false);
   const reduceMotion = useReducedMotion();
@@ -122,10 +123,10 @@ export default function MenuRingkas({ photos = images.menuRingkas }: { photos?: 
                     {aktif.highlight}
                   </p>
                   <Link
-                    href={`/menu#${aktif.id}`}
+                    href={`${lang === "en" ? "/en/menu" : "/menu"}#${aktif.id}`}
                     className="group mt-2.5 inline-flex items-center gap-2 text-[11.5px] uppercase tracking-[0.2em] text-gold-bright"
                   >
-                    Jelajahi kategori
+                    {ui.jelajahiKategori}
                     <span
                       aria-hidden
                       className="transition-transform duration-300 group-hover:translate-x-1"

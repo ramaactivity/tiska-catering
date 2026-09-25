@@ -1,11 +1,13 @@
 import Link from "next/link";
-import { footer, company } from "@/lib/content";
+import { company } from "@/lib/content";
+import { t, type Lang } from "@/lib/i18n";
 import { NAV_LOGO } from "@/lib/logos-base64";
 import Reveal from "@/components/motion/Reveal";
 import { areas, landingPath, services } from "@/lib/landing";
 
 /** Footer: kolom navigasi/kontak/sosial + wordmark TISKA raksasa (docs/04 #11). */
-export default function Footer() {
+export default function Footer({ lang = "id" }: { lang?: Lang }) {
+  const { footer, ui } = t(lang);
   return (
     <footer className="overflow-hidden border-t border-line bg-ink-2 px-6 pb-10 pt-16 md:px-10 md:pt-[11vh]">
       <div className="mx-auto max-w-[1280px]">
@@ -27,7 +29,7 @@ export default function Footer() {
           <Reveal delay={0.1}>
             <div>
               <p className="mb-5 text-[11px] uppercase tracking-[0.18em] text-gold">
-                Navigasi
+                {ui.footerNavigasi}
               </p>
               <ul className="flex flex-col gap-3 text-[14px] text-[#c9c2b2]">
                 {footer.kolom.navigasi.map((item) => (
@@ -47,7 +49,7 @@ export default function Footer() {
           <Reveal delay={0.2}>
             <div>
               <p className="mb-5 text-[11px] uppercase tracking-[0.18em] text-gold">
-                Hubungi
+                {ui.footerHubungi}
               </p>
               <ul className="flex flex-col gap-3 text-[14px] text-[#c9c2b2]">
                 {footer.kolom.hubungi.map((item) =>
@@ -76,7 +78,7 @@ export default function Footer() {
           <Reveal delay={0.3}>
             <div>
               <p className="mb-5 text-[11px] uppercase tracking-[0.18em] text-gold">
-                Ikuti
+                {ui.footerIkuti}
               </p>
               <ul className="flex flex-col gap-3 text-[14px] text-[#c9c2b2]">
                 {footer.kolom.ikuti.map((item) => (
@@ -97,8 +99,8 @@ export default function Footer() {
         {/* Tautan layanan & area — navigasi sekaligus tautan internal untuk SEO */}
         <div className="grid gap-8 border-t border-line py-10 md:grid-cols-2">
           {[
-            { judul: "Layanan", items: services },
-            { judul: "Area Layanan", items: areas },
+            { judul: ui.footerLayanan, items: services },
+            { judul: ui.footerArea, items: areas },
           ].map((grup) => (
             <div key={grup.judul}>
               <p className="mb-4 text-[11px] uppercase tracking-[0.18em] text-gold">
@@ -108,10 +110,10 @@ export default function Footer() {
                 {grup.items.map((l) => (
                   <li key={l.slug.id}>
                     <Link
-                      href={landingPath(l, "id")}
+                      href={landingPath(l, lang)}
                       className="transition-colors duration-300 hover:text-gold-soft"
                     >
-                      {l.label.id}
+                      {l.label[lang]}
                     </Link>
                   </li>
                 ))}

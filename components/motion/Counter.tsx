@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { animate, useInView, useReducedMotion } from "framer-motion";
 
 type CounterProps = {
+  locale?: string;
   value: number;
   suffix?: string;
   duration?: number;
@@ -12,12 +13,13 @@ type CounterProps = {
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-/** Angka naik dari 0 ke target saat masuk viewport. Format ribuan gaya ID (10.000). */
+/** Angka naik dari 0 ke target saat masuk viewport. Pemisah ribuan ikut locale (10.000 / 10,000). */
 export default function Counter({
   value,
   suffix = "",
   duration = 1.8,
   className,
+  locale = "id-ID",
 }: CounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-10% 0px" });
@@ -40,7 +42,7 @@ export default function Counter({
 
   return (
     <span ref={ref} className={className}>
-      {display.toLocaleString("id-ID")}
+      {display.toLocaleString(locale)}
       {suffix}
     </span>
   );

@@ -29,8 +29,10 @@ export function landingMetadata(l: Landing, lang: Lang): Metadata {
   return {
     title: { absolute: c.metaTitle },
     description: c.metaDescription,
-    // hreflang ditambahkan setelah seluruh situs punya versi EN
-    alternates: { canonical: url },
+    alternates: {
+      canonical: url,
+      languages: { id: landingPath(l, "id"), en: landingPath(l, "en"), "x-default": landingPath(l, "id") },
+    },
     openGraph: {
       url,
       title: c.metaTitle,
@@ -163,7 +165,7 @@ export default function LandingPage({ l, lang }: { l: Landing; lang: Lang }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(l, lang)) }}
       />
-      <Nav />
+      <Nav lang={lang} />
       <main>
         <PageHero eyebrow={c.eyebrow} judul={c.h1} intro={c.intro} />
 
@@ -175,8 +177,8 @@ export default function LandingPage({ l, lang }: { l: Landing; lang: Lang }) {
           </div>
         </section>
 
-        {l.showKlien && <Klien />}
-        {l.showSertifikasi && <Sertifikasi />}
+        {l.showKlien && <Klien lang={lang} />}
+        {l.showSertifikasi && <Sertifikasi lang={lang} />}
 
         <section className="bg-paper-bg px-6 py-20 md:px-10 md:py-[12vh]">
           <div className="mx-auto grid max-w-[1200px] gap-14 md:grid-cols-[0.8fr_1fr] md:gap-16">
@@ -215,7 +217,7 @@ export default function LandingPage({ l, lang }: { l: Landing; lang: Lang }) {
           profileHref={profileHref}
         />
       </main>
-      <Footer />
+      <Footer lang={lang} />
     </>
   );
 }

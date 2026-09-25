@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { testimoni } from "@/lib/content";
+import { t, type Lang } from "@/lib/i18n";
 import type { RichText } from "@/lib/content";
 import Reveal from "@/components/motion/Reveal";
 import { useMotionProfile } from "@/components/motion/useMotionProfile";
@@ -31,7 +31,8 @@ function RichQuote({ segments }: { segments: RichText }) {
  * Auto-advance kalem; berhenti saat hover; nonaktif bila prefers-reduced-motion.
  * Glow radial emas halus (docs/04 #8).
  */
-export default function Testimoni() {
+export default function Testimoni({ lang = "id" }: { lang?: Lang }) {
+  const { testimoni } = t(lang);
   const items = testimoni.daftar;
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);

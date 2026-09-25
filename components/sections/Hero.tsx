@@ -8,7 +8,7 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import { hero } from "@/lib/content";
+import { t, type Lang } from "@/lib/i18n";
 import { images } from "@/lib/images";
 import { LOADER_TIMING, loaderWillPlay } from "@/lib/loader";
 import RichTitle from "@/components/ui/RichTitle";
@@ -32,7 +32,8 @@ const item = {
 type Foto = { src: string; alt: string };
 
 /** Hero: foto sinematik parallax + teks staggered masuk (docs/04 #1). */
-export default function Hero({ photo = images.hero }: { photo?: Foto }) {
+export default function Hero({ photo = images.hero, lang = "id" }: { photo?: Foto; lang?: Lang }) {
+  const { hero } = t(lang);
   const ref = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
   // teks hero mulai naik saat tirai loader ±separuh terbuka (handoff mulus)

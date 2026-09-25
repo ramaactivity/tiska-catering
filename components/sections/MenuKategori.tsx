@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { menuCategories } from "@/lib/content";
+import { t, type Lang } from "@/lib/i18n";
 import { images } from "@/lib/images";
 import Reveal from "@/components/motion/Reveal";
 import WordReveal from "@/components/motion/WordReveal";
@@ -8,7 +8,8 @@ import WordReveal from "@/components/motion/WordReveal";
  * Halaman /menu: section per kategori — banner foto + grid item tipografis.
  * Struktur siap menerima foto per item saat aset asli masuk (Fase 4, docs/06).
  */
-export default function MenuKategori({ photos = images.menuKategori }: { photos?: Record<string, { src: string; alt: string }> }) {
+export default function MenuKategori({ photos = images.menuKategori, lang = "id" }: { photos?: Record<string, { src: string; alt: string }>; lang?: Lang }) {
+  const { menuCategories } = t(lang);
   return (
     <div className="bg-ink px-6 pb-16 md:px-10 md:pb-[14vh]">
       <div className="mx-auto flex max-w-[1280px] flex-col gap-[14vh]">

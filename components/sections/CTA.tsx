@@ -9,13 +9,14 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import { cta } from "@/lib/content";
+import { t, type Lang } from "@/lib/i18n";
 import { images } from "@/lib/images";
 import Reveal from "@/components/motion/Reveal";
 import WordReveal from "@/components/motion/WordReveal";
 
 /** CTA penutup: foto parallax + "Send your love now" (docs/04 #10). */
-export default function CTA({ photo = images.cta }: { photo?: { src: string; alt: string } }) {
+export default function CTA({ photo = images.cta, lang = "id" }: { photo?: { src: string; alt: string }; lang?: Lang }) {
+  const { cta } = t(lang);
   const ref = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({

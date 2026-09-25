@@ -1,7 +1,7 @@
 import { MenuPage, pageMetadata } from "@/components/pages/SitePages";
 
-export const metadata = pageMetadata("menu", "id");
+export const metadata = pageMetadata("menu", "en");
 
 export default function Page() {
-  return <MenuPage lang="id" />;
+  return <MenuPage lang="en" />;
 }

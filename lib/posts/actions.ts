@@ -53,6 +53,15 @@ export async function savePostAction(_prev: FormState, formData: FormData): Prom
   if (!ringkasan) return { error: "Ringkasan wajib diisi." };
   if (!isPostCategory(kategoriRaw)) return { error: "Kategori tidak valid." };
 
+  const en = {
+    judul: String(formData.get("judulEn") ?? "").trim(),
+    ringkasan: String(formData.get("ringkasanEn") ?? "").trim(),
+    isi: String(formData.get("isiEn") ?? "").trim(),
+    periode: String(formData.get("periodeEn") ?? "").trim(),
+    ctaLabel: String(formData.get("ctaLabelEn") ?? "").trim(),
+  };
+  if (en.judul && !en.ringkasan) return { error: "Ringkasan (English) wajib diisi bila judul English diisi." };
+
   // Foto: pakai file baru bila ada, kalau tidak pertahankan yang lama.
   const file = formData.get("image");
   let imageUrl = String(formData.get("currentImageUrl") ?? "").trim();
@@ -79,6 +88,7 @@ export async function savePostAction(_prev: FormState, formData: FormData): Prom
     ctaHref,
     published,
     featured,
+    en: en.judul ? en : undefined,
   };
 
   if (id) {

@@ -1,5 +1,6 @@
 "use client";
 
+import { t, type Lang } from "@/lib/i18n";
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
@@ -10,7 +11,8 @@ import Lightbox, { type GalleryPhoto } from "@/components/gallery/Lightbox";
  * /galeri — pengalaman "Netflix" penuh: billboard featured (sorot highlight tiap
  * kategori, auto-rotate) + satu rail per kategori. Klik mana pun → lightbox.
  */
-export default function GaleriRails({ items }: { items: GalleryPhoto[] }) {
+export default function GaleriRails({ items, lang = "id" }: { items: GalleryPhoto[]; lang?: Lang }) {
+  const { ui } = t(lang);
   const [box, setBox] = useState<number | null>(null);
   const [active, setActive] = useState(0); // index ke highlights
   const [paused, setPaused] = useState(false);
@@ -88,7 +90,7 @@ export default function GaleriRails({ items }: { items: GalleryPhoto[] }) {
             type="button"
             onClick={() => setBox(highlights[active])}
             className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-6 p-6 text-left sm:p-9"
-            aria-label="Buka foto sorotan"
+            aria-label={ui.bukaFoto}
           >
             <AnimatePresence mode="wait">
               <motion.div
@@ -129,13 +131,14 @@ export default function GaleriRails({ items }: { items: GalleryPhoto[] }) {
               <EventRail
                 items={g.photos}
                 onOpen={(localI) => setBox(g.photos[localI].gi)}
+                lang={lang}
               />
             </div>
           ))}
         </div>
       </div>
 
-      <Lightbox items={items} index={box} onClose={() => setBox(null)} onIndex={setBox} />
+      <Lightbox items={items} index={box} onClose={() => setBox(null)} onIndex={setBox} lang={lang} />
     </section>
   );
 }

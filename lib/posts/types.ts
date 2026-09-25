@@ -7,6 +7,14 @@
 export const POST_CATEGORIES = ["kisah", "promo", "campaign", "menu", "kabar"] as const;
 export type PostCategory = (typeof POST_CATEGORIES)[number];
 
+export type PostEn = {
+  judul: string;
+  ringkasan: string;
+  isi: string;
+  periode: string;
+  ctaLabel: string;
+};
+
 export type Post = {
   id: string;
   slug: string;
@@ -23,6 +31,8 @@ export type Post = {
   ctaLabel: string;
   ctaHref: string;
   published: boolean;
+  /** Terjemahan Inggris opsional — kabar tampil di /en/news hanya bila diisi. */
+  en?: PostEn;
   /** Tampil sebagai sorotan utama di beranda */
   featured: boolean;
   createdAt: string;
@@ -48,4 +58,19 @@ export function slugify(input: string): string {
     .slice(0, 60)
     .replace(/^-+|-+$/g, "");
   return base || "kabar";
+}
+
+/** Versi Inggris sebuah kabar, atau null bila belum diterjemahkan. */
+export function postInEnglish(p: Post): Post | null {
+  if (!p.en?.judul) return null;
+  const { en } = p;
+  return {
+    ...p,
+    judul: en.judul,
+    ringkasan: en.ringkasan,
+    isi: en.isi,
+    periode: en.periode,
+    imageAlt: en.judul,
+    ctaLabel: en.ctaLabel || "Ask on WhatsApp",
+  };
 }

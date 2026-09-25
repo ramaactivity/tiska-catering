@@ -8,7 +8,8 @@ import {
   useReducedMotion,
   type Variants,
 } from "framer-motion";
-import { faqHeader, faqCategories, type FaqBlock } from "@/lib/content";
+import type { FaqBlock } from "@/lib/content";
+import { t, type Lang } from "@/lib/i18n";
 import Eyebrow from "@/components/ui/Eyebrow";
 import RichTitle from "@/components/ui/RichTitle";
 import Reveal from "@/components/motion/Reveal";
@@ -37,7 +38,8 @@ const BLOCK_V: Variants = {
  * kategori + accordion satu-terbuka. Tujuan: pengunjung tidak dihantam semua
  * pertanyaan sekaligus; pilih topik, buka satu per satu. (docs/02: anggun, tenang)
  */
-export default function FAQ() {
+export default function FAQ({ lang = "id" }: { lang?: Lang }) {
+  const { faqHeader, faqCategories } = t(lang);
   // Kategori aktif & pertanyaan terbuka (single-open agar bersih).
   const [activeCat, setActiveCat] = useState(0);
   const [openQ, setOpenQ] = useState(0);
@@ -77,14 +79,14 @@ export default function FAQ() {
         <div className="grid grid-cols-1 gap-y-10 lg:grid-cols-[300px_1fr] lg:gap-x-20">
           {/* ── Navigasi kategori ── */}
           <div className="lg:sticky lg:top-28 lg:self-start">
-            <CategoryNav active={activeCat} onSelect={selectCat} />
+            <CategoryNav active={activeCat} onSelect={selectCat} lang={lang} />
 
             {/* Kartu "masih ada pertanyaan?" — hanya tampil di desktop di kolom kiri */}
             <div className="mt-10 hidden border-t border-line-d pt-8 lg:block">
               <p className="text-[14px] leading-[1.6] text-paper-ink/70">
                 {faqHeader.ctaTanya}
               </p>
-              <ContactButton className="mt-5" />
+              <ContactButton className="mt-5" lang={lang} />
             </div>
           </div>
 
@@ -117,7 +119,7 @@ export default function FAQ() {
               <p className="text-[14px] leading-[1.6] text-paper-ink/70">
                 {faqHeader.ctaTanya}
               </p>
-              <ContactButton className="mt-5" />
+              <ContactButton className="mt-5" lang={lang} />
             </div>
           </div>
         </div>
@@ -130,12 +132,15 @@ export default function FAQ() {
 function CategoryNav({
   active,
   onSelect,
+  lang,
 }: {
   active: number;
   onSelect: (i: number) => void;
+  lang: Lang;
 }) {
+  const { faqCategories, ui } = t(lang);
   return (
-    <nav aria-label="Kategori pertanyaan">
+    <nav aria-label={ui.faqNav}>
       {/* Desktop: daftar vertikal */}
       <ul className="hidden flex-col gap-1 lg:flex">
         {faqCategories.map((c, i) => {
@@ -356,7 +361,8 @@ function Answer({ blocks }: { blocks: FaqBlock[] }) {
 }
 
 /* ── Tombol kontak WhatsApp (pill, tone terang — selaras docs/02) ── */
-function ContactButton({ className = "" }: { className?: string }) {
+function ContactButton({ className = "", lang }: { className?: string; lang: Lang }) {
+  const { faqHeader } = t(lang);
   return (
     <Link
       href={faqHeader.cta.href}

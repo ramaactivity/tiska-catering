@@ -1,9 +1,10 @@
-import { filosofi } from "@/lib/content";
+import { t, type Lang } from "@/lib/i18n";
 import Reveal from "@/components/motion/Reveal";
 import WordReveal from "@/components/motion/WordReveal";
 
 /** Filosofi: color block emas penuh, pull quote kata-per-kata (docs/04 #6). */
-export default function Filosofi() {
+export default function Filosofi({ lang = "id" }: { lang?: Lang }) {
+  const { filosofi } = t(lang);
   return (
     <section className="bg-gold-deep px-6 py-24 md:px-10 md:py-[20vh]">
       <div className="mx-auto max-w-[1100px] text-center">

@@ -1,5 +1,6 @@
 "use client";
 
+import { t, type Lang } from "@/lib/i18n";
 import { useCallback, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -19,12 +20,15 @@ export default function Lightbox({
   index,
   onClose,
   onIndex,
+  lang = "id",
 }: {
   items: GalleryPhoto[];
   index: number | null;
   onClose: () => void;
   onIndex: (i: number) => void;
+  lang?: Lang;
 }) {
+  const { ui } = t(lang);
   const open = index !== null;
 
   const go = useCallback(
@@ -64,13 +68,13 @@ export default function Lightbox({
           onClick={onClose}
           role="dialog"
           aria-modal="true"
-          aria-label="Pratinjau foto"
+          aria-label={ui.pratinjauFoto}
         >
-          <CircleButton label="Tutup" className="right-5 top-5" onClick={onClose}>
+          <CircleButton label={ui.tutup} className="right-5 top-5" onClick={onClose}>
             ✕
           </CircleButton>
           <CircleButton
-            label="Sebelumnya"
+            label={ui.sebelumnya}
             className="left-4 top-1/2 -translate-y-1/2 sm:left-7"
             onClick={(e) => {
               e.stopPropagation();
@@ -80,7 +84,7 @@ export default function Lightbox({
             ‹
           </CircleButton>
           <CircleButton
-            label="Berikutnya"
+            label={ui.berikutnya}
             className="right-4 top-1/2 -translate-y-1/2 sm:right-7"
             onClick={(e) => {
               e.stopPropagation();

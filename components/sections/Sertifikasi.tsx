@@ -1,4 +1,4 @@
-import { sertifikasi } from "@/lib/content";
+import { t, type Lang } from "@/lib/i18n";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/motion/Reveal";
 import BlurToFocus from "@/components/motion/BlurToFocus";
@@ -15,7 +15,8 @@ import WordReveal from "@/components/motion/WordReveal";
  * - HACCP: badge "HACCP CERTIFIED" generik — rect putih & baris certifier "by
  *   Quality Assurance Services" sudah dihapus dari SVG (transparan, netral).
  */
-export default function Sertifikasi() {
+export default function Sertifikasi({ lang = "id" }: { lang?: Lang }) {
+  const { sertifikasi, ui } = t(lang);
   return (
     <section className="relative overflow-hidden border-t border-line bg-ink px-6 py-16 md:px-10 md:py-[12vh]">
       {/* Glow emas di sisi kanan — tembus kaca panel */}
@@ -67,14 +68,14 @@ export default function Sertifikasi() {
                       // eslint-disable-next-line @next/next/no-img-element -- logo SVG statis, next/image tak mengoptimasi SVG
                       <img
                         src="/logos/sertifikasi/halal-indonesia.svg"
-                        alt="Logo Halal Indonesia"
+                        alt={ui.logoHalal}
                         className="h-[64px] w-auto"
                       />
                     ) : (
                       // eslint-disable-next-line @next/next/no-img-element -- logo SVG statis, next/image tak mengoptimasi SVG
                       <img
                         src="/logos/sertifikasi/haccp-certified.svg"
-                        alt="Logo HACCP Certified"
+                        alt={ui.logoHaccp}
                         className="h-[34px] w-auto"
                       />
                     )}

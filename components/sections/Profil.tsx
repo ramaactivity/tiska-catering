@@ -8,7 +8,7 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import { profil } from "@/lib/content";
+import { t, type Lang } from "@/lib/i18n";
 import { images } from "@/lib/images";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/motion/Reveal";
@@ -21,7 +21,8 @@ const EASE = [0.22, 1, 0.36, 1] as const;
  * Foto: entrance fade-up + settle scale (bahasa motion hero), lalu
  * parallax berlawanan saat scroll — semua transform-only (GPU).
  */
-export default function Profil({ photos = images.profil }: { photos?: { src: string; alt: string }[] }) {
+export default function Profil({ photos = images.profil, lang = "id" }: { photos?: { src: string; alt: string }[]; lang?: Lang }) {
+  const { profil } = t(lang);
   const fotoRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({

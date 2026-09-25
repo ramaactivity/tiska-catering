@@ -4,15 +4,17 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import type { Post, PostCategory } from "@/lib/posts/types";
-import { kabarPage } from "@/lib/content";
+import { t, type Lang } from "@/lib/i18n";
 import Reveal from "@/components/motion/Reveal";
 
 type KabarGridProps = {
   posts: Post[];
+  lang?: Lang;
 };
 
 /** Daftar kabar di /kabar — filter kategori (client) + grid kartu reveal. */
-export default function KabarGrid({ posts }: KabarGridProps) {
+export default function KabarGrid({ posts, lang = "id" }: KabarGridProps) {
+  const { kabarPage } = t(lang);
   const [filter, setFilter] = useState<PostCategory | "all">("all");
 
   // Hanya tampilkan tab kategori yang benar-benar punya isi.
@@ -21,7 +23,7 @@ export default function KabarGrid({ posts }: KabarGridProps) {
     return (Object.keys(kabarPage.kategoriLabel) as PostCategory[]).filter((k) =>
       set.has(k),
     );
-  }, [posts]);
+  }, [posts, kabarPage.kategoriLabel]);
 
   const tampil = useMemo(
     () => (filter === "all" ? posts : posts.filter((p) => p.kategori === filter)),
@@ -60,7 +62,7 @@ export default function KabarGrid({ posts }: KabarGridProps) {
             <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
               {tampil.map((post, i) => (
                 <Reveal key={post.id} delay={(i % 3) * 0.08}>
-                  <KabarCard post={post} />
+                  <KabarCard post={post} lang={lang} />
                 </Reveal>
               ))}
             </div>
@@ -96,9 +98,10 @@ function FilterPill({
   );
 }
 
-export function KabarCard({ post }: { post: Post }) {
+export function KabarCard({ post, lang = "id" }: { post: Post; lang?: Lang }) {
+  const { kabarPage } = t(lang);
   return (
-    <Link href={`/kabar/${post.slug}`} className="group block">
+    <Link href={`${lang === "en" ? "/en/news" : "/kabar"}/${post.slug}`} className="group block">
       <figure className="relative aspect-[4/5] overflow-hidden rounded-lg">
         <Image
           src={post.imageUrl}

@@ -4,7 +4,8 @@ import Link from "next/link";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { layanan, layananHeader, company } from "@/lib/content";
+import { company } from "@/lib/content";
+import { t, type Lang } from "@/lib/i18n";
 import { images } from "@/lib/images";
 import WordReveal from "@/components/motion/WordReveal";
 import Reveal from "@/components/motion/Reveal";
@@ -12,12 +13,15 @@ import Reveal from "@/components/motion/Reveal";
 type Foto = { src: string; alt: string };
 const EASE = "cubic-bezier(0.16,1,0.3,1)";
 
+type Ui = ReturnType<typeof t>["ui"];
+
 /**
  * Layanan: carousel horizontal dengan tombol panah (docs/04 #5).
  * Digeser via panah / trackpad / sentuh — snap rapi, tanpa scroll-jacking
  * (dulu pinned GSAP; diganti agar mulus & andal, mudah dipakai).
  */
-export default function Layanan({ photos = images.layanan }: { photos?: Foto[] }) {
+export default function Layanan({ photos = images.layanan, lang = "id" }: { photos?: Foto[]; lang?: Lang }) {
+  const { layanan, layananHeader, ui } = t(lang);
   const trackRef = useRef<HTMLDivElement>(null);
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(true);
@@ -61,7 +65,7 @@ export default function Layanan({ photos = images.layanan }: { photos?: Foto[] }
             <p className="max-w-[360px] text-[14px] leading-[1.7] text-[#9a9282]">
               {layananHeader.deskripsi}
               <span className="mt-2 block text-[11px] uppercase tracking-[0.22em] text-gold-soft/70">
-                Geser atau pakai panah →
+                {ui.layananGeser}
               </span>
               <Link
                 href={layananHeader.semua.href}
@@ -80,24 +84,24 @@ export default function Layanan({ photos = images.layanan }: { photos?: Foto[] }
           className="flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-pl-6 px-6 scroll-smooth md:scroll-pl-10 md:px-10 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {layanan.map((s, i) => (
-            <ServiceCard key={s.judul} i={i} judul={s.judul} deskripsi={s.deskripsi} photo={photos[i]} />
+            <ServiceCard key={s.judul} i={i} judul={s.judul} deskripsi={s.deskripsi} photo={photos[i]} ui={ui} />
           ))}
-          <EndCard />
+          <EndCard ui={ui} />
         </div>
 
-        <Arrow dir="prev" onClick={() => nudge(-1)} show={canPrev} />
-        <Arrow dir="next" onClick={() => nudge(1)} show={canNext} />
+        <Arrow dir="prev" onClick={() => nudge(-1)} show={canPrev} ui={ui} />
+        <Arrow dir="next" onClick={() => nudge(1)} show={canNext} ui={ui} />
       </div>
     </section>
   );
 }
 
-function Arrow({ dir, onClick, show }: { dir: "prev" | "next"; onClick: () => void; show: boolean }) {
+function Arrow({ dir, onClick, show, ui }: { dir: "prev" | "next"; onClick: () => void; show: boolean; ui: Ui }) {
   const isNext = dir === "next";
   return (
     <button
       type="button"
-      aria-label={isNext ? "Layanan berikutnya" : "Layanan sebelumnya"}
+      aria-label={isNext ? ui.layananBerikut : ui.layananSebelum}
       onClick={onClick}
       className={`absolute top-1/2 z-10 hidden size-12 -translate-y-1/2 items-center justify-center rounded-full border border-gold/40 bg-ink/70 text-gold-soft backdrop-blur-sm transition-all duration-300 hover:border-gold hover:bg-ink/90 hover:text-gold-bright active:scale-95 md:flex ${
         isNext ? "right-4 lg:right-8" : "left-4 lg:left-8"
@@ -115,11 +119,13 @@ function ServiceCard({
   judul,
   deskripsi,
   photo,
+  ui,
 }: {
   i: number;
   judul: string;
   deskripsi: string;
   photo?: Foto;
+  ui: Ui;
 }) {
   return (
     <article
@@ -159,7 +165,7 @@ function ServiceCard({
           rel="noopener noreferrer"
           className="group/cta mt-4 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-gold-soft transition-colors hover:text-gold-bright"
         >
-          Tanya layanan ini
+          {ui.layananTanya}
           <span aria-hidden className="transition-transform duration-300 group-hover/cta:translate-x-1">→</span>
         </a>
       </div>
@@ -167,7 +173,7 @@ function ServiceCard({
   );
 }
 
-function EndCard() {
+function EndCard({ ui }: { ui: Ui }) {
   return (
     <article
       data-card
@@ -175,13 +181,13 @@ function EndCard() {
     >
       <p className="mb-4 flex items-center gap-3 text-[11px] uppercase tracking-[0.3em] text-gold-soft">
         <span aria-hidden className="h-px w-8 bg-gold" />
-        Acara lain?
+        {ui.layananEndEyebrow}
       </p>
       <h3 className="font-display text-[clamp(26px,2.4vw,38px)] font-light leading-[1.08] text-paper">
-        Setiap perayaan punya kebutuhannya sendiri.
+        {ui.layananEndJudul}
       </h3>
       <p className="mt-3 max-w-[320px] text-[14px] leading-[1.8] text-paper/65">
-        Ceritakan acara Anda, kami rancang layanan yang paling pas.
+        {ui.layananEndTeks}
       </p>
       <a
         href={company.whatsappLink}
@@ -190,7 +196,7 @@ function EndCard() {
         className="group relative mt-7 inline-flex w-fit items-center gap-2.5 overflow-hidden rounded-full border border-gold/70 px-7 py-3 text-[12px] uppercase tracking-[0.18em] text-gold-soft transition-colors duration-500 hover:text-ink active:scale-[0.98]"
       >
         <span aria-hidden className="absolute inset-0 translate-y-full bg-gold transition-transform duration-500 ease-out group-hover:translate-y-0" />
-        <span className="relative">Hubungi kami</span>
+        <span className="relative">{ui.layananEndCta}</span>
         <span aria-hidden className="relative transition-transform duration-500 group-hover:translate-x-1">→</span>
       </a>
     </article>

@@ -104,6 +104,40 @@ export default function PostForm({ post }: { post?: Post }) {
               Kosongkan untuk pakai tombol WhatsApp ke {company.whatsappNama}.
             </p>
           </div>
+
+          <details className={panel} open={!!post?.en}>
+            <summary className={panelHead + " mb-0 cursor-pointer"}>
+              Versi Inggris (opsional)
+            </summary>
+            <div className="mt-4 space-y-4">
+              <p className={hint + " mt-0"}>
+                Isi agar kabar ini tampil di situs berbahasa Inggris (/en/news). Kosongkan judul
+                bila belum diterjemahkan.
+              </p>
+              <div>
+                <label className={label}>Title</label>
+                <input name="judulEn" defaultValue={post?.en?.judul} className={field} />
+              </div>
+              <div>
+                <label className={label}>Summary</label>
+                <textarea name="ringkasanEn" rows={3} defaultValue={post?.en?.ringkasan} className={field} />
+              </div>
+              <div>
+                <label className={label}>Full text</label>
+                <RichEditor name="isiEn" defaultValue={post?.en?.isi ?? ""} />
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label className={label}>Period</label>
+                  <input name="periodeEn" defaultValue={post?.en?.periode} className={field} />
+                </div>
+                <div>
+                  <label className={label}>Button text</label>
+                  <input name="ctaLabelEn" defaultValue={post?.en?.ctaLabel} placeholder="Ask on WhatsApp" className={field} />
+                </div>
+              </div>
+            </div>
+          </details>
         </div>
 
         {/* ── Rail pengaturan ── */}

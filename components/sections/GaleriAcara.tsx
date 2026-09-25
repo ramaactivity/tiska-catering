@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { galeriAcara } from "@/lib/content";
+import { t, type Lang } from "@/lib/i18n";
 import Eyebrow from "@/components/ui/Eyebrow";
 import WordReveal from "@/components/motion/WordReveal";
 import Reveal from "@/components/motion/Reveal";
@@ -15,7 +15,8 @@ import Lightbox, { type GalleryPhoto } from "@/components/gallery/Lightbox";
  * Galeri Acara (beranda) — billboard "featured" sinematik (Ken Burns + auto-rotate
  * 1 sorotan per kategori) + rail hover-expand di bawahnya. Klik mana pun → lightbox.
  */
-export default function GaleriAcara({ items }: { items: GalleryPhoto[] }) {
+export default function GaleriAcara({ items, lang = "id" }: { items: GalleryPhoto[]; lang?: Lang }) {
+  const { galeriAcara, ui } = t(lang);
   const [hi, setHi] = useState(0); // posisi pada daftar sorotan
   const [box, setBox] = useState<number | null>(null);
   const [paused, setPaused] = useState(false);
@@ -113,7 +114,7 @@ export default function GaleriAcara({ items }: { items: GalleryPhoto[] }) {
             <button
               type="button"
               onClick={() => setBox(activeGi)}
-              aria-label="Buka foto sorotan"
+              aria-label={ui.bukaFoto}
               className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-6 p-6 text-left sm:p-9"
             >
               <AnimatePresence mode="wait">
@@ -154,11 +155,11 @@ export default function GaleriAcara({ items }: { items: GalleryPhoto[] }) {
 
         {/* Rail berjalan tanpa henti (berhenti saat hover) */}
         <div className="mt-3">
-          <EventRail items={items} onOpen={(i) => setBox(i)} marquee />
+          <EventRail items={items} onOpen={(i) => setBox(i)} marquee lang={lang} />
         </div>
       </div>
 
-      <Lightbox items={items} index={box} onClose={() => setBox(null)} onIndex={setBox} />
+      <Lightbox items={items} index={box} onClose={() => setBox(null)} onIndex={setBox} lang={lang} />
     </section>
   );
 }

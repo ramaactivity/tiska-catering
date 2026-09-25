@@ -1,11 +1,12 @@
-import { mengapa, reasons } from "@/lib/content";
+import { t, type Lang } from "@/lib/i18n";
 import Reveal from "@/components/motion/Reveal";
 import BlurToFocus from "@/components/motion/BlurToFocus";
 import Counter from "@/components/motion/Counter";
 import WordReveal from "@/components/motion/WordReveal";
 
 /** Mengapa Tiska: 4 reason-card dengan counter, latar gelap (docs/04 #3). */
-export default function MengapaTiska() {
+export default function MengapaTiska({ lang = "id" }: { lang?: Lang }) {
+  const { mengapa, reasons } = t(lang);
   return (
     <section className="bg-ink px-6 py-20 md:px-10 md:py-[16vh]">
       <div className="mx-auto max-w-[1280px]">
@@ -36,7 +37,7 @@ export default function MengapaTiska() {
                   style={{ fontVariationSettings: "'opsz' 144" }}
                   className="mt-6 font-display text-[clamp(44px,4.6vw,68px)] font-light leading-[0.88] text-paper"
                 >
-                  <Counter value={reason.value} suffix={reason.suffix} />
+                  <Counter value={reason.value} suffix={reason.suffix} locale={lang === "en" ? "en-US" : "id-ID"} />
                 </p>
                 <p className="mb-4 mt-2.5 text-[11px] uppercase tracking-[0.18em] text-gold-soft">
                   {reason.label}

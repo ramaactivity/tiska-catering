@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { sejarah, timeline } from "@/lib/content";
+import { t, type Lang } from "@/lib/i18n";
 import { images } from "@/lib/images";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/motion/Reveal";
@@ -19,9 +19,12 @@ import WordReveal from "@/components/motion/WordReveal";
  */
 export default function Sejarah({
   photos = images.sejarahTimeline,
+  lang = "id",
 }: {
   photos?: { src: string; alt: string }[];
+  lang?: Lang;
 }) {
+  const { sejarah, timeline } = t(lang);
   const sectionRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
   const [pinned, setPinned] = useState(false);
@@ -140,7 +143,7 @@ export default function Sejarah({
       tl.scrollTrigger?.kill();
       tl.kill();
     };
-  }, [pinned]);
+  }, [pinned, timeline.length]);
 
   // Latar gelap-tenang + glow emas halus di sisi kanan untuk mendudukkan foto.
   const stage = (

@@ -4,16 +4,16 @@ import Footer from "@/components/layout/Footer";
 import PageHero from "@/components/sections/PageHero";
 import CTA from "@/components/sections/CTA";
 import Reveal from "@/components/motion/Reveal";
-import { layanan } from "@/lib/content";
 import { landingPath, layananIndex, services } from "@/lib/landing";
-import type { Lang } from "@/lib/i18n";
+import { t as content, type Lang } from "@/lib/i18n";
 
 /** Indeks layanan: 4 layanan utama (bertautan) + seluruh 11 bentuk layanan. */
 export default function LayananIndex({ lang }: { lang: Lang }) {
   const t = layananIndex[lang];
+  const { layanan } = content(lang);
   return (
     <>
-      <Nav />
+      <Nav lang={lang} />
       <main>
         <PageHero eyebrow={t.eyebrow} judul={t.h1} intro={t.intro} />
 
@@ -59,9 +59,9 @@ export default function LayananIndex({ lang }: { lang: Lang }) {
             </ul>
           </div>
         </section>
-        <CTA />
+        <CTA lang={lang} />
       </main>
-      <Footer />
+      <Footer lang={lang} />
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { klien } from "@/lib/content";
+import { t, type Lang } from "@/lib/i18n";
 import Reveal from "@/components/motion/Reveal";
 import WordReveal from "@/components/motion/WordReveal";
 
@@ -25,7 +25,8 @@ const OPTIK: Record<string, string> = {
 };
 
 /** Klien: logo wall terbuka di latar terang (docs/04 #9). */
-export default function Klien() {
+export default function Klien({ lang = "id" }: { lang?: Lang }) {
+  const { klien } = t(lang);
   return (
     <section id="klien" className="bg-paper-bg px-6 py-20 md:px-10 md:py-[16vh]">
       <div className="mx-auto max-w-[1280px]">

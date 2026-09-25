@@ -1,5 +1,6 @@
 "use client";
 
+import { t, type Lang } from "@/lib/i18n";
 import { useRef } from "react";
 import Image from "next/image";
 import { useReducedMotion } from "framer-motion";
@@ -20,11 +21,14 @@ export default function EventRail({
   items,
   onOpen,
   marquee = false,
+  lang = "id",
 }: {
   items: Item[];
   onOpen: (i: number) => void;
   marquee?: boolean;
+  lang?: Lang;
 }) {
+  const { ui } = t(lang);
   const scroller = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
 
@@ -51,8 +55,8 @@ export default function EventRail({
   // ── Mode native scroll + panah ──
   return (
     <div className="group/rail relative -mx-1">
-      <Arrow side="left" onClick={() => scrollBy(-1)} />
-      <Arrow side="right" onClick={() => scrollBy(1)} />
+      <Arrow side="left" onClick={() => scrollBy(-1)} label={ui.geserKiri} />
+      <Arrow side="right" onClick={() => scrollBy(1)} label={ui.geserKanan} />
       <div
         ref={scroller}
         className="flex snap-x gap-3 overflow-x-auto px-1 py-10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
@@ -104,11 +108,11 @@ function RailCard({ it, onClick }: { it: Item; onClick: () => void }) {
   );
 }
 
-function Arrow({ side, onClick }: { side: "left" | "right"; onClick: () => void }) {
+function Arrow({ side, onClick, label }: { side: "left" | "right"; onClick: () => void; label: string }) {
   return (
     <button
       type="button"
-      aria-label={side === "left" ? "Geser kiri" : "Geser kanan"}
+      aria-label={label}
       onClick={onClick}
       className={`absolute top-1/2 z-40 hidden size-11 -translate-y-1/2 place-items-center rounded-full border border-paper/20 bg-ink/55 text-[18px] text-paper/90 opacity-0 backdrop-blur-md transition-all duration-300 hover:border-gold/70 hover:text-gold-soft group-hover/rail:opacity-100 md:grid ${
         side === "left" ? "left-0 -translate-x-1/2" : "right-0 translate-x-1/2"

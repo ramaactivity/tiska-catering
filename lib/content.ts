@@ -92,7 +92,7 @@ export const profil = {
   body: "Sejak 1980, kami percaya hidangan terbaik bukan yang paling megah — melainkan yang membuat tamu Anda merasa diistimewakan. Kami menyajikan cinta dalam setiap detail, agar momen Andalah yang menjadi sorotan.",
 };
 
-export const visi =
+export const visi: string =
   "Menciptakan dan memberikan pengalaman layanan katering aneka hidangan yang penuh makna — dalam merayakan cinta, mempererat ikatan, dan menyatukan setiap individu — dengan standar premium kualitas rasa dan penggunaan bahan sesungguhnya, diikuti pelayanan sepenuh hati pada setiap perayaan istimewa di mana pun acara berada.";
 
 export const misi = [
@@ -982,4 +982,61 @@ export const footer = {
     ],
   },
   copyright: "© 2026 Tiska Catering Service · Bogor, Indonesia",
+};
+
+// ─── Teks antarmuka kecil (label tombol, aria-label, judul kolom) ───────────
+
+export const ui = {
+  navBeranda: "Beranda Tiska Catering",
+  navWhatsapp: "Hubungi Tiska Catering via WhatsApp",
+  navBuka: "Buka menu",
+  navTutup: "Tutup menu",
+  bahasa: "Bahasa",
+  footerNavigasi: "Navigasi",
+  footerHubungi: "Hubungi",
+  footerIkuti: "Ikuti",
+  footerLayanan: "Layanan",
+  footerArea: "Area Layanan",
+  layananGeser: "Geser atau pakai panah →",
+  layananBerikut: "Layanan berikutnya",
+  layananSebelum: "Layanan sebelumnya",
+  layananTanya: "Tanya layanan ini",
+  layananEndEyebrow: "Acara lain?",
+  layananEndJudul: "Setiap perayaan punya kebutuhannya sendiri.",
+  layananEndTeks: "Ceritakan acara Anda, kami rancang layanan yang paling pas.",
+  layananEndCta: "Hubungi kami",
+  bukaFoto: "Buka foto sorotan",
+  pratinjauFoto: "Pratinjau foto",
+  tutup: "Tutup",
+  sebelumnya: "Sebelumnya",
+  berikutnya: "Berikutnya",
+  geserKiri: "Geser kiri",
+  geserKanan: "Geser kanan",
+  faqNav: "Kategori pertanyaan",
+  pimpinan: "Pimpinan",
+  jelajahiKategori: "Jelajahi kategori",
+  kabarLainnya: "Kabar lainnya",
+  kembaliKabar: "← Kembali ke Kabar",
+  logoHalal: "Logo Halal Indonesia",
+  logoHaccp: "Logo HACCP Certified",
+};
+
+// ─── Metadata SEO halaman statis ────────────────────────────────────────────
+
+export const seo = {
+  menu: {
+    title: "Menu | 800+ Pilihan Hidangan",
+    description:
+      "Jelajahi 800+ pilihan menu Tiska Catering: Flavorful Indonesian, Delectable Asian, Pleasant Western, Pasta Special, Tumpeng, dan Festive Hampers.",
+  },
+  galeri: {
+    title: "Galeri | Portofolio Perayaan",
+    description:
+      "Galeri momen perayaan bersama Tiska Catering — pernikahan, acara korporat, buffet, hingga hampers istimewa di Bogor, Jakarta, dan JaDeTaBek.",
+  },
+  kabar: {
+    title: "Kabar | Kisah Perayaan, Promo & Menu Musiman",
+    description:
+      "Kisah perayaan klien, penawaran musiman, dan menu pilihan dari Tiska Catering untuk perayaan Anda di Jakarta, Bogor, dan sekitarnya.",
+  },
 };

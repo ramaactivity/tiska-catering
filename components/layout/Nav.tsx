@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
-import { nav } from "@/lib/content";
+import { usePathname } from "next/navigation";
+import { switchPath, t, type Lang } from "@/lib/i18n";
 import { NAV_LOGO } from "@/lib/logos-base64";
 import SocialLinks, { WhatsAppIcon } from "@/components/ui/SocialLinks";
 
@@ -11,7 +12,8 @@ import SocialLinks, { WhatsAppIcon } from "@/components/ui/SocialLinks";
  * transparan di atas, jadi kaca buram setelah scroll > 80px.
  * Mobile: menu hamburger (panel dropdown).
  */
-export default function Nav() {
+export default function Nav({ lang = "id" }: { lang?: Lang }) {
+  const { nav, ui } = t(lang);
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -31,7 +33,7 @@ export default function Nav() {
       }`}
     >
       <nav className="flex items-center justify-between">
-        <Link href="/" aria-label="Beranda Tiska Catering" onClick={() => setOpen(false)}>
+        <Link href={lang === "en" ? "/en" : "/"} aria-label={ui.navBeranda} onClick={() => setOpen(false)}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={NAV_LOGO} alt="Tiska Catering Service" className="h-[34px] w-auto" />
         </Link>
@@ -50,6 +52,7 @@ export default function Nav() {
             ))}
           </ul>
           <SocialLinks className="border-l border-line pl-6" />
+          <LangSwitch lang={lang} label={ui.bahasa} />
         </div>
 
         <div className="flex items-center gap-2">
@@ -57,7 +60,7 @@ export default function Nav() {
             href={nav.cta.href}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Hubungi Tiska Catering via WhatsApp"
+            aria-label={ui.navWhatsapp}
             className="group hidden items-center gap-2 rounded-full border border-gold/70 px-6 py-[11px] text-[12px] uppercase tracking-[0.18em] text-gold-soft transition-colors duration-300 hover:border-gold hover:text-gold-bright active:scale-[0.98] sm:inline-flex"
           >
             {nav.cta.label}
@@ -70,7 +73,7 @@ export default function Nav() {
           <button
             type="button"
             onClick={() => setOpen((o) => !o)}
-            aria-label={open ? "Tutup menu" : "Buka menu"}
+            aria-label={open ? ui.navTutup : ui.navBuka}
             aria-expanded={open}
             className="relative flex h-10 w-10 items-center justify-center rounded-full border border-gold/40 text-gold-soft transition-colors hover:border-gold/70 active:scale-95 md:hidden"
           >
@@ -118,6 +121,7 @@ export default function Nav() {
         </ul>
         <div className="flex items-center justify-between gap-4 border-t border-line px-5 py-4">
           <SocialLinks size={18} />
+          <LangSwitch lang={lang} label={ui.bahasa} />
           <a
             href={nav.cta.href}
             target="_blank"
@@ -131,5 +135,27 @@ export default function Nav() {
         </div>
       </div>
     </header>
+  );
+}
+
+/** Tombol ganti bahasa — menuju halaman padanan di bahasa lain. */
+function LangSwitch({ lang, label }: { lang: Lang; label: string }) {
+  const pathname = usePathname();
+  return (
+    <div role="group" aria-label={label} className="flex items-center gap-1.5 text-[11.5px] tracking-[0.14em]">
+      {(["id", "en"] as const).map((l, i) => (
+        <Fragment key={l}>
+          {i > 0 && <span aria-hidden className="text-paper/30">/</span>}
+          <Link
+            href={switchPath(pathname, l)}
+            hrefLang={l}
+            aria-current={l === lang ? "true" : undefined}
+            className={l === lang ? "text-gold-soft" : "text-paper/55 transition-colors hover:text-paper"}
+          >
+            {l.toUpperCase()}
+          </Link>
+        </Fragment>
+      ))}
+    </div>
   );
 }

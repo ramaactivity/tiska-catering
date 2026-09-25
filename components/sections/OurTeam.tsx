@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { teamHeader, teamGroups, type TeamMember } from "@/lib/content";
+import type { TeamGroup, TeamMember } from "@/lib/content";
+import { t, type Lang } from "@/lib/i18n";
 import { useMotionProfile } from "@/components/motion/useMotionProfile";
 import { images } from "@/lib/images";
 import Eyebrow from "@/components/ui/Eyebrow";
@@ -16,15 +17,17 @@ type RosterItem = TeamMember & { group: string; no: string; lead: boolean };
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 /** Daftar datar + nomor urut + label tier + tanda pimpinan. */
-let _seq = 0;
-const roster: RosterItem[] = teamGroups.flatMap((g) =>
-  g.members.map((m) => ({
-    ...m,
-    group: g.label,
-    no: String(++_seq).padStart(2, "0"),
-    lead: !!g.featured,
-  })),
-);
+function buildRoster(groups: TeamGroup[]): RosterItem[] {
+  let seq = 0;
+  return groups.flatMap((g) =>
+    g.members.map((m) => ({
+      ...m,
+      group: g.label,
+      no: String(++seq).padStart(2, "0"),
+      lead: !!g.featured,
+    })),
+  );
+}
 
 function initials(nama: string): string {
   const clean = nama
@@ -50,7 +53,9 @@ function Corners({ on }: { on: boolean }) {
   );
 }
 
-export default function OurTeam({ photos = images.team }: { photos?: Photos }) {
+export default function OurTeam({ photos = images.team, lang = "id" }: { photos?: Photos; lang?: Lang }) {
+  const { teamHeader, teamGroups, ui } = t(lang);
+  const roster = buildRoster(teamGroups);
   const [activeId, setActiveId] = useState(roster[0]?.id ?? "");
   const [touched, setTouched] = useState(false);
   const { reduce, lite } = useMotionProfile();
@@ -178,7 +183,7 @@ export default function OurTeam({ photos = images.team }: { photos?: Photos }) {
                   {m.lead && (
                     <span
                       aria-hidden
-                      title="Pimpinan"
+                      title={ui.pimpinan}
                       className={`h-1 w-1 rounded-full ${on ? "bg-gold" : "bg-gold/70"}`}
                     />
                   )}

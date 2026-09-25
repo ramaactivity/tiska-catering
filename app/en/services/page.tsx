@@ -3,15 +3,16 @@ import LayananIndex from "@/components/landing/LayananIndex";
 import { layananIndex } from "@/lib/landing";
 import { alternates } from "@/lib/i18n";
 
-const t = layananIndex.id;
+const t = layananIndex.en;
+const alt = alternates("/layanan", "en");
 
 export const metadata: Metadata = {
   title: { absolute: t.metaTitle },
   description: t.metaDescription,
-  alternates: alternates("/layanan", "id"),
-  openGraph: { url: "/layanan", title: t.metaTitle, description: t.metaDescription },
+  alternates: alt,
+  openGraph: { url: alt.canonical, title: t.metaTitle, description: t.metaDescription },
 };
 
-export default function LayananPage() {
-  return <LayananIndex lang="id" />;
+export default function ServicesPage() {
+  return <LayananIndex lang="en" />;
 }
