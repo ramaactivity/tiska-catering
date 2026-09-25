@@ -2,6 +2,7 @@ import Link from "next/link";
 import { footer, company } from "@/lib/content";
 import { NAV_LOGO } from "@/lib/logos-base64";
 import Reveal from "@/components/motion/Reveal";
+import { areas, landingPath, services } from "@/lib/landing";
 
 /** Footer: kolom navigasi/kontak/sosial + wordmark TISKA raksasa (docs/04 #11). */
 export default function Footer() {
@@ -91,6 +92,32 @@ export default function Footer() {
               </ul>
             </div>
           </Reveal>
+        </div>
+
+        {/* Tautan layanan & area — navigasi sekaligus tautan internal untuk SEO */}
+        <div className="grid gap-8 border-t border-line py-10 md:grid-cols-2">
+          {[
+            { judul: "Layanan", items: services },
+            { judul: "Area Layanan", items: areas },
+          ].map((grup) => (
+            <div key={grup.judul}>
+              <p className="mb-4 text-[11px] uppercase tracking-[0.18em] text-gold">
+                {grup.judul}
+              </p>
+              <ul className="flex flex-wrap gap-x-6 gap-y-2.5 text-[13.5px] text-[#c9c2b2]">
+                {grup.items.map((l) => (
+                  <li key={l.slug.id}>
+                    <Link
+                      href={landingPath(l, "id")}
+                      className="transition-colors duration-300 hover:text-gold-soft"
+                    >
+                      {l.label.id}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
         <div className="border-t border-line pt-8">

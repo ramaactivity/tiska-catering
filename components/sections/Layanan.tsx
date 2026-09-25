@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { layanan, layananHeader, company } from "@/lib/content";
@@ -61,6 +63,12 @@ export default function Layanan({ photos = images.layanan }: { photos?: Foto[] }
               <span className="mt-2 block text-[11px] uppercase tracking-[0.22em] text-gold-soft/70">
                 Geser atau pakai panah →
               </span>
+              <Link
+                href={layananHeader.semua.href}
+                className="mt-5 inline-block border-b border-gold-soft pb-1 text-[12px] uppercase tracking-[0.14em] text-gold-soft transition-colors hover:text-paper"
+              >
+                {layananHeader.semua.label} →
+              </Link>
             </p>
           </Reveal>
         </div>

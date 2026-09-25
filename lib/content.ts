@@ -55,7 +55,7 @@ export const company = {
 export const nav = {
   links: [
     { label: "Profil", href: "/#profil" },
-    { label: "Layanan", href: "/#layanan" },
+    { label: "Layanan", href: "/layanan" },
     { label: "Menu", href: "/menu" },
     { label: "Kabar", href: "/kabar" },
     { label: "Klien", href: "/#klien" },
@@ -197,6 +197,7 @@ export const layananHeader = {
   ] satisfies RichText,
   deskripsi:
     "Dari hari sakral hingga makan siang harian — satu standar premium di setiap skala.",
+  semua: { label: "Lihat semua layanan", href: "/layanan" },
 };
 
 export const layanan = [
@@ -954,7 +955,7 @@ export const footer = {
   kolom: {
     navigasi: [
       { label: "Profil", href: "/#profil" },
-      { label: "Layanan", href: "/#layanan" },
+      { label: "Layanan", href: "/layanan" },
       { label: "Menu", href: "/menu" },
       { label: "Galeri", href: "/galeri" },
       { label: "Klien", href: "/#klien" },

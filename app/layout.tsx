@@ -9,17 +9,18 @@ const SITE_URL = "https://tiskacatering.com";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Tiska Catering — Celebrate Love with the Finest Flavours",
+    default: "Tiska Catering — Katering Premium Jakarta & Bogor sejak 1980",
     template: "%s — Tiska Catering",
   },
   description:
-    "Katering premium di Bogor, Jakarta, dan JaDeTaBek sejak 1980. Tiga generasi menghadirkan rasa istimewa untuk pernikahan, acara korporat, dan perayaan Anda.",
+    "Katering premium untuk acara korporat, pernikahan, dan perayaan privat di Jakarta, Bogor & JaDeTaBek. Tiga generasi sejak 1980, dapur Halal & HACCP.",
   keywords: [
-    "katering Bogor",
-    "katering Jakarta",
-    "katering pernikahan",
-    "katering korporat",
-    "catering premium",
+    "catering korporat Jakarta",
+    "catering perusahaan Jakarta",
+    "catering premium Jakarta",
+    "catering pernikahan Jakarta",
+    "catering Bogor",
+    "catering pernikahan Bogor",
     "Tiska Catering",
   ],
   openGraph: {
@@ -27,9 +28,9 @@ export const metadata: Metadata = {
     locale: "id_ID",
     url: SITE_URL,
     siteName: company.namaLengkap,
-    title: "Tiska Catering — Celebrate Love with the Finest Flavours",
+    title: "Tiska Catering — Katering Premium Jakarta & Bogor sejak 1980",
     description:
-      "Katering premium di Bogor, Jakarta, dan JaDeTaBek sejak 1980. Tiga generasi menghadirkan rasa istimewa untuk perayaan Anda.",
+      "Katering premium untuk acara korporat, pernikahan, dan perayaan privat di Jakarta, Bogor & JaDeTaBek. Tiga generasi sejak 1980.",
   },
   twitter: {
     card: "summary_large_image",
@@ -59,7 +60,17 @@ const jsonLd = {
     postalCode: "16161",
     addressCountry: "ID",
   },
-  areaServed: ["Bogor", "Jakarta", "Depok", "Tangerang", "Bekasi"],
+  hasMenu: `${SITE_URL}/menu`,
+  areaServed: [
+    "Jakarta",
+    "Bogor",
+    "Sentul",
+    "Cibinong",
+    "Depok",
+    "Tangerang",
+    "Tangerang Selatan",
+    "Bekasi",
+  ].map((name) => ({ "@type": "City", name })),
   sameAs: [company.instagramLink, company.facebookLink, company.tiktokLink],
 };
 
