@@ -80,7 +80,7 @@ export type StoredObject = { key: string; url: string; uploadedAt: number };
 
 /**
  * Daftar objek berprefix. `prefix` boleh berupa folder ("site/slots/") atau
- * folder + awalan nama ("site/slots/team-ida."). Supabase list per-folder,
+ * folder + awalan nama ("site/slots/team-rita."). Supabase list per-folder,
  * jadi sisa awalan nama difilter di sini.
  */
 export async function listObjects(prefix: string): Promise<StoredObject[]> {

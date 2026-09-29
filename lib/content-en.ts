@@ -32,7 +32,6 @@ const statLabels = [
 export const company: typeof id.company = {
   ...id.company,
   lokasi: "Bogor, West Java",
-  dapurKedua: "Kitchen Hub, Bintaro, South Tangerang",
   statistik: id.company.statistik.map((s, i) => ({ ...s, label: statLabels[i] })),
 };
 
@@ -144,8 +143,8 @@ const timelineText = [
     teks: "The baton passed to Bimo Haryo Dewanto & Rita Ariyani — a complete rebrand, a new identity and a more modern take on flavour.",
   },
   {
-    judul: "A new kitchen in Bintaro",
-    teks: "The Kitchen Hub in Bintaro opened, bringing our service closer to clients in Jakarta and the surrounding area, with freshness better preserved.",
+    judul: "The Bintaro Kitchen Hub",
+    teks: "We briefly ran a Kitchen Hub in Bintaro to reach Jakarta clients from closer by; all production is now back in our Bogor kitchen.",
   },
   {
     judul: "Enduring & innovating",
@@ -650,7 +649,6 @@ const captainBio =
 const teamBio: Record<string, string> = {
   bimo: "Guides the direction of Tiska's innovation — ensuring every business and service development stays relevant without losing the fundamental values upheld for three generations.",
   rita: "The soul behind every Tiska dish. Through her touch, new menus come to life, beautiful decoration takes shape, and every event feels personal, with flavour that never loses its spirit.",
-  ida: "The face and the listener for every story that comes to us. Bridges clients' hopes with real execution, so they can welcome their special occasion with peace of mind.",
   ariz: "The first point of contact for every story that comes to us. Accompanies clients' hopes through to real execution, so they can welcome their special occasion with peace of mind.",
   reza: "More than recording numbers — safeguarding quality standards from behind the scenes. Manages budgets and ingredients carefully, so clients always receive the best flavour and experience.",
   ramadan:

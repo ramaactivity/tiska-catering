@@ -29,7 +29,7 @@ export const VENUE = {
 
 /** PIC acara — semua tombol bantuan/ubah RSVP mengarah ke sini. */
 export const PIC = {
-  nama: "Ida Raodah",
+  nama: "Rita Ariyani",
   hp: "6281383108103",
   hpTampil: "0813-8310-8103",
 } as const;

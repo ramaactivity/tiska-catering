@@ -20,10 +20,9 @@ export const company = {
   lokasi: "Bogor, Jawa Barat",
   alamat:
     "Jl. Julang 1 No.3, RT.02/RW.06, Tanah Sereal, Kota Bogor, Jawa Barat 16161",
-  dapurKedua: "Kitchen Hub, Bintaro, Tangerang Selatan",
-  // Keputusan Rama (11 Jun 2026): CTA utama ke WhatsApp Ida Raodah
+  // CTA utama ke WhatsApp Rita Ariyani (sebelumnya Ida Raodah, resign 2026-09; nomor tetap)
   whatsapp: "0813-8310-8103",
-  whatsappNama: "Ida Raodah",
+  whatsappNama: "Rita Ariyani",
   whatsappLink: "https://wa.me/6281383108103",
   teleponKantor: "(+62 251) 831 4442",
   email: "catering.tiska@gmail.com",
@@ -61,7 +60,7 @@ export const nav = {
     { label: "Klien", href: "/#klien" },
     { label: "FAQ", href: "/#faq" },
   ],
-  // Keputusan Rama: tombol Kontak di nav → langsung WhatsApp Ida Raodah
+  // Keputusan Rama: tombol Kontak di nav → langsung WhatsApp (company.whatsappNama)
   cta: { label: "Kontak", href: company.whatsappLink },
 };
 
@@ -173,8 +172,8 @@ export const timeline = [
   },
   {
     tahun: "2019",
-    judul: "Dapur baru di Bintaro",
-    teks: "Kitchen Hub di Bintaro berdiri, mendekatkan layanan ke klien Jakarta dan sekitarnya dengan kesegaran yang lebih terjaga.",
+    judul: "Kitchen Hub Bintaro",
+    teks: "Sempat membuka Kitchen Hub di Bintaro untuk menjangkau klien Jakarta lebih dekat; kini seluruh produksi dipusatkan kembali di dapur Bogor.",
   },
   {
     tahun: "2020",
@@ -872,12 +871,6 @@ export const teamGroups: TeamGroup[] = [
     id: "manajemen",
     label: "Manajemen",
     members: [
-      {
-        id: "ida",
-        nama: "Ida Raodah",
-        jabatan: "Senior Client Experience Partner",
-        bio: "Menjadi wajah dan pendengar bagi setiap cerita yang datang. Menjembatani harapan klien dengan eksekusi nyata, memastikan mereka menyambut acara istimewanya dengan tenang.",
-      },
       {
         id: "ariz",
         nama: "Ariz Rakhma",

@@ -2,7 +2,7 @@
 
 ## Tentang Tiska Catering
 
-Tiska Catering adalah bisnis katering premium berbasis di Bogor, Jawa Barat, berdiri sejak 1980. Tiga generasi: dirintis Ibu Sri Kadarwati (Ibu Titiek) & Drg. Hari Poernomo dari dapur rumahan, kini diteruskan Bimo Haryo Dewanto (Chief of Ideation) & Rita Ariyani (CEO). Melayani Bogor, Jakarta, dan JaDeTaBek dengan dua dapur produksi (termasuk Kitchen Hub Bintaro).
+Tiska Catering adalah bisnis katering premium berbasis di Bogor, Jawa Barat, berdiri sejak 1980. Tiga generasi: dirintis Ibu Sri Kadarwati (Ibu Titiek) & Drg. Hari Poernomo dari dapur rumahan, kini diteruskan Bimo Haryo Dewanto (Chief of Ideation) & Rita Ariyani (CEO). Melayani Bogor, Jakarta, dan JaDeTaBek dari satu dapur produksi di Bogor (Kitchen Hub Bintaro sudah tutup).
 
 **Tagline:** *Celebrate love with the finest flavours* / *Let's Celebrate Love*
 

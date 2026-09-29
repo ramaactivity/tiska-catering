@@ -70,7 +70,7 @@ export async function submitRsvpAction(
   if (gerbang === "token") return { error: PESAN_TOKEN };
 
   if (rsvpDitutup()) {
-    return { error: "Masa konfirmasi sudah ditutup. Silakan hubungi Ida Raodah." };
+    return { error: "Masa konfirmasi sudah ditutup. Silakan hubungi Rita Ariyani." };
   }
 
   const nama = potong(formData.get("nama"), 80);

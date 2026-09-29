@@ -164,7 +164,7 @@ export const lokasi = {
   parkir:
     "Parkir tersedia di basement gedung. Tamu undangan dapat menggunakan layanan valet di lobi utama.",
   tombolPeta: "Buka di Google Maps",
-  tombolBantuan: "Tanya lokasi ke Ida",
+  tombolBantuan: "Tanya lokasi ke Rita",
 } as const;
 
 export const penutup = {
@@ -216,7 +216,7 @@ export const rsvpCopy = {
     "Terima kasih. Kursi untuk sesi ini sudah penuh, nama Anda kami tempatkan pada daftar tunggu dan kami kabari begitu ada tempat.",
   suksesTidak: "Terima kasih telah mengabari kami. Semoga ada kesempatan lain.",
   ditutup:
-    "Masa konfirmasi telah ditutup. Bila Anda tetap berkenan hadir, silakan hubungi Ida Raodah secara langsung.",
+    "Masa konfirmasi telah ditutup. Bila Anda tetap berkenan hadir, silakan hubungi Rita Ariyani secara langsung.",
   lihatTiket: "Lihat e-tiket",
 } as const;
 

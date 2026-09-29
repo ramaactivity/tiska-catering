@@ -15,7 +15,7 @@ Semua teks final dalam Bahasa Indonesia. Copy sudah dipoles agar elegan & tidak 
 | Lokasi | Bogor, Jawa Barat |
 | Tagline | Celebrate love with the finest flavours / Let's Celebrate Love |
 | Alamat | Jl. Julang 1 No.3, RT.02/RW.06, Tanah Sereal, Kota Bogor, Jawa Barat 16161 |
-| Dapur kedua | Kitchen Hub, Bintaro, Tangsel |
+| Dapur | Hanya dapur Bogor. Kitchen Hub Bintaro sudah tutup (dikonfirmasi owner 29 Sep 2026) — jangan ditulis sebagai dapur aktif. |
 | Telepon/WA | 0877-8900-0968 (Rakhma) |
 | Telepon kantor | (+62 251) 831 4442 |
 | Email | catering.tiska@gmail.com (juga: mktg@tiskacatering.com) |
@@ -74,7 +74,7 @@ Semua teks final dalam Bahasa Indonesia. Copy sudah dipoles agar elegan & tidak 
 
 - **1980 — Dari dapur rumahan.** Ibu Sri Kadarwati (Ibu Titiek) bersama Drg. Hari Poernomo merintis dengan Aneka Kue Tampah Mini, memasok katering ternama di Bogor & Jakarta.
 - **1990 — Era katering masakan.** Berkembang melayani dari acara rumahan hingga pernikahan besar di gedung-gedung Bogor dan Jakarta.
-- **2017 — Regenerasi & seni baru.** Bimo Haryo Dewanto & Rita Ariyani menghadirkan sentuhan seni dan cita rasa baru, mendirikan Kitchen Hub di Bintaro.
+- **2017 — Regenerasi & seni baru.** Bimo Haryo Dewanto & Rita Ariyani menghadirkan sentuhan seni dan cita rasa baru. (Kitchen Hub Bintaro sempat dibuka 2019, kini sudah tutup.)
 - **2020 — Bertahan & berinovasi.** Di tengah pandemi, pulih lewat inovasi ritel — peluncuran Hampers "Nasi Keranjang".
 - **2024 — Pertumbuhan pesat.** Menu inovatif disambut hangat; kemitraan strategis memperluas jangkauan ke seluruh JaDeTaBek.
 

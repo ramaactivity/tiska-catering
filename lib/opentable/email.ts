@@ -165,7 +165,7 @@ export async function kirimEmailKonfirmasi(rsvp: Rsvp): Promise<boolean> {
 
 // ─── 3) Notifikasi referral (internal) ────────────────────────────────────────
 
-/** Ini masuk ke Ida/Rama, bukan ke orang yang direkomendasikan. */
+/** Ini masuk ke Rita/Rama, bukan ke orang yang direkomendasikan. */
 export async function kirimEmailReferral(ref: Referral): Promise<boolean> {
   const perujuk = ref.referrerNama || "Seorang tamu";
   const isi = `

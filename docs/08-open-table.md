@@ -5,7 +5,7 @@ di Plaza Mutiara Lantai 9, Mega Kuningan.
 
 - **Tautan undangan:** `https://tiskacatering.com/open-table`
 - **Dashboard:** `https://tiskacatering.com/admin/open-table`
-- **Kapasitas:** 60 kursi · **PIC:** Ida Raodah (0813-8310-8103)
+- **Kapasitas:** 60 kursi · **PIC:** Rita Ariyani (0813-8310-8103)
 - **Batas RSVP:** 30 September 2026
 
 ---

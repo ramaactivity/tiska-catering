@@ -153,7 +153,7 @@ export const services: Landing[] = [
               { text: "tidak boleh meleset", italic: true },
             ],
             paragraphs: [
-              "Acara perusahaan jarang memberi ruang untuk kesalahan: jadwal ketat, tamu penting, dan nama baik institusi dipertaruhkan. Karena itu kami bekerja dengan skala dan sistem yang teruji — lebih dari 350 acara per tahun dan lebih dari 8.000 pesanan setiap bulan, dari dapur pusat di Bogor dan Kitchen Hub di Bintaro yang mendekatkan layanan ke Jakarta.",
+              "Acara perusahaan jarang memberi ruang untuk kesalahan: jadwal ketat, tamu penting, dan nama baik institusi dipertaruhkan. Karena itu kami bekerja dengan skala dan sistem yang teruji — lebih dari 350 acara per tahun dan lebih dari 8.000 pesanan setiap bulan, semuanya dari dapur kami di Bogor.",
               "Perbankan, energi, otomotif, telekomunikasi, hingga lembaga negara telah mempercayakan jamuan mereka kepada Tiska. Kami memahami bahwa di acara korporat, hidangan yang baik adalah hidangan yang tidak mengalihkan perhatian dari tujuan acara — tepat waktu, konsisten, dan tertata.",
             ],
           },
@@ -203,7 +203,7 @@ export const services: Landing[] = [
           },
           {
             q: "Apakah makanan tetap segar dikirim ke kantor di Jakarta?",
-            a: "Ya. Selain dapur pusat di Bogor, Kitchen Hub kami di Bintaro melayani klien Jakarta dengan jarak tempuh yang lebih dekat, dengan pengemasan dan logistik yang menjaga hidangan tetap segar dan higienis.",
+            a: "Ya. Hidangan disiapkan di dapur kami di Bogor dan dikirim ke kantor Anda di Jakarta dengan pengemasan dan logistik yang menjaga hidangan tetap segar dan higienis.",
           },
         ],
       },
@@ -226,7 +226,7 @@ export const services: Landing[] = [
               { text: "cannot slip", italic: true },
             ],
             paragraphs: [
-              "Corporate events leave little room for error: tight schedules, important guests, and an institution's reputation on the line. That is why we work with proven scale and systems — more than 350 events a year and over 8,000 orders every month, from our central kitchen in Bogor and our Kitchen Hub in Bintaro, which brings us closer to Jakarta.",
+              "Corporate events leave little room for error: tight schedules, important guests, and an institution's reputation on the line. That is why we work with proven scale and systems — more than 350 events a year and over 8,000 orders every month, all from our kitchen in Bogor.",
               "Banks, energy and automotive companies, telecoms, and state institutions have entrusted their functions to Tiska. At a corporate event, good food is food that never distracts from the purpose of the day — punctual, consistent, and well presented.",
             ],
           },
@@ -276,7 +276,7 @@ export const services: Landing[] = [
           },
           {
             q: "Does the food stay fresh when delivered to offices in Jakarta?",
-            a: "Yes. In addition to our central kitchen in Bogor, our Kitchen Hub in Bintaro serves Jakarta clients from a shorter distance, with packaging and logistics that keep every dish fresh and hygienic.",
+            a: "Yes. Every dish is prepared in our kitchen in Bogor and delivered to your office in Jakarta with packaging and logistics that keep it fresh and hygienic.",
           },
         ],
       },
@@ -724,7 +724,7 @@ export const areas: Landing[] = [
       id: {
         metaTitle: "Catering Premium Jakarta — Korporat & Pernikahan | Tiska Catering",
         metaDescription:
-          "Catering premium di Jakarta untuk acara kantor, gala, pernikahan, dan acara privat — Jakarta Selatan, Pusat, Barat, Timur & Utara. Dilayani dari Kitchen Hub Bintaro. Sejak 1980.",
+          "Catering premium di Jakarta untuk acara kantor, gala, pernikahan, dan acara privat — Jakarta Selatan, Pusat, Barat, Timur & Utara. Dikirim dari dapur kami di Bogor. Sejak 1980.",
         eyebrow: "Area Layanan · Jakarta",
         h1: [{ text: "Catering premium " }, { text: "di Jakarta", italic: true }],
         intro:
@@ -734,7 +734,7 @@ export const areas: Landing[] = [
             type: "prose",
             heading: [{ text: "Dekat dengan " }, { text: "klien Jakarta", italic: true }],
             paragraphs: [
-              "Sejak 1990 Tiska melayani pernikahan dan acara di gedung-gedung Jakarta. Pada 2019 kami membuka Kitchen Hub di Bintaro untuk mendekatkan layanan ke klien Jakarta, sehingga hidangan tiba lebih cepat dengan kesegaran yang lebih terjaga.",
+              "Sejak 1990 Tiska melayani pernikahan dan acara di gedung-gedung Jakarta. Semua hidangan disiapkan di dapur kami di Bogor, lalu dikirim dengan pengemasan dan logistik yang menjaga kesegarannya sampai di lokasi acara.",
               "Kami melayani seluruh wilayah Jakarta — dari kawasan perkantoran Sudirman, Kuningan, dan TB Simatupang hingga hunian di Jakarta Selatan, Pusat, Barat, Timur, dan Utara.",
             ],
           },
@@ -769,7 +769,7 @@ export const areas: Landing[] = [
           },
           {
             q: "Dari mana hidangan untuk Jakarta disiapkan?",
-            a: "Dari dapur pusat kami di Bogor dan Kitchen Hub di Bintaro, dengan pengemasan dan logistik yang menjaga hidangan tetap segar dan higienis.",
+            a: "Dari dapur kami di Bogor, dengan pengemasan dan logistik yang menjaga hidangan tetap segar dan higienis.",
           },
           faqTestFood.id,
           faqWaktu.id,
@@ -778,7 +778,7 @@ export const areas: Landing[] = [
       en: {
         metaTitle: "Premium Catering in Jakarta — Corporate & Weddings | Tiska Catering",
         metaDescription:
-          "Premium catering in Jakarta for office events, galas, weddings, and private functions — South, Central, West, East & North Jakarta. Served from our Bintaro Kitchen Hub. Since 1980.",
+          "Premium catering in Jakarta for office events, galas, weddings, and private functions — South, Central, West, East & North Jakarta. Delivered from our kitchen in Bogor. Since 1980.",
         eyebrow: "Service Area · Jakarta",
         h1: [{ text: "Premium catering " }, { text: "in Jakarta", italic: true }],
         intro:
@@ -788,7 +788,7 @@ export const areas: Landing[] = [
             type: "prose",
             heading: [{ text: "Close to our " }, { text: "Jakarta clients", italic: true }],
             paragraphs: [
-              "Tiska has catered weddings and events in Jakarta's reception halls since 1990. In 2019 we opened our Kitchen Hub in Bintaro to bring our service closer to Jakarta clients, so food arrives sooner and fresher.",
+              "Tiska has catered weddings and events in Jakarta's reception halls since 1990. Every dish is prepared in our kitchen in Bogor, then delivered with packaging and logistics that keep it fresh all the way to the venue.",
               "We serve all of Jakarta — from the business districts of Sudirman, Kuningan, and TB Simatupang to homes across South, Central, West, East, and North Jakarta.",
             ],
           },
@@ -823,7 +823,7 @@ export const areas: Landing[] = [
           },
           {
             q: "Where is the food for Jakarta prepared?",
-            a: "In our central kitchen in Bogor and our Kitchen Hub in Bintaro, with packaging and logistics that keep every dish fresh and hygienic.",
+            a: "In our kitchen in Bogor, with packaging and logistics that keep every dish fresh and hygienic.",
           },
           faqTestFood.en,
           faqWaktu.en,
@@ -979,21 +979,21 @@ export const areas: Landing[] = [
       id: {
         metaTitle: "Catering Bintaro, BSD & Tangerang Selatan | Tiska Catering",
         metaDescription:
-          "Catering premium di Bintaro, BSD, Alam Sutera & Tangerang Selatan — acara kantor, pernikahan, dan acara privat. Dilayani langsung dari Kitchen Hub Bintaro. Sejak 1980.",
+          "Catering premium di Bintaro, BSD, Alam Sutera & Tangerang Selatan — acara kantor, pernikahan, dan acara privat. Dikirim dari dapur kami di Bogor. Sejak 1980.",
         eyebrow: "Area Layanan · Tangerang Selatan",
         h1: [
           { text: "Catering Bintaro, BSD " },
           { text: "& Tangerang Selatan", italic: true },
         ],
         intro:
-          "Kitchen Hub kami ada di Bintaro — dapur kedua Tiska yang berdiri sejak 2019, dekat dengan klien di Tangerang Selatan dan sekitarnya.",
+          "Klien kami di Bintaro, BSD, dan Tangerang Selatan dilayani dari dapur Tiska di Bogor — dapur yang sama yang menjaga rasa tiga generasi sejak 1980.",
         blocks: [
           {
             type: "prose",
-            heading: [{ text: "Dapur kami " }, { text: "ada di sini", italic: true }],
+            heading: [{ text: "Satu dapur, " }, { text: "satu standar", italic: true }],
             paragraphs: [
-              "Kitchen Hub Bintaro berdiri pada 2019 untuk mendekatkan layanan Tiska ke klien di selatan dan barat Jakarta. Bagi Anda di Bintaro, BSD, Alam Sutera, Pamulang, maupun Ciputat, artinya hidangan disiapkan lebih dekat dan tiba dengan kesegaran yang terjaga.",
-              "Standar yang sama seperti dapur pusat kami di Bogor — resep tiga generasi, dapur bersertifikat Halal, dan sistem keamanan pangan HACCP.",
+              "Semua hidangan Tiska disiapkan di dapur kami di Bogor, lalu dikirim ke Bintaro, BSD, Alam Sutera, Pamulang, maupun Ciputat dengan pengemasan dan logistik yang menjaga kesegarannya.",
+              "Standarnya sama untuk setiap pesanan — resep tiga generasi, dapur bersertifikat Halal, dan sistem keamanan pangan HACCP.",
             ],
           },
           {
@@ -1022,7 +1022,7 @@ export const areas: Landing[] = [
         ],
         faq: [
           {
-            q: "Area mana saja yang dilayani dari Kitchen Hub Bintaro?",
+            q: "Area mana saja di Tangerang Selatan yang dilayani?",
             a: "Bintaro, BSD, Alam Sutera, Pamulang, Ciputat, serta Jakarta bagian selatan dan barat — dan tentu seluruh Jabodetabek.",
           },
           faqTestFood.id,
@@ -1032,21 +1032,21 @@ export const areas: Landing[] = [
       en: {
         metaTitle: "Catering in Bintaro, BSD & South Tangerang | Tiska Catering",
         metaDescription:
-          "Premium catering in Bintaro, BSD, Alam Sutera & South Tangerang — office events, weddings, and private functions. Served directly from our Bintaro Kitchen Hub. Since 1980.",
+          "Premium catering in Bintaro, BSD, Alam Sutera & South Tangerang — office events, weddings, and private functions. Delivered from our kitchen in Bogor. Since 1980.",
         eyebrow: "Service Area · South Tangerang",
         h1: [
           { text: "Catering in Bintaro, BSD " },
           { text: "& South Tangerang", italic: true },
         ],
         intro:
-          "Our Kitchen Hub is in Bintaro — Tiska's second kitchen, open since 2019 and close to clients across South Tangerang.",
+          "Our clients in Bintaro, BSD, and South Tangerang are served from Tiska's kitchen in Bogor — the same kitchen that has kept three generations of flavour since 1980.",
         blocks: [
           {
             type: "prose",
-            heading: [{ text: "Our kitchen " }, { text: "is right here", italic: true }],
+            heading: [{ text: "One kitchen, " }, { text: "one standard", italic: true }],
             paragraphs: [
-              "The Bintaro Kitchen Hub opened in 2019 to bring Tiska closer to clients in south and west Jakarta. For those in Bintaro, BSD, Alam Sutera, Pamulang, or Ciputat, it means food is prepared nearby and arrives fresh.",
-              "The same standards as our central kitchen in Bogor — three generations of recipes, a Halal-certified kitchen, and the HACCP food safety system.",
+              "Every Tiska dish is prepared in our kitchen in Bogor, then delivered to Bintaro, BSD, Alam Sutera, Pamulang, or Ciputat with packaging and logistics that keep it fresh.",
+              "The same standard for every order — three generations of recipes, a Halal-certified kitchen, and the HACCP food safety system.",
             ],
           },
           {
@@ -1075,7 +1075,7 @@ export const areas: Landing[] = [
         ],
         faq: [
           {
-            q: "Which areas does the Bintaro Kitchen Hub serve?",
+            q: "Which areas in South Tangerang do you serve?",
             a: "Bintaro, BSD, Alam Sutera, Pamulang, Ciputat, and south and west Jakarta — as well as all of Greater Jakarta.",
           },
           faqTestFood.en,

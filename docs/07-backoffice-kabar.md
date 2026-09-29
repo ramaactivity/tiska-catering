@@ -17,7 +17,7 @@ Sistem postingan yang bisa di-update berkala dari halaman admin di website sendi
 | Section **Sorotan** di beranda (1 post unggulan) | `/admin` — daftar semua postingan |
 | Halaman **/kabar** (semua post + filter kategori) | `/admin/posts/new` — buat postingan |
 | Halaman detail **/kabar/[slug]** | `/admin/posts/[id]` — edit / hapus |
-| Tombol aksi tiap post → WhatsApp Ida Raodah | Upload foto, atur terbit/draft & sorotan |
+| Tombol aksi tiap post → WhatsApp Rita Ariyani | Upload foto, atur terbit/draft & sorotan |
 
 4 kategori: **promo · campaign (Momen Spesial) · menu (Menu Musiman) · kabar**.
 
