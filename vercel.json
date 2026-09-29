@@ -1,8 +1,10 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "//": "Fungsi dijalankan di Singapura. Sebelumnya request mendarat di sin1 lalu fungsinya jalan di iad1 (Virginia) — pengguna Jakarta membayar satu putaran ke Amerika.",
-  "regions": ["sin1"],
+  "//": "Wilayah fungsi TIDAK bisa diatur di plan Hobby (vercel.json 'regions' ditolak CLI). Kalau nanti naik ke Pro, set sin1 supaya pengunjung Jakarta tidak dilempar ke Virginia.",
   "crons": [
-    { "path": "/api/cron/special-days", "schedule": "0 1 * * *" }
+    {
+      "path": "/api/cron/special-days",
+      "schedule": "0 1 * * *"
+    }
   ]
 }

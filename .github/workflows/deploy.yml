@@ -33,7 +33,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Vercel CLI
-        run: npm install -g vercel@latest
+        # Versi dicetak supaya kalau rilis CLI baru merusak pipeline, lognya
+        # langsung menunjukkan versi mana yang dipakai saat itu.
+        run: |
+          npm install -g vercel@latest
+          vercel --version
 
       - name: Pull Vercel environment (production)
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
@@ -46,4 +50,5 @@ jobs:
         run: rm -rf .git
 
       - name: Deploy (production)
-        run: vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
+        # --yes: jangan pernah menunggu jawaban interaktif di CI.
+        run: vercel deploy --prod --yes --token=${{ secrets.VERCEL_TOKEN }}
