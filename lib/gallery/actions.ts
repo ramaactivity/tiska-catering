@@ -9,6 +9,8 @@ export type FormState = { ok?: boolean; error?: string } | null;
 function refresh() {
   revalidatePath("/"); // beranda menampilkan galeri (GaleriAcara)
   revalidatePath("/galeri");
+  revalidatePath("/en");
+  revalidatePath("/en/gallery");
   revalidatePath("/admin/galeri");
 }
 

@@ -121,5 +121,7 @@ export async function seedPostsAction(): Promise<void> {
 function refreshPublic() {
   revalidatePath("/");
   revalidatePath("/kabar");
+  revalidatePath("/en");
+  revalidatePath("/en/news");
   revalidatePath("/admin");
 }

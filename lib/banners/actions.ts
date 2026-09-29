@@ -11,6 +11,7 @@ export type FormState = { error?: string } | null;
 
 function refreshPublic() {
   revalidatePath("/");
+  revalidatePath("/en");
   revalidatePath("/admin/banners");
 }
 

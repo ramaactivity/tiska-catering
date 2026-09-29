@@ -10,6 +10,9 @@ function refresh() {
   revalidatePath("/");
   revalidatePath("/menu");
   revalidatePath("/galeri");
+  revalidatePath("/en");
+  revalidatePath("/en/menu");
+  revalidatePath("/en/gallery");
   revalidatePath("/admin/foto");
 }
 
