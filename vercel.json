@@ -1,10 +1,5 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "//": "Wilayah fungsi TIDAK bisa diatur di plan Hobby (vercel.json 'regions' ditolak CLI). Kalau nanti naik ke Pro, set sin1 supaya pengunjung Jakarta tidak dilempar ke Virginia.",
   "crons": [
-    {
-      "path": "/api/cron/special-days",
-      "schedule": "0 1 * * *"
-    }
+    { "path": "/api/cron/special-days", "schedule": "0 1 * * *" }
   ]
 }

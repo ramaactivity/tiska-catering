@@ -80,3 +80,18 @@ project lain (tetra-ops).
   via Google Workspace).
 - Verifikasi `git remote -v` = `ramaactivity/tiska-catering` dan git author benar
   sebelum push.
+
+
+## Catatan wilayah fungsi (29 Sep 2026)
+
+Audit performa menemukan request mendarat di edge Singapura (`sin1`) tapi
+fungsinya dieksekusi di `iad1` (Virginia) — pengunjung Jakarta membayar satu
+putaran ke Amerika, dan itu penyumbang terbesar TTFB beranda.
+
+Perbaikannya (`"regions": ["sin1"]` di `vercel.json`) **tidak bisa dipakai di
+plan Hobby**. Sudah dicoba dan gagal. Pasang begitu naik ke Pro.
+
+Sekalian pelajaran dari percobaan itu: `vercel.json` divalidasi ketat — properti
+yang tidak dikenal, termasuk kunci komentar `"//"`, membuat CLI menolak
+deploy dengan `Invalid vercel.json - should NOT have additional property`.
+Jangan taruh komentar di file itu.
