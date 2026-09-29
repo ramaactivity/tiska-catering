@@ -33,7 +33,11 @@ function RichQuote({ segments }: { segments: RichText }) {
  */
 export default function Testimoni({ lang = "id" }: { lang?: Lang }) {
   const { testimoni } = t(lang);
-  const items = testimoni.daftar;
+  // Kutipan bertanda placeholder TIDAK pernah tayang: itu teks karangan yang
+  // diatasnamakan tokoh publik nyata (Bima Arya, Dedie Rachim) — risiko hukum
+  // & kepercayaan, bukan sekadar SEO. Hapus penandanya setelah kutipan aslinya
+  // diperoleh dengan izin yang bersangkutan.
+  const items = testimoni.daftar.filter((t) => !("placeholder" in t && t.placeholder));
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const { reduce, lite } = useMotionProfile();
