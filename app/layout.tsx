@@ -38,45 +38,84 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-// Structured data untuk hasil pencarian (katering Bogor/Jakarta)
+// Structured data untuk hasil pencarian (katering Bogor/Jakarta).
+// Satu @graph dengan @id supaya entitas di halaman lain (Service di landing,
+// Article di Kabar) menunjuk ke organisasi yang SAMA, bukan bikin organisasi
+// baru tiap halaman.
+const ORG_ID = `${SITE_URL}/#organization`;
+
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "FoodEstablishment",
-  name: company.namaLengkap,
-  alternateName: company.nama,
-  slogan: company.tagline,
-  foundingDate: String(company.berdiri),
-  url: SITE_URL,
-  logo: `${SITE_URL}/logo-tiska.webp`,
-  image: `${SITE_URL}/opengraph-image`,
-  telephone: company.teleponKantor,
-  email: company.email,
-  servesCuisine: ["Indonesian", "Asian", "Western"],
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "Jl. Julang 1 No.3, RT.02/RW.06, Tanah Sereal",
-    addressLocality: "Kota Bogor",
-    addressRegion: "Jawa Barat",
-    postalCode: "16161",
-    addressCountry: "ID",
-  },
-  hasMenu: `${SITE_URL}/menu`,
-  // Titik & tautan listing Google Maps "Tiska Catering" (dapur pusat, Tanah Sereal)
-  geo: { "@type": "GeoCoordinates", latitude: -6.5725808, longitude: 106.7976087 },
-  hasMap: "https://maps.google.com/?cid=15206880014487295910",
-  areaServed: [
-    "Jakarta",
-    "Bogor",
-    "Sentul",
-    "Cibinong",
-    "Depok",
-    "Tangerang",
-    "Tangerang Selatan",
-    "Bekasi",
-  ].map((name) => ({ "@type": "City", name })),
-  sameAs: [company.instagramLink, company.facebookLink, company.tiktokLink],
+  "@graph": [
+    {
+      "@type": "FoodEstablishment",
+      "@id": ORG_ID,
+      name: company.namaLengkap,
+      alternateName: company.nama,
+      slogan: company.tagline,
+      foundingDate: String(company.berdiri),
+      url: SITE_URL,
+      logo: `${SITE_URL}/logo-tiska.webp`,
+      image: `${SITE_URL}/opengraph-image`,
+      // E.164 — format yang dibaca Google & direktori. Yang tampil ke pembaca
+      // tetap versi lokal di lib/content.ts.
+      telephone: "+62-251-8314442",
+      email: company.emailAlt,
+      contactPoint: [
+        {
+          "@type": "ContactPoint",
+          contactType: "customer service",
+          telephone: "+62-251-8314442",
+          email: company.emailAlt,
+          availableLanguage: ["id", "en"],
+          areaServed: "ID",
+        },
+        {
+          "@type": "ContactPoint",
+          contactType: "sales",
+          telephone: "+62-813-83108103",
+          url: company.whatsappLink,
+          availableLanguage: ["id", "en"],
+          areaServed: "ID",
+        },
+      ],
+      servesCuisine: ["Indonesian", "Asian", "Western"],
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Jl. Julang 1 No.3, RT.02/RW.06, Tanah Sereal",
+        addressLocality: "Kota Bogor",
+        addressRegion: "Jawa Barat",
+        postalCode: "16161",
+        addressCountry: "ID",
+      },
+      hasMenu: `${SITE_URL}/menu`,
+      // Titik & tautan listing Google Maps "Tiska Catering" (dapur pusat, Tanah Sereal)
+      geo: { "@type": "GeoCoordinates", latitude: -6.5725808, longitude: 106.7976087 },
+      hasMap: "https://maps.google.com/?cid=15206880014487295910",
+      areaServed: [
+        "Jakarta",
+        "Jakarta Selatan",
+        "Jakarta Pusat",
+        "Bogor",
+        "Sentul",
+        "Cibinong",
+        "Depok",
+        "Tangerang",
+        "Tangerang Selatan",
+        "Bekasi",
+      ].map((name) => ({ "@type": "City", name })),
+      sameAs: [company.instagramLink, company.facebookLink, company.tiktokLink],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: company.nama,
+      inLanguage: ["id-ID", "en"],
+      publisher: { "@id": ORG_ID },
+    },
+  ],
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{

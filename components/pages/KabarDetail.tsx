@@ -11,6 +11,8 @@ import { getPublishedPostBySlug, getPublishedPosts } from "@/lib/posts/store";
 import { postInEnglish, type Post } from "@/lib/posts/types";
 import { getSiteImages } from "@/lib/site-images";
 
+const SITE_URL = "https://tiskacatering.com";
+
 const base = (lang: Lang) => (lang === "en" ? "/en/news" : "/kabar");
 
 /** Kabar sesuai bahasa; versi EN null bila belum diterjemahkan. */
@@ -77,8 +79,8 @@ export default async function KabarDetail({ slug, lang }: { slug: string; lang: 
     datePublished: post.createdAt,
     dateModified: post.updatedAt,
     inLanguage: lang,
-    author: { "@type": "Organization", name: "Tiska Catering" },
-    publisher: { "@type": "Organization", name: "Tiska Catering" },
+    author: { "@id": `${SITE_URL}/#organization` },
+    publisher: { "@id": `${SITE_URL}/#organization` },
   };
 
   return (

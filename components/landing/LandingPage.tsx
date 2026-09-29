@@ -55,7 +55,7 @@ function jsonLd(l: Landing, lang: Lang) {
       description: c.metaDescription,
       url,
       serviceType: l.kind === "service" ? l.label[lang] : "Catering",
-      provider: { "@type": "FoodEstablishment", name: "Tiska Catering Service", url: SITE_URL },
+      provider: { "@id": `${SITE_URL}/#organization` },
       areaServed:
         l.kind === "area"
           ? { "@type": "Place", name: l.label[lang] }
