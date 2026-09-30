@@ -65,18 +65,13 @@ function jsonLd(l: Landing, lang: Lang) {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: ui.beranda, item: home },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: l.kind === "service" ? ui.layanan : ui.areaCrumb,
-          // Halaman area belum punya halaman indeks sendiri, jadi remahnya
-          // menunjuk beranda — lebih baik daripada ListItem tanpa item, yang
-          // memutus rantai breadcrumb di mata Google.
-          item: l.kind === "service" ? `${home}${lang === "en" ? "/services" : "/layanan"}` : home,
-        },
-        { "@type": "ListItem", position: 3, name: l.label[lang], item: url },
-      ],
+        { "@type": "ListItem", name: ui.beranda, item: home },
+        // Area belum punya halaman indeks → cukup Beranda › Area (tiap level wajib ber-URL).
+        ...(l.kind === "service"
+          ? [{ "@type": "ListItem", name: ui.layanan, item: `${home}${lang === "en" ? "/services" : "/layanan"}` }]
+          : []),
+        { "@type": "ListItem", name: l.label[lang], item: url },
+      ].map((crumb, i) => ({ ...crumb, position: i + 1 })),
     },
     ...(c.faq?.length
       ? [
