@@ -172,8 +172,8 @@ export default function LandingPage({ l, lang }: { l: Landing; lang: Lang }) {
   const c = l.copy[lang];
   const ui = landingUi[lang];
   const profileHref =
-    l.showCompanyProfile && existsSync(join(process.cwd(), "public", companyProfilePdf))
-      ? companyProfilePdf
+    l.showCompanyProfile && existsSync(join(process.cwd(), "public", companyProfilePdf[lang]))
+      ? companyProfilePdf[lang]
       : undefined;
 
   return (

@@ -1068,6 +1068,10 @@ export const tentangPage = {
   intro:
     "Tiska Catering Service berdiri di Bogor pada 1980 dan dikelola tiga generasi keluarga yang sama. Seluruh produksi berlangsung di satu dapur di Tanah Sereal, lalu dikirim ke acara di seluruh Jabodetabek.",
   ringkasJudul: "Ringkasnya",
+  unduh: "Unduh company profile",
+  // Ukuran disebut di label: tamu berhak tahu sebelum menekan, apalagi di
+  // koneksi seluler.
+  unduhKet: "PDF · 24 halaman · 3,4 MB",
   ringkas: [
     { term: "Berdiri", text: "1980, di Kota Bogor. Kini dikelola generasi ketiga." },
     { term: "Dapur", text: "Satu dapur pusat di Jl. Julang 1 No. 3, Tanah Sereal, Kota Bogor." },

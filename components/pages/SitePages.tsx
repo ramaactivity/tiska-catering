@@ -22,6 +22,7 @@ import MenuKategori from "@/components/sections/MenuKategori";
 import GaleriRails from "@/components/sections/GaleriRails";
 import KabarGrid from "@/components/sections/KabarGrid";
 import { alternates, t, type Lang } from "@/lib/i18n";
+import { companyProfilePdf } from "@/lib/landing";
 import { getActiveBanners } from "@/lib/banners/store";
 import { getSiteImages } from "@/lib/site-images";
 import { getPublicGallery } from "@/lib/gallery/store";
@@ -180,6 +181,18 @@ export async function TentangPage({ lang }: { lang: Lang }) {
                 </div>
               ))}
             </dl>
+
+            <a
+              href={companyProfilePdf[lang]}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group mt-10 inline-flex items-center gap-3 rounded-full border border-gold/70 px-7 py-[14px] text-[12.5px] uppercase tracking-[0.18em] text-gold-soft transition-colors duration-500 hover:bg-gold hover:text-ink"
+            >
+              {tentangPage.unduh}
+              <span aria-hidden className="text-[11px] tracking-normal opacity-60">
+                {tentangPage.unduhKet}
+              </span>
+            </a>
           </div>
         </section>
 

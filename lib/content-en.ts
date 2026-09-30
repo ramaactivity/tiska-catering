@@ -777,6 +777,8 @@ export const tentangPage: typeof id.tentangPage = {
   intro:
     "Tiska Catering Service was founded in Bogor in 1980 and is run by the third generation of the same family. All production happens in a single kitchen in Tanah Sereal, and is delivered to events across Greater Jakarta.",
   ringkasJudul: "In short",
+  unduh: "Download the company profile",
+  unduhKet: "PDF · 27 pages · 4.8 MB",
   ringkas: [
     { term: "Founded", text: "1980, in the city of Bogor. Now run by the third generation." },
     { term: "Kitchen", text: "One central kitchen at Jl. Julang 1 No. 3, Tanah Sereal, Bogor." },

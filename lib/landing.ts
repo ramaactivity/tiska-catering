@@ -38,7 +38,16 @@ export type Landing = {
 };
 
 /** Taruh PDF di public/ dengan nama ini — tombol unduh muncul otomatis. */
-export const companyProfilePdf = "/dokumen/company-profile-tiska-catering.pdf";
+/**
+ * Company profile per bahasa. Berkas asli dari Rama berukuran 42 MB dan 36 MB —
+ * terlalu berat untuk diunduh lewat data seluler dan untuk masuk git. Halaman
+ * dirasterisasi ulang pada 1600px mutu 58, hasilnya 3,4 MB dan 4,8 MB dengan
+ * tampilan yang praktis sama di layar.
+ */
+export const companyProfilePdf: Record<"id" | "en", string> = {
+  id: "/dokumen/company-profile-tiska-catering.pdf",
+  en: "/dokumen/company-profile-tiska-catering-en.pdf",
+};
 
 // ─── Blok bersama ───────────────────────────────────────────────────────────
 
