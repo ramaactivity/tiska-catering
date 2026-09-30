@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { NAV_LOGO } from "@/lib/logos-base64";
 import { useMotionProfile } from "@/components/motion/useMotionProfile";
 import type { Banner } from "@/lib/banners/types";
+import type { Lang } from "@/lib/i18n";
 
 const ROTATE_MS = 6000;
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -17,7 +18,24 @@ const EASE = [0.22, 1, 0.36, 1] as const;
  * yang pause saat hover/interaksi, dots ber-progress, panah (desktop), swipe
  * (sentuh). Reduced-motion: statis tanpa autoplay.
  */
-export default function CampaignCarousel({ banners }: { banners: Banner[] }) {
+/** Teks slide sesuai bahasa halaman; jatuh ke Indonesia bila EN belum diisi. */
+function teks(b: Banner, lang: Lang) {
+  const e = lang === "en" ? b.en : undefined;
+  return {
+    label: e?.label || (lang === "en" ? "" : b.label),
+    judul: e?.judul || b.judul,
+    subjudul: e?.subjudul || (lang === "en" ? "" : b.subjudul),
+    ctaLabel: e?.ctaLabel || (lang === "en" ? "" : b.ctaLabel),
+  };
+}
+
+export default function CampaignCarousel({
+  banners,
+  lang = "id",
+}: {
+  banners: Banner[];
+  lang?: Lang;
+}) {
   const { reduce, lite } = useMotionProfile();
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -43,7 +61,8 @@ export default function CampaignCarousel({ banners }: { banners: Banner[] }) {
   if (n === 0) return null;
 
   const go = (i: number) => setActive((i + n) % n);
-  const cur = banners[active];
+  const cur = teks(banners[active], lang);
+  const curHref = banners[active].ctaHref;
 
   // swipe sentuh
   const onDown = (e: React.PointerEvent) => {
@@ -138,17 +157,17 @@ export default function CampaignCarousel({ banners }: { banners: Banner[] }) {
                 {cur.label}
               </p>
             )}
-            <h2 className="font-display text-[clamp(28px,4.6vw,60px)] font-light leading-[1.02] tracking-[-0.02em] text-paper">
+            <p className="font-display text-[clamp(28px,4.6vw,60px)] font-light leading-[1.02] tracking-[-0.02em] text-paper">
               {cur.judul}
-            </h2>
+            </p>
             {cur.subjudul && (
               <p className="mt-3 max-w-[460px] text-[clamp(13px,1.5vw,16px)] leading-[1.7] text-paper/80 md:mt-4">
                 {cur.subjudul}
               </p>
             )}
-            {cur.ctaLabel && cur.ctaHref && (
+            {cur.ctaLabel && curHref && (
               <div className="mt-6 md:mt-7">
-                <Cta href={cur.ctaHref} label={cur.ctaLabel} />
+                <Cta href={curHref} label={cur.ctaLabel} />
               </div>
             )}
           </motion.div>

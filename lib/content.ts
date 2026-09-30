@@ -76,7 +76,7 @@ export const hero = {
     { text: "flavours", italic: true },
   ] satisfies RichText,
   subjudul:
-    "Tiga generasi menghadirkan rasa istimewa untuk perayaan Anda — di Bogor, Jakarta, dan sekitarnya.",
+    "Katering premium untuk acara korporat, pernikahan, dan perayaan privat di Jakarta, Bogor, dan sekitarnya — dirawat tiga generasi sejak 1980.",
   cta: { label: "Jelajahi Menu", href: "/menu" },
 };
 

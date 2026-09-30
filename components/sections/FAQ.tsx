@@ -114,6 +114,27 @@ export default function FAQ({ lang = "id" }: { lang?: Lang }) {
               </motion.ul>
             </AnimatePresence>
 
+            {/* Cermin teks kategori lain. Kategori tak aktif tidak dirender
+                oleh accordion di atas, jadi tanpa blok ini hanya ~2 dari 17
+                tanya-jawab yang ada di HTML — padahal JSON-LD mengumumkan 17.
+                Isinya persis sama dengan yang didapat pengunjung saat
+                mengklik tab, jadi ini bukan teks tersembunyi yang berbeda. */}
+            <div className="sr-only">
+              {faqCategories.map((c, i) =>
+                i === activeCat ? null : (
+                  <section key={c.id}>
+                    <h3>{c.label}</h3>
+                    {c.items.map((item) => (
+                      <article key={item.q}>
+                        <h4>{item.q}</h4>
+                        <AnswerTeks blocks={item.a} />
+                      </article>
+                    ))}
+                  </section>
+                ),
+              )}
+            </div>
+
             {/* CTA versi mobile — di bawah daftar */}
             <div className="mt-12 border-t border-line-d pt-8 lg:hidden">
               <p className="text-[14px] leading-[1.6] text-paper-ink/70">
@@ -283,37 +304,39 @@ function AccordionRow({
         </button>
       </h3>
 
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            id={panelId}
-            initial={reduceMotion ? false : { height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={reduceMotion ? undefined : { height: 0, opacity: 0 }}
-            transition={{
-              height: { duration: 0.45, ease: EASE },
-              opacity: { duration: 0.35, ease: "easeInOut" },
-            }}
-            className="overflow-hidden"
-          >
-            <div className="max-w-[62ch] pb-8 pl-5 md:pb-9">
-              <Answer blocks={answer} />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Panel TIDAK dilepas saat tertutup — hanya diciutkan. Dulu memakai
+          AnimatePresence, sehingga dari 17 jawaban hanya satu yang ada di
+          HTML; mesin pencari dan asisten AI tidak pernah membaca sisanya. */}
+      <motion.div
+        id={panelId}
+        initial={false}
+        animate={{ height: open ? "auto" : 0, opacity: open ? 1 : 0 }}
+        transition={
+          reduceMotion
+            ? { duration: 0 }
+            : {
+                height: { duration: 0.45, ease: EASE },
+                opacity: { duration: 0.35, ease: "easeInOut" },
+              }
+        }
+        className="overflow-hidden"
+      >
+        <div className="max-w-[62ch] pb-8 pl-5 md:pb-9">
+          <Answer blocks={answer} open={open} />
+        </div>
+      </motion.div>
     </motion.li>
   );
 }
 
 /* ── Render isi jawaban: paragraf & daftar berlabel (naik berurutan saat buka) ── */
-function Answer({ blocks }: { blocks: FaqBlock[] }) {
+function Answer({ blocks, open = true }: { blocks: FaqBlock[]; open?: boolean }) {
   const reduce = useReducedMotion();
   return (
     <motion.div
       className="flex flex-col gap-4"
       initial={reduce ? false : "hidden"}
-      animate="show"
+      animate={open ? "show" : "hidden"}
       variants={
         reduce
           ? undefined
@@ -382,5 +405,27 @@ function ContactButton({ className = "", lang }: { className?: string; lang: Lan
         →
       </span>
     </Link>
+  );
+}
+
+/* ── Versi teks polos jawaban, untuk cermin kategori non-aktif ── */
+function AnswerTeks({ blocks }: { blocks: FaqBlock[] }) {
+  return (
+    <>
+      {blocks.map((block, i) =>
+        "p" in block ? (
+          <p key={i}>{block.p}</p>
+        ) : (
+          <ul key={i}>
+            {block.list.map((row, j) => (
+              <li key={j}>
+                {row.term ? `${row.term}: ` : ""}
+                {row.text}
+              </li>
+            ))}
+          </ul>
+        ),
+      )}
+    </>
   );
 }

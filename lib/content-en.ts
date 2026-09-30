@@ -55,7 +55,7 @@ export const hero: typeof id.hero = {
   eyebrow: "Catering Service · Since 1980",
   judul: id.hero.judul,
   subjudul:
-    "Three generations bringing exceptional flavour to your celebrations — in Bogor, Jakarta and beyond.",
+    "Premium catering for corporate events, weddings and private celebrations across Jakarta, Bogor and Greater Jakarta — tended by three generations since 1980.",
   cta: { label: "Explore the Menu", href: "/en/menu" },
 };
 

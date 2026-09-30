@@ -66,6 +66,52 @@ export default function BannerForm({
             />
             <p className={hint}>Teks kecil di atas judul (opsional).</p>
           </div>
+          <details className={panel} open={!!banner?.en}>
+            <summary className={panelHead + " mb-0 cursor-pointer"}>
+              Versi Inggris (opsional)
+            </summary>
+            <div className="mt-4 space-y-4">
+              <p className={hint + " mt-0"}>
+                Isi agar banner ini tampil di beranda berbahasa Inggris (/en).
+                Kosongkan judulnya bila belum diterjemahkan — banner akan
+                dilewati di /en, bukan ditampilkan berbahasa Indonesia.
+              </p>
+              <div>
+                <label className={label}>Title</label>
+                <input name="judulEn" defaultValue={banner?.en?.judul} className={field} />
+              </div>
+              <div>
+                <label className={label}>Subtitle</label>
+                <textarea
+                  name="subjudulEn"
+                  rows={2}
+                  defaultValue={banner?.en?.subjudul}
+                  className={field}
+                />
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label className={label}>Small label</label>
+                  <input
+                    name="labelEn"
+                    defaultValue={banner?.en?.label}
+                    placeholder="e.g. Featured Service"
+                    className={field}
+                  />
+                </div>
+                <div>
+                  <label className={label}>Button text</label>
+                  <input
+                    name="ctaLabelEn"
+                    defaultValue={banner?.en?.ctaLabel}
+                    placeholder="e.g. Ask on WhatsApp"
+                    className={field}
+                  />
+                </div>
+              </div>
+            </div>
+          </details>
+
           <div className={panel}>
             <p className={panelHead}>Tombol</p>
             <div className="grid gap-4 sm:grid-cols-2">

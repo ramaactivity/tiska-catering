@@ -50,6 +50,11 @@ export async function HomePage({ lang }: { lang: Lang }) {
     getPublicGallery(),
   ]);
 
+  // Di /en, banner yang belum diterjemahkan tidak ditampilkan — mengikuti
+  // aturan yang sama seperti Kabar. Lebih baik satu slide hilang daripada
+  // halaman berbahasa Inggris memuat teks Indonesia.
+  const bannersTampil = lang === "en" ? banners.filter((b) => b.en?.judul) : banners;
+
   // FAQPage — teks sama persis dengan section FAQ.
   const faqJsonLd = {
     "@context": "https://schema.org",
@@ -83,7 +88,7 @@ export async function HomePage({ lang }: { lang: Lang }) {
       <Nav lang={lang} />
       <main>
         <Hero photo={si.hero} lang={lang} />
-        <CampaignCarousel banners={banners} />
+        <CampaignCarousel banners={bannersTampil} lang={lang} />
         <Profil photos={si.profil} lang={lang} />
         <MengapaTiska lang={lang} />
         <Klien lang={lang} />

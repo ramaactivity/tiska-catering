@@ -27,6 +27,15 @@ export async function saveBannerAction(_prev: FormState, formData: FormData): Pr
   const ctaHref = String(formData.get("ctaHref") ?? "").trim() || company.whatsappLink;
   const urutan = Number(formData.get("urutan") ?? 0) || 0;
   const aktif = formData.get("aktif") === "on";
+  const judulEn = String(formData.get("judulEn") ?? "").trim();
+  const en = judulEn
+    ? {
+        label: String(formData.get("labelEn") ?? "").trim(),
+        judul: judulEn,
+        subjudul: String(formData.get("subjudulEn") ?? "").trim(),
+        ctaLabel: String(formData.get("ctaLabelEn") ?? "").trim(),
+      }
+    : undefined;
   const mulaiAt = String(formData.get("mulaiAt") ?? "").trim() || undefined;
   const selesaiAt = String(formData.get("selesaiAt") ?? "").trim() || undefined;
 
@@ -51,6 +60,7 @@ export async function saveBannerAction(_prev: FormState, formData: FormData): Pr
     imageAlt: imageAlt || judul,
     ctaLabel,
     ctaHref,
+    en,
     urutan,
     aktif,
     mulaiAt,
