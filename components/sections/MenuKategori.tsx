@@ -41,6 +41,10 @@ export default function MenuKategori({ photos = images.menuKategori, lang = "id"
                       alt={banner.alt}
                       fill
                       sizes="(min-width: 1280px) 1280px, 100vw"
+                      // Banner kategori pertama adalah elemen LCP halaman ini;
+                      // tanpa priority ia diunduh belakangan dan LCP seluler
+                      // terukur 4,8 detik.
+                      priority={ki === 0}
                       className="object-cover brightness-[0.85] saturate-[0.92]"
                     />
                     <div

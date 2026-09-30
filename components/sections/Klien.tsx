@@ -56,7 +56,10 @@ export default function Klien({ lang = "id" }: { lang?: Lang }) {
                 <img
                   src={logo}
                   alt={`Logo ${nama}`}
+                  width={148}
+                  height={48}
                   loading="lazy"
+                  decoding="async"
                   className={`${OPTIK[nama] ?? "max-h-[34px]"} w-auto max-w-full object-contain transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.06]`}
                 />
               </div>

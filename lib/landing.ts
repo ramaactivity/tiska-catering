@@ -755,14 +755,22 @@ export const areas: Landing[] = [
                 text: "Ulang tahun, syukuran, arisan, dan open house di rumah maupun venue pilihan.",
               },
               {
-                term: "Hampers & box",
-                text: "Snack box, lunch box, tumpeng, dan hampers untuk klien serta relasi bisnis.",
+                term: "Prasmanan & nasi box",
+                text: "Prasmanan (buffet) untuk jamuan besar, serta nasi box dan snack box untuk rapat dan acara harian kantor.",
+              },
+              {
+                term: "Hampers",
+                text: "Tumpeng dan hampers untuk klien serta relasi bisnis.",
               },
             ],
           },
           langkah.id,
         ],
         faq: [
+          {
+            q: "Apakah katering Tiska halal?",
+            a: "Ya. Seluruh hidangan diolah di dapur bersertifikat Halal Indonesia yang menerapkan sistem keamanan pangan HACCP — termasuk untuk pesanan yang dikirim ke Jakarta.",
+          },
           {
             q: "Apakah Tiska melayani seluruh Jakarta?",
             a: "Ya. Kami melayani seluruh wilayah Jakarta dan Jabodetabek. Biaya pengiriman menyesuaikan jarak lokasi acara dan jumlah pesanan.",
