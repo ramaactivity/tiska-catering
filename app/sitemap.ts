@@ -37,6 +37,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         landingPath(l, "en"),
       ),
     ),
+    ...pair("/tentang", 0.7),
     ...pair("/menu", 0.8),
     ...pair("/galeri", 0.6),
     ...pair("/kabar", 0.6).map((e) =>

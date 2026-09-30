@@ -67,7 +67,7 @@ export const nav = {
     { label: "Layanan", href: "/layanan" },
     { label: "Menu", href: "/menu" },
     { label: "Kabar", href: "/kabar" },
-    { label: "Klien", href: "/#klien" },
+    { label: "Tentang", href: "/tentang" },
     { label: "FAQ", href: "/#faq" },
   ],
   // Keputusan Rama: tombol Kontak di nav → langsung WhatsApp (company.whatsappNama)
@@ -1048,4 +1048,32 @@ export const seo = {
     description:
       "Kisah perayaan klien, penawaran musiman, dan menu pilihan dari Tiska Catering untuk perayaan Anda di Jakarta, Bogor, dan sekitarnya.",
   },
+  tentang: {
+    title: "Tentang Tiska | Katering Keluarga Bogor sejak 1980",
+    description:
+      "Tiska Catering berdiri di Bogor pada 1980 dan dikelola tiga generasi. Satu dapur bersertifikat Halal & HACCP, melayani Jakarta dan Jabodetabek.",
+  },
+};
+
+// ─── Halaman /tentang ───────────────────────────────────────────────────────
+// Sejarah, tim, dan sertifikasi selama ini hanya hidup sebagai section di
+// beranda — tidak ada satu URL pun yang bisa dikutip sebagai sumber tentang
+// siapa Tiska. Halaman ini menyatukannya.
+export const tentangPage = {
+  eyebrow: "Tentang Kami",
+  judul: [
+    { text: "Empat puluh lima tahun " },
+    { text: "di satu dapur", italic: true },
+  ] satisfies RichText,
+  intro:
+    "Tiska Catering Service berdiri di Bogor pada 1980 dan dikelola tiga generasi keluarga yang sama. Seluruh produksi berlangsung di satu dapur di Tanah Sereal, lalu dikirim ke acara di seluruh Jabodetabek.",
+  ringkasJudul: "Ringkasnya",
+  ringkas: [
+    { term: "Berdiri", text: "1980, di Kota Bogor. Kini dikelola generasi ketiga." },
+    { term: "Dapur", text: "Satu dapur pusat di Jl. Julang 1 No. 3, Tanah Sereal, Kota Bogor." },
+    { term: "Wilayah layanan", text: "Jakarta, Bogor, Depok, Tangerang, Tangerang Selatan, dan Bekasi." },
+    { term: "Standar", text: "Bersertifikat Halal Indonesia, menerapkan sistem keamanan pangan HACCP." },
+    { term: "Bentuk layanan", text: "Sebelas, dari pernikahan dan acara korporat hingga tumpeng, hampers, dan katering harian." },
+    { term: "Pilihan menu", text: "Lebih dari 800 hidangan — Nusantara, Western, Asian, dan Mediterranean." },
+  ],
 };

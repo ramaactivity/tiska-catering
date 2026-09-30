@@ -241,6 +241,20 @@ export default function OurTeam({ photos = images.team, lang = "id" }: { photos?
             </p>
           </div>
         </div>
+
+        {/* Hanya anggota yang sedang disorot yang namanya, jabatannya, dan
+            bionya dirender. Dari sebelas orang, sepuluh sisanya tidak pernah
+            ada sebagai teks — padahal justru daftar ini yang menunjukkan
+            keahlian di balik dapur. Cermin di bawah memuat seluruhnya. */}
+        <div className="sr-only">
+          {roster.map((m) => (
+            <div key={`teks-${m.id}`}>
+              <h3>{m.nama}</h3>
+              <p>{m.jabatan}</p>
+              {m.bio && <p>{m.bio}</p>}
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

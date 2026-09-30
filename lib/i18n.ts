@@ -17,6 +17,7 @@ const SEGMENT: Record<string, string> = {
   galeri: "gallery",
   kabar: "news",
   menu: "menu",
+  tentang: "about",
 };
 const SEGMENT_ID = Object.fromEntries(Object.entries(SEGMENT).map(([a, b]) => [b, a]));
 

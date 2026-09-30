@@ -40,11 +40,11 @@ export const company: typeof id.company = {
 
 export const nav: typeof id.nav = {
   links: [
-    { label: "About", href: "/en#profil" },
+    { label: "Profile", href: "/en#profil" },
     { label: "Services", href: "/en/services" },
     { label: "Menu", href: "/en/menu" },
     { label: "News", href: "/en/news" },
-    { label: "Clients", href: "/en#klien" },
+    { label: "About", href: "/en/about" },
     { label: "FAQ", href: "/en#faq" },
   ],
   cta: { label: "Contact", href: waLink("Hello Tiska, I would like to ask about your catering services.") },
@@ -760,4 +760,29 @@ export const seo: typeof id.seo = {
     description:
       "Client celebration stories, seasonal offers and selected menus from Tiska Catering for your celebrations in Jakarta, Bogor and beyond.",
   },
+  tentang: {
+    title: "About Tiska | A Bogor Family Caterer since 1980",
+    description:
+      "Tiska Catering was founded in Bogor in 1980 and is run by its third generation. One Halal- and HACCP-certified kitchen serving Jakarta and Greater Jakarta.",
+  },
+};
+
+// ─── /about page ────────────────────────────────────────────────────────────
+export const tentangPage: typeof id.tentangPage = {
+  eyebrow: "About Us",
+  judul: [
+    { text: "Forty-five years " },
+    { text: "in one kitchen", italic: true },
+  ],
+  intro:
+    "Tiska Catering Service was founded in Bogor in 1980 and is run by the third generation of the same family. All production happens in a single kitchen in Tanah Sereal, and is delivered to events across Greater Jakarta.",
+  ringkasJudul: "In short",
+  ringkas: [
+    { term: "Founded", text: "1980, in the city of Bogor. Now run by the third generation." },
+    { term: "Kitchen", text: "One central kitchen at Jl. Julang 1 No. 3, Tanah Sereal, Bogor." },
+    { term: "Service area", text: "Jakarta, Bogor, Depok, Tangerang, South Tangerang and Bekasi." },
+    { term: "Standards", text: "Certified Halal Indonesia, operating an HACCP food safety system." },
+    { term: "Service formats", text: "Eleven, from weddings and corporate events to tumpeng, hampers and daily catering." },
+    { term: "Menu", text: "More than 800 dishes — Indonesian, Western, Asian and Mediterranean." },
+  ],
 };

@@ -29,7 +29,10 @@ import { getPublishedPosts } from "@/lib/posts/store";
 import { postInEnglish, type Post } from "@/lib/posts/types";
 
 /** Metadata halaman statis (menu/galeri/kabar) dari `seo` sesuai bahasa. */
-export function pageMetadata(key: "menu" | "galeri" | "kabar", lang: Lang): Metadata {
+export function pageMetadata(
+  key: "menu" | "galeri" | "kabar" | "tentang",
+  lang: Lang,
+): Metadata {
   const { title, description } = t(lang).seo[key];
   const alt = alternates(`/${key}`, lang);
   return {
@@ -135,6 +138,56 @@ export async function GaleriPage({ lang }: { lang: Lang }) {
       <main>
         <PageHero eyebrow={galeriPage.eyebrow} judul={galeriPage.judul} intro={galeriPage.intro} />
         <GaleriRails items={galeri} lang={lang} />
+        <CTA photo={si.cta} lang={lang} />
+      </main>
+      <Footer lang={lang} />
+    </>
+  );
+}
+
+/**
+ * /tentang — sejarah, tim, dan sertifikasi selama ini hanya hidup sebagai
+ * section di beranda. Tidak ada satu URL pun yang bisa dikutip sebagai sumber
+ * tentang siapa Tiska; halaman ini yang menjadi sumber itu.
+ */
+export async function TentangPage({ lang }: { lang: Lang }) {
+  const { tentangPage } = t(lang);
+  const si = await getSiteImages();
+  return (
+    <>
+      <Nav lang={lang} />
+      <main>
+        <PageHero
+          eyebrow={tentangPage.eyebrow}
+          judul={tentangPage.judul}
+          intro={tentangPage.intro}
+        />
+
+        {/* Fakta ringkas dalam satu blok — bentuk yang paling mudah dikutip
+            mesin pencari maupun asisten AI. */}
+        <section className="bg-ink px-6 pb-[10vh] md:px-10">
+          <div className="mx-auto max-w-[760px]">
+            <h2 className="mb-8 text-[11px] uppercase tracking-[0.28em] text-gold-soft">
+              {tentangPage.ringkasJudul}
+            </h2>
+            <dl className="divide-y divide-line">
+              {tentangPage.ringkas.map((r) => (
+                <div key={r.term} className="flex flex-col gap-1 py-4 sm:flex-row sm:gap-8">
+                  <dt className="shrink-0 pt-0.5 text-[13px] text-gold-soft sm:w-[160px]">
+                    {r.term}
+                  </dt>
+                  <dd className="text-[15px] leading-[1.75] text-paper/80">{r.text}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </section>
+
+        <Profil photos={si.profil} lang={lang} />
+        <Sejarah photos={si.sejarahTimeline} lang={lang} />
+        <Sertifikasi lang={lang} />
+        <OurTeam photos={si.team} lang={lang} />
+        <Klien lang={lang} />
         <CTA photo={si.cta} lang={lang} />
       </main>
       <Footer lang={lang} />
