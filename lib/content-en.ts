@@ -5,6 +5,7 @@
  */
 
 import * as id from "./content";
+import { waLink } from "./content";
 
 export type {
   RichText,
@@ -46,7 +47,7 @@ export const nav: typeof id.nav = {
     { label: "Clients", href: "/en#klien" },
     { label: "FAQ", href: "/en#faq" },
   ],
-  cta: { ...id.nav.cta, label: "Contact" },
+  cta: { label: "Contact", href: waLink("Hello Tiska, I would like to ask about your catering services.") },
 };
 
 // ─── Hero ───────────────────────────────────────────────────────────────────
@@ -387,7 +388,10 @@ export const faqHeader: typeof id.faqHeader = {
   deskripsi:
     "Everything you need to know before celebrating with us — from services and menus to costs and terms. Choose the topic you need.",
   ctaTanya: "Still have a question?",
-  cta: { ...id.faqHeader.cta, label: "Ask via WhatsApp" },
+  cta: {
+    label: "Ask via WhatsApp",
+    href: waLink("Hello Tiska, I have a question after reading the FAQ on your site."),
+  },
 };
 
 export const faqCategories: typeof id.faqCategories = [
@@ -676,7 +680,10 @@ export const teamGroups: typeof id.teamGroups = id.teamGroups.map((g) => ({
 
 export const cta: typeof id.cta = {
   ...id.cta,
-  tombol: { ...id.cta.tombol, label: "Contact Us" },
+  tombol: {
+    label: "Contact Us",
+    href: waLink("Hello Tiska, I would like to discuss plans for an upcoming event."),
+  },
 };
 
 // ─── Footer ─────────────────────────────────────────────────────────────────

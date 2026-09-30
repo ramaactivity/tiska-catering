@@ -70,11 +70,28 @@ function jsonLd(l: Landing, lang: Lang) {
           "@type": "ListItem",
           position: 2,
           name: l.kind === "service" ? ui.layanan : ui.areaCrumb,
-          ...(l.kind === "service" && { item: `${home}${lang === "en" ? "/services" : "/layanan"}` }),
+          // Halaman area belum punya halaman indeks sendiri, jadi remahnya
+          // menunjuk beranda — lebih baik daripada ListItem tanpa item, yang
+          // memutus rantai breadcrumb di mata Google.
+          item: l.kind === "service" ? `${home}${lang === "en" ? "/services" : "/layanan"}` : home,
         },
         { "@type": "ListItem", position: 3, name: l.label[lang], item: url },
       ],
     },
+    ...(c.faq?.length
+      ? [
+          {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            inLanguage: lang,
+            mainEntity: c.faq.map((f) => ({
+              "@type": "Question",
+              name: f.q,
+              acceptedAnswer: { "@type": "Answer", text: f.a },
+            })),
+          },
+        ]
+      : []),
   ];
 }
 

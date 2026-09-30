@@ -70,6 +70,8 @@ export default async function KabarDetail({ slug, lang }: { slug: string; lang: 
     ? []
     : isi.split(/\n{2,}/).map((p) => p.trim()).filter(Boolean);
 
+  const urlArtikel = `${SITE_URL}${lang === "en" ? "/en/news/" : "/kabar/"}${post.slug}`;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -81,6 +83,17 @@ export default async function KabarDetail({ slug, lang }: { slug: string; lang: 
     inLanguage: lang,
     author: { "@id": `${SITE_URL}/#organization` },
     publisher: { "@id": `${SITE_URL}/#organization` },
+    mainEntityOfPage: { "@type": "WebPage", "@id": urlArtikel },
+  };
+
+  const remahJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: lang === "en" ? "Home" : "Beranda", item: lang === "en" ? `${SITE_URL}/en` : SITE_URL },
+      { "@type": "ListItem", position: 2, name: lang === "en" ? "News" : "Kabar", item: `${SITE_URL}${lang === "en" ? "/en/news" : "/kabar"}` },
+      { "@type": "ListItem", position: 3, name: post.judul, item: urlArtikel },
+    ],
   };
 
   return (
@@ -88,6 +101,10 @@ export default async function KabarDetail({ slug, lang }: { slug: string; lang: 
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(remahJsonLd).replace(/</g, "\\u003c") }}
       />
       <Nav lang={lang} />
       <main>
@@ -104,6 +121,16 @@ export default async function KabarDetail({ slug, lang }: { slug: string; lang: 
                   </>
                 )}
                 <span aria-hidden className="h-px w-10 bg-gold" />
+              </p>
+              <p className="mb-6 text-center text-[12px] text-paper/45">
+                <time dateTime={post.createdAt}>
+                  {new Intl.DateTimeFormat(lang === "en" ? "en-GB" : "id-ID", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                    timeZone: "Asia/Jakarta",
+                  }).format(new Date(post.createdAt))}
+                </time>
               </p>
             </Reveal>
             <Reveal delay={0.08}>

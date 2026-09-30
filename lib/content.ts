@@ -49,6 +49,16 @@ export const company = {
   ] satisfies Stat[],
 };
 
+/**
+ * Tautan WhatsApp dengan pesan pembuka terisi. Tanpa ini chat terbuka kosong:
+ * tamu harus menjelaskan sendiri ia datang dari mana, dan tim kehilangan
+ * konteks halaman asal percakapan.
+ */
+export function waLink(pesan: string): string {
+  return `${company.whatsappLink}?text=${encodeURIComponent(pesan)}`;
+}
+
+
 // ─── Navigasi ───────────────────────────────────────────────────────────────
 
 export const nav = {
@@ -61,7 +71,7 @@ export const nav = {
     { label: "FAQ", href: "/#faq" },
   ],
   // Keputusan Rama: tombol Kontak di nav → langsung WhatsApp (company.whatsappNama)
-  cta: { label: "Kontak", href: company.whatsappLink },
+  cta: { label: "Kontak", href: waLink("Halo Tiska, saya ingin menanyakan layanan katering.") },
 };
 
 // ─── Hero ───────────────────────────────────────────────────────────────────
@@ -574,7 +584,10 @@ export const faqHeader = {
   deskripsi:
     "Semua yang perlu Anda tahu sebelum merayakan momen bersama kami — dari layanan dan menu hingga ketentuan biaya. Pilih topik yang Anda butuhkan.",
   ctaTanya: "Masih ada yang ingin ditanyakan?",
-  cta: { label: "Tanya via WhatsApp", href: company.whatsappLink },
+  cta: {
+    label: "Tanya via WhatsApp",
+    href: waLink("Halo Tiska, ada yang ingin saya tanyakan setelah membaca FAQ di situs."),
+  },
 };
 
 export const faqCategories: FaqCategory[] = [
@@ -938,7 +951,10 @@ export const cta = {
     { text: "love", italic: true },
     { text: " now" },
   ] satisfies RichText,
-  tombol: { label: "Hubungi Kami", href: company.whatsappLink },
+  tombol: {
+    label: "Hubungi Kami",
+    href: waLink("Halo Tiska, saya ingin mendiskusikan rencana acara saya."),
+  },
 };
 
 // ─── Footer ─────────────────────────────────────────────────────────────────
