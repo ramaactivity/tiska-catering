@@ -282,3 +282,76 @@ Jangan berharap kutipan darinya.
 Temuan mentah per kategori (teknis, konten, schema, performa, lokal, GEO,
 agentic, SXO) ada di folder audit sesi ini; minta saja kalau mau salah satunya
 dilampirkan utuh.
+
+---
+
+# Pembaruan 30 September 2026 — pengerjaan lanjutan
+
+## Koreksi atas laporan di atas
+
+**Bagian 2.4 keliru.** Agent SXO melaporkan `og:title` berisi slogan Inggris.
+Pemeriksaan langsung ke produksi menunjukkan `og:title` dan `<title>` keduanya
+sudah versi berkata kunci ("Tiska Catering — Katering Premium Jakarta & Bogor
+sejak 1980"). Yang dibaca agent itu `alt` milik OG image, bukan `og:title`.
+Tidak ada yang perlu diperbaiki di sana.
+
+Tagline **"Celebrate love with the finest flavours" dipertahankan sebagai H1** —
+itu identitas Tiska. Yang diperbaiki hanya subjudul di bawahnya, yang kini
+menyebut layanan, kota, dan tahun.
+
+## Selesai dan tayang
+
+| Temuan | Hasil |
+|---|---|
+| FAQ: 15 dari 17 jawaban tidak di DOM | Panel tidak lagi dilepas, kategori non-aktif dicermin. Tanda tanya terlihat 5 → **20**; H-30, PB1, minimum 25 pax kini terbaca |
+| Empat pos Kabar placeholder | Diturunkan jadi draft, diganti **3 artikel asli ID + EN**. `/en/news` tidak lagi kosong |
+| Banner Indonesia di `/en` | Banner kini punya kolom Inggris di admin; tanpa terjemahan, banner dilewati di `/en` |
+| Tim: 10 dari 11 orang tak terbaca | Cermin teks lengkap ditambahkan |
+| Tidak ada halaman `/tentang` | **`/tentang` + `/en/about`** — 909 kata, blok fakta ringkas, masuk sitemap & navigasi |
+| Judul promo carousel jadi H2 pertama | Diturunkan jadi `<p>` |
+| Artikel tanpa tanggal & breadcrumb | Tanggal terbit terlihat, `mainEntityOfPage`, `BreadcrumbList` |
+| Halaman layanan/area tanpa FAQPage | Ditambahkan; remah kedua halaman area yang tadinya tanpa `item` diperbaiki |
+| wa.me tanpa konteks | CTA utama kini membawa pesan pembuka sesuai bahasa halaman |
+| Logo klien 312 KB | **76 KB** + dimensi eksplisit |
+| LCP `/menu` 4,8 detik | Banner kategori pertama diberi `priority` |
+| "prasmanan" & "nasi box" absen | Kini muncul sebagai istilah terlihat |
+| `/area/jakarta` tak menyebut halal | FAQ halal ditambahkan, ID & EN |
+| Tidak ada `llms.txt` | Ditambahkan |
+
+Sitemap: 32 → **36 URL**.
+
+## Masih menunggu dari Rama
+
+Ini tidak bisa dikerjakan tanpa datamu — bukan karena teknis, tapi karena
+isinya harus benar:
+
+1. **Foto asli.** Ini yang terbesar. `/layanan/katering-pernikahan` dan
+   `/area/bogor` masing-masing punya empat gambar dan **semuanya logo** — nol
+   foto makanan di dua halaman yang keputusannya paling visual. Beranda masih
+   memakai placeholder Unsplash.
+2. **File company profile PDF** → taruh di `public/dokumen/company-profile-tiska-catering.pdf`.
+   Kodenya sudah menunggu file itu; begitu ada, tombolnya muncul sendiri di
+   halaman layanan.
+3. **Nomor sertifikat Halal (BPJPH) dan HACCP.** Sinyal kepercayaan termurah
+   yang tersisa. Kode sengaja menolak mengarang nomornya.
+4. **Testimoni asli** pengganti dua kutipan yang dihapus.
+5. **Google Business Profile**: jam buka masih "Open 24 hours", nomor telepon
+   kosong, kategori tambahan belum diisi.
+6. **LinkedIn company page** — penting untuk pembeli korporat dan untuk
+   `sameAs` di schema.
+7. **`GOOGLE_API_KEY`** supaya audit berikutnya memakai data lapangan CrUX dan
+   Search Console, bukan perkiraan lab.
+
+## Sengaja tidak dikerjakan
+
+- **CSP.** Situs ini penuh inline style dari Tailwind dan Framer; CSP yang
+  salah membuat halaman blank. Empat header keamanan lain sudah terpasang.
+- **Halaman per kecamatan.** Google menganggapnya doorway page.
+- **`aggregateRating` di JSON-LD.** Rating yang ditulis sendiri di situs
+  sendiri tidak memenuhi syarat dan berisiko manual action. Rating datang dari
+  Google Business Profile.
+- **WebMCP, ai-catalog.json, A2A, Web Bot Auth.** Audit agent-readiness memberi
+  situs ini 100/100; semua itu untuk produk SaaS, bukan katering 25 orang.
+- **Menampilkan harga.** Tetap tidak ditampilkan, sesuai keputusan. Sebagai
+  gantinya komponen biaya kini dijelaskan terbuka lewat artikel
+  "Membaca Biaya Katering".
